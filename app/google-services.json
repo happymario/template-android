@@ -1,0 +1,114 @@
+{
+  "project_info": {
+    "project_number": "79190571997",
+    "firebase_url": "https://androidmlibsample.firebaseio.com",
+    "project_id": "androidmlibsample",
+    "storage_bucket": "androidmlibsample.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79190571997:android:23b05dea935cb65882d434",
+        "android_client_info": {
+          "package_name": "com.kyad.lovebattery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "79190571997-10aud42u04le2rmsmegrb5knhesggbeo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrU9zgAbBBlpY2hN-SZqZp0z358vrlsLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79190571997-10aud42u04le2rmsmegrb5knhesggbeo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79190571997:android:d2ba25405d4180b9",
+        "android_client_info": {
+          "package_name": "com.mario.androidpacksample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "79190571997-irr326fevgip91orvfoiglr5pil4g71j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mario.androidpacksample",
+            "certificate_hash": "638acf4647362b4a8d9845fd40bc075e9bbaaaac"
+          }
+        },
+        {
+          "client_id": "79190571997-vt22l8fjhrk38ppr3jrd3s6r150045qu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mario.androidpacksample",
+            "certificate_hash": "145db66945a98bb6f50c5d520048dcd79656afd3"
+          }
+        },
+        {
+          "client_id": "79190571997-10aud42u04le2rmsmegrb5knhesggbeo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrU9zgAbBBlpY2hN-SZqZp0z358vrlsLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79190571997-10aud42u04le2rmsmegrb5knhesggbeo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79190571997:android:352a68f0e3ebe1cf",
+        "android_client_info": {
+          "package_name": "com.queentalk.talk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "79190571997-10aud42u04le2rmsmegrb5knhesggbeo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrU9zgAbBBlpY2hN-SZqZp0z358vrlsLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79190571997-10aud42u04le2rmsmegrb5knhesggbeo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

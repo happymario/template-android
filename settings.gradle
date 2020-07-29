@@ -1,0 +1,3 @@
+include ':libMrBase'
+include ':app', ':libBluetoothSPP', ':libFastBle'
+rootProject.name='My Application'

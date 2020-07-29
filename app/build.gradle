@@ -1,0 +1,171 @@
+import java.text.SimpleDateFormat
+
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+def Properties props = new Properties()
+def propFile = rootProject.file('./sign/keystore.properties')   //pay attention to the path
+def vkeyStore
+def vstorePassword
+def vkeyAlias
+def vkeyPassword
+if (propFile.canRead()) {
+    props.load(new FileInputStream(propFile))
+
+    if (props != null && props.containsKey('keyStore')) {
+        vkeyStore = props['keyStore']
+    }
+
+    if (props != null && props.containsKey('storePassword')) {
+        vstorePassword = props['storePassword']
+    }
+
+    if (props != null && props.containsKey('keyAlias')) {
+        vkeyAlias = props['keyAlias']
+    }
+
+    if (props != null && props.containsKey('keyPassword')) {
+        vkeyPassword = props['keyPassword']
+    }
+}
+
+
+android {
+    signingConfigs {
+        config {
+            keyAlias vkeyAlias
+            keyPassword vkeyPassword
+            storeFile rootProject.file(vkeyStore)
+            storePassword vstorePassword
+        }
+    }
+
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.mario.androidpacksample"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true // add this to enable multi-dex
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+        }
+
+        release {
+            signingConfig signingConfigs.config
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    applicationVariants.all { variant ->
+        if (!variant.buildType.name.equals("debug")) {
+            def df = new SimpleDateFormat("yyMMddhhmmss")
+            df.setTimeZone(TimeZone.getDefault())
+            variant.outputs.all { output ->
+                outputFileName = new File("../", "banillaco" + "_v" + defaultConfig.versionName + "_" + df.format(new Date()) + ".apk")
+            }
+        }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta8' //1.1.3
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // architecture
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation "androidx.work:work-runtime-ktx:2.3.4"
+
+    // ui
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    //// navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // local db
+    implementation "androidx.room:room-runtime:2.2.5"
+    kapt "androidx.room:room-compiler:2.2.5"
+
+    // image
+    implementation "com.github.bumptech.glide:glide:4.9.0"
+    annotationProcessor "com.github.bumptech.glide:compiler:4.9.0"
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+    // network
+    implementation "com.squareup.retrofit2:retrofit:2.7.1"
+    implementation "com.squareup.retrofit2:converter-gson:2.6.2"
+
+    // paging
+    implementation "androidx.paging:paging-runtime-ktx:2.1.2"
+
+    // log
+    implementation "com.jakewharton.timber:timber:4.7.1"
+
+    // ble
+    implementation project(':libBluetoothSPP')
+    implementation project(':libFastBle')
+
+    // dagger
+    implementation 'com.google.dagger:dagger:2.27'
+    kapt 'com.google.dagger:dagger-compiler:2.16'
+
+    // fcm push
+    implementation "com.google.firebase:firebase-core:17.4.3"
+    implementation "com.google.firebase:firebase-messaging:20.2.0"
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+    // etc
+    implementation 'com.github.christophesmet:android_maskable_layout:v1.3.2'
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation project(':libMrBase')
+}
+apply plugin: 'com.google.gms.google-services'
