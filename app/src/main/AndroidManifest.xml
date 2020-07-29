@@ -61,7 +61,7 @@
         </activity>
 
         <activity
-            android:name=".app.camera.CameraTestActivity"
+            android:name=".app.main.CameraTestActivity"
             android:screenOrientation="fullSensor" />
         <activity
             android:name=".app.bluetooth.LedThreeActivity"

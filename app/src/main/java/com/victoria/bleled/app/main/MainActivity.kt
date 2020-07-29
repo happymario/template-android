@@ -13,9 +13,7 @@ import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import com.victoria.bleled.R
 import com.victoria.bleled.app.bluetooth.LedThreeActivity
-import com.victoria.bleled.app.camera.CameraTestActivity
 import com.victoria.bleled.app.etc.EtcActivity
-import com.victoria.bleled.app.network.GithubActivity
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.feature.PermissionUtil
 import kotlinx.coroutines.*
@@ -129,8 +127,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onGithub(view: View) {
-        val intent = Intent(this, GithubActivity::class.java)
-        startActivity(intent)
+        CommonUtil.showToast(this, R.string.ready_service)
     }
 
     fun onEtc(view: View) {
@@ -138,7 +135,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun onMotion(view:View ) {
+    fun onMotion(view: View) {
         val intent = Intent(this, MotionLayoutActivity::class.java)
         startActivity(intent)
     }

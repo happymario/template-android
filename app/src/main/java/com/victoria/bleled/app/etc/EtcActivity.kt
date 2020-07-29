@@ -11,7 +11,7 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.victoria.bleled.R
-import com.victoria.bleled.data.local.pref.PrefDataSourceImpl
+import com.victoria.bleled.data.DataRepository
 import com.victoria.bleled.util.CommonUtil
 import java.util.concurrent.TimeUnit
 
@@ -29,8 +29,8 @@ class EtcActivity : AppCompatActivity() {
         val workManager = WorkManager.getInstance(this)
         workManager.cancelAllWork()
 
-        val prefImple = PrefDataSourceImpl(applicationContext)
-        prefImple.firstRun = true
+        val prefImple = DataRepository.provideDataRepository().prefDataSource
+        prefImple.isAutoLogin = true
 
         workManager?.enqueue(workRequest)
 

@@ -10,15 +10,17 @@ import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import com.victoria.bleled.R
-import kotlin.math.*
+import kotlin.math.cos
+import kotlin.math.min
+import kotlin.math.sin
 
-private enum class FanSpeed(val label:Int) {
+private enum class FanSpeed(val label: Int) {
     OFF(R.string.fan_off),
     LOW(R.string.fan_low),
     MEDIUM(R.string.fan_medium),
     HIGH(R.string.fan_high);
 
-    fun next() = when(this) {
+    fun next() = when (this) {
         OFF -> LOW
         LOW -> MEDIUM
         MEDIUM -> HIGH
@@ -30,10 +32,15 @@ private const val RADIUS_OFFSET_LABEL = 30
 private const val RADIUS_OFFSET_INDICATOR = -35
 
 
-class DialView @JvmOverloads constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int = 0) :
+class DialView @JvmOverloads constructor(
+    context: Context?,
+    attrs: AttributeSet?,
+    defStyleAttr: Int = 0
+) :
     View(context, attrs, defStyleAttr) {
     private var radius = 0.0f                   // Radius of the Circle
     private var fanSpeed = FanSpeed.OFF         // The active selection
+
     // position variable which will be used to draw label and indicator circle position
     private val pointPosition: PointF = PointF(0.0f, 0.0f)
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -61,7 +68,7 @@ class DialView @JvmOverloads constructor(context: Context?, attrs: AttributeSet?
                 super.onInitializeAccessibilityNodeInfo(host, info)
                 val customClick = AccessibilityNodeInfoCompat.AccessibilityActionCompat(
                     AccessibilityNodeInfo.ACTION_CLICK,
-                    context?.getString(if (fanSpeed !=  FanSpeed.HIGH) R.string.change else R.string.reset)
+                    context?.getString(if (fanSpeed != FanSpeed.HIGH) R.string.change else R.string.reset)
 
                 )
                 info?.addAction(customClick)
@@ -84,13 +91,13 @@ class DialView @JvmOverloads constructor(context: Context?, attrs: AttributeSet?
             FanSpeed.MEDIUM -> fanSpeedMediumColor
             FanSpeed.HIGH -> fanSpeedMaxColor
         } as Int
-        canvas?.drawCircle((width/2).toFloat(), (height/2).toFloat(), radius, paint)
+        canvas?.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), radius, paint)
 
         // draw the indicator circle
         val markerRadius = radius + RADIUS_OFFSET_INDICATOR
         pointPosition.computeXYForSpeed(fanSpeed, markerRadius)
         paint.color = Color.BLACK
-        canvas?.drawCircle(pointPosition.x, pointPosition.y, radius/12, paint)
+        canvas?.drawCircle(pointPosition.x, pointPosition.y, radius / 12, paint)
 
         // draw the text labels
         val labelRadius = radius + RADIUS_OFFSET_LABEL
@@ -102,14 +109,14 @@ class DialView @JvmOverloads constructor(context: Context?, attrs: AttributeSet?
     }
 
     override fun performClick(): Boolean {
-        if (super.performClick()) return  true
+        if (super.performClick()) return true
 
         fanSpeed = fanSpeed.next()
         contentDescription = resources.getString(fanSpeed.label)
 
         invalidate()
 
-        return  true
+        return true
     }
 
 

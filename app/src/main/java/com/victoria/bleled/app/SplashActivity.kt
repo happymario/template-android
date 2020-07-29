@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import com.victoria.bleled.R
 import com.victoria.bleled.app.main.MainActivity
-import com.victoria.bleled.common.MyConstants
+import com.victoria.bleled.common.Constants
 import com.victoria.bleled.util.architecture.base.BaseActivity
 
 class SplashActivity : BaseActivity() {
@@ -46,7 +46,7 @@ class SplashActivity : BaseActivity() {
     private fun goMain() {
         val intent = Intent(this, MainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            putExtra(MyConstants.INTENT_TYPE, true)
+            putExtra(Constants.INTENT_TYPE, true)
         }
         startActivity(intent)
     }
