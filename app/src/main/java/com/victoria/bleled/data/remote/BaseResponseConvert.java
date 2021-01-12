@@ -6,8 +6,8 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.victoria.bleled.data.remote.resp.BaseResponse;
-import com.victoria.bleled.util.architecture.AppExecutors;
-import com.victoria.bleled.util.architecture.network.NetworkResult;
+import com.victoria.bleled.util.arch.AppExecutors;
+import com.victoria.bleled.util.arch.network.NetworkResult;
 
 public abstract class BaseResponseConvert<ResultType, RequestType> {
     MediatorLiveData<NetworkResult<ResultType>> result = new MediatorLiveData<NetworkResult<ResultType>>();

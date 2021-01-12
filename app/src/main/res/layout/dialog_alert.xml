@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:id="@+id/rly_bg"
+            android:id="@+id/rl_bg"
             style="@style/DialogBg" />
 
         <LinearLayout

@@ -3,10 +3,15 @@ package com.victoria.bleled.app
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import com.victoria.bleled.R
 import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.common.Constants
-import com.victoria.bleled.util.architecture.base.BaseActivity
+import com.victoria.bleled.service.IMMResult
+import com.victoria.bleled.util.arch.base.BaseActivity
+import com.victoria.bleled.util.feature.KeyboardUtil
+import kotlinx.android.synthetic.main.activity_splash.*
+
 
 class SplashActivity : BaseActivity() {
     /************************************************************
@@ -17,7 +22,7 @@ class SplashActivity : BaseActivity() {
     /************************************************************
      *  UI controls & Data members
      ************************************************************/
-
+    val result = IMMResult()
 
     /************************************************************
      *  Overrides
@@ -38,7 +43,7 @@ class SplashActivity : BaseActivity() {
      *  Helpers
      ************************************************************/
     private fun startLogin() {
-        Handler().postDelayed(Runnable {
+        Handler(Looper.getMainLooper()).postDelayed({
             goMain()
         }, 2000)
     }

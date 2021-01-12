@@ -17,11 +17,11 @@ import com.victoria.bleled.data.remote.IRemoteService;
 import com.victoria.bleled.data.remote.NormalResultConvert;
 import com.victoria.bleled.data.remote.resp.BaseResponse;
 import com.victoria.bleled.data.remote.resp.ResponseSearchRepo;
-import com.victoria.bleled.util.architecture.AbsentLiveData;
-import com.victoria.bleled.util.architecture.AppExecutors;
-import com.victoria.bleled.util.architecture.network.LiveDataCallAdapterFactory;
-import com.victoria.bleled.util.architecture.network.NetworkResult;
-import com.victoria.bleled.util.architecture.network.RetrofitHelper;
+import com.victoria.bleled.util.arch.AbsentLiveData;
+import com.victoria.bleled.util.arch.AppExecutors;
+import com.victoria.bleled.util.arch.network.LiveDataCallAdapterFactory;
+import com.victoria.bleled.util.arch.network.NetworkResult;
+import com.victoria.bleled.util.arch.network.RetrofitHelper;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;

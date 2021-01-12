@@ -2,7 +2,7 @@ package com.victoria.bleled.data.remote;
 
 import androidx.lifecycle.LiveData;
 
-import com.victoria.bleled.util.architecture.network.NetworkResult;
+import com.victoria.bleled.util.arch.network.NetworkResult;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

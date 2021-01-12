@@ -1,4 +1,4 @@
-package com.victoria.bleled.util.view.banner;
+package com.victoria.bleled.util.view.viewpager;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

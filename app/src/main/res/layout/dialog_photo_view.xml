@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rl_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_bg"
+            style="@style/DialogBg"
+            android:alpha="1"/>
+
+        <LinearLayout
+            android:id="@+id/ll_content"
+            style="@style/DialogContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/spacing_0"
+            android:orientation="vertical">
+        </LinearLayout>
+
+        <com.victoria.bleled.util.view.imageview.TouchImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <Button
+            android:id="@+id/ib_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/close"
+            android:layout_margin="16dp"
+            android:background="@color/color_transparent"/>
+    </RelativeLayout>
+</layout>

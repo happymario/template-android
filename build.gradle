@@ -2,33 +2,27 @@
 
 buildscript {
     ext.kotlin_version = '1.3.72'
-    ext.nav_version = '2.2.2'
+    ext.nav_version = '2.3.1'
     repositories {
-        maven { url 'http://localhost:8083/repository/googleproxy/'}
-        maven { url 'http://localhost:8083/repository/jcenterproxy/'}
-        maven { url 'http://localhost:8083/repository/jitpackproxy/'}
-        maven { url 'http://localhost:8083/repository/manualupload/'}
-        maven { url 'http://localhost:8083/repository/mavenrepoproxy/'}
+        google()
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.0'
+        classpath 'com.android.tools.build:gradle:4.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
 
-        classpath 'com.google.gms:google-services:4.3.3'
+        classpath 'com.google.gms:google-services:4.3.4'
     }
 }
 
 allprojects {
     repositories {
-        maven { url 'http://localhost:8083/repository/googleproxy/'} // google()
-        maven { url 'http://localhost:8083/repository/jcenterproxy/'} // jcenter()
-        maven { url 'http://localhost:8083/repository/mavenrepoproxy/'} // mavenCentral()
-        maven { url 'http://localhost:8083/repository/gradleproxy/'} // gradlePluginPortal()
-        maven { url 'http://localhost:8083/repository/jitpackproxy/'} // github path
-        maven { url 'http://localhost:8083/repository/manualupload/'} // manual
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
     }
 }
 
