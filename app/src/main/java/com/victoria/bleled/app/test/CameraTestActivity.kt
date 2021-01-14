@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.main
+package com.victoria.bleled.app.test
 
 import android.Manifest
 import android.content.Intent

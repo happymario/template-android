@@ -1,19 +1,14 @@
 package com.victoria.bleled.data.model;
 
 
-import java.util.Calendar;
-
 public class ModelUser extends BaseModel {
+    private String access_token;
+    private String id;
     private String name;
-    private String birth;
-    private String nationalinfo;
-    private String access_token; // 액세스토큰
-    private String user_uid; // 회원UID
-    private String user_id; // 회원아이디
-    private String nickname; // 회원닉네임
-    private String sex; // 성별 m,f
-    private int age; // 나이
-    private int point; // 보유포인트
+    private String reg_time;
+    private String profile_url;
+    private String profile_url_check;
+    private int status;
 
     public static boolean isNormalUser(String user_id) {
         try {
@@ -25,46 +20,6 @@ public class ModelUser extends BaseModel {
         }
 
         return false;
-    }
-
-    public boolean isClubBot() {
-        if (user_uid != null && user_uid.equals("1")) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean isAdmin() {
-        if (user_uid != null && user_uid.equals("2")) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean isAdminChat() {
-        if (user_uid != null && user_uid.equals("3")) {
-            return true;
-        }
-        return false;
-    }
-
-    public void setUserSex(EUserSex userSex) {
-        this.sex = userSex.value;
-    }
-
-    public int getAgeByBirth() {
-        if (birth == null || birth.isEmpty() == true) {
-            return 0;
-        }
-
-        try {
-            int birthYear = Integer.parseInt(birth.substring(0, 4));
-            int curYear = Calendar.getInstance().get(Calendar.YEAR);
-            int age = curYear - birthYear + 1;
-            return age;
-        } catch (Exception e) {
-            return 0;
-        }
     }
 
     public enum EUserSex {

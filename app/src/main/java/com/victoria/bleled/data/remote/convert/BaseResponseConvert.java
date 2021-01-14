@@ -1,16 +1,17 @@
-package com.victoria.bleled.data.remote;
+package com.victoria.bleled.data.remote.convert;
 
 import androidx.annotation.MainThread;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.victoria.bleled.data.remote.ApiException;
 import com.victoria.bleled.data.remote.resp.BaseResponse;
 import com.victoria.bleled.util.arch.AppExecutors;
 import com.victoria.bleled.util.arch.network.NetworkResult;
 
-public abstract class BaseResponseConvert<ResultType, RequestType> {
-    MediatorLiveData<NetworkResult<ResultType>> result = new MediatorLiveData<NetworkResult<ResultType>>();
+public abstract class BaseResponseConvert<RequestType, ResultType> {
+    MediatorLiveData<NetworkResult<ResultType>> result = new MediatorLiveData<>();
     AppExecutors appExecutors = null;
 
     @MainThread

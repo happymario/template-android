@@ -1,13 +1,13 @@
-package com.victoria.bleled.service;
+package com.victoria.bleled.util.feature.receiver;
 
 import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
 
-public class IMMResult extends ResultReceiver {
+public class ServiceResultReceiver extends ResultReceiver {
     public int result = -1;
 
-    public IMMResult() {
+    public ServiceResultReceiver() {
         super(null);
     }
 

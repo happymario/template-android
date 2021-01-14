@@ -1,4 +1,4 @@
-package com.victoria.bleled.common.receiver;
+package com.victoria.bleled.util.feature.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -4,6 +4,8 @@
     package="com.victoria.bleled">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -32,10 +34,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
 
-        <activity android:name="com.victoria.bleled.app.main.MotionLayoutActivity"
+        <activity android:name="com.victoria.bleled.app.test.MotionLayoutActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name="com.victoria.bleled.app.etc.EtcActivity"
+        <activity android:name="com.victoria.bleled.app.test.EtcActivity"
             android:screenOrientation="portrait"/>
 
         <activity
@@ -54,13 +56,13 @@
         </activity>
 
         <activity
-            android:name=".app.main.CameraTestActivity"
+            android:name=".app.test.CameraTestActivity"
             android:screenOrientation="fullSensor" />
         <activity
             android:name=".app.bluetooth.LedThreeActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".app.SplashActivity"
+            android:name=".app.start.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>

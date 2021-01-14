@@ -4,17 +4,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.victoria.bleled.app.MyApplication;
-import com.victoria.bleled.common.Constants;
 import com.victoria.bleled.data.local.IPrefDataSource;
 import com.victoria.bleled.data.local.PrefDataSourceImpl;
-import com.victoria.bleled.data.model.ModelAppInfo;
 import com.victoria.bleled.data.model.ModelUser;
-import com.victoria.bleled.data.remote.BaseResponseConvert;
 import com.victoria.bleled.data.remote.IGithubService;
 import com.victoria.bleled.data.remote.IRemoteService;
-import com.victoria.bleled.data.remote.NormalResultConvert;
+import com.victoria.bleled.data.remote.convert.BaseResponseConvert;
+import com.victoria.bleled.data.remote.convert.NormalResultConvert;
 import com.victoria.bleled.data.remote.resp.BaseResponse;
 import com.victoria.bleled.data.remote.resp.ResponseSearchRepo;
 import com.victoria.bleled.util.arch.AbsentLiveData;
@@ -77,6 +74,50 @@ public class DataRepository {
     /************************************************************
      *  From Remote
      ************************************************************/
+    public IRemoteService getRemoteService() {
+        return remoteService;
+    }
+
+    public <ResultType> LiveData<NetworkResult<ResultType>> callRemoteService1(LiveData<NetworkResult<ResultType>> call) {
+        return new NormalResultConvert<ResultType, ResultType>(appExecutors) {
+            @Override
+            protected LiveData<NetworkResult<ResultType>> createCall() {
+                return call;
+            }
+
+            @Override
+            protected LiveData<ResultType> processResponse(NetworkResult<ResultType> response) {
+                if (response.data != null && response.status.getValue() == NetworkResult.Status.success) {
+                    return new MutableLiveData<>(response.data);
+                }
+                return AbsentLiveData.create();
+            }
+        }.asLiveData();
+    }
+
+    public <ResultType> LiveData<NetworkResult<ResultType>> callRemoteService2(LiveData<NetworkResult<BaseResponse<ResultType>>> call) {
+        return new BaseResponseConvert<BaseResponse<ResultType>, ResultType>(appExecutors) {
+            @Override
+            protected LiveData<NetworkResult<BaseResponse<ResultType>>> createCall() {
+                return call;
+            }
+
+            @Override
+            protected LiveData<BaseResponse<ResultType>> processResponse(NetworkResult<BaseResponse<ResultType>> response) {
+                if (response.data != null && response.status.getValue() == NetworkResult.Status.success) {
+                    BaseResponse<ResultType> baseResponse = response.data;
+                    if (baseResponse != null) {
+                        return new MutableLiveData<>(baseResponse);
+                    }
+                }
+                return AbsentLiveData.create();
+            }
+        }.asLiveData();
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Test
+    ///////////////////////////////////////////////////////////////////////////
     public LiveData<NetworkResult<List<ModelUser>>> loadListForTest(String q, int page) {
         return new NormalResultConvert<List<ModelUser>, ResponseSearchRepo>(appExecutors) {
             @Override
@@ -94,30 +135,28 @@ public class DataRepository {
         }.asLiveData();
     }
 
+//    public LiveData<NetworkResult<ModelAppInfo>> reqAppInfo() {
+//        return new BaseResponseConvert<String, ModelAppInfo>(appExecutors) {
+//
+//            @Override
+//            protected LiveData<NetworkResult<String>> createCall() {
+//                return remoteService.appInfo(encrypt("os_type", Constants.Market));
+//            }
+//
+//            @Override
+//            protected LiveData<BaseResponse<ModelAppInfo>> processResponse(NetworkResult<String> response) {
+//                if (response.data != null && response.status.getValue() == NetworkResult.Status.success) {
+//                    BaseResponse<ModelAppInfo> baseResponse = decrypt(new TypeToken<BaseResponse<ModelAppInfo>>() {
+//                    }.getType(), response.data);
+//                    if (baseResponse != null) {
+//                        return new MutableLiveData<>(baseResponse);
+//                    }
+//                }
+//                return AbsentLiveData.create();
+//            }
+//        }.asLiveData();
+//    }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // Common
-    ///////////////////////////////////////////////////////////////////////////
-    public LiveData<NetworkResult<ModelAppInfo>> getAppInfo() {
-        return new BaseResponseConvert<ModelAppInfo, String>(appExecutors) {
-            @Override
-            protected LiveData<NetworkResult<String>> createCall() {
-                return remoteService.appInfo(encrypt("os_type", Constants.MARKET));
-            }
-
-            @Override
-            protected LiveData<BaseResponse<ModelAppInfo>> processResponse(NetworkResult<String> response) {
-                if (response.data != null && response.status.getValue() == NetworkResult.Status.success) {
-                    BaseResponse<ModelAppInfo> baseResponse = decrypt(new TypeToken<BaseResponse<ModelAppInfo>>() {
-                    }.getType(), response.data);
-                    if (baseResponse != null) {
-                        return new MutableLiveData<BaseResponse<ModelAppInfo>>(baseResponse);
-                    }
-                }
-                return AbsentLiveData.create();
-            }
-        }.asLiveData();
-    }
 
     /************************************************************
      *  From Local
