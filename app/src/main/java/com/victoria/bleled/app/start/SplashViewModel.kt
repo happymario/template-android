@@ -10,7 +10,7 @@ class SplashViewModel constructor(val repository: DataRepository) : BaseViewMode
     /************************************************************
      *  Public Functions
      ************************************************************/
-    fun reqGetAppInfo() : LiveData<NetworkResult<ModelAppInfo>> {
+    fun reqGetAppInfo(): LiveData<NetworkResult<ModelAppInfo>> {
         return repository.callRemoteService2(repository.remoteService.appInfo("android"))
     }
 

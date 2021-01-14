@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.test
+package com.victoria.bleled.app.test.animation
 
 import android.content.Context
 import android.graphics.*
@@ -39,7 +39,8 @@ class DialView @JvmOverloads constructor(
 ) :
     View(context, attrs, defStyleAttr) {
     private var radius = 0.0f                   // Radius of the Circle
-    private var fanSpeed = FanSpeed.OFF         // The active selection
+    private var fanSpeed =
+        FanSpeed.OFF         // The active selection
 
     // position variable which will be used to draw label and indicator circle position
     private val pointPosition: PointF = PointF(0.0f, 0.0f)

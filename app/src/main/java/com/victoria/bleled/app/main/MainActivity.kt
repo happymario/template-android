@@ -1,9 +1,11 @@
 package com.victoria.bleled.app.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.victoria.bleled.R
+import com.victoria.bleled.app.test.TestActivity
 
 class MainActivity : AppCompatActivity() {
     /************************************************************
@@ -34,8 +36,9 @@ class MainActivity : AppCompatActivity() {
     /************************************************************
      *  Event Handler
      ************************************************************/
-    fun onFinish(view: View) {
-        finish()
+    fun onTest(view: View) {
+        val intent = Intent(this, TestActivity::class.java)
+        startActivity(intent)
     }
 
     /************************************************************

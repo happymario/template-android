@@ -2,7 +2,7 @@ package com.victoria.bleled.data.remote;
 
 import androidx.lifecycle.LiveData;
 
-import com.victoria.bleled.data.remote.resp.ResponseSearchRepo;
+import com.victoria.bleled.data.remote.response.ResponseSearchRepo;
 import com.victoria.bleled.util.arch.network.NetworkResult;
 
 import retrofit2.http.GET;

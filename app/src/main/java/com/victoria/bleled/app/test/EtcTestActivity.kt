@@ -15,12 +15,12 @@ import com.victoria.bleled.data.DataRepository
 import com.victoria.bleled.util.CommonUtil
 import java.util.concurrent.TimeUnit
 
-class EtcActivity : AppCompatActivity() {
+class EtcTestActivity : AppCompatActivity() {
     private val mPipBuilder = PictureInPictureParams.Builder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_etc)
+        setContentView(R.layout.activity_test_etc)
     }
 
     fun onExitWithWorkManager(view: View) {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.victoria.bleled.app.test.EtcActivity">
+    tools:context="com.victoria.bleled.app.test.EtcTestActivity">
 
 
     <Button
@@ -41,32 +41,4 @@
         app:layout_constraintStart_toStartOf="@+id/button12"
         app:layout_constraintTop_toBottomOf="@+id/button12" />
 
-    <TextView
-        android:id="@+id/customLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="118dp"
-        android:layout_marginEnd="8dp"
-        android:padding="16dp"
-        android:text="Fan Control"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button12" />
-
-    <com.victoria.bleled.app.test.DialView
-        android:id="@+id/imageView3"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:clickable="true"
-        app:fanColor1="#FFEB3B"
-        app:fanColor2="#CDDC39"
-        app:fanColor3="#009688"
-        app:layout_constraintEnd_toEndOf="@+id/customLabel"
-        app:layout_constraintStart_toStartOf="@+id/customLabel"
-        app:layout_constraintTop_toBottomOf="@+id/customLabel" />
 </androidx.constraintlayout.widget.ConstraintLayout>

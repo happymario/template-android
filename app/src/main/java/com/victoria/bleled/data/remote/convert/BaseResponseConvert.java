@@ -6,7 +6,7 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.victoria.bleled.data.remote.ApiException;
-import com.victoria.bleled.data.remote.resp.BaseResponse;
+import com.victoria.bleled.data.remote.response.BaseResponse;
 import com.victoria.bleled.util.arch.AppExecutors;
 import com.victoria.bleled.util.arch.network.NetworkResult;
 

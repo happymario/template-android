@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.bluetooth
+package com.victoria.bleled.app.test.bluetooth
 
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
@@ -19,13 +19,13 @@ import com.victoria.bleled.R
 import com.victoria.bleled.util.CommonUtil
 
 
-class LedThreeActivity : AppCompatActivity() {
-    private lateinit var bt: BluetoothSPP
-    private var fastBleDevice: MyFastBleDevice? = null
+class BluetoothTestActivity : AppCompatActivity() {
+    private lateinit var bt: BluetoothSPP // HC05 :  Bluetooth Serial Port Profile이면서 bluetooth 2.0임
+    private var fastBleDevice: MyFastBleDevice? = null // FBL80 : Ble 즉 bluetooth 4.0임
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_led_three)
+        setContentView(R.layout.activity_test_bluetooth)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
@@ -183,7 +183,7 @@ class LedThreeActivity : AppCompatActivity() {
             }
 
             override fun onScanning(bleDevice: BleDevice) {
-                val fastBleDevice = MyFastBleDevice(this@LedThreeActivity, bleDevice)
+                val fastBleDevice = MyFastBleDevice(this@BluetoothTestActivity, bleDevice)
                 if (fastBleDevice.isMyDevice) {
                     searchedMyDevice = fastBleDevice
                     BleManager.getInstance().cancelScan()
@@ -193,7 +193,7 @@ class LedThreeActivity : AppCompatActivity() {
             override fun onScanFinished(scanResultList: List<BleDevice>) {
                 //(this@LedThreeActivity as BaseActivity).hideProgress()
                 if (searchedMyDevice == null) {
-                    CommonUtil.showToast(this@LedThreeActivity, R.string.toast_not_find_device)
+                    CommonUtil.showToast(this@BluetoothTestActivity, R.string.toast_not_find_device)
                     return
                 }
                 initFastBle(searchedMyDevice)
@@ -208,12 +208,12 @@ class LedThreeActivity : AppCompatActivity() {
         this.fastBleDevice = fastBleDevice
         this.fastBleDevice?.setListner(object : MyFastBleDevice.Listener {
             override fun onConnected() {
-                CommonUtil.showToast(this@LedThreeActivity, R.string.toast_connect_device)
+                CommonUtil.showToast(this@BluetoothTestActivity, R.string.toast_connect_device)
             }
 
             override fun onDisconnected() {
 
-                CommonUtil.showToast(this@LedThreeActivity, R.string.toast_disconnect_device)
+                CommonUtil.showToast(this@BluetoothTestActivity, R.string.toast_disconnect_device)
             }
 
             override fun onReadReady(isReady: Boolean) {
