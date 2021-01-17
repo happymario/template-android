@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.victoria.bleled.R
-import com.victoria.bleled.app.main.mode.MonthCalendarFragment
+import com.victoria.bleled.app.main.calendar.MonthCalendarFragment
 import com.victoria.bleled.app.test.TestActivity
 import com.victoria.bleled.util.CommonUtil
 
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     /************************************************************
      *  UI controls & Data members
      ************************************************************/
-    private var fragmentMonthCalendar : MonthCalendarFragment = MonthCalendarFragment()
+    private var fragmentMonthCalendar: MonthCalendarFragment = MonthCalendarFragment()
 
     /************************************************************
      *  Overrides
