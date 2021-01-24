@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.Observer
 import com.victoria.bleled.R
+import com.victoria.bleled.app.login.LoginActivity
 import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.common.Constants
 import com.victoria.bleled.data.DataRepository
@@ -122,11 +123,18 @@ class SplashActivity : BaseActivity() {
                     prefDataSource.appInfo = it.data
 
                     Handler(Looper.getMainLooper()).postDelayed({
-                        goMain()
+                        goLogin()
                     }, 2000)
                 }
             }
         })
+    }
+
+    private fun goLogin() {
+        val intent = Intent(this, LoginActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+        startActivity(intent)
     }
 
     private fun goMain() {

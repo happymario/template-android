@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".app.login.SignupActivity">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:layout_width="@dimen/actionbar_height"
+                android:layout_height="@dimen/actionbar_height"
+                android:background="@color/color_transparent"
+                android:src="@drawable/btn_back"
+                android:onClick="onBack"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/signup"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/font_20"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/color_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/ll_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/color_white"
+                    android:paddingLeft="@dimen/spacing_24"
+                    android:paddingRight="@dimen/spacing_24"
+                    android:paddingTop="@dimen/spacing_32"
+                    android:paddingBottom="@dimen/spacing_32">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/spacing_50"
+                        android:background="@drawable/xml_bg_edit"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/spacing_8">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_transparent"
+                            android:gravity="center_vertical"
+                            android:text="@string/id"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/font_14" />
+
+                        <EditText
+                            android:id="@+id/et_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/color_transparent"
+                            android:ems="10"
+                            android:gravity="center_vertical"
+                            android:hint="@string/hint_id"
+                            android:inputType="textEmailAddress"
+                            android:textColor="@color/color_text"
+                            android:textColorHint="@color/color_text_hint"
+                            android:textSize="@dimen/font_13" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/spacing_50"
+                        android:background="@drawable/xml_bg_edit"
+                        android:layout_marginTop="@dimen/spacing_16"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/spacing_8">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_transparent"
+                            android:gravity="center_vertical"
+                            android:text="@string/pwd"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/font_14" />
+
+                        <EditText
+                            android:id="@+id/et_pwd"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/color_transparent"
+                            android:ems="10"
+                            android:gravity="center_vertical"
+                            android:hint="@string/hint_pwd"
+                            android:inputType="textPassword"
+                            android:textColor="@color/color_text"
+                            android:textColorHint="@color/color_text_hint"
+                            android:textSize="@dimen/font_13" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/spacing_50"
+                        android:background="@drawable/xml_bg_edit"
+                        android:layout_marginTop="@dimen/spacing_16"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/spacing_8">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_transparent"
+                            android:gravity="center_vertical"
+                            android:text="@string/pwd_confirm"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/font_14" />
+
+                        <EditText
+                            android:id="@+id/et_pwd_confrim"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/color_transparent"
+                            android:ems="10"
+                            android:gravity="center_vertical"
+                            android:hint="@string/hint_pwd_confirm"
+                            android:inputType="textPassword"
+                            android:textColor="@color/color_text"
+                            android:textColorHint="@color/color_text_hint"
+                            android:textSize="@dimen/font_13" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/spacing_50"
+                        android:layout_marginTop="@dimen/spacing_16"
+                        android:background="@drawable/xml_bg_edit"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/spacing_8">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_transparent"
+                            android:gravity="center_vertical"
+                            android:text="@string/motto"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/font_14" />
+
+                        <EditText
+                            android:id="@+id/et_motto"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/color_transparent"
+                            android:ems="10"
+                            android:gravity="center_vertical"
+                            android:hint="@string/hint_id"
+                            android:inputType="text"
+                            android:textColor="@color/color_text"
+                            android:textColorHint="@color/color_text_hint"
+                            android:textSize="@dimen/font_13" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_signup"
+                        android:layout_width="@dimen/spacing_140"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/spacing_24"
+                        android:background="@color/colorPrimaryDark"
+                        android:onClick="onSignup"
+                        android:text="@string/signup"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/font_14" />
+
+                </LinearLayout>
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

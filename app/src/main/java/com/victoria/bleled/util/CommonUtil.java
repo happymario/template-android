@@ -121,6 +121,12 @@ public class CommonUtil {
         context.startActivity(intent);
     }
 
+    public static void gotoPhone(Context context, String tel) {
+        String number = "tel:" + tel.trim();
+        Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(number));
+        context.startActivity(callIntent);
+    }
+
     public static String getVersionName(Context context) {
         try {
             PackageInfo pi = context.getPackageManager().getPackageInfo(

@@ -6,11 +6,10 @@ import com.victoria.bleled.BuildConfig;
 public interface Constants {
     boolean IS_TEST = false;
 
-    String MARKET = "google"; // apple,onestore,google
-
     String SDCARD_FOLDER = BuildConfig.APPLICATION_ID;
-    int MIN_AGE = 18;
-    int MAX_AGE = 39;
+    String MARKET = "google"; // apple,onestore,google
+    String CLIENT_PHONE_NUMBER = "191-245-3575";
+
 
     /********************************************************************
      * INTENT NAMES
