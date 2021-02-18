@@ -7,23 +7,29 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
-            android:id="@+id/tv_month"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_calendar"
+        <com.daimajia.swipe.SwipeLayout
+            android:id="@+id/godfather"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_month" />
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <com.victoria.bleled.app.main.calendar.BaseCalendarView
+                android:id="@+id/rv_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                />
+            <com.victoria.bleled.app.main.DayScheduleView
+                android:id="@+id/v_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent" >
+
+            </com.victoria.bleled.app.main.DayScheduleView>
+
+        </com.daimajia.swipe.SwipeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

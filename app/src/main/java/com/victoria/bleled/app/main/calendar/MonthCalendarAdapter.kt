@@ -23,7 +23,7 @@ class MonthCalendarAdapter constructor(
     }
 
     override fun getItemCount(): Int {
-        return BaseCalendar.LOW_OF_CALENDAR * BaseCalendar.DAYS_OF_WEEK
+        return BaseCalendar.ROWS_OF_CALENDAR * BaseCalendar.DAYS_OF_WEEK
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -75,6 +75,9 @@ class MonthCalendarAdapter constructor(
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemMonthCalendarBinding.inflate(layoutInflater, parent, false)
+                val params = binding.root.layoutParams
+                params.height = parent.measuredHeight / BaseCalendar.ROWS_OF_CALENDAR
+                binding.root.layoutParams = params
                 return ViewHolder(binding)
             }
         }

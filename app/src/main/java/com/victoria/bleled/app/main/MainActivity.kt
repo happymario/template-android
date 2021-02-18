@@ -40,8 +40,9 @@ class MainActivity : AppCompatActivity() {
      *  Event Handler
      ************************************************************/
     fun onTest(view: View) {
-        val intent = Intent(this, TestActivity::class.java)
-        startActivity(intent)
+//        val intent = Intent(this, TestActivity::class.java)
+//        startActivity(intent)
+        fragmentMonthCalendar.toggleLayout()
     }
 
     fun onMenu(view: View) {

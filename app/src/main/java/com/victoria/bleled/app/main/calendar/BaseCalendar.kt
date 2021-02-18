@@ -5,7 +5,7 @@ import java.util.*
 class BaseCalendar {
     companion object {
         const val DAYS_OF_WEEK = 7
-        const val LOW_OF_CALENDAR = 6
+        const val ROWS_OF_CALENDAR = 6
     }
 
     val calendar = Calendar.getInstance()
@@ -67,7 +67,7 @@ class BaseCalendar {
         makeCurrentMonth(calendar)
 
         nextMonthHeadOffset =
-            LOW_OF_CALENDAR * DAYS_OF_WEEK - (prevMonthTailOffset + currentMonthMaxDate)
+            ROWS_OF_CALENDAR * DAYS_OF_WEEK - (prevMonthTailOffset + currentMonthMaxDate)
         makeNextMonthHead()
 
         refreshCallback(calendar)

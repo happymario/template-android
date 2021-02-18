@@ -32,9 +32,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
-                    android:paddingTop="14dp"
-                    android:paddingBottom="14dp"
-                    android:layout_marginLeft="10dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:scaleType="fitCenter"
                     android:background="@color/color_transparent"
                     android:onClick="onMenu"
                     app:srcCompat="@drawable/ic_menu" />

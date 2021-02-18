@@ -1,14 +1,18 @@
 package com.victoria.bleled.app.main.calendar
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.ScaleAnimation
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
+import com.daimajia.swipe.SwipeLayout
+import com.daimajia.swipe.SwipeLayout.OnRevealListener
+import com.victoria.bleled.R
 import com.victoria.bleled.databinding.FragmentMonthCalendarBinding
-import java.text.SimpleDateFormat
-import java.util.*
+import com.victoria.bleled.util.arch.AppExecutors
+import kotlinx.android.synthetic.main.fragment_month_calendar.view.*
 
 
 /**
@@ -18,7 +22,6 @@ import java.util.*
  */
 class MonthCalendarFragment : Fragment() {
     private lateinit var viewDataBinding: FragmentMonthCalendarBinding
-    private lateinit var adapter: MonthCalendarAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,20 +38,30 @@ class MonthCalendarFragment : Fragment() {
         initView()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        AppExecutors().mainThread.execute(Runnable {
+            toggleLayout()
+        })
+    }
+
+    fun toggleLayout() {
+        viewDataBinding.godfather.open(false, SwipeLayout.DragEdge.Top)
+    }
+
     private fun initView() {
         // view
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
-        viewDataBinding.rvCalendar.layoutManager =
-            GridLayoutManager(requireContext(), BaseCalendar.DAYS_OF_WEEK)
+        viewDataBinding.godfather.showMode = SwipeLayout.ShowMode.PullOut
+        viewDataBinding.godfather.addDrag(SwipeLayout.DragEdge.Top, viewDataBinding.godfather.rv_calendar);
+        viewDataBinding.godfather.addRevealListener(R.id.rv_calendar
+        ) { child, edge, fraction, distance ->
+            val star  = viewDataBinding.rvCalendar
+            val d = child!!.height / 2 - star.height / 2.toFloat()
 
-        adapter = MonthCalendarAdapter(requireContext(), object : MonthCalendarAdapterListener {
-            override fun refreshCurrentMonth(calendar: Calendar) {
-                val sdf = SimpleDateFormat("yyyy MM", Locale.KOREAN)
-                viewDataBinding.tvMonth.text = sdf.format(calendar.time)
-            }
-        })
-        viewDataBinding.rvCalendar.adapter = adapter
-        adapter.notifyDataSetChanged()
+            Log.d("MonthCalendar offset", fraction.toString())
+        }
 
         // event
 
