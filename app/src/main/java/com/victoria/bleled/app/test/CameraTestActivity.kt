@@ -39,6 +39,7 @@ class CameraTestActivity : AppCompatActivity() {
         if (requestCode == MediaManager.CROP_IMAGE
             || requestCode == MediaManager.SET_CAMERA
             || requestCode == MediaManager.SET_GALLERY
+            || requestCode == MediaManager.SET_CAMERA_VIDEO
         ) {
             mMediaManager?.onActivityResult(requestCode, resultCode, data)
         } else if (requestCode == RC_CAMERA_PERMS) {
@@ -109,7 +110,7 @@ class CameraTestActivity : AppCompatActivity() {
 
 
     private fun initMediaManager() {
-        mMediaManager = MediaManager(this, true)
+        mMediaManager = MediaManager(this, false)
         mMediaManager?.setMediaCallback(object :
             MediaManager.MediaCallback {
             override fun onDelete() {
@@ -121,15 +122,14 @@ class CameraTestActivity : AppCompatActivity() {
 
             }
 
-            override fun onSelected(
-                isVideo: Boolean?,
-                uri: Uri?,
-                bitmap: Bitmap?,
-                videoPath: String?,
-                thumbPath: String?
-            ) {
+            override fun onImage(uri: Uri?, bitmap: Bitmap?) {
                 val imageView = findViewById<ImageView>(R.id.imageView)
                 imageView.setImageBitmap(bitmap)
+            }
+
+            override fun onVideo(video: Uri?, thumb: Uri?, thumbBitmap: Bitmap?) {
+                val imageView = findViewById<ImageView>(R.id.imageView)
+                imageView.setImageBitmap(thumbBitmap)
             }
         })
     }
@@ -173,6 +173,10 @@ class CameraTestActivity : AppCompatActivity() {
 
     fun onGallary(view: View) {
         checkGallaryPermissions()
+    }
+
+    fun onVideo(view: View) {
+        mMediaManager?.getVideoFromCamera()
     }
 
     fun onFinish(view: View) {

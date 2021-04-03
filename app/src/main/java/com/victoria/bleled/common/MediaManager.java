@@ -3,6 +3,8 @@ package com.victoria.bleled.common;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,20 +17,22 @@ import android.media.ExifInterface;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
+import android.os.CancellationSignal;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.Size;
 import android.widget.ArrayAdapter;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.victoria.bleled.BuildConfig;
 import com.victoria.bleled.R;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -73,7 +77,9 @@ public class MediaManager {
      ************************************************************/
 
     public interface MediaCallback {
-        void onSelected(Boolean isVideo, Uri uri, Bitmap bitmap, String videoPath, String thumbPath);
+        void onImage(Uri uri, Bitmap bitmap);
+
+        void onVideo(Uri video, Uri thumb, Bitmap thumbBitmap);
 
         void onFailed(int code, String err);
 
@@ -186,6 +192,10 @@ public class MediaManager {
         }
     }
 
+    public Bitmap getBitmapFromUri(Uri uri) {
+        return resizeBitmap(uri, 1.0);
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_OK) {
             return;
@@ -204,11 +214,11 @@ public class MediaManager {
 
                 CropImage(uri);
             } else if (fileType.startsWith("video") == true) {
-                String path = getFile(mOriginUri).getPath();
-                String thumb = getThumbnail(path);
+                Bitmap thumb = getThumbnail(mOriginUri);
+                Uri thumbUri = createMediaStoreUriFromBitmap(thumb);
 
                 if (mCallback != null) {
-                    mCallback.onSelected(true, null, null, path, thumb);
+                    mCallback.onVideo(mOriginUri, thumbUri, thumb);
                 }
             }
         } else if (requestCode == SET_CAMERA) { // 카메라로 사진을 캡쳐한 경우.
@@ -221,68 +231,41 @@ public class MediaManager {
 
             CropImage(uri);
         } else if (requestCode == SET_CAMERA_VIDEO) { // 카메라로 동영상을 캡쳐한 경우.
-            String path = getFile(mOriginUri).getPath();
-            String thumb = getThumbnail(path);
+            Bitmap thumb = getThumbnail(mOriginUri);
+            Uri thumbUri = createMediaStoreUriFromBitmap(thumb);
 
             if (mCallback != null) {
-                mCallback.onSelected(true, null, null, path, thumb);
+                mCallback.onVideo(mOriginUri, thumbUri, thumb);
             }
         } else if (requestCode == CROP_IMAGE) {
-
             if (mUseOtherCrop == true) {
                 CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                if (resultCode == RESULT_OK) {
-                    mLastUri = result.getUri();
-                } else {
+                if (resultCode != RESULT_OK || result.getUri() == null) {
                     Exception error = result.getError();
                     mCallback.onFailed(FAILED_BY_CRASH, error.getMessage());
                     return;
                 }
+                mLastUri = result.getUri();
             }
 
-
-            // 카메라로 저장한 이미지는 캐시된이미지이므로 파일로 확실하게 저장해야 한다.
-            Bitmap bitmap = resizeBitmap(mLastUri, 1.0);
-            File newFile = null;
             try {
-                if (checkHighSDK()) {
-                    newFile = createFile(false);
-                } else {
-                    newFile = new File(mLastUri.getPath());
-                    newFile.createNewFile();
-                }
-
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(newFile));
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-
-                int size = Integer.parseInt(String.valueOf(newFile.length() / 1024));
+                // 내부저장소 이미지를 mediaStore로 저장
+                File file = getFile(mLastUri);
+                Bitmap bitmap = resizeBitmap(mLastUri, 1.0);
+                int size = Integer.parseInt(String.valueOf(file.length() / 1024));
                 if (size > MAX_IMAGE_SIZE) {
                     mCallback.onFailed(FAILED_BY_SIZE_LIMIT, mActivity.getResources().getString(R.string.photo_max_size));
-                    if (newFile != null && newFile.exists()) {
-                        newFile.delete();
-                    }
+                    return;
                 }
 
-                stream.flush();
-                stream.close();
-
-                Uri fileUri = Uri.fromFile(newFile);
-
-                // 갤러리에 남겨보자
-                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                Uri contentUri = fileUri;
-                mediaScanIntent.setData(contentUri);
-                mActivity.sendBroadcast(mediaScanIntent);
-
+                Uri imageUri = createMediaStoreUriFromBitmap(bitmap);
                 if (mCallback != null)
-                    mCallback.onSelected(false, fileUri, bitmap, "", "");
+                    mCallback.onImage(imageUri, bitmap);
+
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.d(TAG, "Sorry, Camera Crashed in createNewFile");
                 mCallback.onFailed(FAILED_BY_CRASH, e.toString());
-                if (newFile != null && newFile.exists()) {
-                    newFile.delete();
-                }
             }
         }
     }
@@ -297,27 +280,23 @@ public class MediaManager {
             return null;
         }
 
+        // resize and rotate
         double ratio = getRatio(options);
         Bitmap bitmap = resizeBitmap(uri, ratio);
-        String path = getMediaPathFromURI(mActivity, uri);
-        File file = getFile(uri);
-        if (path == null || path.isEmpty() == true) {
-            bitmap = checkRotate(bitmap, file.getAbsolutePath());
-        } else {
-            bitmap = checkRotate(bitmap, path);
-        }
-        saveBitmap(bitmap, file.getAbsolutePath());
+        bitmap = checkRotate(uri, bitmap);
 
+        // save to internal store
+        File file = getFile(uri);
+        saveBitmap(bitmap, file.getAbsolutePath());
         if (checkHighSDK()) {
             uri = getUriFromFile(mActivity, file);
         }
-
         return uri;
     }
 
     private void CropImage(Uri uri) {
-        if (mUseOtherCrop == true) {
-            if (mSquareCropRatio == true) {
+        if (mUseOtherCrop) {
+            if (mSquareCropRatio) {
                 CropImage.activity(uri).setAspectRatio(1, 1).start(mActivity);
             } else {
                 CropImage.activity(uri).start(mActivity);
@@ -328,6 +307,7 @@ public class MediaManager {
             if (checkHighSDK()) {
                 file = getFile(uri);
 
+                // rename file and change uri
                 if (file.getAbsolutePath().indexOf(".png") == -1) {
                     File newFile = new File(file.getAbsolutePath() + ".png");
                     file.renameTo(newFile);
@@ -359,6 +339,7 @@ public class MediaManager {
                     intent.putExtra("scale", true);
                 }
 
+                // crop 저장소
                 file = createFile(false);
                 mLastUri = getUri(mActivity, file);
 
@@ -383,6 +364,12 @@ public class MediaManager {
     }
 
 
+    // 내부 저장소/pictures 폴더
+    private String getFolderPath() {
+        File file = mActivity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return file.getAbsolutePath();
+    }
+
     private File createFile(boolean isVideo) {
         File folder = new File(getFolderPath());
         if (!folder.exists())
@@ -392,22 +379,6 @@ public class MediaManager {
         String ext = isVideo ? ".mp4" : ".png";
         String filename = tsLong.toString() + ext;
         return new File(folder.toString(), filename);
-    }
-
-    private File createFileType(String type) {
-        File folder = new File(getFolderPath());
-        if (!folder.exists())
-            folder.mkdirs();
-
-        Long tsLong = System.currentTimeMillis() / 1000;
-        String ext = "." + type;
-        String filename = tsLong.toString() + ext;
-        return new File(folder.toString(), filename);
-    }
-
-    private String getFolderPath() {
-        File file = mActivity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        return file.getAbsolutePath();
     }
 
     private Uri getUri(Context context, File file) {
@@ -428,18 +399,24 @@ public class MediaManager {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
     }
 
-    private String getThumbnail(String videoFile) {
-        File thumbFile = createFile(false);
+    private Bitmap getThumbnail(Uri uri) {
+        Bitmap bmp = null;
+        try {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                bmp = ThumbnailUtils.createVideoThumbnail(getFile(uri), new Size(96, 96), new CancellationSignal());
+            }
+            else {
+                bmp =  ThumbnailUtils.createVideoThumbnail(getFile(uri).getAbsolutePath(), MediaStore.Video.Thumbnails.MINI_KIND);
+            }
+            return bmp;
+        } catch (Exception e) {
 
-        Bitmap bmp = ThumbnailUtils.createVideoThumbnail(videoFile, MediaStore.Images.Thumbnails.MINI_KIND);
-        saveBitmap(bmp, thumbFile.getPath());
-
-        return thumbFile.getPath();
+        }
+        return null;
     }
 
     private String getFileTypeFromGallary(Uri uri) {
-        String[] columns = {MediaStore.Images.Media.DATA,
-                MediaStore.Images.Media.MIME_TYPE};
+        String[] columns = {MediaStore.Images.Media._ID, MediaStore.Images.Media.MIME_TYPE};
 
         Cursor cursor = mActivity.getContentResolver().query(uri, columns, null, null, null);
         cursor.moveToFirst();
@@ -461,7 +438,6 @@ public class MediaManager {
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        options.inDither = true; // optional
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;// optional
 
         BitmapFactory.decodeStream(input, null, options);
@@ -492,7 +468,6 @@ public class MediaManager {
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = getPowerOfTwoForSampleRatio(ratio);
-        options.inDither = true;// optional
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;// optional
 
         Bitmap bitmap = BitmapFactory.decodeStream(input, null, options);
@@ -520,11 +495,16 @@ public class MediaManager {
         return new File(folder, new File(url.getPath()).getName());
     }
 
-    private Bitmap checkRotate(Bitmap bitmap, String filename) {
+    private Bitmap checkRotate(Uri fileUri, Bitmap bitmap) {
         int orientation = -1;
-
+        ExifInterface ei = null;
         try {
-            ExifInterface ei = new ExifInterface(filename);
+            if (checkHighSDK()) {
+                InputStream inputStream = mActivity.getContentResolver().openInputStream(fileUri);
+                ei = new ExifInterface(inputStream);
+            } else {
+                ei = new ExifInterface(getFile(fileUri).getAbsolutePath());
+            }
             orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
 
         } catch (IOException e) {
@@ -586,92 +566,66 @@ public class MediaManager {
         }
     }
 
-    public String saveBitmapToGallery(String ext, Bitmap bitmap) {
-        File thumbFile = createFileType(ext);
+    @Nullable
+    private Uri saveBitmapToMediaStore(@NonNull final Context context, @NonNull final Bitmap bitmap,
+                                       @NonNull final Bitmap.CompressFormat format, @NonNull final String mimeType,
+                                       @NonNull final String displayName) throws IOException {
+        final String relativeLocation = Environment.DIRECTORY_DCIM;
 
-        saveBitmap(bitmap, thumbFile.getPath());
+        final ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, displayName);
+        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
+        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, relativeLocation);
 
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        Uri contentUri = Uri.fromFile(thumbFile);
-        mediaScanIntent.setData(contentUri);
-        mActivity.sendBroadcast(mediaScanIntent);
+        final ContentResolver resolver = context.getContentResolver();
 
-        return thumbFile.getPath();
-    }
+        OutputStream stream = null;
+        Uri uri = null;
 
-    private void copyStream(InputStream in, OutputStream out) throws Exception {
         try {
-            try {
-                // Transfer bytes from in to out
-                byte[] buf = new byte[1024];
-                int len;
-                while ((len = in.read(buf)) > 0) {
-                    out.write(buf, 0, len);
-                }
-            } finally {
-                out.close();
+            final Uri contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            uri = resolver.insert(contentUri, contentValues);
+
+            if (uri == null) {
+                throw new IOException("Failed to create new MediaStore record.");
             }
+
+            stream = resolver.openOutputStream(uri);
+
+            if (stream == null) {
+                throw new IOException("Failed to get output stream.");
+            }
+
+            if (bitmap.compress(format, 95, stream) == false) {
+                throw new IOException("Failed to save bitmap.");
+            }
+        } catch (IOException e) {
+            if (uri != null) {
+                // Don't leave an orphan entry in the MediaStore
+                resolver.delete(uri, null, null);
+            }
+
+            throw e;
         } finally {
-            in.close();
-        }
-    }
-
-    public String saveFileToGallery(String ext, File file) {
-        File thumbFile = createFileType(ext);
-
-        try {
-            InputStream in = new FileInputStream(file);
-            OutputStream out = new FileOutputStream(thumbFile);
-            copyStream(in, out);
-
-            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            Uri contentUri = Uri.fromFile(thumbFile);
-            mediaScanIntent.setData(contentUri);
-            mActivity.sendBroadcast(mediaScanIntent);
-        } catch (Exception e) {
-        }
-
-        return thumbFile.getPath();
-    }
-
-    public String saveStreamToGallery(String ext, InputStream inputStream) {
-        File file = createFileType(ext);
-
-        InputStream in = inputStream;
-        OutputStream out = null;
-        try {
-            out = new FileOutputStream(file);
-            copyStream(in, out);
-
-            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            Uri contentUri = Uri.fromFile(file);
-            mediaScanIntent.setData(contentUri);
-            mActivity.sendBroadcast(mediaScanIntent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return file.getAbsolutePath();
-    }
-
-    private String getMediaPathFromURI(Context context, Uri contentUri) {
-        Cursor cursor = null;
-        try {
-            String[] proj = {MediaStore.Images.Media.DATA};
-            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        } catch (Exception e) {
-            Log.e(TAG, "getRealPathFromURI Exception : " + e.toString());
-            return "";
-        } finally {
-            if (cursor != null) {
-                cursor.close();
+            if (stream != null) {
+                stream.close();
             }
         }
+
+        return uri;
     }
 
+    private Uri createMediaStoreUriFromBitmap(Bitmap bitmap) {
+        try {
+            Long tsLong = System.currentTimeMillis() / 1000;
+            String ext = ".png";
+            Uri newMediaUri = saveBitmapToMediaStore(mActivity, bitmap, Bitmap.CompressFormat.PNG, ext, tsLong.toString() + ext);
+            return newMediaUri;
+        } catch (Exception e) {
+        }
+
+        return null;
+    }
 
     /************************************************************
      *  Static Functions
