@@ -11,6 +11,7 @@ import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import com.victoria.bleled.R
 import com.victoria.bleled.common.MediaManager
+import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.feature.PermissionUtil
 
 class CameraTestActivity : AppCompatActivity() {
@@ -125,6 +126,7 @@ class CameraTestActivity : AppCompatActivity() {
             override fun onImage(uri: Uri?, bitmap: Bitmap?) {
                 val imageView = findViewById<ImageView>(R.id.imageView)
                 imageView.setImageBitmap(bitmap)
+                CommonUtil.showToast(this@CameraTestActivity, uri.toString())
             }
 
             override fun onVideo(video: Uri?, thumb: Uri?, thumbBitmap: Bitmap?) {
