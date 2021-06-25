@@ -126,7 +126,10 @@ class CameraTestActivity : AppCompatActivity() {
             override fun onImage(uri: Uri?, bitmap: Bitmap?) {
                 val imageView = findViewById<ImageView>(R.id.imageView)
                 imageView.setImageBitmap(bitmap)
+
+                val file = mMediaManager?.getFileForUpload(this@CameraTestActivity, uri)
                 CommonUtil.showToast(this@CameraTestActivity, uri.toString())
+                CommonUtil.showToast(this@CameraTestActivity, "File => ${file?.absolutePath}" )
             }
 
             override fun onVideo(video: Uri?, thumb: Uri?, thumbBitmap: Bitmap?) {

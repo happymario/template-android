@@ -46,32 +46,73 @@ import static java.lang.StrictMath.max;
 
 public class MediaManager {
     /************************************************************
-     *  Variables
+     *  Static
      ************************************************************/
-
-    private final String TAG = "MediaManager";
-
     public final static int FAILED_BY_CRASH = 3000;
     public final static int FAILED_BY_SIZE_LIMIT = 3001;
     public final static int FAILED_BY_PERMISSON = 3002;
     public final static int FAILED_BY_NOIMAGE = 3003;
-
-    private final int MAX_RESOLUTION = 400;
-    private final int MAX_IMAGE_SIZE = 5 * 1024;
-
-    private Activity mActivity = null;
-    private MediaCallback mCallback = null;
-
-    private static Uri mOriginUri = null;
-    private static Uri mLastUri = null;
 
     public final static int SET_GALLERY = 1;
     public final static int SET_CAMERA = 2;
     public final static int SET_CAMERA_VIDEO = 3;
     public static int CROP_IMAGE = 4;
 
+
+    public static Bitmap getBitmapFromUri(Context context, Uri uri) {
+        return resizeBitmap(context, uri, 1.0);
+    }
+
+    private static int getPowerOfTwoForSampleRatio(double ratio) {
+        int k = Integer.highestOneBit((int) Math.floor(ratio));
+        if (k == 0)
+            return 1;
+        else
+            return k;
+    }
+
+    private static Bitmap resizeBitmap(Context context, Uri uri, double ratio) {
+        InputStream input = null;
+
+        try {
+            input = context.getContentResolver().openInputStream(uri);
+
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = getPowerOfTwoForSampleRatio(ratio);
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;// optional
+
+        Bitmap bitmap = BitmapFactory.decodeStream(input, null, options);
+
+        try {
+            input.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
+    }
+
+    /************************************************************
+     *  Variables
+     ************************************************************/
+    private final String TAG = "MediaManager";
+    private final int MAX_RESOLUTION = 400;
+    private final int MAX_IMAGE_SIZE = 5 * 1024;
+
+    private Activity mActivity = null;
+    private MediaCallback mCallback = null;
+
+    private Uri mOriginUri = null;
+    private Uri mLastUri = null;
+
     private boolean mSquareCropRatio = true;
     private boolean mUseOtherCrop = false;
+    private boolean mCropDisable = true;
 
     /************************************************************
      *  Public
@@ -193,9 +234,6 @@ public class MediaManager {
         }
     }
 
-    public Bitmap getBitmapFromUri(Uri uri) {
-        return resizeBitmap(uri, 1.0);
-    }
 
     public File getFileForUpload(Context context, Uri uri) {
         File destinationFilename = new File(context.getFilesDir().getPath() + File.separatorChar + queryName(context, uri));
@@ -215,7 +253,7 @@ public class MediaManager {
 
         if (requestCode == SET_GALLERY) {
             mOriginUri = data.getData();
-            String fileType = getFileTypeFromGallary(mOriginUri);
+            String fileType = getFileTypeFromGallary(mActivity, mOriginUri);
             if (fileType.startsWith("image") == true) {
                 Uri uri = resizeAndRotate(mOriginUri);
 
@@ -224,7 +262,12 @@ public class MediaManager {
                     return;
                 }
 
-                CropImage(uri);
+                if(mCropDisable) {
+                    setResult(uri);
+                }
+                else {
+                    CropImage(uri);
+                }
             } else if (fileType.startsWith("video") == true) {
                 Bitmap thumb = getThumbnail(mOriginUri);
                 Uri thumbUri = createUriFromBitmap(thumb);
@@ -241,7 +284,12 @@ public class MediaManager {
                 return;
             }
 
-            CropImage(uri);
+            if(mCropDisable) {
+                setResult(uri);
+            }
+            else {
+                CropImage(uri);
+            }
         } else if (requestCode == SET_CAMERA_VIDEO) { // 카메라로 동영상을 캡쳐한 경우.
             Bitmap thumb = getThumbnail(mOriginUri);
             Uri thumbUri = createUriFromBitmap(thumb);
@@ -260,31 +308,36 @@ public class MediaManager {
                 mLastUri = result.getUri();
             }
 
-            try {
-                // 내부저장소 이미지를 mediaStore로 저장
-                File file = getFileFromUri(mLastUri);
-                Bitmap bitmap = resizeBitmap(mLastUri, 1.0);
-                int size = Integer.parseInt(String.valueOf(file.length() / 1024));
-                if (size > MAX_IMAGE_SIZE) {
-                    mCallback.onFailed(FAILED_BY_SIZE_LIMIT, mActivity.getResources().getString(R.string.photo_max_size));
-                    return;
-                }
-
-                Uri imageUri = createUriFromBitmap(bitmap);
-                if (mCallback != null)
-                    mCallback.onImage(imageUri, bitmap);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.d(TAG, "Sorry, Camera Crashed in createNewFile");
-                mCallback.onFailed(FAILED_BY_CRASH, e.toString());
-            }
+            setResult(mLastUri);
         }
     }
 
     /************************************************************
      *  Helper
      ************************************************************/
+    private void setResult(Uri uri) {
+        try {
+            // 내부저장소 이미지를 mediaStore로 저장
+            File file = getFileFromUri(uri);
+            Bitmap bitmap = resizeBitmap(mActivity, uri, 1.0);
+            int size = Integer.parseInt(String.valueOf(file.length() / 1024));
+            if (size > MAX_IMAGE_SIZE) {
+                mCallback.onFailed(FAILED_BY_SIZE_LIMIT, mActivity.getResources().getString(R.string.photo_max_size));
+                return;
+            }
+
+            Uri imageUri = createUriFromBitmap(bitmap);
+            if (mCallback != null)
+                mCallback.onImage(imageUri, bitmap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d(TAG, "Sorry, Camera Crashed in createNewFile");
+            mCallback.onFailed(FAILED_BY_CRASH, e.toString());
+        }
+    }
+
+
     private Uri resizeAndRotate(Uri uri) {
         // 갤러리인 경우에도 이미지를 줄이고 rotate를 해주어야 crop intent가 잘 돌아가므로
         BitmapFactory.Options options = getBitmapFactory(uri);
@@ -294,7 +347,7 @@ public class MediaManager {
 
         // resize and rotate
         double ratio = getRatio(options);
-        Bitmap bitmap = resizeBitmap(uri, ratio);
+        Bitmap bitmap = resizeBitmap(mActivity, uri, ratio);
         bitmap = checkRotate(uri, bitmap);
 
         // save to internal store
@@ -427,10 +480,10 @@ public class MediaManager {
         return null;
     }
 
-    private String getFileTypeFromGallary(Uri uri) {
+    private String getFileTypeFromGallary(Context context, Uri uri) {
         String[] columns = {MediaStore.Images.Media._ID, MediaStore.Images.Media.MIME_TYPE};
 
-        Cursor cursor = mActivity.getContentResolver().query(uri, columns, null, null, null);
+        Cursor cursor = context.getContentResolver().query(uri, columns, null, null, null);
         cursor.moveToFirst();
         int mimeTypeColumnIndex = cursor.getColumnIndex(columns[1]);
         String mimeType = cursor.getString(mimeTypeColumnIndex);
@@ -466,40 +519,6 @@ public class MediaManager {
     private double getRatio(BitmapFactory.Options options) {
         int size = max(options.outWidth, options.outHeight);
         return max(size / MAX_RESOLUTION, 1);
-    }
-
-    private Bitmap resizeBitmap(Uri uri, double ratio) {
-        InputStream input = null;
-
-        try {
-            input = mActivity.getContentResolver().openInputStream(uri);
-
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        }
-
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = getPowerOfTwoForSampleRatio(ratio);
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888;// optional
-
-        Bitmap bitmap = BitmapFactory.decodeStream(input, null, options);
-
-        try {
-            input.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return bitmap;
-    }
-
-    private int getPowerOfTwoForSampleRatio(double ratio) {
-        int k = Integer.highestOneBit((int) Math.floor(ratio));
-        if (k == 0)
-            return 1;
-        else
-            return k;
     }
 
     private Bitmap checkRotate(Uri fileUri, Bitmap bitmap) {
@@ -672,7 +691,6 @@ public class MediaManager {
         } else {
             return new File(uri.getPath()).getName();
         }
-
     }
 }
 

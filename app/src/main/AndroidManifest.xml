@@ -23,6 +23,8 @@
         <package android:name="com.android.camera.action.CROP" />
     </queries>
 
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
+
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"

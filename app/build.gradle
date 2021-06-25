@@ -48,7 +48,7 @@ android {
     }
 
     compileSdkVersion 30
-    buildToolsVersion "29.0.3"
+    buildToolsVersion "30.0.3"
     defaultConfig {
         applicationId "com.mario.androidpacksample"
         minSdkVersion 21
@@ -70,6 +70,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+//    flavorDimensions "default"
+//    productFlavors {
+//        angtalk {
+//            dimension "default"
+//
+//            applicationId "com.maximko.angtalk"
+//            versionCode 6
+//            versionName "1.0.3"
+//
+//            resValue "string", "app_name", "즐팅♡방"
+//
+//            buildConfigField 'String', 'APP_ID', '"angtalk"'
+//            //buildConfigField 'String', 'SERVER_URL', '"http://192.168.0.10:9969/api/"'
+//            buildConfigField 'String', 'SERVER_URL', '"https://ec2-52-198-73-199.ap-northeast-1.compute.amazonaws.com/index.php/angtalk/"'
+//            buildConfigField 'boolean', 'IS_TEST', 'true'
+//        }
+//    }
 
     dataBinding {
         enabled = true
@@ -93,7 +111,7 @@ android {
             def df = new SimpleDateFormat("yyMMddhhmmss")
             df.setTimeZone(TimeZone.getDefault())
             variant.outputs.all { output ->
-                outputFileName = new File("../", "banillaco" + "_v" + defaultConfig.versionName + "_" + df.format(new Date()) + ".apk")
+                outputFileName = new File("../", "template" + "_v" + defaultConfig.versionName + "_" + df.format(new Date()) + ".apk")
             }
         }
     }
@@ -108,66 +126,69 @@ repositories {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.21"
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.32"
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'androidx.core:core-ktx:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     // architecture
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'com.android.support:multidex:1.0.3'
-    implementation "androidx.work:work-runtime-ktx:2.4.0"
+    implementation "androidx.work:work-runtime-ktx:2.6.0-beta01"
 
     // ui
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.google.android.material:material:1.3.0'
     //// navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.2"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.2"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
 
     // local db
-    implementation "androidx.room:room-runtime:2.2.6"
-    kapt "androidx.room:room-compiler:2.2.6"
+    implementation "androidx.room:room-runtime:2.3.0"
+    kapt "androidx.room:room-compiler:2.3.0"
 
     // image
     implementation "com.github.bumptech.glide:glide:4.11.0"
     annotationProcessor "com.github.bumptech.glide:compiler:4.11.0"
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
-    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
 
     // network
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation "com.squareup.retrofit2:converter-gson:2.6.2"
-    implementation "com.squareup.retrofit2:converter-scalars:2.5.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.retrofit2:converter-scalars:2.6.4"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
 
     // paging
-    implementation "androidx.paging:paging-runtime-ktx:2.1.2"
+    implementation "androidx.paging:paging-runtime-ktx:3.0.0"
 
     // log
     implementation "com.jakewharton.timber:timber:4.7.1"
+    implementation 'com.android.installreferrer:installreferrer:2.2'
 
     // ble
-    implementation project(':libBluetoothSPP')
-    implementation project(':libFastBle')
+    implementation 'com.akexorcist:bluetoothspp:1.0.0'
+    implementation 'com.clj.fastble:FastBleLib:2.3.4'
 
     // dagger
-    implementation 'com.google.dagger:dagger:2.28'
+    implementation 'com.google.dagger:dagger:2.35'
     kapt 'com.google.dagger:dagger-compiler:2.28'
 
     // fcm push
-    implementation "com.google.firebase:firebase-core:18.0.1"
-    implementation "com.google.firebase:firebase-messaging:21.0.1"
-    implementation 'com.google.android.gms:play-services-location:17.1.0'
+    implementation "com.google.firebase:firebase-core:19.0.0"
+    implementation "com.google.firebase:firebase-messaging:22.0.0"
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 
     // etc
-    implementation 'com.github.christophesmet:android_maskable_layout:v1.3.2'
+    implementation "com.google.guava:guava:24.1-jre"
     implementation 'com.facebook.stetho:stetho:1.5.1'
-    implementation project(':libMrBase')
+
+    implementation project(':libMBase')
+    //implementation(name:'libpicaon', ext:'aar')
 }
 apply plugin: 'com.google.gms.google-services'
