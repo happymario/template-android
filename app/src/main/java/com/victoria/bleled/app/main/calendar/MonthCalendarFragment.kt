@@ -5,10 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.ScaleAnimation
 import androidx.fragment.app.Fragment
 import com.daimajia.swipe.SwipeLayout
-import com.daimajia.swipe.SwipeLayout.OnRevealListener
 import com.victoria.bleled.R
 import com.victoria.bleled.databinding.FragmentMonthCalendarBinding
 import com.victoria.bleled.util.arch.AppExecutors
@@ -54,10 +52,14 @@ class MonthCalendarFragment : Fragment() {
         // view
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
         viewDataBinding.godfather.showMode = SwipeLayout.ShowMode.PullOut
-        viewDataBinding.godfather.addDrag(SwipeLayout.DragEdge.Top, viewDataBinding.godfather.rv_calendar);
-        viewDataBinding.godfather.addRevealListener(R.id.rv_calendar
+        viewDataBinding.godfather.addDrag(
+            SwipeLayout.DragEdge.Top,
+            viewDataBinding.godfather.rv_calendar
+        );
+        viewDataBinding.godfather.addRevealListener(
+            R.id.rv_calendar
         ) { child, edge, fraction, distance ->
-            val star  = viewDataBinding.rvCalendar
+            val star = viewDataBinding.rvCalendar
             val d = child!!.height / 2 - star.height / 2.toFloat()
 
             Log.d("MonthCalendar offset", fraction.toString())

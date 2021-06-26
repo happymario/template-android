@@ -22,7 +22,6 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.widget.Toast;
 
-
 import androidx.core.app.NotificationCompat;
 
 import com.victoria.lib.util.MStringUtil;
@@ -108,7 +107,7 @@ public class SystemUtil {
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         boolean isWifiConn = networkInfo.isConnected();
-        return  isWifiConn;
+        return isWifiConn;
     }
 
     /**
@@ -365,7 +364,7 @@ public class SystemUtil {
         // Requires Permission: ACCESS_WIFI_STATE
         WifiManager wm = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wm.getConnectionInfo();
-        if(wifiInfo != null) {
+        if (wifiInfo != null) {
             return wifiInfo.getMacAddress();
         }
 
@@ -494,8 +493,8 @@ public class SystemUtil {
             if (!"9774d56d682e549c".equals(androidId)) {
                 uuid = UUID.nameUUIDFromBytes(androidId.getBytes("utf8"));
             } else {
-                final String deviceId = ((TelephonyManager) context.getSystemService( Context.TELEPHONY_SERVICE )).getDeviceId();
-                uuid = deviceId!=null ? UUID.nameUUIDFromBytes(deviceId.getBytes("utf8")) : UUID.randomUUID();
+                final String deviceId = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+                uuid = deviceId != null ? UUID.nameUUIDFromBytes(deviceId.getBytes("utf8")) : UUID.randomUUID();
             }
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
