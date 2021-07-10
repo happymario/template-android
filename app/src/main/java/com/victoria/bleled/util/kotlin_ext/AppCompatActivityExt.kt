@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.victoria.bleled.util.extention
+package com.victoria.bleled.util.kotlin_ext
 
 /**
  * Various extension functions for AppCompatActivity.

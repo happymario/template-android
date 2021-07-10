@@ -1,4 +1,4 @@
-package com.victoria.bleled.util.view;
+package com.victoria.bleled.util.view.text;
 
 import android.content.Context;
 import android.graphics.Rect;

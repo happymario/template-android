@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.victoria.bleled.util.extention
+package com.victoria.bleled.util.kotlin_ext
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle

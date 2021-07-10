@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import com.victoria.bleled.R;
 import com.victoria.bleled.databinding.DialogPhotoViewBinding;
 import com.victoria.bleled.util.arch.base.BaseDialog;
-import com.victoria.bleled.util.view.imageview.ImageLoader;
+import com.victoria.bleled.util.thirdparty.glide.ImageLoader;
 
 public class PhotoViewDialog extends BaseDialog {
     private DialogPhotoViewBinding binding;

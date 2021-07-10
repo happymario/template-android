@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".app.main.calendar.MonthCalendarFragment">
+    tools:context=".app.main.MonthCalendarFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" >
 
-            <com.victoria.bleled.app.main.calendar.BaseCalendarView
+            <com.victoria.bleled.util.kotlin_ext.calendar.BaseCalendarView
                 android:id="@+id/rv_calendar"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"

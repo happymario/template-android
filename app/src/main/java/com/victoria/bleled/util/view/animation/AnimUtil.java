@@ -1,4 +1,4 @@
-package com.victoria.bleled.util.view;
+package com.victoria.bleled.util.view.animation;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

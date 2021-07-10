@@ -1,4 +1,4 @@
-package com.victoria.bleled.util.extention
+package com.victoria.bleled.util.kotlin_ext
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable

@@ -280,6 +280,16 @@ public class CommonUtil {
         }
     }
 
+    public static String getCurrentDate() {
+        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+        return getDateFormat(cal.getTime(), "yyyyMMdd");
+    }
+
+    public static String getDateFormat(Date time, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        return sdf.format(time);
+    }
+
     public static String dateFormatConvert(String dateTime, String inFormat, String outFormat) {
         SimpleDateFormat w_sdf = new SimpleDateFormat(inFormat);
         w_sdf.setTimeZone(TimeZone.getTimeZone("UTC+09:00"));

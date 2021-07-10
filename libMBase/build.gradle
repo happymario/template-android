@@ -92,12 +92,12 @@ dependencies {
     implementation "com.shawnlin:number-picker:2.4.6"
 
     // chart
-    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4' // 중요하므로 manual까지 자산화필요
 
     // Audio
     implementation 'com.chibde:audiovisualizer:2.2.0'
-    implementation 'com.github.piasy:rxandroidaudio:1.5.1'
-    implementation 'com.kailashdabhi:om-recorder:1.1.5'
+    implementation 'com.github.piasy:rxandroidaudio:1.5.1' // 쉬운 리용
+    implementation 'com.kailashdabhi:om-recorder:1.1.5' // amplifier동시 표시 구현
 
     // video
     implementation "com.google.android.exoplayer:exoplayer-core:2.14.1"
@@ -111,6 +111,10 @@ dependencies {
     implementation 'com.github.yalantis:ucrop:2.2.6'
     //implementation 'com.github.yalantis:ucrop:2.2.6-native'
 
+    // animation
+    implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
+    implementation 'com.github.ksoichiro:android-observablescrollview:1.5.0'
+
     // Util
     implementation 'com.orhanobut:logger:2.2.0'
     implementation "joda-time:joda-time:2.10.5"
@@ -118,6 +122,6 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
 
     // Import need
-    //Android-Link-Preview, PagerSlidingTabStrip, SlidingMenu, CaptchaImageView, libBiometricAuth(yammi),
-    //jsoup Html Paser, LibAppRTC, LibSmack, ApkExpansion, ScreenRecorder
+    //Android-Link-Preview, PagerSlidingTabStrip, SlidingMenu, CaptchaImageView, libBiometricAuth(yammi), GaussianBlur
+    //jsoup Html Paser, LibAppRTC(lovebattery), LibSmack(voicetalk), ApkExpansion, ScreenRecorder
 }

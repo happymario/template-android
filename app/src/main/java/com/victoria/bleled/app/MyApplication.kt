@@ -25,7 +25,6 @@ class MyApplication : Application() {
     }
 
     companion object {
-        @Volatile
         private var instance: MyApplication? = null
 
         /**
@@ -35,7 +34,6 @@ class MyApplication : Application() {
          */
         val globalApplicationContext: MyApplication?
             get() {
-                checkNotNull(instance) { "this application does not inherit com.kakao.GlobalApplication" }
                 return instance
             }
     }

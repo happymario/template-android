@@ -121,11 +121,11 @@ class SplashActivity : BaseActivity() {
                     val prefDataSource =
                         DataRepository.provideDataRepository().prefDataSource
                     prefDataSource.appInfo = it.data
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        goLogin()
-                    }, 2000)
                 }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    goLogin()
+                }, 2000)
             }
         })
     }
