@@ -53,7 +53,7 @@ public class ImageLoader {
                                 if (defaultResId != 0) {
                                     view.setImageResource(defaultResId);
                                 } else {
-                                    view.setImageResource(R.color.color_image_bg);
+                                    view.setImageResource(R.color.image_bg);
                                 }
 
                                 if (callback != null) {
@@ -80,7 +80,7 @@ public class ImageLoader {
                             .into(view);
                 } else {
                     Glide.with(context.getApplicationContext())
-                            .load(R.color.color_image_bg)
+                            .load(R.color.image_bg)
                             .into(view);
                 }
             }
@@ -94,7 +94,7 @@ public class ImageLoader {
                         .into(view);
             } else {
                 Glide.with(context.getApplicationContext())
-                        .load(R.color.color_image_bg)
+                        .load(R.color.image_bg)
                         .into(view);
             }
         }

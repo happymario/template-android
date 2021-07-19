@@ -4,14 +4,18 @@ import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
@@ -137,7 +141,7 @@ public class CommonUtil {
         }
     }
 
-    public static String getOSVersion(Context context) {
+    public static String getOSVersion() {
         return Build.VERSION.RELEASE;
     }
 
@@ -286,6 +290,9 @@ public class CommonUtil {
     }
 
     public static String getDateFormat(Date time, String format) {
+        if (time == null) {
+            return "";
+        }
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.format(time);
     }
@@ -421,22 +428,14 @@ public class CommonUtil {
     }
 
     public static void sendEmail(Context context, String mail, String title, String content) {
-        // 이메일 발송
-        Uri uri = Uri.parse("mailto:" + mail);
-        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-        it.putExtra(Intent.EXTRA_SUBJECT, title);
-        it.putExtra(Intent.EXTRA_TEXT, content);
-        context.startActivity(it);
-
-        /*
-        String mailto = "mailto:bob@example.org" +
-            "?cc=" + "alice@example.com" +
-            "&subject=" + Uri.encode(subject) +
-            "&body=" + Uri.encode(bodyText);
-
-        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-        emailIntent.setData(Uri.parse(mailto));
-         */
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{mail});
+        intent.putExtra(Intent.EXTRA_SUBJECT, title);
+        intent.putExtra(Intent.EXTRA_TEXT, content);
+        if (intent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(intent);
+        }
     }
 
     /**
@@ -718,5 +717,50 @@ public class CommonUtil {
                 view.scrollToPosition(0);
             }
         }, 200);
+    }
+
+    public static void scrollToLast(RecyclerView view) {
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.scrollBy(0, 10000000);
+            }
+        }, 200);
+    }
+
+    public static String digitTwo(int digit) {
+        if (digit < 10) {
+            return "0" + digit;
+        }
+        return String.valueOf(digit);
+    }
+
+    public static void copyClipboard(Context context, String text) {
+        ClipData clip = ClipData.newPlainText("clipboard", text);
+        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboard.setPrimaryClip(clip);
+    }
+
+    // 获取ApiKey
+    public static String getMetaValue(Context context, String metaKey) {
+        Bundle metaData = null;
+        String apiKey = null;
+        if (context == null || metaKey == null) {
+            return null;
+        }
+        try {
+            ApplicationInfo ai = context.getPackageManager()
+                    .getApplicationInfo(context.getPackageName(),
+                            PackageManager.GET_META_DATA);
+            if (null != ai) {
+                metaData = ai.metaData;
+            }
+            if (null != metaData) {
+                apiKey = metaData.getString(metaKey);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("CommonUtil", "error " + e.getMessage());
+        }
+        return apiKey;
     }
 }

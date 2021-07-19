@@ -50,7 +50,6 @@ dependencies {
     implementation "com.ogaclejapan.smarttablayout:utils-v4:1.7.0@aar"
 
     // indicator
-    implementation 'me.relex:circleindicator:2.1.4'
     implementation "com.romandanylyk:pageindicatorview:1.0.3"
 
     // swipe
@@ -117,11 +116,12 @@ dependencies {
 
     // Util
     implementation 'com.orhanobut:logger:2.2.0'
-    implementation "joda-time:joda-time:2.10.5"
+    implementation 'net.danlew:android.joda:2.10.9.1'
     implementation 'com.blankj:utilcode:1.30.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
 
     // Import need
-    //Android-Link-Preview, PagerSlidingTabStrip, SlidingMenu, CaptchaImageView, libBiometricAuth(yammi), GaussianBlur
-    //jsoup Html Paser, LibAppRTC(lovebattery), LibSmack(voicetalk), ApkExpansion, ScreenRecorder
+    // Android-Link-Preview, PagerSlidingTabStrip, SlidingMenu, CaptchaImageView, libBiometricAuth(yammi), GaussianBlur
+    // jsoup Html Paser, LibAppRTC(lovebattery), LibSmack(voicetalk), ApkExpansion, ScreenRecorder
+    // 2021/10월이후 최신 os 12 반영
 }

@@ -33,7 +33,6 @@
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tint="@{tintlist}"
             android:paddingRight="@{paddingLeft}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_title"
             app:layout_constraintEnd_toStartOf="@+id/tv_title"

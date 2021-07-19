@@ -67,11 +67,7 @@ class SignupActivity : BaseBindingActivity<ActivitySignupBinding>() {
     /************************************************************
      *  Helpers
      ************************************************************/
-    private fun initView() {
-        // ui
-
-
-        // event
+    override fun initView() {
         binding.llContent.setOnClickListener {
             hideKeyboard()
         }

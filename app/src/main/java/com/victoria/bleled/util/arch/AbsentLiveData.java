@@ -7,7 +7,7 @@ public class AbsentLiveData<T> extends LiveData<T> {
         postValue(null);
     }
 
-    public static AbsentLiveData create() {
-        return new AbsentLiveData();
+    public static <T> AbsentLiveData<T> create() {
+        return new AbsentLiveData<T>();
     }
 }

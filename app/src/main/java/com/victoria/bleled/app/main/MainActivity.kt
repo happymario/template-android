@@ -3,12 +3,16 @@ package com.victoria.bleled.app.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.ActionBar
+import androidx.viewpager.widget.ViewPager
 import com.victoria.bleled.R
-import com.victoria.bleled.app.test.TestActivity
+import com.victoria.bleled.app.bluetooth.SpecialFragment
+import com.victoria.bleled.app.test.LatestFragment
+import com.victoria.bleled.databinding.ActivityMainBinding
 import com.victoria.bleled.util.CommonUtil
+import com.victoria.bleled.util.arch.base.BaseBindingActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
     /************************************************************
      *  Static & Global Members
      ************************************************************/
@@ -17,8 +21,7 @@ class MainActivity : AppCompatActivity() {
     /************************************************************
      *  UI controls & Data members
      ************************************************************/
-    private var fragmentMonthCalendar: MonthCalendarFragment =
-        MonthCalendarFragment()
+    private var pagerAdapter: MainPagerAdapter? = null
 
     /************************************************************
      *  Overrides
@@ -39,12 +42,6 @@ class MainActivity : AppCompatActivity() {
     /************************************************************
      *  Event Handler
      ************************************************************/
-    fun onTest(view: View) {
-        val intent = Intent(this, TestActivity::class.java)
-        startActivity(intent)
-        fragmentMonthCalendar.toggleLayout()
-    }
-
     fun onMenu(view: View) {
         CommonUtil.showNIToast(this)
     }
@@ -52,21 +49,30 @@ class MainActivity : AppCompatActivity() {
     /************************************************************
      *  Helpers
      ************************************************************/
-    private fun initView() {
-        // view
-        initFragment()
+    override fun initView() {
+        super.initView()
 
-        // event
-
+        setupToolbar()
+        setupViewPager(binding.viewpager)
+        binding.tabs.setupWithViewPager(binding.viewpager)
     }
 
-    private fun initFragment() {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.add(R.id.fl_main_content, fragmentMonthCalendar)
-        fragmentTransaction.commit()
+    private fun setupToolbar() {
+        setSupportActionBar(binding.toolbar)
+
+        val ab: ActionBar? = supportActionBar
+        ab?.setHomeAsUpIndicator(R.drawable.ic_menu)
+        ab?.setDisplayHomeAsUpEnabled(true)
     }
 
+    private fun setupViewPager(viewPager: ViewPager) {
+        pagerAdapter = MainPagerAdapter(supportFragmentManager)
+        pagerAdapter?.addFragment(MainFragment.newInstance(), getString(R.string.tab_main))
+        pagerAdapter?.addFragment(SpecialFragment.newInstance(), getString(R.string.tab_special))
+        pagerAdapter?.addFragment(LatestFragment.newInstance(), getString(R.string.tab_latest))
+
+        viewPager.adapter = pagerAdapter
+    }
 
     /************************************************************
      *  SubClasses

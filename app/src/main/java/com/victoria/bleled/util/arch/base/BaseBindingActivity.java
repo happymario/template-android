@@ -21,9 +21,17 @@ public abstract class BaseBindingActivity<T extends ViewDataBinding> extends Bas
     @Override
     public void setContentView(int layoutResID) {
         this.binding = DataBindingUtil.inflate(getLayoutInflater(), layoutResID, null, true);
+        binding.setLifecycleOwner(this);
         super.setContentView(this.binding.getRoot());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // updateLang
+        binding.invalidateAll();
+    }
 
     /************************************************************
      *  Event Handler
@@ -33,7 +41,9 @@ public abstract class BaseBindingActivity<T extends ViewDataBinding> extends Bas
     /************************************************************
      *  Helpers
      ************************************************************/
-
+    protected void initView() {
+        binding.setLifecycleOwner(this);
+    }
 
     /************************************************************
      *  Sub Classes

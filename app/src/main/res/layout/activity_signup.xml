@@ -24,7 +24,7 @@
             <ImageButton
                 android:layout_width="@dimen/actionbar_height"
                 android:layout_height="@dimen/actionbar_height"
-                android:background="@color/color_transparent"
+                android:background="@color/transparent"
                 android:src="@drawable/btn_back"
                 android:onClick="onBack"/>
 
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/signup"
-                android:textColor="@color/color_white"
+                android:textColor="@color/white"
                 android:textSize="@dimen/font_20"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -42,7 +42,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/color_white"
+            android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:background="@color/color_white"
+                    android:background="@color/white"
                     android:paddingLeft="@dimen/spacing_24"
                     android:paddingRight="@dimen/spacing_24"
                     android:paddingTop="@dimen/spacing_32"
@@ -77,10 +77,10 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:background="@color/color_transparent"
+                            android:background="@color/transparent"
                             android:gravity="center_vertical"
                             android:text="@string/id"
-                            android:textColor="@color/color_black"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/font_14" />
 
                         <EditText
@@ -88,13 +88,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@color/color_transparent"
+                            android:background="@color/transparent"
                             android:ems="10"
                             android:gravity="center_vertical"
                             android:hint="@string/hint_id"
                             android:inputType="textEmailAddress"
-                            android:textColor="@color/color_text"
-                            android:textColorHint="@color/color_text_hint"
+                            android:textColor="@color/edit_text"
+                            android:textColorHint="@color/edit_text_hint"
                             android:textSize="@dimen/font_13" />
                     </LinearLayout>
 
@@ -109,10 +109,10 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:background="@color/color_transparent"
+                            android:background="@color/transparent"
                             android:gravity="center_vertical"
                             android:text="@string/pwd"
-                            android:textColor="@color/color_black"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/font_14" />
 
                         <EditText
@@ -120,13 +120,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@color/color_transparent"
+                            android:background="@color/transparent"
                             android:ems="10"
                             android:gravity="center_vertical"
                             android:hint="@string/hint_pwd"
                             android:inputType="textPassword"
-                            android:textColor="@color/color_text"
-                            android:textColorHint="@color/color_text_hint"
+                            android:textColor="@color/edit_text"
+                            android:textColorHint="@color/edit_text_hint"
                             android:textSize="@dimen/font_13" />
                     </LinearLayout>
 
@@ -142,10 +142,10 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:background="@color/color_transparent"
+                            android:background="@color/transparent"
                             android:gravity="center_vertical"
                             android:text="@string/pwd_confirm"
-                            android:textColor="@color/color_black"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/font_14" />
 
                         <EditText
@@ -153,13 +153,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@color/color_transparent"
+                            android:background="@color/transparent"
                             android:ems="10"
                             android:gravity="center_vertical"
                             android:hint="@string/hint_pwd_confirm"
                             android:inputType="textPassword"
-                            android:textColor="@color/color_text"
-                            android:textColorHint="@color/color_text_hint"
+                            android:textColor="@color/edit_text"
+                            android:textColorHint="@color/edit_text_hint"
                             android:textSize="@dimen/font_13" />
                     </LinearLayout>
 
@@ -174,10 +174,10 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:background="@color/color_transparent"
+                            android:background="@color/transparent"
                             android:gravity="center_vertical"
                             android:text="@string/motto"
-                            android:textColor="@color/color_black"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/font_14" />
 
                         <EditText
@@ -185,13 +185,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@color/color_transparent"
+                            android:background="@color/transparent"
                             android:ems="10"
                             android:gravity="center_vertical"
                             android:hint="@string/hint_id"
                             android:inputType="text"
-                            android:textColor="@color/color_text"
-                            android:textColorHint="@color/color_text_hint"
+                            android:textColor="@color/edit_text"
+                            android:textColorHint="@color/edit_text_hint"
                             android:textSize="@dimen/font_13" />
                     </LinearLayout>
 
@@ -204,7 +204,7 @@
                         android:background="@color/colorPrimaryDark"
                         android:onClick="onSignup"
                         android:text="@string/signup"
-                        android:textColor="@color/color_white"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/font_14" />
 
                 </LinearLayout>

@@ -32,6 +32,8 @@ public class LiveDataCallAdapter<R> implements CallAdapter<R, LiveData<NetworkRe
                 super.onActive();
 
                 if (started.compareAndSet(false, true)) {
+                    postValue(NetworkResult.loading());
+
                     call.enqueue(new Callback<R>() {
                         @Override
                         public void onResponse(Call<R> call, Response<R> response) {

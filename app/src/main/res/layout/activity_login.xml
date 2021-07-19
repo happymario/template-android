@@ -37,7 +37,7 @@
                     android:layout_marginTop="@dimen/spacing_126"
                     android:text="@string/app_name"
                     android:textAlignment="center"
-                    android:textColor="@color/color_white"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/font_32"
                     android:textStyle="bold" />
 
@@ -64,10 +64,10 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:background="@color/color_transparent"
+                            android:background="@color/transparent"
                             android:gravity="center_vertical"
                             android:text="@string/id"
-                            android:textColor="@color/color_black"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/font_14" />
 
                         <EditText
@@ -75,13 +75,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@color/color_transparent"
+                            android:background="@color/transparent"
                             android:ems="10"
                             android:gravity="center_vertical"
                             android:hint="@string/hint_id"
                             android:inputType="textEmailAddress"
-                            android:textColor="@color/color_text"
-                            android:textColorHint="@color/color_text_hint"
+                            android:textColor="@color/edit_text"
+                            android:textColorHint="@color/edit_text_hint"
                             android:textSize="@dimen/font_13" />
                     </LinearLayout>
 
@@ -97,10 +97,10 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:background="@color/color_transparent"
+                            android:background="@color/transparent"
                             android:gravity="center_vertical"
                             android:text="@string/pwd"
-                            android:textColor="@color/color_black"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/font_14" />
 
                         <EditText
@@ -108,13 +108,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@color/color_transparent"
+                            android:background="@color/transparent"
                             android:ems="10"
                             android:gravity="center_vertical"
                             android:hint="@string/hint_pwd"
                             android:inputType="textPassword"
-                            android:textColor="@color/color_text"
-                            android:textColorHint="@color/color_text_hint"
+                            android:textColor="@color/edit_text"
+                            android:textColorHint="@color/edit_text_hint"
                             android:textSize="@dimen/font_13" />
                     </LinearLayout>
 
@@ -135,10 +135,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="5dp"
                                 android:layout_weight="1"
-                                android:background="@color/color_white"
+                                android:background="@color/white"
                                 android:onClick="onLogin"
                                 android:text="@string/login"
-                                android:textColor="@color/color_text"
+                                android:textColor="@color/common_text"
                                 android:textSize="@dimen/font_14" />
 
                             <Button
@@ -147,10 +147,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
                                 android:layout_weight="1"
-                                android:background="@color/color_white"
+                                android:background="@color/white"
                                 android:onClick="onSignup"
                                 android:text="@string/signup"
-                                android:textColor="@color/color_text"
+                                android:textColor="@color/common_text"
                                 android:textSize="@dimen/font_14" />
 
                         </LinearLayout>
@@ -160,10 +160,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:background="@color/color_white"
+                            android:background="@color/white"
                             android:onClick="onMain"
                             android:text="@string/to_main"
-                            android:textColor="@color/color_text"
+                            android:textColor="@color/common_text"
                             android:textSize="@dimen/font_14" />
                     </LinearLayout>
 
@@ -172,10 +172,10 @@
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:background="@color/color_transparent"
+                        android:background="@color/transparent"
                         android:onClick="onAsk"
                         android:text="@string/to_ask"
-                        android:textColor="@color/color_white"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/font_14" />
 
                 </LinearLayout>

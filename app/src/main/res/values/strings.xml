@@ -6,7 +6,7 @@
     <!-- Network 통신 관련 -->
     <string name="error">오류</string>
     <string name="server_problem">죄송합니다. 서버점검시간입니다.</string>
-    <string name="data_fetch_error">네트워크 통신상태가 좋지 않아\n다시 한 번 시도해주세요</string>
+    <string name="network_connect_error">네트워크 통신상태가 좋지 않아\n다시 한 번 시도해주세요</string>
     <string name="error_404">네트워크 에러가 발생하여\n정보를 읽어올 수 없습니다.</string>
     <string name="please_wait">잠시만 기다려 주세요.</string>
     <string name="retry">재시도 하기</string>
@@ -93,4 +93,9 @@
     <string name="input_valid_email">유효한 이메일을 입력해주십시오.</string>
     <string name="input_valid_pwd">유효한 비밀번호를 입력해주십시오.</string>
     <string name="motto">신조어</string>
+
+    <!-- Main -->
+    <string name="tab_main">Main기술</string>
+    <string name="tab_special">특기기술</string>
+    <string name="tab_latest">최신기술</string>
 </resources>

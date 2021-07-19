@@ -102,8 +102,16 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    buildFeatures {
+        viewBinding true
+    }
+
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    lintOptions {
+        disable 'NullSafeMutableLiveData'
     }
 
     applicationVariants.all { variant ->
@@ -148,6 +156,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation 'me.relex:circleindicator:2.1.4'
 
     // local db
     implementation "androidx.room:room-runtime:2.3.0"
@@ -177,14 +186,19 @@ dependencies {
     implementation 'com.akexorcist:bluetoothspp:1.0.0'
     implementation 'com.clj.fastble:FastBleLib:2.3.4'
 
-    // dagger
+    // dagger-hilt
     implementation 'com.google.dagger:dagger:2.35'
     kapt 'com.google.dagger:dagger-compiler:2.28'
 
     // fcm push
     implementation "com.google.firebase:firebase-core:19.0.0"
     implementation "com.google.firebase:firebase-messaging:22.0.0"
+
+    // google map
+    implementation 'com.google.android.gms:play-services-basement:17.6.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.maps.android:android-maps-utils:2.2.0'
 
     // etc
     implementation "com.google.guava:guava:24.1-jre"

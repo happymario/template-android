@@ -37,6 +37,6 @@
             android:layout_height="wrap_content"
             android:text="@string/close"
             android:layout_margin="16dp"
-            android:background="@color/color_transparent"/>
+            android:background="@color/transparent"/>
     </RelativeLayout>
 </layout>

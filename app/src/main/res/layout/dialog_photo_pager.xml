@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rl_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_bg"
+            style="@style/DialogBg"
+            android:alpha="1"/>
+
+        <LinearLayout
+            android:id="@+id/ll_content"
+            style="@style/DialogContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/spacing_0"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vp_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/indicator"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_marginBottom="@dimen/spacing_20"
+                android:layout_alignBottom="@+id/vp_pager"
+                android:layout_marginHorizontal="@dimen/spacing_12"
+                app:ci_animator="@anim/no_anim"
+                app:ci_drawable="@drawable/xml_bg_circle_indicator"
+                app:ci_drawable_unselected="@drawable/xml_bg_circle_indicator_unsel"
+                app:ci_gravity="center"
+                app:ci_height="5dp"
+                app:ci_margin="2dp"
+                app:ci_orientation="horizontal"
+                app:ci_width="5dp" />
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/ib_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/xml_round_4_white"
+            android:layout_margin="16dp"
+            android:background="@color/transparent"/>
+
+
+    </RelativeLayout>
+</layout>

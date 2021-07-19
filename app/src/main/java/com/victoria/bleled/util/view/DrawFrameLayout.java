@@ -31,7 +31,7 @@ public class DrawFrameLayout extends FrameLayout {
     }
 
     private void initView() {
-        paint.setColor(getContext().getResources().getColor(R.color.color_black));
+        paint.setColor(getContext().getResources().getColor(R.color.black));
         paint.setStrokeWidth(10f);
     }
 

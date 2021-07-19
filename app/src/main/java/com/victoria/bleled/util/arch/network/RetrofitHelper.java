@@ -14,13 +14,16 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.victoria.bleled.BuildConfig;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.cert.CertificateException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -32,10 +35,12 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.CallAdapter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -45,7 +50,10 @@ public class RetrofitHelper {
     /**
      * This custom client will append the "username=demo" query after every request.
      */
-    public static OkHttpClient createOkHttpClient() {
+    public static OkHttpClient createOkHttpClient(AddParamsInterceptor commonParams) {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.level(HttpLoggingInterceptor.Level.BODY);
+
         final OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
         httpClient.connectTimeout(60, TimeUnit.SECONDS);
@@ -85,9 +93,9 @@ public class RetrofitHelper {
 
         }
 
-        httpClient.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
+        if (BuildConfig.DEBUG) {
+            httpClient.addInterceptor(interceptor);
+            httpClient.addInterceptor(chain -> {
                 final Request original = chain.request();
                 final HttpUrl originalHttpUrl = original.url();
 
@@ -102,16 +110,16 @@ public class RetrofitHelper {
 
                 final Request request = requestBuilder.build();
                 return chain.proceed(request);
-            }
-        });
+            });
+        }
 
+        if(commonParams != null) {
+            httpClient.addInterceptor(commonParams);
+        }
         return httpClient.build();
     }
 
-    /**
-     * Creates a pre configured Retrofit instance
-     */
-    public static Retrofit createRetrofit(String server_base_url, CallAdapter.Factory callAdapter) {
+    public static Retrofit createRetrofit(String server_base_url, CallAdapter.Factory callAdapter, AddParamsInterceptor commonParams) {
         final Gson gson = new GsonBuilder()
                 .create();
 
@@ -125,11 +133,19 @@ public class RetrofitHelper {
         builder.baseUrl(server_base_url)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(responseGson));
+
         if (callAdapter != null) {
             builder.addCallAdapterFactory(callAdapter);
         }
 
-        return builder.client(createOkHttpClient()).build();
+        return builder.client(createOkHttpClient(commonParams)).build();
+    }
+
+    /**
+     * Creates a pre configured Retrofit instance
+     */
+    public static Retrofit createRetrofit(String server_base_url, CallAdapter.Factory callAdapter) {
+        return createRetrofit(server_base_url, callAdapter, null);
     }
 
 
@@ -137,6 +153,28 @@ public class RetrofitHelper {
         return createRetrofit(server_base_url, null);
     }
 
+
+    public static MultipartBody.Part getUploadParam(String path) {
+        if (path != null && path.isEmpty() == false) {
+            File file = new File(path);
+            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            return MultipartBody.Part.createFormData("uploadfile", file.getName(), requestFile);
+        }
+
+        return null;
+    }
+
+    public static List<MultipartBody.Part> getUploadParam(List<String> filePaths ) {
+        List<MultipartBody.Part> arrMultipartBody = new ArrayList<>();
+        for (int i = 0; i < filePaths.size(); i++) {
+            File file = new File(filePaths.get(i));
+            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("uploadfile[]", file.getName(), requestFile);
+            arrMultipartBody.add(multipartBody);
+        }
+
+        return arrMultipartBody;
+    }
 
     public static final class NewGsonFactory implements TypeAdapterFactory {
 

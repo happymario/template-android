@@ -29,7 +29,7 @@
         android:id="@+id/repo_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/color_title_text"
+        android:textColor="@color/title"
         android:textSize="@dimen/common_spacing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

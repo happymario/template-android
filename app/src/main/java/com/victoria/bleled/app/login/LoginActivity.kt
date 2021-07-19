@@ -68,11 +68,9 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
     /************************************************************
      *  Helpers
      ************************************************************/
-    private fun initView() {
-        // ui
+    override fun initView() {
+        super.initView()
 
-
-        // event
         binding.llContent.setOnClickListener {
             hideKeyboard()
         }

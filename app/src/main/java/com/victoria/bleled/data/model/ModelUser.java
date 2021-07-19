@@ -1,13 +1,37 @@
 package com.victoria.bleled.data.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "tb_user")
 public class ModelUser extends BaseModel {
-    private String access_token;
-    private String id;
-    private String name;
+    @PrimaryKey
+    public int uid;
+
+    @ColumnInfo(name = "access_token")
+    public String access_token;
+
+    @ColumnInfo(name = "id")
+    public String id;
+
+    @ColumnInfo(name = "first_name")
+    public String first_name;
+
+    @ColumnInfo(name = "last_name")
+    public String last_name;
+
+    @Ignore
     private String reg_time;
+
+    @Ignore
     private String profile_url;
+
+    @Ignore
     private String profile_url_check;
+
+    @Ignore
     private int status;
 
     public static boolean isNormalUser(String user_id) {

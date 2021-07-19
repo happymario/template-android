@@ -22,14 +22,35 @@ public abstract class BaseBindingFragment<T extends ViewDataBinding> extends Bas
     /************************************************************
      *  Overrides
      ************************************************************/
-    public abstract int getLayout();
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, getLayout(), container, false);
-
+        binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
         root = binding.getRoot();
-
+        binding.setLifecycleOwner(this);
         return root;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // updateLang
+        binding.invalidateAll();
+    }
+
+    /************************************************************
+     *  Event Handler
+     ************************************************************/
+
+
+    /************************************************************
+     *  Helpers
+     ************************************************************/
+    protected void initView() {
+        binding.setLifecycleOwner(this);
+    }
+
+    /************************************************************
+     *  Sub Classes
+     ************************************************************/
 }

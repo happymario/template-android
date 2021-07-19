@@ -54,7 +54,7 @@ class BaseCalendarView : FrameLayout {
             if (i == 0) {
                 weekView.setTextColor(resources.getColor(R.color.colorAccent))
             } else {
-                weekView.setTextColor(resources.getColor(R.color.color_text))
+                weekView.setTextColor(resources.getColor(R.color.common_text))
             }
             weekView.textSize = 20f
 

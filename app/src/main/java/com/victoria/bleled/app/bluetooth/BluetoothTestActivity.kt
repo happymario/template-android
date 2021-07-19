@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.test.bluetooth
+package com.victoria.bleled.app.bluetooth
 
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter

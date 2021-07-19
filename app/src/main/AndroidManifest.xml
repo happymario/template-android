@@ -5,15 +5,28 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!-- camera, gallary, storage -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <!-- android 11이상일 경우 WRITE_EXTERNAL_STORAGE은 더이상 지원안됨. read만 요청해도 특정 external과 scope령역 액세스가능함-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- gps and bluetooth -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> <!-- camera & gallary -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- read phone state -->
+
+    <!-- read phone state -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- for push when closed -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <meta-data
         android:name="android.allow_multiple_resumed_activities"
@@ -42,16 +55,13 @@
             android:name=".app.login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".app.test.TestActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".app.test.animation.AnimationTestActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".app.test.CameraTestActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".app.test.bluetooth.BluetoothTestActivity"
+            android:name="com.victoria.bleled.app.bluetooth.BluetoothTestActivity"
             android:screenOrientation="fullSensor" />
         <activity
             android:name=".app.test.EtcTestActivity"

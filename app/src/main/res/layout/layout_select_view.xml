@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/app_name"
-            android:textColor="@color/color_text"
+            android:textColor="@color/common_text"
             android:textSize="12dp" />
 
         <RelativeLayout
@@ -33,7 +33,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="6dp"
                 android:text="0cm"
-                android:textColor="@color/color_text"
+                android:textColor="@color/common_text"
                 android:textSize="12dp" />
 
             <ImageView

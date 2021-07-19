@@ -30,9 +30,9 @@ public class ZeroHintSpinnerAdapter extends ArrayAdapter<String> {
         View v = super.getView(position, convertView, parent);
 
         if (position == 0 && mIsZeroHint == true) {
-            ((TextView) v).setTextColor(getContext().getResources().getColorStateList(R.color.color_black));
+            ((TextView) v).setTextColor(getContext().getResources().getColorStateList(R.color.grey));
         } else {
-            ((TextView) v).setTextColor(getContext().getResources().getColorStateList(R.color.color_black));
+            ((TextView) v).setTextColor(getContext().getResources().getColorStateList(R.color.black));
         }
         ((TextView) v).setTextSize(12);
         return v;
@@ -42,7 +42,7 @@ public class ZeroHintSpinnerAdapter extends ArrayAdapter<String> {
         View v = super.getDropDownView(position, convertView, parent);
 
         ((TextView) v).setTextColor(
-                getContext().getResources().getColorStateList(R.color.color_black)
+                getContext().getResources().getColorStateList(R.color.black)
         );
 
         return v;

@@ -31,7 +31,7 @@
                     android:paddingTop="@dimen/spacing_12"
                     android:paddingBottom="@dimen/spacing_12"
                     android:text="@string/app_name"
-                    android:textColor="@color/color_dlg_title"
+                    android:textColor="@color/dlg_title"
                     android:textSize="@dimen/spacing_18"
                     android:visibility="gone" />
 
@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:visibility="gone"
-                    android:background="@color/color_divider" />
+                    android:background="@color/divider" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/font_13"
                         android:gravity="center"
-                        android:textColor="@color/color_dlg_title"
+                        android:textColor="@color/dlg_title"
                         android:paddingTop="@dimen/spacing_20"
                         android:paddingBottom="@dimen/spacing_20"
                         android:text="@string/send" />
@@ -77,7 +77,7 @@
                             android:gravity="center"
                             android:text="@string/cancel"
                             android:visibility="gone"
-                            android:textColor="@color/color_text" />
+                            android:textColor="@color/common_text" />
 
                         <TextView
                             android:id="@+id/tv_confirm"
@@ -89,7 +89,7 @@
                             android:gravity="center"
                             android:text="@string/send"
                             android:visibility="gone"
-                            android:textColor="@color/color_white" />
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
                 </LinearLayout>

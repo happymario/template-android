@@ -14,6 +14,9 @@ import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.victoria.bleled.R;
+import com.victoria.bleled.util.feature.LocaleUtil;
+
+import java.util.Locale;
 
 public class BaseActivity extends AppCompatActivity {
     /************************************************************
@@ -45,6 +48,12 @@ public class BaseActivity extends AppCompatActivity {
         createProgress();
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        String locale = Locale.getDefault().getLanguage();
+        super.attachBaseContext(LocaleUtil.setLocale(base, locale));
+    }
+
     /************************************************************
      * Event Handler
      ************************************************************/
@@ -66,7 +75,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public void hideProgress() {
         if (mIsShowProgress == true) {
-            if (mProgressCount != 0) {
+            if (mProgressCount > 1) {
                 mProgressCount--;
             } else {
                 if ((mProgressDialog != null) && mProgressDialog.isShowing()) {
@@ -111,7 +120,7 @@ public class BaseActivity extends AppCompatActivity {
         mProgressDialog.setContentView(linearLayout);
         ProgressBar progressBar = mProgressDialog.findViewById(R.id.progressBar1);
         progressBar.setIndeterminate(true);
-        progressBar.getIndeterminateDrawable().setColorFilter(getColor(R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
+        progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
     }
 
     private void dismissWithTryCatch(Dialog dialog) {

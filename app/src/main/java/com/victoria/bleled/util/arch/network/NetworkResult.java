@@ -29,8 +29,8 @@ public class NetworkResult<T> {
         return new NetworkResult<T>(Status.error, null, error);
     }
 
-    public static <T> NetworkResult<T> loading(T data) {
-        return new NetworkResult<T>(Status.loading, data, null);
+    public static <T> NetworkResult<T> loading() {
+        return new NetworkResult<T>(Status.loading, null, null);
     }
 
     public enum Status {

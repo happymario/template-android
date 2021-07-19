@@ -2,33 +2,43 @@ package com.victoria.bleled.data;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
+import com.google.android.gms.common.api.Api;
 import com.google.gson.Gson;
 import com.victoria.bleled.app.MyApplication;
 import com.victoria.bleled.data.local.IPrefDataSource;
 import com.victoria.bleled.data.local.PrefDataSourceImpl;
 import com.victoria.bleled.data.model.ModelUser;
-import com.victoria.bleled.data.remote.IGithubService;
-import com.victoria.bleled.data.remote.IRemoteService;
-import com.victoria.bleled.data.remote.convert.BaseResponseConvert;
-import com.victoria.bleled.data.remote.convert.NormalResultConvert;
-import com.victoria.bleled.data.remote.response.BaseResponse;
-import com.victoria.bleled.data.remote.response.ResponseSearchRepo;
+import com.victoria.bleled.data.remote.ApiException;
+import com.victoria.bleled.data.remote.LiveDataConverter;
+import com.victoria.bleled.data.remote.NetworkObserver;
+import com.victoria.bleled.data.remote.github.IGithubService;
+import com.victoria.bleled.data.remote.github.ResponseSearchRepo;
+import com.victoria.bleled.data.remote.myservice.BaseResponse;
+import com.victoria.bleled.data.remote.myservice.IMyRemoteService;
 import com.victoria.bleled.util.arch.AbsentLiveData;
 import com.victoria.bleled.util.arch.AppExecutors;
+import com.victoria.bleled.util.arch.network.AddParamsInterceptor;
 import com.victoria.bleled.util.arch.network.LiveDataCallAdapterFactory;
 import com.victoria.bleled.util.arch.network.NetworkResult;
 import com.victoria.bleled.util.arch.network.RetrofitHelper;
 
-import java.lang.reflect.Type;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 
 public class DataRepository {
+    public final static String PARAM_FILE = "PARAM_FILE";
+
     private AppExecutors appExecutors;
-    private IRemoteService remoteService;
+    private IMyRemoteService remoteService;
     private IGithubService githubService;
     private IPrefDataSource prefDataSource;
 
@@ -37,16 +47,16 @@ public class DataRepository {
         return retrofit.create(IGithubService.class);
     }
 
-    public static IRemoteService provideRemoteService() {
-        final Retrofit retrofit = RetrofitHelper.createRetrofit(IRemoteService.API_BASE_URL, new LiveDataCallAdapterFactory());
-        return retrofit.create(IRemoteService.class);
+    public static IMyRemoteService provideRemoteService() {
+        final Retrofit retrofit = RetrofitHelper.createRetrofit(IMyRemoteService.API_BASE_URL, new LiveDataCallAdapterFactory(), getCommonParams());
+        return retrofit.create(IMyRemoteService.class);
     }
 
     public static DataRepository provideDataRepository() {
         return new DataRepository(new AppExecutors(), DataRepository.provideRemoteService(), PrefDataSourceImpl.getInstance(MyApplication.Companion.getGlobalApplicationContext()));
     }
 
-    public DataRepository(AppExecutors executors, IRemoteService remoteService, IPrefDataSource localData) {
+    public DataRepository(AppExecutors executors, IMyRemoteService remoteService, IPrefDataSource localData) {
         this.appExecutors = executors;
         this.remoteService = remoteService;
         this.prefDataSource = localData;
@@ -56,70 +66,17 @@ public class DataRepository {
     /************************************************************
      *  Helpers
      ************************************************************/
-    private String encrypt(String... params) {
-        HashMap<String, String> map = new HashMap<>();
-        for (int i = 0; i < params.length; i += 2) {
-            map.put(params[i], params[(i + 1)]);
-        }
-        String r = RetrofitHelper.encryptParams(IRemoteService.API_KEY, map);
-        return r;
-    }
-
-    private <T> BaseResponse<T> decrypt(Type respType, String response) {
-        String strJson = RetrofitHelper.decrypt(IRemoteService.API_KEY, response);
-        BaseResponse<T> baseResponse = new Gson().fromJson(strJson, respType);
-        return baseResponse;
-    }
 
     /************************************************************
-     *  From Remote
+     *  From Github
      ************************************************************/
-    public IRemoteService getRemoteService() {
-        return remoteService;
+    public IGithubService getGithubService() {
+        return githubService;
     }
 
-    public <ResultType> LiveData<NetworkResult<ResultType>> callRemoteService1(LiveData<NetworkResult<ResultType>> call) {
-        return new NormalResultConvert<ResultType, ResultType>(appExecutors) {
-            @Override
-            protected LiveData<NetworkResult<ResultType>> createCall() {
-                return call;
-            }
 
-            @Override
-            protected LiveData<ResultType> processResponse(NetworkResult<ResultType> response) {
-                if (response.data != null && response.status.getValue() == NetworkResult.Status.success) {
-                    return new MutableLiveData<>(response.data);
-                }
-                return AbsentLiveData.create();
-            }
-        }.asLiveData();
-    }
-
-    public <ResultType> LiveData<NetworkResult<ResultType>> callRemoteService2(LiveData<NetworkResult<BaseResponse<ResultType>>> call) {
-        return new BaseResponseConvert<BaseResponse<ResultType>, ResultType>(appExecutors) {
-            @Override
-            protected LiveData<NetworkResult<BaseResponse<ResultType>>> createCall() {
-                return call;
-            }
-
-            @Override
-            protected LiveData<BaseResponse<ResultType>> processResponse(NetworkResult<BaseResponse<ResultType>> response) {
-                if (response.data != null && response.status.getValue() == NetworkResult.Status.success) {
-                    BaseResponse<ResultType> baseResponse = response.data;
-                    if (baseResponse != null) {
-                        return new MutableLiveData<>(baseResponse);
-                    }
-                }
-                return AbsentLiveData.create();
-            }
-        }.asLiveData();
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // Test
-    ///////////////////////////////////////////////////////////////////////////
-    public LiveData<NetworkResult<List<ModelUser>>> loadListForTest(String q, int page) {
-        return new NormalResultConvert<List<ModelUser>, ResponseSearchRepo>(appExecutors) {
+    public LiveData<NetworkResult<List<ModelUser>>> loadRepoList(String q, int page) {
+        return new LiveDataConverter<ResponseSearchRepo, List<ModelUser>>(appExecutors) {
             @Override
             protected LiveData<NetworkResult<ResponseSearchRepo>> createCall() {
                 return githubService.searchRepo(q, page);
@@ -135,28 +92,78 @@ public class DataRepository {
         }.asLiveData();
     }
 
-//    public LiveData<NetworkResult<ModelAppInfo>> reqAppInfo() {
-//        return new BaseResponseConvert<String, ModelAppInfo>(appExecutors) {
-//
-//            @Override
-//            protected LiveData<NetworkResult<String>> createCall() {
-//                return remoteService.appInfo(encrypt("os_type", Constants.Market));
-//            }
-//
-//            @Override
-//            protected LiveData<BaseResponse<ModelAppInfo>> processResponse(NetworkResult<String> response) {
-//                if (response.data != null && response.status.getValue() == NetworkResult.Status.success) {
-//                    BaseResponse<ModelAppInfo> baseResponse = decrypt(new TypeToken<BaseResponse<ModelAppInfo>>() {
-//                    }.getType(), response.data);
-//                    if (baseResponse != null) {
-//                        return new MutableLiveData<>(baseResponse);
-//                    }
-//                }
-//                return AbsentLiveData.create();
-//            }
-//        }.asLiveData();
-//    }
+    /************************************************************
+     *  From Remote
+     ************************************************************/
+    private static AddParamsInterceptor getCommonParams() {
+        AddParamsInterceptor addParamsInterceptor = new AddParamsInterceptor.Builder()
+                .addParameter("key", "abc")
+                .build();
 
+        return addParamsInterceptor;
+    }
+
+    public IMyRemoteService getRemoteService() {
+        return remoteService;
+    }
+
+    public <T> LiveData<NetworkResult<T>> getLiveDataApi(LiveData<NetworkResult<BaseResponse<T>>> originApi) {
+        return new LiveDataConverter<BaseResponse<T>, T>(appExecutors) {
+            @Override
+            protected LiveData<NetworkResult<BaseResponse<T>>> createCall() {
+                return originApi;
+            }
+
+            @Override
+            protected LiveData<T> processResponse(NetworkResult<BaseResponse<T>> response) {
+                if (response.data != null && response.status.getValue() == NetworkResult.Status.success) {
+                    //BaseResponse<T> baseResponse = IMyRemoteService.decrypt(retType, response.data);
+                    BaseResponse<T> baseResponse = response.data;
+                    if(baseResponse.getResult() == ApiException.SUCCESS) {
+                        return new MutableLiveData(response.data.getData());
+                    }
+                    else {
+                        return new MutableLiveData(new ApiException(baseResponse.getResult(), baseResponse.getMsg(), baseResponse.getReason()));
+                    }
+                }
+                return AbsentLiveData.create();
+            }
+        }.asLiveData();
+    }
+
+    public <T> void callApi(LiveData<NetworkResult<BaseResponse<T>>> originApi, NetworkObserver<BaseResponse<T>> callback) {
+        LiveData<NetworkResult<BaseResponse<T>>> liveData = originApi;
+        Observer apiObserver = new NetworkObserver<BaseResponse<T>>() {
+            @Override
+            public void onChanged(NetworkResult<BaseResponse<T>> baseResponseNetworkResult) {
+                super.onChanged(baseResponseNetworkResult);
+
+                if (baseResponseNetworkResult == null) {
+                    return;
+                }
+
+                NetworkResult.Status status = baseResponseNetworkResult.status.getValue();
+                if (status == NetworkResult.Status.loading) {
+                    callback.onChanged(NetworkResult.loading());
+                } else {
+                    if (status == NetworkResult.Status.success) {
+                        if (baseResponseNetworkResult.data == null) {
+                            callback.onChanged(NetworkResult.error(new Exception()));
+                            return;
+                        }
+//                        BaseResponse<T> baseResponse = new Gson().fromJson(baseResponseNetworkResult.data, new TypeToken<BaseResponse<T>>() {
+//                        }.getType());
+                        callback.onChanged(NetworkResult.success(baseResponseNetworkResult.data));
+                    } else {
+                        callback.onChanged(NetworkResult.error(baseResponseNetworkResult.error));
+                    }
+                    liveData.removeObserver(this);
+                }
+            }
+        };
+
+        liveData.observeForever(apiObserver);
+    }
 
     /************************************************************
      *  From Local

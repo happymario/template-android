@@ -57,7 +57,7 @@ fun ImageView.loadImage(url: String?, defaultResId: Int, callback: ImageLoadList
                         if (defaultResId != 0) {
                             this@loadImage.setImageResource(defaultResId)
                         } else {
-                            this@loadImage.setImageResource(R.color.color_image_bg)
+                            this@loadImage.setImageResource(R.color.image_bg)
                         }
 
                         callback?.onError()
@@ -85,7 +85,7 @@ fun ImageView.loadImage(url: String?, defaultResId: Int, callback: ImageLoadList
                     .into(this)
             } else {
                 Glide.with(this)
-                    .load(R.color.color_image_bg)
+                    .load(R.color.image_bg)
                     .into(this)
             }
         }
@@ -98,7 +98,7 @@ fun ImageView.loadImage(url: String?, defaultResId: Int, callback: ImageLoadList
                 .into(this)
         } else {
             Glide.with(this)
-                .load(R.color.color_image_bg)
+                .load(R.color.image_bg)
                 .into(this)
         }
     }

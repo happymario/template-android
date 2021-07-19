@@ -38,7 +38,7 @@
         app:fanColor1="#FFEB3B"
         app:fanColor2="#CDDC39"
         app:fanColor3="#009688"
-        app:layout_constraintEnd_toEndOf="@+id/customLabel"
-        app:layout_constraintStart_toStartOf="@+id/customLabel"
+        app:layout_constraintEnd_toEndOf="@+id/motionLayout"
+        app:layout_constraintStart_toStartOf="@+id/motionLayout"
         app:layout_constraintTop_toBottomOf="@+id/motionLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

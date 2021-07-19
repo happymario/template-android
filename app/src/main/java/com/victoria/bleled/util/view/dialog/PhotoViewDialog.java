@@ -31,7 +31,7 @@ public class PhotoViewDialog extends BaseDialog {
 
     private void initView() {
         // ui
-        ImageLoader.loadImage(context, binding.ivPhoto, R.color.color_image_bg, url);
+        ImageLoader.loadImage(context, binding.ivPhoto, R.color.image_bg, url);
 
         // events
         binding.ibBack.setOnClickListener(v -> {
