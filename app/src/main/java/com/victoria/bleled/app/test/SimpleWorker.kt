@@ -12,7 +12,7 @@ class SimpleWorker(appContext: Context, workerParameters: WorkerParameters) :
     override fun doWork(): Result {
         Log.d("SimpleWorker", "doWork1");
 
-        val prefImple = DataRepository.provideDataRepository().prefDataSource
+        val prefImple = DataRepository.provideDataRepository(applicationContext).prefDataSource
 
         if (prefImple.isAutoLogin) {
             Log.d("SimpleWorker", "doWork2");

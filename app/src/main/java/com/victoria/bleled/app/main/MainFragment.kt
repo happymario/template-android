@@ -1,7 +1,9 @@
 package com.victoria.bleled.app.main
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.victoria.bleled.R
 import com.victoria.bleled.databinding.FragmentMainBinding
 import com.victoria.bleled.util.arch.base.BaseBindingFragment
@@ -27,39 +29,31 @@ class MainFragment : BaseBindingFragment<FragmentMainBinding>() {
 //    private lateinit var viewModel: MainViewModel
 //    private lateinit var bannerAdapter: BannerAdapter
 
-
-    /************************************************************
-     *  Overrides
-     ************************************************************/
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        initViewModel()
-
-        refresh()
-    }
-
     override fun getLayoutId(): Int {
         return R.layout.fragment_main
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        initViewModel()
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-    }
-
-    override fun onResume() {
-        super.onResume()
+        refresh()
     }
 
 
     /************************************************************
      *  Events
      ************************************************************/
-    fun onClickTab(view: View) {
 
-    }
 
     /************************************************************
      *  Public

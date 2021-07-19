@@ -1,5 +1,7 @@
 package com.victoria.bleled.data;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -52,8 +54,8 @@ public class DataRepository {
         return retrofit.create(IMyRemoteService.class);
     }
 
-    public static DataRepository provideDataRepository() {
-        return new DataRepository(new AppExecutors(), DataRepository.provideRemoteService(), PrefDataSourceImpl.getInstance(MyApplication.Companion.getGlobalApplicationContext()));
+    public static DataRepository provideDataRepository(Context context) {
+        return new DataRepository(new AppExecutors(), DataRepository.provideRemoteService(), PrefDataSourceImpl.getInstance(context));
     }
 
     public DataRepository(AppExecutors executors, IMyRemoteService remoteService, IPrefDataSource localData) {

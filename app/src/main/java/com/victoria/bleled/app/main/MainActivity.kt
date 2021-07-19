@@ -1,13 +1,11 @@
 package com.victoria.bleled.app.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.ActionBar
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import com.victoria.bleled.R
-import com.victoria.bleled.app.bluetooth.SpecialFragment
-import com.victoria.bleled.app.test.LatestFragment
 import com.victoria.bleled.databinding.ActivityMainBinding
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.arch.base.BaseBindingActivity
@@ -54,7 +52,9 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
 
         setupToolbar()
         setupViewPager(binding.viewpager)
-        binding.tabs.setupWithViewPager(binding.viewpager)
+        TabLayoutMediator(binding.tabs, binding.viewpager) { tab, position ->
+            tab.text = pagerAdapter?.getFragmentTitle(position)
+        }.attach()
     }
 
     private fun setupToolbar() {
@@ -65,11 +65,14 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         ab?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun setupViewPager(viewPager: ViewPager) {
-        pagerAdapter = MainPagerAdapter(supportFragmentManager)
-        pagerAdapter?.addFragment(MainFragment.newInstance(), getString(R.string.tab_main))
-        pagerAdapter?.addFragment(SpecialFragment.newInstance(), getString(R.string.tab_special))
-        pagerAdapter?.addFragment(LatestFragment.newInstance(), getString(R.string.tab_latest))
+    private fun setupViewPager(viewPager: ViewPager2) {
+        pagerAdapter = MainPagerAdapter(this)
+
+        val titleArray = ArrayList<String>()
+        titleArray.add(getString(R.string.tab_main))
+        titleArray.add(getString(R.string.tab_special))
+        titleArray.add(getString(R.string.tab_latest))
+        pagerAdapter?.setFragmentTitle(titleArray)
 
         viewPager.adapter = pagerAdapter
     }

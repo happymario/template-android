@@ -5,8 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.victoria.bleled.R
+import com.victoria.bleled.app.getViewModelFactory
 import com.victoria.bleled.app.login.LoginActivity
 import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.common.Constants
@@ -35,7 +38,7 @@ class SplashActivity : BaseActivity() {
     /************************************************************
      *  UI controls & Data members
      ************************************************************/
-    private var viewModel: SplashViewModel? = null
+    private val viewModel by viewModels<SplashViewModel> { getViewModelFactory() }
 
     /************************************************************
      *  Overrides
@@ -86,13 +89,11 @@ class SplashActivity : BaseActivity() {
      *  Helpers
      ************************************************************/
     private fun initView() {
-        // ui
 
-        // events
     }
 
     private fun initViewModel() {
-        viewModel = SplashViewModel(DataRepository.provideDataRepository())
+
     }
 
 
@@ -119,7 +120,7 @@ class SplashActivity : BaseActivity() {
 
                 if (it.status.value == NetworkResult.Status.success) {
                     val prefDataSource =
-                        DataRepository.provideDataRepository().prefDataSource
+                        DataRepository.provideDataRepository(this).prefDataSource
                     prefDataSource.appInfo = it.data
                 }
 

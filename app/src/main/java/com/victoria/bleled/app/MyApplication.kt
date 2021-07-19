@@ -9,12 +9,11 @@ import android.util.Log
 import androidx.multidex.MultiDex
 import com.facebook.stetho.Stetho
 import com.victoria.bleled.app.main.MainActivity
+import com.victoria.bleled.data.DataRepository
 import com.victoria.bleled.util.feature.logger.MyDiskLogAdapter
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.io.Writer
-import java.util.*
-import kotlin.collections.HashSet
 
 
 class MyApplication : Application() {
@@ -33,11 +32,15 @@ class MyApplication : Application() {
             }
     }
 
-    private var allActivities:HashSet<Activity> = HashSet()
-    private var curActivity:Activity? = null
-    private var appStatus:AppStatus = AppStatus.BACKGROUND
+    val dataRepository: DataRepository
+        get() = DataRepository.provideDataRepository(this)
+
+    private var allActivities: HashSet<Activity> = HashSet()
+    private var curActivity: Activity? = null
+    private var appStatus: AppStatus = AppStatus.BACKGROUND
     private var uncaughtExceptionHandler: Thread.UncaughtExceptionHandler? = null
     private lateinit var diskLogAdapter: MyDiskLogAdapter
+
 
     override fun onCreate() {
         super.onCreate()
@@ -114,7 +117,8 @@ class MyApplication : Application() {
     }
 
 
-    class MyActivityLifecycleCallbacks constructor(private var application: MyApplication) : ActivityLifecycleCallbacks {
+    class MyActivityLifecycleCallbacks constructor(private var application: MyApplication) :
+        ActivityLifecycleCallbacks {
         // running activity count
         private var running = 0
         override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
@@ -156,7 +160,8 @@ class MyApplication : Application() {
         }
     }
 
-    internal class UncaughtExceptionHandlerApplication constructor(private var application: MyApplication) : Thread.UncaughtExceptionHandler {
+    internal class UncaughtExceptionHandlerApplication constructor(private var application: MyApplication) :
+        Thread.UncaughtExceptionHandler {
         /**
          * Exception 로그 메시지
          *
@@ -238,13 +243,12 @@ class MyApplication : Application() {
 //                    } else {
 //                        response = "";
 //                    }
-            }
-            catch (e:java.lang.Exception) {
+            } catch (e: java.lang.Exception) {
                 e.printStackTrace()
             }
 
 
-            return  response
+            return response
         }
 
         override fun onPostExecute(feed: String?) {

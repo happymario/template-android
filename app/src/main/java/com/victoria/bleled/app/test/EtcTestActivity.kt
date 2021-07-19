@@ -29,7 +29,7 @@ class EtcTestActivity : AppCompatActivity() {
         val workManager = WorkManager.getInstance(this)
         workManager.cancelAllWork()
 
-        val prefImple = DataRepository.provideDataRepository().prefDataSource
+        val prefImple = DataRepository.provideDataRepository(this).prefDataSource
         prefImple.isAutoLogin = true
 
         workManager?.enqueue(workRequest)

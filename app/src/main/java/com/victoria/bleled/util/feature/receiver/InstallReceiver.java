@@ -13,7 +13,7 @@ public class InstallReceiver extends BroadcastReceiver {
         String rawReferrerString = intent.getStringExtra("referrer");
         if (rawReferrerString != null) {
             Log.i("MyApp", "Received the following intent " + rawReferrerString);
-            IPrefDataSource dataSource = DataRepository.provideDataRepository().getPrefDataSource();
+            IPrefDataSource dataSource = DataRepository.provideDataRepository(context).getPrefDataSource();
             dataSource.setReferer(rawReferrerString);
         }
     }

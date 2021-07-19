@@ -110,7 +110,7 @@ public class GPSTracker extends Service {
 //        bestAccuracy = location.getAccuracy();
             lastLocation = location;
             if (lastLocation != null) {
-                IPrefDataSource dataManager = DataRepository.provideDataRepository().getPrefDataSource();
+                IPrefDataSource dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
 
                 dataManager.setLatitude(lastLocation.getLatitude());
                 dataManager.setLongitude(lastLocation.getLongitude());
@@ -136,7 +136,7 @@ public class GPSTracker extends Service {
             if (locationList.size() > 0) {
                 lastLocation = locationList.get(locationList.size() - 1);
                 if (lastLocation != null) {
-                    IPrefDataSource dataManager = DataRepository.provideDataRepository().getPrefDataSource();
+                    IPrefDataSource dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
 
                     dataManager.setLatitude(lastLocation.getLatitude());
                     dataManager.setLongitude(lastLocation.getLongitude());
@@ -172,7 +172,7 @@ public class GPSTracker extends Service {
         lastLocation.setLatitude(latitude);
         lastLocation.setLongitude(longitude);
 
-        IPrefDataSource dataManager = DataRepository.provideDataRepository().getPrefDataSource();
+        IPrefDataSource dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
 
         dataManager.setLatitude(latitude);
         dataManager.setLongitude(longitude);
@@ -194,7 +194,7 @@ public class GPSTracker extends Service {
         Location location = new Location("default");
 
         // get last location from preference
-        IPrefDataSource dataManager = DataRepository.provideDataRepository().getPrefDataSource();
+        IPrefDataSource dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
         double latitude = dataManager.getLatitude();
         double longitude = dataManager.getLongitude();
         setLastLocation(latitude, longitude);
