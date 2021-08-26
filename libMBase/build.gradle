@@ -27,18 +27,18 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.5.0'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     //
     // 많이 리용하는 github libraries
     //
 
     // feature
-    implementation 'com.karumi:dexter:6.2.2'  // permission
+    implementation 'pub.devrel:easypermissions:3.0.0'
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
 
     // UI
@@ -112,16 +112,10 @@ dependencies {
 
     // animation
     implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
-    implementation 'com.github.ksoichiro:android-observablescrollview:1.5.0'
 
     // Util
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'net.danlew:android.joda:2.10.9.1'
     implementation 'com.blankj:utilcode:1.30.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
-
-    // Import need
-    // Android-Link-Preview, PagerSlidingTabStrip, SlidingMenu, CaptchaImageView, libBiometricAuth(yammi), GaussianBlur
-    // jsoup Html Paser, LibAppRTC(lovebattery), LibSmack(voicetalk), ApkExpansion, ScreenRecorder
-    // 2021/10월이후 최신 os 12 반영
 }
