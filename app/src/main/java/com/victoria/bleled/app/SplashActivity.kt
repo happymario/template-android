@@ -13,6 +13,8 @@ import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.app.user.LoginActivity
 import com.victoria.bleled.common.Constants
 import com.victoria.bleled.data.DataRepository
+import com.victoria.bleled.data.remote.NetworkObserver
+import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.arch.base.BaseActivity
 import com.victoria.bleled.util.arch.network.NetworkResult
 import com.victoria.bleled.util.feature.PermissionUtil
@@ -29,7 +31,7 @@ class SplashActivity : BaseActivity() {
         )
 
         private val optionalPermissions = arrayOf(
-            Manifest.permission.READ_CONTACTS
+            Manifest.permission.CAMERA
         )
     }
 
@@ -54,9 +56,6 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        initView()
-        initViewModel()
-
         checkPermissions()
     }
 
@@ -64,14 +63,6 @@ class SplashActivity : BaseActivity() {
     /************************************************************
      *  Private
      ************************************************************/
-    private fun initView() {
-
-    }
-
-    private fun initViewModel() {
-
-    }
-
     private fun checkPermissions() {
         if (PermissionUtil.hasPermission(this, requiredPermissions)) {
             startLogic()
@@ -96,11 +87,25 @@ class SplashActivity : BaseActivity() {
                     val prefDataSource =
                         DataRepository.provideDataRepository(this).prefDataSource
                     prefDataSource.appInfo = it.data
-                }
 
-                Handler(Looper.getMainLooper()).postDelayed({
-                    goLogin()
-                }, 2000)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        if (prefDataSource.user != null) {
+                            goMain()
+                        } else {
+                            goLogin()
+                        }
+                    }, 2000)
+                } else {
+                    val msg = NetworkObserver.getErrorMsg(this, it)
+                    CommonUtil.showToast(
+                        this,
+                        if (msg == null || msg.isEmpty()) getString(R.string.network_connect_error) else msg
+                    )
+
+                    if(Constants.IS_TEST) {
+                        goLogin()
+                    }
+                }
             }
         })
     }

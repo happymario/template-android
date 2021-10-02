@@ -35,7 +35,7 @@ public class PushMessage implements Serializable {
     }
 
     public String getDisplayMsg(Context context) {
-        ModelUser user = new ModelUser();
+        ModelUser user = new ModelUser(0);
         //user.setUserid(from_user_uid);
         return content;
     }

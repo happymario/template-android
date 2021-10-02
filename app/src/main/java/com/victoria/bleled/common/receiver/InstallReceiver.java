@@ -6,14 +6,14 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.victoria.bleled.data.DataRepository;
-import com.victoria.bleled.data.local.IPrefDataSource;
+import com.victoria.bleled.data.local.PrefDataSource;
 
 public class InstallReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String rawReferrerString = intent.getStringExtra("referrer");
         if (rawReferrerString != null) {
             Log.i("MyApp", "Received the following intent " + rawReferrerString);
-            IPrefDataSource dataSource = DataRepository.provideDataRepository(context).getPrefDataSource();
+            PrefDataSource dataSource = DataRepository.provideDataRepository(context).getPrefDataSource();
             dataSource.setReferer(rawReferrerString);
         }
     }

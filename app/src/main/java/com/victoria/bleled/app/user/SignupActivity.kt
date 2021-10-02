@@ -197,7 +197,7 @@ class SignupActivity : BaseBindingActivity<ActivitySignupBinding>() {
 
 
     private fun uploadFile(file: File) {
-        viewModel.uploadFile(file).observe(this, object : NetworkObserver<ModelUpload>() {
+        viewModel.uploadFile(file).observe(this, object : NetworkObserver<ModelUpload>(this@SignupActivity, true) {
             override fun onChanged(result: NetworkResult<ModelUpload>) {
                 super.onChanged(result)
 

@@ -36,7 +36,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.maps.android.SphericalUtil;
 import com.victoria.bleled.data.DataRepository;
-import com.victoria.bleled.data.local.IPrefDataSource;
+import com.victoria.bleled.data.local.PrefDataSource;
 
 import java.io.IOException;
 import java.util.List;
@@ -109,7 +109,7 @@ public class GPSTracker extends Service {
 //        bestAccuracy = location.getAccuracy();
             lastLocation = location;
             if (lastLocation != null) {
-                IPrefDataSource dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
+                PrefDataSource dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
 
                 dataManager.setLatitude(lastLocation.getLatitude());
                 dataManager.setLongitude(lastLocation.getLongitude());
@@ -135,7 +135,7 @@ public class GPSTracker extends Service {
             if (locationList.size() > 0) {
                 lastLocation = locationList.get(locationList.size() - 1);
                 if (lastLocation != null) {
-                    IPrefDataSource dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
+                    PrefDataSource dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
 
                     dataManager.setLatitude(lastLocation.getLatitude());
                     dataManager.setLongitude(lastLocation.getLongitude());
@@ -171,7 +171,7 @@ public class GPSTracker extends Service {
         lastLocation.setLatitude(latitude);
         lastLocation.setLongitude(longitude);
 
-        IPrefDataSource dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
+        PrefDataSource dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
 
         dataManager.setLatitude(latitude);
         dataManager.setLongitude(longitude);
@@ -193,7 +193,7 @@ public class GPSTracker extends Service {
         Location location = new Location("default");
 
         // get last location from preference
-        IPrefDataSource dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
+        PrefDataSource dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
         double latitude = dataManager.getLatitude();
         double longitude = dataManager.getLongitude();
         setLastLocation(latitude, longitude);

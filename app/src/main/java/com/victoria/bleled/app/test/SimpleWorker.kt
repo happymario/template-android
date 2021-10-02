@@ -14,11 +14,11 @@ class SimpleWorker(appContext: Context, workerParameters: WorkerParameters) :
 
         val prefImple = DataRepository.provideDataRepository(applicationContext).prefDataSource
 
-        if (prefImple.isAutoLogin) {
-            Log.d("SimpleWorker", "doWork2");
-            prefImple.isAutoLogin = false
-            return Result.retry()
-        }
+//        if (prefImple.isAutoLogin) {
+//            Log.d("SimpleWorker", "doWork2");
+//            prefImple.isAutoLogin = false
+//            return Result.retry()
+//        }
 
         Log.d("SimpleWorker", "doWork3");
 

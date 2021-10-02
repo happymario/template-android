@@ -1,7 +1,7 @@
 package com.victoria.bleled.common;
 
 public interface Constants {
-    boolean IS_TEST = false;
+    boolean IS_TEST = true;
 
     String MARKET = "google"; // onestore, google
     String CLIENT_PHONE_NUMBER = "191-245-3575";

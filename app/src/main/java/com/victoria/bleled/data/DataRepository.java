@@ -6,8 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
-import com.victoria.bleled.data.local.IPrefDataSource;
-import com.victoria.bleled.data.local.PrefDataSourceImpl;
+import com.victoria.bleled.data.local.PrefDataSource;
 import com.victoria.bleled.data.model.ModelUser;
 import com.victoria.bleled.data.remote.ApiException;
 import com.victoria.bleled.data.remote.LiveDataConverter;
@@ -28,12 +27,10 @@ import java.util.List;
 import retrofit2.Retrofit;
 
 public class DataRepository {
-    public final static String PARAM_FILE = "PARAM_FILE";
-
     private AppExecutors appExecutors;
     private IMyRemoteService remoteService;
     private IGithubService githubService;
-    private IPrefDataSource prefDataSource;
+    private PrefDataSource prefDataSource;
 
     public static IGithubService provideGithubService() {
         final Retrofit retrofit = RetrofitHelper.createRetrofit(IGithubService.API_BASE_URL, new LiveDataCallAdapterFactory());
@@ -46,10 +43,10 @@ public class DataRepository {
     }
 
     public static DataRepository provideDataRepository(Context context) {
-        return new DataRepository(new AppExecutors(), DataRepository.provideRemoteService(), PrefDataSourceImpl.getInstance(context));
+        return new DataRepository(new AppExecutors(), DataRepository.provideRemoteService(), PrefDataSource.getInstance(context));
     }
 
-    public DataRepository(AppExecutors executors, IMyRemoteService remoteService, IPrefDataSource localData) {
+    public DataRepository(AppExecutors executors, IMyRemoteService remoteService, PrefDataSource localData) {
         this.appExecutors = executors;
         this.remoteService = remoteService;
         this.prefDataSource = localData;
@@ -160,7 +157,7 @@ public class DataRepository {
     /************************************************************
      *  From Local
      ************************************************************/
-    public IPrefDataSource getPrefDataSource() {
+    public PrefDataSource getPrefDataSource() {
         return prefDataSource;
     }
 }
