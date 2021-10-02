@@ -62,7 +62,7 @@ public class MyDiskLogStrategy implements LogStrategy {
 
             FileOutputStream outputStream = null;
             try {
-               outputStream = new FileOutputStream(filePath, true);
+                outputStream = new FileOutputStream(filePath, true);
                 if (outputStream == null) {
                     return;
                 }

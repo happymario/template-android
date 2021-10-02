@@ -24,6 +24,8 @@ import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.URLUtil;
 import android.widget.EditText;
@@ -253,11 +255,6 @@ public class CommonUtil {
 
     }
 
-    public static int spToPx(Context context, float spValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (spValue * fontScale + 0.5f);
-    }
-
     public static String makeMoneyType(int money) {
         return makeMoneyType(String.valueOf(money));
     }
@@ -282,19 +279,6 @@ public class CommonUtil {
         } catch (Exception e) {
             return moneyString;
         }
-    }
-
-    public static String getCurrentDate() {
-        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
-        return getDateFormat(cal.getTime(), "yyyyMMdd");
-    }
-
-    public static String getDateFormat(Date time, String format) {
-        if (time == null) {
-            return "";
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat(format);
-        return sdf.format(time);
     }
 
     public static String dateFormatConvert(String dateTime, String inFormat, String outFormat) {
@@ -408,6 +392,11 @@ public class CommonUtil {
         }
 
         return timeString;
+    }
+
+    public static String getCurrentDate() {
+        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+        return getDateString("yyyyMMdd", cal.getTime());
     }
 
     public static Date getDateFromServer(String dateStr) {
@@ -728,6 +717,7 @@ public class CommonUtil {
         }, 200);
     }
 
+
     public static String digitTwo(int digit) {
         if (digit < 10) {
             return "0" + digit;
@@ -762,5 +752,26 @@ public class CommonUtil {
             Log.e("CommonUtil", "error " + e.getMessage());
         }
         return apiKey;
+    }
+
+    public static List<View> getAllChildren(View v) {
+
+        if (!(v instanceof ViewGroup)) {
+            ArrayList<View> viewArrayList = new ArrayList<View>();
+            viewArrayList.add(v);
+            return viewArrayList;
+        }
+
+        ArrayList<View> result = new ArrayList<View>();
+
+        ViewGroup viewGroup = (ViewGroup) v;
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+
+            View child = viewGroup.getChildAt(i);
+
+            //Do not add any parents, just add child elements
+            result.addAll(getAllChildren(child));
+        }
+        return result;
     }
 }

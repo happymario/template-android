@@ -41,13 +41,11 @@ public abstract class LiveDataConverter<RequestType, ResultType> {
                     LiveData<ResultType> newData = processResponse(response);
                     ResultType responseData = newData.getValue();
 
-                    if(responseData == null) {
+                    if (responseData == null) {
                         result.setValue(NetworkResult.error(new ApiException(ApiException.ERR_NO_DATA, "", "")));
-                    }
-                    else if(responseData instanceof  Exception) {
-                        result.setValue(NetworkResult.error((Exception)responseData));
-                    }
-                    else {
+                    } else if (responseData instanceof Exception) {
+                        result.setValue(NetworkResult.error((Exception) responseData));
+                    } else {
                         result.setValue(NetworkResult.success(responseData));
                     }
                 });

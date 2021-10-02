@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 public class CustomTypefaceSpan extends MetricAffectingSpan {
     private Typeface typeface = null;
+
     public CustomTypefaceSpan(Typeface typeface) {
         super();
         this.typeface = typeface;

@@ -1,8 +1,5 @@
 package com.victoria.bleled.app.bluetooth
 
-import android.app.Activity
-import android.bluetooth.BluetoothAdapter
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -10,8 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.akexorcist.bluetotohspp.library.BluetoothSPP
 import app.akexorcist.bluetotohspp.library.BluetoothState
-import app.akexorcist.bluetotohspp.library.BluetoothState.REQUEST_ENABLE_BT
-import app.akexorcist.bluetotohspp.library.DeviceList
 import com.clj.fastble.BleManager
 import com.clj.fastble.callback.BleScanCallback
 import com.clj.fastble.data.BleDevice
@@ -37,8 +32,8 @@ class BluetoothTestActivity : AppCompatActivity() {
         }
 
         if (!bt.isBluetoothEnabled) {
-            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
+//            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+//            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
             return
         }
 
@@ -46,21 +41,21 @@ class BluetoothTestActivity : AppCompatActivity() {
         // startScanBle();
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == BluetoothState.REQUEST_CONNECT_DEVICE) {
-            if (resultCode == Activity.RESULT_OK) {
-                bt.connect(data)
-            }
-        } else if (requestCode == BluetoothState.REQUEST_ENABLE_BT) {
-            if (resultCode == Activity.RESULT_OK) {
-                startSPP()
-            } else {
-                CommonUtil.showToast(applicationContext, "Bluetooth is not available")
-            }
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        if (requestCode == BluetoothState.REQUEST_CONNECT_DEVICE) {
+//            if (resultCode == Activity.RESULT_OK) {
+//                bt.connect(data)
+//            }
+//        } else if (requestCode == BluetoothState.REQUEST_ENABLE_BT) {
+//            if (resultCode == Activity.RESULT_OK) {
+//                startSPP()
+//            } else {
+//                CommonUtil.showToast(applicationContext, "Bluetooth is not available")
+//            }
+//        }
+//    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -68,12 +63,12 @@ class BluetoothTestActivity : AppCompatActivity() {
         bt.stopService() //블루투스 중지
     }
 
-    fun onScan(view: View) {
+    fun onScan() {
         if (bt.serviceState == BluetoothState.STATE_CONNECTED) {
             bt.disconnect()
         } else {
-            val intent = Intent(applicationContext, DeviceList::class.java)
-            startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE)
+//            val intent = Intent(applicationContext, DeviceList::class.java)
+//            startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE)
         }
     }
 
@@ -125,7 +120,7 @@ class BluetoothTestActivity : AppCompatActivity() {
 
     private fun initSPP() {
         bt = BluetoothSPP(this) //Initializing
-        bt.setOnDataReceivedListener { data, message ->
+        bt.setOnDataReceivedListener { _, message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
 
@@ -162,7 +157,7 @@ class BluetoothTestActivity : AppCompatActivity() {
             for (i in deviceList.indices) {
                 val fastBleDevice =
                     MyFastBleDevice(this, deviceList[i])
-                if (fastBleDevice.isMyDevice === true) {
+                if (fastBleDevice.isMyDevice) {
                     initFastBle(fastBleDevice)
                     break
                 }
@@ -224,7 +219,7 @@ class BluetoothTestActivity : AppCompatActivity() {
                 val text = data?.command?.str
                 if (text != null) {
                     if (text.contains("Retry")) {
-                        fastBleDevice?.retry()
+                        fastBleDevice.retry()
                     } else if (text.contains("OK")) {
 
                     }

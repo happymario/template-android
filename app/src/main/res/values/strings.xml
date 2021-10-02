@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Template\nAndroid</string>
+    <string name="app_name">Template</string>
     <string name="app_finish_message">"'뒤로' 버튼을 한번 더 누르면 종료됩니다."</string>
     <string name="pms_des">해당 기능을 사용하려면 권한이 필요합니다. 권한을 허용해주세요.</string>
     <string name="ready_service">서비스 준비중입니다.</string>

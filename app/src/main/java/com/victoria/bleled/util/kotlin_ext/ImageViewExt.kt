@@ -18,23 +18,23 @@ interface ImageLoadListener {
     fun onError()
 }
 
-fun ImageView.loadImage(imageUrl: String?) {
+fun ImageView.loadImage(imageUrl: String) {
     Glide.with(this.context.applicationContext).load(imageUrl).into(this)
 }
 
-fun ImageView.loadImage(imageUrl: String?, default: Drawable) {
+fun ImageView.loadImage(imageUrl: String, default: Drawable) {
     Glide.with(this.context.applicationContext).load(imageUrl).placeholder(default).into(this)
 }
 
-fun ImageView.loadBitmap(image: Bitmap?) {
+fun ImageView.loadBitmap(image: Bitmap) {
     Glide.with(this).load(image).into(this)
 }
 
-fun ImageView.loadImage(imageUrl: String?, defaultId: Int) {
+fun ImageView.loadImage(imageUrl: String, defaultId: Int) {
     Glide.with(this).load(imageUrl).placeholder(defaultId).into(this)
 }
 
-fun ImageView.loadImage(url: String?, defaultResId: Int, callback: ImageLoadListener) {
+fun ImageView.loadImage(url: String, defaultResId: Int, callback: ImageLoadListener?) {
     try {
         val file = File(url)
         if (file.exists()) {
@@ -44,7 +44,7 @@ fun ImageView.loadImage(url: String?, defaultResId: Int, callback: ImageLoadList
                 .into(this)
 
             callback?.onSuccess()
-        } else if (url != null && url.isEmpty() == false) {
+        } else if (url.isNotEmpty()) {
             Glide.with(this)
                 .load(File(url))
                 .placeholder(defaultResId)

@@ -3,21 +3,30 @@ package com.victoria.bleled.app
 import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.os.AsyncTask
+import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import androidx.multidex.MultiDex
 import com.facebook.stetho.Stetho
+import com.orhanobut.logger.Logger
 import com.victoria.bleled.app.main.MainActivity
-import com.victoria.bleled.data.DataRepository
+import com.victoria.bleled.util.feature.LocaleUtil
 import com.victoria.bleled.util.feature.logger.MyDiskLogAdapter
+import com.zhy.http.okhttp.OkHttpUtils
+import com.zhy.http.okhttp.callback.Callback
+import okhttp3.Call
+import okhttp3.Response
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.io.Writer
+import java.util.*
+import kotlin.collections.HashSet
 
 
 class MyApplication : Application() {
-
+    /************************************************************
+     *  Static & Global Members
+     ************************************************************/
     companion object {
         private var instance: MyApplication? = null
 
@@ -32,16 +41,20 @@ class MyApplication : Application() {
             }
     }
 
-    val dataRepository: DataRepository
-        get() = DataRepository.provideDataRepository(this)
-
+    /************************************************************
+     *  UI controls & Data members
+     ************************************************************/
     private var allActivities: HashSet<Activity> = HashSet()
     private var curActivity: Activity? = null
     private var appStatus: AppStatus = AppStatus.BACKGROUND
+
     private var uncaughtExceptionHandler: Thread.UncaughtExceptionHandler? = null
     private lateinit var diskLogAdapter: MyDiskLogAdapter
 
 
+    /************************************************************
+     *  Overrides
+     ************************************************************/
     override fun onCreate() {
         super.onCreate()
 
@@ -50,31 +63,56 @@ class MyApplication : Application() {
         Stetho.initializeWithDefaults(this)
         diskLogAdapter = MyDiskLogAdapter(this)
         registerActivityLifecycleCallbacks(MyActivityLifecycleCallbacks(this))
-        uncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
+        uncaughtExceptionHandler = UncaughtExceptionHandlerApplication(this)
         Thread.setDefaultUncaughtExceptionHandler(uncaughtExceptionHandler)
     }
 
     override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base)
+        var languageCode = Locale.getDefault().language
+//        if (base != null) {
+//            val preference = PrefDataSource.getInstance(base)
+//            val setting = preference.setting
+//            if (setting.lang.isNotEmpty()) {
+//                languageCode = setting.lang
+//            }
+//        }
+        super.attachBaseContext(LocaleUtil.setLocale(base, languageCode))
         MultiDex.install(base)
     }
 
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        var languageCode = Locale.getDefault().language
+//        if (base != null) {
+//            val preference = PrefDataSource.getInstance(base)
+//            val setting = preference.setting
+//            if (setting.lang.isNotEmpty()) {
+//                languageCode = setting.lang
+//            }
+//        }
+        LocaleUtil.setLocale(this, languageCode)
+    }
+
+
+    /************************************************************
+     *  public functions
+     ************************************************************/
+    fun getAppDir(): String {
+        val dir = filesDir.absolutePath.substring(
+            0,
+            filesDir.absolutePath.indexOf("/files")
+        )
+        return dir
+    }
+
     fun addActivity(act: Activity) {
-        if (allActivities == null) {
-            allActivities = HashSet()
-        }
         allActivities.add(act)
     }
 
     fun removeActivity(act: Activity) {
-        if (allActivities != null) {
-            allActivities.remove(act)
-        }
-    }
-
-    fun getCurActivity(): Activity? {
-        return curActivity
+        allActivities.remove(act)
     }
 
     fun isForeground(): Boolean {
@@ -84,15 +122,19 @@ class MyApplication : Application() {
     }
 
     fun finishAllActivityWithoutMain() {
-        if (allActivities != null) {
-            synchronized(allActivities) {
-                for (act in allActivities) {
-                    if (!(act is MainActivity)) {
-                        act.finish()
-                    }
+        synchronized(allActivities) {
+            for (act in allActivities) {
+                if (act !is MainActivity) {
+                    act.finish()
                 }
             }
         }
+    }
+
+    fun restartApp() {
+        val i = Intent(this, MainActivity::class.java)
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(i)
     }
 
     fun exitApp() {
@@ -101,21 +143,18 @@ class MyApplication : Application() {
     }
 
     fun startLogger() {
-        com.orhanobut.logger.Logger.addLogAdapter(diskLogAdapter)
+        Logger.addLogAdapter(diskLogAdapter)
     }
 
     fun stopLogger() {
-        com.orhanobut.logger.Logger.clearLogAdapters()
+        Logger.clearLogAdapters()
     }
 
     fun cleanLoggerHistory() {
-        if (diskLogAdapter != null) {
-            diskLogAdapter.clearData()
-        }
+        diskLogAdapter.clearData()
         stopLogger()
         startLogger()
     }
-
 
     class MyActivityLifecycleCallbacks constructor(private var application: MyApplication) :
         ActivityLifecycleCallbacks {
@@ -182,78 +221,41 @@ class MyApplication : Application() {
         }
 
         override fun uncaughtException(thread: Thread, ex: Throwable) {
-            Log.e("uncaughtException", getStackTrace(ex))
+            Logger.e("uncaughtException", getStackTrace(ex))
 
-            //new CrashLogCall().execute(getStackTrace(ex));
-//            BaseViewModel viewModel = new BaseViewModel();
-//            viewModel.initContext(MyApplication.this);
-//            viewModel.crashLog(getStackTrace(ex));
-//
-            application.uncaughtExceptionHandler?.uncaughtException(thread, ex)
-        }
-    }
+            val url = "https://crashlog.com/add_crash"
 
-    class CrashLogCall constructor(private var application: MyApplication) :
-        AsyncTask<String?, Void?, String?>() {
-        private var exception: Exception? = null
-        override fun doInBackground(vararg params: String?): String? {
-            var response = ""
+            val headers: MutableMap<String, String> = HashMap()
+            headers["Content-Type"] = "application/json"
 
-            try {
-                //                    URL url = new URL(serverUrl);
-//                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//                    conn.setReadTimeout(10000);
-//                    conn.setConnectTimeout(15000);
-//                    conn.setRequestMethod("POST");
-//                    conn.setDoInput(true);
-//                    conn.setDoOutput(true);
-//
-//                    HashMap<String, String> params = new HashMap<>();
-//                    String userUId = (IMeetingHttpService.APP_ID + Util.getDeviceId(context));
-//                    params.put("type", "crash");
-//                    params.put("id", userUId);
-//                    params.put("android_version", Util.getOSVersion(context));
-//                    params.put("account_email", Util.getGmailAccount(context));
-//                    params.put("appid", IMeetingHttpService.APP_ID);
-//                    params.put("login_mode", IMeetingHttpService.LOGIN_MODE);
-//                    params.put("app_version", Util.getVersionName(context));
-//                    params.put("lang", IMeetingHttpService.LANG);
-//                    params.put("hp_model", Util.getDeviceName());
-//                    params.put("log", urls[0]);
-//
-//                    String encrypted = RetrofitHelper.encryptParamsForApach(params);
-//                    String strParams = "r=" + encrypted + "&XDEBUG_SESSION_START=Star_Man";
-//                    OutputStream os = conn.getOutputStream();
-//                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-//                    writer.write(strParams);
-//                    writer.flush();
-//                    writer.close();
-//                    os.close();
-//
-//                    conn.connect();
-//
-//                    int responseCode = conn.getResponseCode();
-//
-//                    if (responseCode == HttpsURLConnection.HTTP_OK) {
-//                        String line;
-//                        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//                        while ((line = br.readLine()) != null) {
-//                            response += line;
-//                        }
-//                    } else {
-//                        response = "";
-//                    }
-            } catch (e: java.lang.Exception) {
-                e.printStackTrace()
+            val parameters: MutableList<String> = ArrayList()
+            parameters.add("log=" + getStackTrace(ex))
+            val parametersList = StringBuffer()
+            for (i in parameters.indices) {
+                parametersList.append((if (i > 0) "&" else "") + parameters[i])
             }
+            OkHttpUtils
+                .get()
+                .url(url + parametersList.toString())
+                .headers(headers)
+                .build()
+                .execute(object : Callback<String>() {
+                    override fun onError(call: Call?, e: Exception?, id: Int) {
 
+                    }
 
-            return response
-        }
+                    override fun onResponse(response: String?, id: Int) {
 
-        override fun onPostExecute(feed: String?) {
-            // TODO: check this.exception
-            // TODO: do something with the feed
+                    }
+
+                    override fun parseNetworkResponse(response: Response?, id: Int): String {
+                        if (response?.body?.string() != null) {
+                            return response?.body?.string()!!
+                        }
+                        return ""
+                    }
+                })
+            application.uncaughtExceptionHandler?.uncaughtException(thread, ex)
         }
     }
 }

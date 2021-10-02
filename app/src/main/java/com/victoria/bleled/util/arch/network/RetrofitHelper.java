@@ -113,7 +113,7 @@ public class RetrofitHelper {
             });
         }
 
-        if(commonParams != null) {
+        if (commonParams != null) {
             httpClient.addInterceptor(commonParams);
         }
         return httpClient.build();
@@ -164,7 +164,7 @@ public class RetrofitHelper {
         return null;
     }
 
-    public static List<MultipartBody.Part> getUploadParam(List<String> filePaths ) {
+    public static List<MultipartBody.Part> getUploadParam(List<String> filePaths) {
         List<MultipartBody.Part> arrMultipartBody = new ArrayList<>();
         for (int i = 0; i < filePaths.size(); i++) {
             File file = new File(filePaths.get(i));

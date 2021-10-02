@@ -50,7 +50,7 @@ class MyFastBleDevice(private val mContext: Context, private val mBleDevice: Ble
                 if (uuid.toLowerCase().substring(
                         0,
                         8
-                    ).contains(PRIMARY_UUID) == true
+                    ).contains(PRIMARY_UUID)
                 ) {
                     for (characteristic in service.characteristics) {
                         val charaProp = characteristic.properties
@@ -58,7 +58,7 @@ class MyFastBleDevice(private val mContext: Context, private val mBleDevice: Ble
                                 .substring(
                                     0,
                                     8
-                                ).contains(READ_UUID) == true
+                                ).contains(READ_UUID)
                         ) {
                             ret[READ_UUID_IDX] =
                                 characteristic.uuid.toString()
@@ -67,7 +67,7 @@ class MyFastBleDevice(private val mContext: Context, private val mBleDevice: Ble
                                 .substring(
                                     0,
                                     8
-                                ).contains(WRITE_UUID) == true
+                                ).contains(WRITE_UUID)
                         ) {
                             ret[WRITE_UUID_IDX] =
                                 characteristic.uuid.toString()
@@ -248,10 +248,9 @@ class MyFastBleDevice(private val mContext: Context, private val mBleDevice: Ble
 
             val commandBytes = com.toByteArray()
             var xor = header
-            for (com in commandBytes) {
-                xor = xor.xor(com)
+            for (uuid in commandBytes) {
+                xor = xor.xor(uuid)
             }
-
             checksum = xor
         }
 
@@ -282,7 +281,7 @@ class MyFastBleDevice(private val mContext: Context, private val mBleDevice: Ble
             this.str = str
 
             val length = str.length / 2
-            val bottomStr = str.substring(length)
+            //val bottomStr = str.substring(length)
 
             for (idx in 0 until length) {
                 // 우, 아래

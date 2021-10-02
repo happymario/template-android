@@ -8,16 +8,16 @@
 
     <!-- camera, gallary, storage -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission
-        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
+    <!-- Manage External은 전체 파일에 Access해야 할시만 이용 -->
+    <!--    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />-->
     <!-- android 11이상일 경우 WRITE_EXTERNAL_STORAGE은 더이상 지원안됨. read만 요청해도 특정 external과 scope령역 액세스가능함-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- gps and bluetooth -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <!-- Background권한은 반드시 이용사유를 동영상으로 제출해야 하며 처음에 요청페지가 떠야 함. -->
+    <!--    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />-->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
@@ -34,6 +34,33 @@
 
     <queries>
         <package android:name="com.android.camera.action.CROP" />
+
+        <!-- mail -->
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="*" />
+        </intent>
+
+        <!-- Browser -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="http" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+        </intent>
+
+        <!-- Camera -->
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+
+        <!-- Gallery -->
+        <intent>
+            <action android:name="android.intent.action.GET_CONTENT" />
+        </intent>
     </queries>
 
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
@@ -49,10 +76,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
         <activity
-            android:name=".app.login.SignupActivity"
+            android:name=".app.user.SignupActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".app.login.LoginActivity"
+            android:name=".app.user.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".app.test.animation.AnimationTestActivity"
@@ -81,7 +108,7 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".app.start.SplashActivity"
+            android:name=".app.SplashActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -7,7 +7,6 @@ import android.graphics.Point;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-
 import com.victoria.bleled.R;
 
 import java.util.ArrayList;

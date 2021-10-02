@@ -1,26 +1,17 @@
 package com.victoria.bleled.common;
 
-
-import com.victoria.bleled.BuildConfig;
-
 public interface Constants {
     boolean IS_TEST = false;
 
-    String SDCARD_FOLDER = BuildConfig.APPLICATION_ID;
-    String MARKET = "google"; // apple,onestore,google
+    String MARKET = "google"; // onestore, google
     String CLIENT_PHONE_NUMBER = "191-245-3575";
-
 
     /********************************************************************
      * INTENT NAMES
      ********************************************************************/
-    String INTENT_USER = "INTENT_USER";
-    String INTENT_PUSH_MSG = "INTENT_PUSH_MSG";
-    String INTENT_TYPE = "INTENT_TYPE";
-    String INTENT_UID = "INTENT_UID";
-    String INTENT_CHAT_MSG = "INTENT_CHAT_MSG";
-    String INTENT_DELETED = "INTENT_DELETED";
-    String INTENT_CHANGED = "INTENT_CHANGED";
+    String ARG_TYPE = "type";
+    String ARG_DATA = "data";
+    String ARG_WIDGET = "widget";
 
     /********************************************************************
      * BROADCAST NAMES

@@ -20,7 +20,7 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import com.victoria.bleled.app.start.SplashViewModel
+import com.victoria.bleled.app.user.UserViewModel
 import com.victoria.bleled.data.DataRepository
 
 /**
@@ -41,6 +41,8 @@ class ViewModelFactory constructor(
         when {
             isAssignableFrom(SplashViewModel::class.java) ->
                 SplashViewModel(dataRepository)
+            isAssignableFrom(UserViewModel::class.java) ->
+                UserViewModel(dataRepository)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

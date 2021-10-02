@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.blankj.utilcode.util.SizeUtils;
 import com.victoria.bleled.util.CommonUtil;
 
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class BarChart extends View {
         fgPaint.setColor(FOREGROUND_COLOR);
         rect = new Rect();
         topMargin = CommonUtil.dpToPx(context, 5);
-        int textSize = CommonUtil.spToPx(context, 15);
+        int textSize = SizeUtils.sp2px(15);
         barWidth = CommonUtil.dpToPx(context, 22);
         fixedBarWidth = CommonUtil.dpToPx(context, 22);
         MINI_BAR_WIDTH1 = CommonUtil.dpToPx(context, 22);

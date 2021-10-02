@@ -1,7 +1,10 @@
 package com.victoria.bleled.util.feature.gallary;
 
+import android.content.ContentUris;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.MediaStore;
 
 import androidx.databinding.BaseObservable;
 
@@ -42,6 +45,14 @@ public class Gallary extends BaseObservable implements Parcelable {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public Uri getImageUri() {
+        Uri contentUri = ContentUris.withAppendedId(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                id
+        );
+        return contentUri;
     }
 
     @Override

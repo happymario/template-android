@@ -18,7 +18,6 @@ import androidx.annotation.Nullable;
 import com.orhanobut.logger.CsvFormatStrategy;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.LogAdapter;
-import com.victoria.bleled.app.MyApplication;
 import com.victoria.bleled.util.CommonUtil;
 
 import java.io.File;
@@ -43,7 +42,7 @@ public class MyDiskLogAdapter implements LogAdapter {
 
         HandlerThread ht = new HandlerThread("AndroidFileLogger." + folder);
         ht.start();
-        Handler handler = new MyDiskLogStrategy.WriteHandler(ht.getLooper(), folder.getAbsolutePath()+"/" + fileName);
+        Handler handler = new MyDiskLogStrategy.WriteHandler(ht.getLooper(), folder.getAbsolutePath() + "/" + fileName);
         MyDiskLogStrategy logStrategy = new MyDiskLogStrategy(handler);
 
         formatStrategy = CsvFormatStrategy.newBuilder()
@@ -57,7 +56,7 @@ public class MyDiskLogAdapter implements LogAdapter {
         folder = new File(folder, dir);
         boolean isCreated = folder.exists();
 
-        if(isCreated == true) {
+        if (isCreated == true) {
             return folder;
         }
 
@@ -66,7 +65,7 @@ public class MyDiskLogAdapter implements LogAdapter {
             ContentValues contentValues = new ContentValues();
             contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, ROOT_DIR + "/" + dir);
             Uri uri = resolver.insert(MediaStore.Files.getContentUri("external"), contentValues);
-            if(uri != null) {
+            if (uri != null) {
                 String path = String.valueOf(uri);
                 folder = new File(path);
                 isCreated = folder.exists();
@@ -90,7 +89,7 @@ public class MyDiskLogAdapter implements LogAdapter {
         int fileNo = 1;
 
         File[] list = folder.listFiles();
-        if(list != null) {
+        if (list != null) {
             for (int i = 0; i < list.length; i++) {
                 String filepath = list[i].getAbsoluteFile().getAbsolutePath();
                 if (list[i].getAbsoluteFile().isFile() && filepath.endsWith(".txt") && filepath.contains(fileNamePrefix)) {

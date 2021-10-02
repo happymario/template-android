@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#F7A000</color>
-    <color name="colorPrimaryDark">#F57C00</color>
+    <color name="colorPrimary">#0070C0</color>
+    <color name="colorPrimaryDark">#0000ff</color>
     <color name="colorAccent">#D81B60</color>
 
     <color name="white">#ffffff</color>
@@ -13,15 +13,16 @@
     <color name="grey">#757575</color>
 
     <!-- common -->
-    <color name="common_bg">#fffefa</color>
-    <color name="common_text">@color/black</color>
+    <color name="common_bg">#0070C0</color>
+    <color name="common_text">@color/white</color>
     <color name="image_bg">#f0f0f0</color>
     <color name="dlg_bg">#FF000000</color>
     <color name="cursor">#2b2828</color>
 
-    <color name="title">#616161</color>
+    <color name="title">#e4e4e4</color>
     <color name="content">#aaadb5</color>
     <color name="dlg_title">#2c2b2b</color>
+    <color name="btn_text">#2c2b2b</color>
     <color name="edit_text">#e4e4e4</color>
     <color name="edit_text_hint">#a4a4a4</color>
     <color name="divider">#e5e5e5</color>

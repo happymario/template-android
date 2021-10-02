@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 
 android {
     compileSdkVersion 30
@@ -116,6 +116,5 @@ dependencies {
     // Util
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'net.danlew:android.joda:2.10.9.1'
-    implementation 'com.blankj:utilcode:1.30.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
 }

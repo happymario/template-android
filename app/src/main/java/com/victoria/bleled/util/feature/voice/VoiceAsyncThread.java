@@ -24,7 +24,6 @@ import android.os.PowerManager;
 import android.os.SystemClock;
 import android.util.Log;
 
-
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.LinkedList;

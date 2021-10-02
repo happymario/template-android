@@ -6,9 +6,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
-import com.google.android.gms.common.api.Api;
-import com.google.gson.Gson;
-import com.victoria.bleled.app.MyApplication;
 import com.victoria.bleled.data.local.IPrefDataSource;
 import com.victoria.bleled.data.local.PrefDataSourceImpl;
 import com.victoria.bleled.data.model.ModelUser;
@@ -26,14 +23,8 @@ import com.victoria.bleled.util.arch.network.LiveDataCallAdapterFactory;
 import com.victoria.bleled.util.arch.network.NetworkResult;
 import com.victoria.bleled.util.arch.network.RetrofitHelper;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 
 public class DataRepository {
@@ -121,10 +112,9 @@ public class DataRepository {
                 if (response.data != null && response.status.getValue() == NetworkResult.Status.success) {
                     //BaseResponse<T> baseResponse = IMyRemoteService.decrypt(retType, response.data);
                     BaseResponse<T> baseResponse = response.data;
-                    if(baseResponse.getResult() == ApiException.SUCCESS) {
+                    if (baseResponse.getResult() == ApiException.SUCCESS) {
                         return new MutableLiveData(response.data.getData());
-                    }
-                    else {
+                    } else {
                         return new MutableLiveData(new ApiException(baseResponse.getResult(), baseResponse.getMsg(), baseResponse.getReason()));
                     }
                 }

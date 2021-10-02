@@ -1,7 +1,9 @@
 package com.victoria.bleled.app.bluetooth
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.victoria.bleled.R
 import com.victoria.bleled.databinding.FragmentSpecialBinding
 import com.victoria.bleled.util.arch.base.BaseBindingFragment
@@ -31,14 +33,6 @@ class SpecialFragment : BaseBindingFragment<FragmentSpecialBinding>() {
     /************************************************************
      *  Overrides
      ************************************************************/
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        initViewModel()
-
-        refresh()
-    }
-
     override fun getLayoutId(): Int {
         return R.layout.fragment_special
     }
@@ -46,13 +40,20 @@ class SpecialFragment : BaseBindingFragment<FragmentSpecialBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViewModel()
+
+        refresh()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = super.onCreateView(inflater, container, savedInstanceState)
         initView()
+        return view
     }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
 
     /************************************************************
      *  Events

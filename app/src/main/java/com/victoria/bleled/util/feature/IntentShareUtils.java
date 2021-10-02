@@ -50,6 +50,24 @@ public class IntentShareUtils {
         context.startActivity(shareIntent);
     }
 
+    public static void sharePdf(Context context, String file_path) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri c;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            c = getUri(context, file_path);
+            intent.setData(c);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            context.startActivity(intent);
+        } else {
+            c = getUri(file_path);
+            intent.setDataAndType(c, "application/pdf");
+            intent = Intent.createChooser(intent, "Open File");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
+    }
+
     public static void shareEtc(Context context, String file_path) {
         Intent intent = new Intent("android.intent.action.SEND");
         intent.setType("image/*");

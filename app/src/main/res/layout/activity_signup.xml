@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".app.login.SignupActivity">
+    tools:context=".app.user.SignupActivity">
 
     <data>
 
@@ -15,15 +15,15 @@
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/actionbar_height"
+            android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
-                android:layout_width="@dimen/actionbar_height"
-                android:layout_height="@dimen/actionbar_height"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
                 android:background="@color/transparent"
                 android:src="@drawable/btn_back"
                 android:onClick="onBack"/>
@@ -48,23 +48,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
+            <ImageView
+                android:id="@+id/iv_photo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/xml_bg_default_img"
+                android:onClick="onProfile"/>
+
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/iv_photo">
 
                 <LinearLayout
                     android:id="@+id/ll_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:background="@color/white"
+                    android:orientation="vertical"
                     android:paddingLeft="@dimen/spacing_24"
-                    android:paddingRight="@dimen/spacing_24"
                     android:paddingTop="@dimen/spacing_32"
+                    android:paddingRight="@dimen/spacing_24"
                     android:paddingBottom="@dimen/spacing_32">
 
                     <LinearLayout
@@ -101,8 +114,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spacing_50"
-                        android:background="@drawable/xml_bg_edit"
                         android:layout_marginTop="@dimen/spacing_16"
+                        android:background="@drawable/xml_bg_edit"
                         android:orientation="horizontal"
                         android:padding="@dimen/spacing_8">
 
@@ -134,8 +147,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spacing_50"
-                        android:background="@drawable/xml_bg_edit"
                         android:layout_marginTop="@dimen/spacing_16"
+                        android:background="@drawable/xml_bg_edit"
                         android:orientation="horizontal"
                         android:padding="@dimen/spacing_8">
 

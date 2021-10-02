@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".app.login.LoginActivity">
+    tools:context=".app.user.LoginActivity">
 
     <data>
 
@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/common_bg">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -53,37 +53,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-                    <LinearLayout
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/email"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/spacing_50"
-                        android:background="@drawable/xml_round_4_white"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/spacing_8"
-                        android:paddingRight="@dimen/spacing_8">
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/white"
+                        android:hint="@string/id">
 
-                        <TextView
-                            android:layout_width="100dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/transparent"
-                            android:gravity="center_vertical"
-                            android:text="@string/id"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font_14" />
-
-                        <EditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_id"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@color/transparent"
-                            android:ems="10"
-                            android:gravity="center_vertical"
-                            android:hint="@string/hint_id"
-                            android:inputType="textEmailAddress"
-                            android:textColor="@color/edit_text"
-                            android:textColorHint="@color/edit_text_hint"
-                            android:textSize="@dimen/font_13" />
-                    </LinearLayout>
+                            android:layout_height="wrap_content"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -136,10 +120,12 @@
                                 android:layout_marginRight="5dp"
                                 android:layout_weight="1"
                                 android:background="@color/white"
+                                app:backgroundTint="@null"
                                 android:onClick="onLogin"
                                 android:text="@string/login"
-                                android:textColor="@color/common_text"
-                                android:textSize="@dimen/font_14" />
+                                android:textColor="@color/btn_text"
+                                android:textSize="@dimen/font_14"
+                                app:elevation="@dimen/spacing_10" />
 
                             <Button
                                 android:id="@+id/btn_signup"
@@ -148,9 +134,10 @@
                                 android:layout_marginLeft="5dp"
                                 android:layout_weight="1"
                                 android:background="@color/white"
+                                app:backgroundTint="@null"
                                 android:onClick="onSignup"
                                 android:text="@string/signup"
-                                android:textColor="@color/common_text"
+                                android:textColor="@color/btn_text"
                                 android:textSize="@dimen/font_14" />
 
                         </LinearLayout>
@@ -161,9 +148,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:background="@color/white"
+                            app:backgroundTint="@null"
                             android:onClick="onMain"
                             android:text="@string/to_main"
-                            android:textColor="@color/common_text"
+                            android:textColor="@color/btn_text"
                             android:textSize="@dimen/font_14" />
                     </LinearLayout>
 

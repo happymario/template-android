@@ -8,7 +8,10 @@ import okio.BufferedSink
 import java.io.IOException
 import java.nio.charset.Charset
 
-public class AddParamsInterceptor(getMap: HashMap<String, String>, postMap: HashMap<String, String>) :
+public class AddParamsInterceptor(
+    getMap: HashMap<String, String>,
+    postMap: HashMap<String, String>
+) :
     Interceptor {
     private var mGETMap = getMap
     private var mPOSTMap = postMap

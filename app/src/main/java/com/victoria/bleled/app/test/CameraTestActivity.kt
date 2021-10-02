@@ -139,7 +139,7 @@ class CameraTestActivity : AppCompatActivity() {
                 if (output != null) {
                     CommonUtil.showToast(
                         this@CameraTestActivity,
-                        "External => ${output?.toString()}"
+                        "External => $output"
                     )
                 }
 

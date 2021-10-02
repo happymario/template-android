@@ -37,4 +37,8 @@
         <attr name="fanColor2" format="color" />
         <attr name="fanColor3" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="FontTextView">
+        <attr name="defaultTextSize" format="dimension" />
+    </declare-styleable>
 </resources>

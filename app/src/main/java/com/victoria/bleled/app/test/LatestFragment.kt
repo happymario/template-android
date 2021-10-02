@@ -2,13 +2,12 @@ package com.victoria.bleled.app.test
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.victoria.bleled.R
-import com.victoria.bleled.app.bluetooth.BluetoothTestActivity
 import com.victoria.bleled.app.test.animation.AnimationTestActivity
 import com.victoria.bleled.databinding.FragmentLatestBinding
-import com.victoria.bleled.databinding.FragmentMainBinding
-import com.victoria.bleled.databinding.FragmentSpecialBinding
 import com.victoria.bleled.util.arch.base.BaseBindingFragment
 
 
@@ -36,22 +35,24 @@ class LatestFragment : BaseBindingFragment<FragmentLatestBinding>() {
     /************************************************************
      *  Overrides
      ************************************************************/
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        initViewModel()
-
-        refresh()
-    }
-
     override fun getLayoutId(): Int {
         return R.layout.fragment_latest
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = super.onCreateView(inflater, container, savedInstanceState)
+        initView()
+        return view
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initView()
+        initViewModel()
+        refresh()
     }
 
     override fun onResume() {

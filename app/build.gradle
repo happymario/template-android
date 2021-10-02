@@ -4,7 +4,7 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 
 apply plugin: 'kotlin-kapt'
 
@@ -54,7 +54,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true // add this to enable multi-dex
@@ -89,10 +89,6 @@ android {
 //        }
 //    }
 
-    dataBinding {
-        enabled = true
-    }
-
     dexOptions {
         javaMaxHeapSize "4g"
     }
@@ -103,6 +99,7 @@ android {
     }
 
     buildFeatures {
+        dataBinding true
         viewBinding true
     }
 
@@ -147,6 +144,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation "androidx.work:work-runtime-ktx:2.6.0-rc01"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
 
     // ui
     implementation "androidx.recyclerview:recyclerview:1.2.1"
@@ -155,6 +154,7 @@ dependencies {
     //// navigation
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
+    //// swipe
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
     implementation 'me.relex:circleindicator:2.1.4'
 
@@ -177,11 +177,6 @@ dependencies {
     // paging
     implementation "androidx.paging:paging-runtime-ktx:3.0.1"
 
-    // log
-    implementation 'com.orhanobut:logger:2.2.0'
-    implementation "com.jakewharton.timber:timber:4.7.1"
-    implementation 'com.android.installreferrer:installreferrer:2.2'
-
     // ble
     implementation 'com.akexorcist:bluetoothspp:1.0.0'
     implementation 'com.clj.fastble:FastBleLib:2.3.4'
@@ -194,15 +189,24 @@ dependencies {
     implementation "com.google.firebase:firebase-core:19.0.0"
     implementation "com.google.firebase:firebase-messaging:22.0.0"
 
+    // inapp 4.0.0
+    implementation "com.android.billingclient:billing:4.0.0"
+
     // google map
     implementation 'com.google.android.gms:play-services-basement:17.6.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
     implementation 'com.google.maps.android:android-maps-utils:2.2.0'
 
+    // log
+    implementation 'com.orhanobut:logger:2.2.0'
+    implementation "com.jakewharton.timber:timber:4.7.1"
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+
     // etc
     implementation "com.google.guava:guava:24.1-jre"
     implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.blankj:utilcode:1.30.0'
 
     implementation project(':libMBase')
     //implementation(name:'libpicaon', ext:'aar')

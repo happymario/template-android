@@ -43,6 +43,15 @@ import java.util.List;
 import java.util.Locale;
 
 public class GPSTracker extends Service {
+    public static final int RC_GPS_ENABLE = 9901;
+
+    // The minimum distance to change Updates in meters
+    public static final float MIN_DISTANCE_CHANGE_FOR_UPDATES = 0.5f; // 1 meters
+
+    // The minimum time between updates in milliseconds
+    private static final long UPDATE_INTERVAL_MS = 2000; // 1s
+    private static final int FASTEST_UPDATE_INTERVAL_MS = 1000; // 1s
+
     public static float getDistance(double from_lat, double from_lng, double to_lat, double to_lng) {
         if (from_lat <= 0 || from_lng <= 0 || to_lat <= 0 || to_lng <= 0) {
             return -1;
@@ -72,16 +81,6 @@ public class GPSTracker extends Service {
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION
         };
     }
-
-    public static final int RC_GPS_ENABLE = 9901;
-
-    // The minimum distance to change Updates in meters
-    public static final float MIN_DISTANCE_CHANGE_FOR_UPDATES = 0.5f; // 1 meters
-
-    // The minimum time between updates in milliseconds
-    private static final long UPDATE_INTERVAL_MS = 2000; // 1s
-    private static final int FASTEST_UPDATE_INTERVAL_MS = 1000; // 1s
-
 
     private Context mContext;
 

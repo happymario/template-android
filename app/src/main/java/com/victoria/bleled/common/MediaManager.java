@@ -55,9 +55,12 @@ public class MediaManager {
         void onDelete();
     }
 
-    // content External Uri는 이렇게 내부File로 변환하여 업로드할때 리용한다.
-    public static File createTempInInternal(Context context, Uri externalUri) {
+    // video는 용량상 내부파일로 전환해서 export하면 비효율적임. upload파일로 전환이 필요하면 이 함수 이용할것.
+    public static File externalUriToFile(Context context, Uri externalUri) {
         String filename = getFileName(context, externalUri);
+        if (filename.isEmpty()) {
+            return null;
+        }
         File destinationFilename = new File(context.getFilesDir().getPath() + File.separatorChar + filename);
         try (InputStream ins = context.getContentResolver().openInputStream(externalUri)) {
             createFileFromStream(ins, destinationFilename);
@@ -87,7 +90,9 @@ public class MediaManager {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             Cursor returnCursor =
                     context.getContentResolver().query(uri, null, null, null, null);
-            assert returnCursor != null;
+            if (returnCursor == null) {
+                return "";
+            }
             int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
             returnCursor.moveToFirst();
             String name = returnCursor.getString(nameIndex);
@@ -337,6 +342,11 @@ public class MediaManager {
         }
     }
 
+
+    public Uri getLastResult() {
+        return mLastUri;
+    }
+
     /************************************************************
      *  Helper
      ************************************************************/
@@ -380,7 +390,7 @@ public class MediaManager {
         if (!folder.exists())
             folder.mkdirs();
 
-        Long tsLong = System.currentTimeMillis() / 1000;
+        Long tsLong = System.currentTimeMillis();
         String ext = isVideo ? ".mp4" : ".png";
         String filename = "temp_" + tsLong.toString() + ext;
         File newFile = new File(folder.toString(), filename);
@@ -509,7 +519,7 @@ public class MediaManager {
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
-    private static int getPowerOfTwoForSampleRatio(double ratio) {
+    private int getPowerOfTwoForSampleRatio(double ratio) {
         int k = Integer.highestOneBit((int) Math.floor(ratio));
         if (k == 0)
             return 1;
@@ -517,7 +527,7 @@ public class MediaManager {
             return k;
     }
 
-    private static Bitmap resizeBitmap(Context context, Uri uri, double ratio) {
+    private Bitmap resizeBitmap(Context context, Uri uri, double ratio) {
         InputStream input = null;
 
         try {
@@ -569,7 +579,7 @@ public class MediaManager {
     private Bitmap getThumbBitmap(Uri videoUri) {
         Bitmap bmp = null;
         try {
-            File f = createTempInInternal(mActivity, videoUri);
+            File f = externalUriToFile(mActivity, videoUri);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 bmp = ThumbnailUtils.createVideoThumbnail(f, new Size(MAX_RESOLUTION, MAX_RESOLUTION), new CancellationSignal());
             } else {

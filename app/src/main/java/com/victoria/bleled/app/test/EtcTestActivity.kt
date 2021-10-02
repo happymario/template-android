@@ -1,11 +1,13 @@
 package com.victoria.bleled.app.test
 
 import android.app.PictureInPictureParams
+import android.os.Build
 import android.os.Bundle
 import android.util.Rational
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.work.PeriodicWorkRequestBuilder
@@ -16,6 +18,7 @@ import com.victoria.bleled.util.CommonUtil
 import java.util.concurrent.TimeUnit
 
 class EtcTestActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     private val mPipBuilder = PictureInPictureParams.Builder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,12 +35,13 @@ class EtcTestActivity : AppCompatActivity() {
         val prefImple = DataRepository.provideDataRepository(this).prefDataSource
         prefImple.isAutoLogin = true
 
-        workManager?.enqueue(workRequest)
+        workManager.enqueue(workRequest)
 
         CommonUtil.showToast(this, "1분후 앱이 다시 켜집니다.")
         finish()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onPicInPicture(view: View) {
         mPipBuilder.setAspectRatio(Rational(100, 200))
         enterPictureInPictureMode(mPipBuilder.build())

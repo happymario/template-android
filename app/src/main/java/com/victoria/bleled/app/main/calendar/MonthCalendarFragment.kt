@@ -1,7 +1,6 @@
 package com.victoria.bleled.app.main.calendar
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import com.daimajia.swipe.SwipeLayout
 import com.victoria.bleled.R
 import com.victoria.bleled.databinding.FragmentMonthCalendarBinding
 import com.victoria.bleled.util.arch.AppExecutors
-import kotlinx.android.synthetic.main.fragment_month_calendar.view.*
+import timber.log.Timber
 
 
 /**
@@ -54,15 +53,12 @@ class MonthCalendarFragment : Fragment() {
         viewDataBinding.godfather.showMode = SwipeLayout.ShowMode.PullOut
         viewDataBinding.godfather.addDrag(
             SwipeLayout.DragEdge.Top,
-            viewDataBinding.godfather.rv_calendar
+            viewDataBinding.rvCalendar
         );
         viewDataBinding.godfather.addRevealListener(
             R.id.rv_calendar
         ) { child, edge, fraction, distance ->
-            val star = viewDataBinding.rvCalendar
-            val d = child!!.height / 2 - star.height / 2.toFloat()
-
-            Log.d("MonthCalendar offset", fraction.toString())
+            Timber.tag("MonthCalendar offset").d(fraction.toString())
         }
 
         // event

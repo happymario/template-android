@@ -17,7 +17,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" >
 
-            <com.victoria.bleled.util.kotlin_ext.calendar.BaseCalendarView
+            <com.victoria.bleled.util.view.calendar.BaseCalendarView
                 android:id="@+id/rv_calendar"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"

@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import com.google.gson.Gson;
 import com.victoria.bleled.data.model.ModelAppInfo;
-import com.victoria.bleled.data.remote.myservice.BaseResponse;
+import com.victoria.bleled.data.model.ModelUpload;
 import com.victoria.bleled.util.arch.network.NetworkResult;
 import com.victoria.bleled.util.arch.network.RetrofitHelper;
 
@@ -25,7 +25,7 @@ public interface IMyRemoteService {
     /************************************************************
      *  Constants
      ************************************************************/
-    String API_BASE_URL = "http://192.168.0.13:9103/api/";
+    String API_BASE_URL = "http://192.168.0.13:9101/api/";
     String API_KEY = "clubonline20200519key";
 
     /************************************************************
@@ -62,10 +62,10 @@ public interface IMyRemoteService {
     LiveData<NetworkResult<BaseResponse<ModelAppInfo>>> appInfo(@Field("dev_type") String dev_type);
 
     @Multipart
-    @POST("common/upload")
-    LiveData<NetworkResult<String>> upload(@Part("r") String r, @Part MultipartBody.Part file);
+    @POST("common/upload_file")
+    LiveData<NetworkResult<BaseResponse<ModelUpload>>> upload(@Part MultipartBody.Part file);
 
     @Multipart
-    @POST("common/multi_upload")
-    LiveData<NetworkResult<String>> upload(@Part("r") String r, @Part List<MultipartBody.Part> files);
+    @POST("common/multi_upload_file")
+    LiveData<NetworkResult<BaseResponse<List<ModelUpload>>>> upload(@Part List<MultipartBody.Part> files);
 }

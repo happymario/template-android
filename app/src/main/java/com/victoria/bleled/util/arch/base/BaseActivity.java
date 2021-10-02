@@ -7,6 +7,7 @@ import android.content.ContextWrapper;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -62,6 +63,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void showProgress() {
+        Log.d("showProgress=>", String.valueOf(mProgressCount));
         if (true == mIsShowProgress) {
             mProgressCount++;
             return;
@@ -74,6 +76,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void hideProgress() {
+        Log.d("hideProgress=>", String.valueOf(mProgressCount));
         if (mIsShowProgress == true) {
             if (mProgressCount > 1) {
                 mProgressCount--;
