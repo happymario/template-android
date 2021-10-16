@@ -197,26 +197,27 @@ class SignupActivity : BaseBindingActivity<ActivitySignupBinding>() {
 
 
     private fun uploadFile(file: File) {
-        viewModel.uploadFile(file).observe(this, object : NetworkObserver<ModelUpload>(this@SignupActivity, true) {
-            override fun onChanged(result: NetworkResult<ModelUpload>) {
-                super.onChanged(result)
+        viewModel.uploadFile(file)
+            .observe(this, object : NetworkObserver<ModelUpload>(this@SignupActivity, true) {
+                override fun onChanged(result: NetworkResult<ModelUpload>) {
+                    super.onChanged(result)
 
-                if (result.status.value == NetworkResult.Status.loading) {
-                    showProgress()
-                } else {
-                    hideProgress()
+                    if (result.status.value == NetworkResult.Status.loading) {
+                        showProgress()
+                    } else {
+                        hideProgress()
 
-                    if (result.status.value == NetworkResult.Status.success) {
-                        ImageLoader.loadImage(
-                            this@SignupActivity,
-                            binding.ivPhoto,
-                            R.drawable.xml_bg_default_img,
-                            result.data.file_url
-                        )
+                        if (result.status.value == NetworkResult.Status.success) {
+                            ImageLoader.loadImage(
+                                this@SignupActivity,
+                                binding.ivPhoto,
+                                R.drawable.xml_bg_default_img,
+                                result.data.file_url
+                            )
+                        }
                     }
                 }
-            }
-        })
+            })
     }
 
     /************************************************************

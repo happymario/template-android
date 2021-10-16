@@ -3,12 +3,14 @@ package com.victoria.bleled.app.user
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import com.victoria.bleled.R
 import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.common.Constants
 import com.victoria.bleled.databinding.ActivityLoginBinding
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.arch.base.BaseBindingActivity
+import com.victoria.bleled.util.kotlin_ext.getViewModelFactory
 
 class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
     /************************************************************
@@ -19,7 +21,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
     /************************************************************
      *  UI controls & Data members
      ************************************************************/
-
+    private val viewModel by viewModels<UserViewModel> { getViewModelFactory() }
 
     /************************************************************
      *  Overrides
@@ -36,8 +38,8 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
      *  Event Handler
      ************************************************************/
     fun onLogin(view: View) {
-        var email = binding.etId.text.toString()
-        var pwd = binding.etPwd.text.toString()
+        val email = binding.etId.text.toString()
+        val pwd = binding.etPwd.text.toString()
 
         if (!CommonUtil.isValidEmail(email)) {
             CommonUtil.showToast(this, R.string.input_valid_email)

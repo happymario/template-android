@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:textAlignment="center"
-        android:textColor="@color/common_text"
+        android:textColor="@color/title"
         android:textSize="@dimen/font_32"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

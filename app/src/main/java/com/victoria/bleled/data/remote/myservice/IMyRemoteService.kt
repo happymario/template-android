@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.google.gson.Gson
 import com.victoria.bleled.data.model.ModelAppInfo
 import com.victoria.bleled.data.model.ModelUpload
+import com.victoria.bleled.data.model.ModelUser
 import com.victoria.bleled.util.arch.network.NetworkResult
 import com.victoria.bleled.util.arch.network.RetrofitHelper
 import okhttp3.MultipartBody.Part
@@ -18,7 +19,7 @@ import java.util.*
 interface IMyRemoteService {
     /************************************************************
      * Common
-     */
+     ***********************************************************/
     @FormUrlEncoded
     @POST("common/app_info")
     fun appInfo(@Field("dev_type") dev_type: String): LiveData<NetworkResult<BaseResponse<ModelAppInfo>>>
@@ -30,6 +31,15 @@ interface IMyRemoteService {
     @Multipart
     @POST("common/multi_upload_file")
     fun uploadList(@retrofit2.http.Part files: List<Part>): LiveData<NetworkResult<BaseResponse<List<ModelUpload>>>>
+
+    @FormUrlEncoded
+    @POST("user/login")
+    fun userLogin(
+        @Field("id") id: String,
+        @Field("pwd") pwd: String,
+        @Field("push_token") push_token: String,
+        @Field("dev_type") dev_type: String
+    ): LiveData<NetworkResult<BaseResponse<ModelUser>>>
 
     companion object {
         /************************************************************

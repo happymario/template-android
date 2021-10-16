@@ -4,12 +4,11 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.victoria.bleled.util.arch.AppExecutors
 import com.victoria.bleled.util.arch.network.NetworkResult
+import java.util.concurrent.Executor
 
-abstract class LiveDataConverter<RequestType, ResultType> @MainThread constructor(appExecutors: AppExecutors?) {
+abstract class LiveDataConverter<RequestType, ResultType> @MainThread constructor(var networkIO: Executor) {
     var result: MediatorLiveData<NetworkResult<ResultType>> = MediatorLiveData()
-    var appExecutors: AppExecutors? = null
     fun asLiveData(): LiveData<NetworkResult<ResultType>?> {
         return result
     }
@@ -27,7 +26,7 @@ abstract class LiveDataConverter<RequestType, ResultType> @MainThread constructo
             }
             result.removeSource(apiCall)
             if (response.status.value == NetworkResult.Status.success) {
-                appExecutors!!.mainThread.execute {
+                networkIO.execute {
                     val newData = processResponse(response)
                     val responseData = newData.value
                     if (responseData == null) {
@@ -47,13 +46,12 @@ abstract class LiveDataConverter<RequestType, ResultType> @MainThread constructo
                     }
                 }
             } else {
-                appExecutors!!.mainThread.execute { result.setValue(NetworkResult.error(response.error)) }
+                networkIO.execute { result.setValue(NetworkResult.error(response.error)) }
             }
         }
     }
 
     init {
-        this.appExecutors = appExecutors
         result.value = NetworkResult.loading()
         fetchFromNetwork(MutableLiveData(null))
     }

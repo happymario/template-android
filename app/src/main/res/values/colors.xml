@@ -14,7 +14,7 @@
 
     <!-- common -->
     <color name="common_bg">#0070C0</color>
-    <color name="common_text">@color/white</color>
+    <color name="common_text">#111111</color>
     <color name="image_bg">#f0f0f0</color>
     <color name="dlg_bg">#FF000000</color>
     <color name="cursor">#2b2828</color>
@@ -23,7 +23,7 @@
     <color name="content">#aaadb5</color>
     <color name="dlg_title">#2c2b2b</color>
     <color name="btn_text">#2c2b2b</color>
-    <color name="edit_text">#e4e4e4</color>
+    <color name="edit_text">#333333</color>
     <color name="edit_text_hint">#a4a4a4</color>
     <color name="divider">#e5e5e5</color>
     <color name="error">#ff2b2b</color>

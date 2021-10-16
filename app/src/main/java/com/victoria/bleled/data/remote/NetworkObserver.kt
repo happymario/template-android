@@ -47,7 +47,9 @@ open class NetworkObserver<T> : Observer<NetworkResult<T>> {
             val exception = result.error as ApiException
             CommonUtil.showToast(
                 context,
-                if (exception.msg != null && !exception.msg!!.isEmpty()) exception.msg else context!!.resources.getString(R.string.server_problem)
+                if (exception.msg != null && !exception.msg!!.isEmpty()) exception.msg else context!!.resources.getString(
+                    R.string.server_problem
+                )
             )
         } else {
             CommonUtil.showToast(context, R.string.network_connect_error)

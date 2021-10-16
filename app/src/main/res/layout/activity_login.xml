@@ -52,21 +52,38 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView3">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/email"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:boxBackgroundColor="@color/white"
-                        android:hint="@string/id">
+                        android:layout_height="@dimen/spacing_50"
+                        android:background="@drawable/xml_round_4_white"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/spacing_8"
+                        android:paddingRight="@dimen/spacing_8"
+                        android:layout_marginTop="10dp">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:gravity="center_vertical"
+                            android:text="@string/id"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_14" />
+
+                        <EditText
                             android:id="@+id/et_id"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            />
-
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:ems="10"
+                            android:gravity="center_vertical"
+                            android:hint="@string/hint_id"
+                            android:inputType="text"
+                            android:textColor="@color/edit_text"
+                            android:textColorHint="@color/edit_text_hint"
+                            android:textSize="@dimen/font_13" />
+                    </LinearLayout>
 
 
                     <LinearLayout

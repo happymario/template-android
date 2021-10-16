@@ -32,6 +32,12 @@ class UserViewModel constructor(private val repository: DataRepository) : BaseVi
             arrMultipartBody.add(multipartBody)
         }*/
 
-        return repository.getLiveDataApi(repository.remoteService.upload(multipartBody))
+        val api = repository.remoteService.upload(multipartBody)
+        return repository.convertBaseResponse(api)
+    }
+
+
+    fun loginUser(id: String, pwd: String) {
+
     }
 }

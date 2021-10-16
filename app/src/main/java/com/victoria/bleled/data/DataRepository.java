@@ -53,9 +53,18 @@ public class DataRepository {
         this.githubService = DataRepository.provideGithubService();
     }
 
+
     /************************************************************
      *  Helpers
      ************************************************************/
+    private static AddParamsInterceptor getCommonParams() {
+        AddParamsInterceptor addParamsInterceptor = new AddParamsInterceptor.Builder()
+                .addParameter("key", "abc")
+                .build();
+
+        return addParamsInterceptor;
+    }
+
 
     /************************************************************
      *  From Github
@@ -64,9 +73,8 @@ public class DataRepository {
         return githubService;
     }
 
-
     public LiveData<NetworkResult<List<ModelUser>>> loadRepoList(String q, int page) {
-        return new LiveDataConverter<ResponseSearchRepo, List<ModelUser>>(appExecutors) {
+        return new LiveDataConverter<ResponseSearchRepo, List<ModelUser>>(appExecutors.getNetworkIO()) {
             @Override
             protected LiveData<NetworkResult<ResponseSearchRepo>> createCall() {
                 return githubService.searchRepo(q, page);
@@ -82,23 +90,16 @@ public class DataRepository {
         }.asLiveData();
     }
 
+
     /************************************************************
      *  From Remote
      ************************************************************/
-    private static AddParamsInterceptor getCommonParams() {
-        AddParamsInterceptor addParamsInterceptor = new AddParamsInterceptor.Builder()
-                .addParameter("key", "abc")
-                .build();
-
-        return addParamsInterceptor;
-    }
-
     public IMyRemoteService getRemoteService() {
         return remoteService;
     }
 
-    public <T> LiveData<NetworkResult<T>> getLiveDataApi(LiveData<NetworkResult<BaseResponse<T>>> originApi) {
-        return new LiveDataConverter<BaseResponse<T>, T>(appExecutors) {
+    public <T> LiveData<NetworkResult<T>> convertBaseResponse(LiveData<NetworkResult<BaseResponse<T>>> originApi) {
+        return new LiveDataConverter<BaseResponse<T>, T>(appExecutors.getNetworkIO()) {
             @Override
             protected LiveData<NetworkResult<BaseResponse<T>>> createCall() {
                 return originApi;

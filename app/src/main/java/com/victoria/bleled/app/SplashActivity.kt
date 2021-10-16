@@ -3,8 +3,6 @@ package com.victoria.bleled.app
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -12,11 +10,10 @@ import com.victoria.bleled.R
 import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.app.user.LoginActivity
 import com.victoria.bleled.common.Constants
-import com.victoria.bleled.data.DataRepository
 import com.victoria.bleled.data.remote.NetworkObserver
 import com.victoria.bleled.util.CommonUtil
+import com.victoria.bleled.util.arch.EventObserver
 import com.victoria.bleled.util.arch.base.BaseActivity
-import com.victoria.bleled.util.arch.network.NetworkResult
 import com.victoria.bleled.util.feature.PermissionUtil
 import com.victoria.bleled.util.kotlin_ext.getViewModelFactory
 
@@ -56,6 +53,7 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        initViewModel()
         checkPermissions()
     }
 
@@ -65,47 +63,35 @@ class SplashActivity : BaseActivity() {
      ************************************************************/
     private fun checkPermissions() {
         if (PermissionUtil.hasPermission(this, requiredPermissions)) {
-            startLogic()
+            viewModel.start()
         } else {
             val arrPermission = requiredPermissions + optionalPermissions
             permissionLauncher.launch(arrPermission)
         }
     }
 
-    private fun startLogic() {
-        viewModel.reqGetAppInfo().observe(this, Observer {
-            if (it == null) {
-                return@Observer
-            }
-
-            if (it.status.value == NetworkResult.Status.loading) {
+    private fun initViewModel() {
+        viewModel.dataLoading.observe(this, Observer {
+            if (it == true) {
                 showProgress()
             } else {
                 hideProgress()
+            }
+        })
 
-                if (it.status.value == NetworkResult.Status.success) {
-                    val prefDataSource =
-                        DataRepository.provideDataRepository(this).prefDataSource
-                    prefDataSource.appInfo = it.data
+        viewModel.networkErrorLiveData.observe(this, Observer { error ->
+            val msg = NetworkObserver.getErrorMsg(this, error)
+            CommonUtil.showToast(
+                this,
+                if (msg == null || msg.isEmpty()) getString(R.string.network_connect_error) else msg
+            )
+        })
 
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        if (prefDataSource.user != null) {
-                            goMain()
-                        } else {
-                            goLogin()
-                        }
-                    }, 2000)
-                } else {
-                    val msg = NetworkObserver.getErrorMsg(this, it)
-                    CommonUtil.showToast(
-                        this,
-                        if (msg == null || msg.isEmpty()) getString(R.string.network_connect_error) else msg
-                    )
-
-                    if(Constants.IS_TEST) {
-                        goLogin()
-                    }
-                }
+        viewModel.openEvent.observe(this, EventObserver {
+            if (it == 1) {
+                goMain()
+            } else {
+                goLogin()
             }
         })
     }
