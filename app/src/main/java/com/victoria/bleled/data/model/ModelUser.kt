@@ -35,6 +35,9 @@ data class ModelUser(@PrimaryKey(autoGenerate = true) var uid: Int) : BaseModel(
     @Ignore
     private val status = 0
 
+    @Ignore
+    var pwd:String = ""
+
     enum class EUserSex(private val value: String) {
         none(""), man("m"), woman("f");
 

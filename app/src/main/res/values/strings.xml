@@ -93,9 +93,10 @@
     <string name="input_valid_email">유효한 이메일을 입력해주십시오.</string>
     <string name="input_valid_pwd">유효한 비밀번호를 입력해주십시오.</string>
     <string name="motto">신조어</string>
+    <string name="msg_no_login_user">회원정보가 없습니다. ‘회원가입‘을 진행해주십시오</string>
 
     <!-- Main -->
-    <string name="tab_main">Main기술</string>
+    <string name="tab_main">기본기술</string>
     <string name="tab_special">특기기술</string>
     <string name="tab_latest">최신기술</string>
 </resources>

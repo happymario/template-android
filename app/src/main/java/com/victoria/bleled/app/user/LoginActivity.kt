@@ -4,9 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import com.victoria.bleled.R
 import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.common.Constants
+import com.victoria.bleled.data.remote.ApiException
+import com.victoria.bleled.data.remote.NetworkObserver
 import com.victoria.bleled.databinding.ActivityLoginBinding
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.arch.base.BaseBindingActivity
@@ -31,6 +34,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
         setContentView(R.layout.activity_login)
 
         initView()
+        initViewModel()
     }
 
 
@@ -51,7 +55,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
             return
         }
 
-        reqLogin(email, pwd)
+        viewModel.loginUser(email, pwd)
     }
 
     fun onSignup(view: View) {
@@ -76,6 +80,39 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
         binding.llContent.setOnClickListener {
             hideKeyboard()
         }
+
+        binding.btnMain.visibility = View.GONE
+        if(Constants.IS_TEST) {
+            binding.btnMain.visibility = View.VISIBLE
+        }
+    }
+
+    private fun initViewModel() {
+        viewModel.dataLoading.observe(this, Observer { loading ->
+            if (loading) {
+                showProgress()
+            } else {
+                hideProgress()
+            }
+        })
+
+        viewModel.networkErrorLiveData.observe(this, Observer { error ->
+            val exception = error.error
+            if(exception is ApiException && exception.code == ApiException.ERR_NO_USER) {
+                CommonUtil.showToast(this, R.string.msg_no_login_user)
+            }
+            else {
+                val msg = NetworkObserver.getErrorMsg(this, error)
+                CommonUtil.showToast(
+                    this,
+                    if (msg == null || msg.isEmpty()) getString(R.string.network_connect_error) else msg
+                )
+            }
+        })
+
+        viewModel.loginCompleteEvent.observe(this, Observer {
+            goMain()
+        })
     }
 
     private fun hideKeyboard() {
@@ -95,17 +132,5 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
         val intent = Intent(this, SignupActivity::class.java)
         startActivity(intent)
     }
-
-    /************************************************************
-     *  Networking
-     ************************************************************/
-    private fun reqLogin(email: String, pwd: String) {
-        // TODO Login
-        goMain()
-    }
-
-    /************************************************************
-     *  SubClasses
-     ************************************************************/
 }
 

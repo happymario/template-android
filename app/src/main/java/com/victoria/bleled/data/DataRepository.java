@@ -98,29 +98,6 @@ public class DataRepository {
         return remoteService;
     }
 
-    public <T> LiveData<NetworkResult<T>> convertBaseResponse(LiveData<NetworkResult<BaseResponse<T>>> originApi) {
-        return new LiveDataConverter<BaseResponse<T>, T>(appExecutors.getNetworkIO()) {
-            @Override
-            protected LiveData<NetworkResult<BaseResponse<T>>> createCall() {
-                return originApi;
-            }
-
-            @Override
-            protected LiveData<T> processResponse(NetworkResult<BaseResponse<T>> response) {
-                if (response.data != null && response.status.getValue() == NetworkResult.Status.success) {
-                    //BaseResponse<T> baseResponse = IMyRemoteService.decrypt(retType, response.data);
-                    BaseResponse<T> baseResponse = response.data;
-                    if (baseResponse.getResult() == ApiException.SUCCESS) {
-                        return new MutableLiveData(response.data.getData());
-                    } else {
-                        return new MutableLiveData(new ApiException(baseResponse.getResult(), baseResponse.getMsg(), baseResponse.getReason()));
-                    }
-                }
-                return AbsentLiveData.create();
-            }
-        }.asLiveData();
-    }
-
     public <T> void callApi(LiveData<NetworkResult<BaseResponse<T>>> originApi, NetworkObserver<BaseResponse<T>> callback) {
         LiveData<NetworkResult<BaseResponse<T>>> liveData = originApi;
         Observer apiObserver = new NetworkObserver<BaseResponse<T>>() {
@@ -153,6 +130,29 @@ public class DataRepository {
         };
 
         liveData.observeForever(apiObserver);
+    }
+
+    public <T> LiveData<NetworkResult<T>> callLiveDataApi(LiveData<NetworkResult<BaseResponse<T>>> originApi) {
+        return new LiveDataConverter<BaseResponse<T>, T>(appExecutors.getNetworkIO()) {
+            @Override
+            protected LiveData<NetworkResult<BaseResponse<T>>> createCall() {
+                return originApi;
+            }
+
+            @Override
+            protected LiveData<T> processResponse(NetworkResult<BaseResponse<T>> response) {
+                if (response.data != null && response.status.getValue() == NetworkResult.Status.success) {
+                    //BaseResponse<T> baseResponse = IMyRemoteService.decrypt(retType, response.data);
+                    BaseResponse<T> baseResponse = response.data;
+                    if (baseResponse.getResult() == ApiException.SUCCESS) {
+                        return new MutableLiveData(response.data.getData());
+                    } else {
+                        return new MutableLiveData(new ApiException(baseResponse.getResult(), baseResponse.getMsg(), baseResponse.getReason()));
+                    }
+                }
+                return AbsentLiveData.create();
+            }
+        }.asLiveData();
     }
 
     /************************************************************

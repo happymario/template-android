@@ -17,7 +17,7 @@ public class PushMessage implements Serializable {
     public PushMessage(Map<String, String> data) {
         try {
             type = data.get("type");
-            content = data.get("content");
+            content = data.get("body");
 
             if (data.containsKey("from_user_uid")) {
                 from_user_uid = data.get("from_user_uid");
