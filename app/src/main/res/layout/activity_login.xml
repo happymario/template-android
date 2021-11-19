@@ -5,7 +5,10 @@
     tools:context=".app.user.LoginActivity">
 
     <data>
-
+        <import type="android.view.View"/>
+        <variable
+            name="viewmodel"
+            type="com.victoria.bleled.app.user.UserViewModel" />
     </data>
 
 
@@ -55,68 +58,53 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spacing_50"
-                        android:background="@drawable/xml_round_4_white"
+                        android:background="@drawable/xml_common_bg_white_round_4"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/spacing_8"
                         android:paddingRight="@dimen/spacing_8"
                         android:layout_marginTop="10dp">
 
                         <TextView
+                            style="@style/LoginLabelText"
                             android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:background="@color/transparent"
-                            android:gravity="center_vertical"
-                            android:text="@string/id"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font_14" />
+                            android:text="@string/id" />
 
                         <EditText
                             android:id="@+id/et_id"
+                            style="@style/LoginEditText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@color/transparent"
-                            android:ems="10"
-                            android:gravity="center_vertical"
+                            android:inputType="textEmailAddress"
                             android:hint="@string/hint_id"
-                            android:inputType="text"
-                            android:textColor="@color/edit_text"
-                            android:textColorHint="@color/edit_text_hint"
-                            android:textSize="@dimen/font_13" />
+                            android:text="@={viewmodel.id}"/>
                     </LinearLayout>
 
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spacing_50"
-                        android:background="@drawable/xml_round_4_white"
+                        android:background="@drawable/xml_common_bg_white_round_4"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/spacing_8"
                         android:paddingRight="@dimen/spacing_8"
                         android:layout_marginTop="10dp">
 
                         <TextView
+                            style="@style/LoginLabelText"
                             android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:background="@color/transparent"
-                            android:gravity="center_vertical"
-                            android:text="@string/pwd"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font_14" />
+                            android:text="@string/pwd" />
 
                         <EditText
                             android:id="@+id/et_pwd"
+                            style="@style/LoginEditText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="@color/transparent"
-                            android:ems="10"
-                            android:gravity="center_vertical"
                             android:hint="@string/hint_pwd"
                             android:inputType="textPassword"
-                            android:textColor="@color/edit_text"
-                            android:textColorHint="@color/edit_text_hint"
-                            android:textSize="@dimen/font_13" />
+                            android:text="@={viewmodel.pwd}"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -132,44 +120,31 @@
 
                             <Button
                                 android:id="@+id/btn_login"
+                                style="@style/LoginButton"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="5dp"
                                 android:layout_weight="1"
-                                android:background="@color/white"
-                                app:backgroundTint="@null"
-                                android:onClick="onLogin"
                                 android:text="@string/login"
-                                android:textColor="@color/btn_text"
-                                android:textSize="@dimen/font_14"
-                                app:elevation="@dimen/spacing_10" />
+                                android:onClick="@{() -> viewmodel.loginUser()}"/>
 
                             <Button
                                 android:id="@+id/btn_signup"
+                                style="@style/LoginButton"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
                                 android:layout_weight="1"
-                                android:background="@color/white"
-                                app:backgroundTint="@null"
-                                android:onClick="onSignup"
-                                android:text="@string/signup"
-                                android:textColor="@color/btn_text"
-                                android:textSize="@dimen/font_14" />
-
+                                android:text="@string/signup" />
                         </LinearLayout>
 
                         <Button
                             android:id="@+id/btn_main"
+                            style="@style/LoginButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:background="@color/white"
-                            app:backgroundTint="@null"
-                            android:onClick="onMain"
-                            android:text="@string/to_main"
-                            android:textColor="@color/btn_text"
-                            android:textSize="@dimen/font_14" />
+                            android:text="@string/to_main" />
                     </LinearLayout>
 
                     <Button
@@ -178,7 +153,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:background="@color/transparent"
-                        android:onClick="onAsk"
                         android:text="@string/to_ask"
                         android:textColor="@color/white"
                         android:textSize="@dimen/font_14" />

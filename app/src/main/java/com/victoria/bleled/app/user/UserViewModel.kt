@@ -2,16 +2,17 @@ package com.victoria.bleled.app.user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import com.victoria.bleled.R
+import com.victoria.bleled.app.MyApplication
 import com.victoria.bleled.data.DataRepository
 import com.victoria.bleled.data.model.ModelUpload
 import com.victoria.bleled.data.model.ModelUser
 import com.victoria.bleled.data.remote.NetworkObserver
 import com.victoria.bleled.data.remote.myservice.BaseResponse
+import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.arch.Event
 import com.victoria.bleled.util.arch.base.BaseViewModel
 import com.victoria.bleled.util.arch.network.NetworkResult
-import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -21,14 +22,23 @@ class UserViewModel constructor(private val repository: DataRepository) : BaseVi
     /************************************************************
      *  Variables
      ************************************************************/
+    // Two-way databinding, exposing MutableLiveData
+    val id = MutableLiveData<String>()
+    val pwd = MutableLiveData<String>()
+    val pwdConfirm = MutableLiveData<String>()
+    val motto = MutableLiveData<String>()
+
     private val _loginCompleteEvent = MutableLiveData<Event<Unit>>()
     val loginCompleteEvent: LiveData<Event<Unit>> = _loginCompleteEvent
+
+    private val _profile = MutableLiveData<ModelUpload>()
+    val profile: LiveData<ModelUpload> = _profile
 
 
     /************************************************************
      *  Public
      ************************************************************/
-    fun uploadFile(file: File): LiveData<NetworkResult<ModelUpload>> {
+    fun uploadFile(file: File) {
         val requestBody = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
         var multipartBody = MultipartBody.Part.createFormData("uploadfile", file.name, requestBody)
 
@@ -42,16 +52,40 @@ class UserViewModel constructor(private val repository: DataRepository) : BaseVi
         }*/
 
         val api = repository.remoteService.upload(multipartBody)
-        return repository.callLiveDataApi(api)
+        _dataLoading.value = true
+        repository.callApi(api, object : NetworkObserver<BaseResponse<ModelUpload>>() {
+            override fun onChanged(result: NetworkResult<BaseResponse<ModelUpload>>) {
+                super.onChanged(result)
+
+                if (result != null && result.status.value != NetworkResult.Status.loading) {
+                    if (result.status.value == NetworkResult.Status.success) {
+                        _profile.value = result.data.data
+                    } else if (result.status.value == NetworkResult.Status.error) {
+                        _networkErrorLiveData.value = result
+                    }
+                    _dataLoading.value = false
+                }
+            }
+        })
     }
 
 
-    fun loginUser(id: String, pwd: String) {
-        val prefDataSource = repository.prefDataSource;
+    fun loginUser() {
+        val context = MyApplication.globalApplicationContext
+        if (id.value == null || !CommonUtil.isValidEmail(id.value)) {
+            _toastMessage.value = context?.getString(R.string.input_valid_email)
+            return
+        }
 
+        if (pwd.value == null || pwd.value!!.length < 6) {
+            _toastMessage.value = context?.getString(R.string.input_valid_pwd)
+            return
+        }
+
+        val prefDataSource = repository.prefDataSource
         val api = repository.remoteService.userLogin(
-            id,
-            pwd,
+            id.value!!,
+            pwd.value!!,
             if (prefDataSource.pushToken != null) prefDataSource.pushToken!! else "",
             "android"
         )
@@ -64,9 +98,49 @@ class UserViewModel constructor(private val repository: DataRepository) : BaseVi
                 if (result != null && result.status.value != NetworkResult.Status.loading) {
                     if (result.status.value == NetworkResult.Status.success) {
                         val user = result.data.data
-                        user?.pwd = pwd
+                        user?.pwd = pwd.value!!
                         prefDataSource.user = user
                         _loginCompleteEvent.value = Event(Unit)
+                    } else if (result.status.value == NetworkResult.Status.error) {
+                        _networkErrorLiveData.value = result
+                    }
+                    _dataLoading.value = false
+                }
+            }
+        })
+    }
+
+    fun signupUser() {
+        val context = MyApplication.globalApplicationContext
+        if (id.value == null || !CommonUtil.isValidEmail(id.value)) {
+            _toastMessage.value = context?.getString(R.string.input_valid_email)
+            return
+        }
+
+        if (pwd.value == null || pwd.value!!.length < 6) {
+            _toastMessage.value = context?.getString(R.string.input_valid_pwd)
+            return
+        }
+
+        if (pwd.value != pwdConfirm.value) {
+            _toastMessage.value = context?.getString(R.string.hint_pwd_confirm)
+            return
+        }
+
+        val api = repository.remoteService.userSignup(
+            id.value!!,
+            pwd.value!!,
+            if (profile.value != null) profile.value!!.file_url else "",
+            motto.value ?: ""
+        )
+        _dataLoading.value = true
+        repository.callApi(api, object : NetworkObserver<BaseResponse<ModelUser>>() {
+            override fun onChanged(result: NetworkResult<BaseResponse<ModelUser>>) {
+                super.onChanged(result)
+
+                if (result != null && result.status.value != NetworkResult.Status.loading) {
+                    if (result.status.value == NetworkResult.Status.success) {
+                        loginUser()
                     } else if (result.status.value == NetworkResult.Status.error) {
                         _networkErrorLiveData.value = result
                     }

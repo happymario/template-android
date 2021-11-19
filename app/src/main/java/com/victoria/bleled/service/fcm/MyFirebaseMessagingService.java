@@ -50,7 +50,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //        if (image_url != null && image_url.isEmpty() == false) {
 //            new sendNotification(context, pushMessage).execute(image_url);
 //        } else {
-            showNotification(pushMessage, null);
+        showNotification(pushMessage, null);
 //        }
     }
 

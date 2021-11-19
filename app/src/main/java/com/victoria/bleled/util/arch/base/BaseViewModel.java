@@ -13,6 +13,9 @@ public class BaseViewModel extends ViewModel {
     protected MutableLiveData<Boolean> _dataLoading = new MutableLiveData<Boolean>();
     public LiveData<Boolean> dataLoading = _dataLoading;
 
+    protected MutableLiveData<String> _toastMessage = new MutableLiveData<String>();
+    public LiveData<String> toastMessage = _toastMessage;
+
     protected MutableLiveData<NetworkResult> _networkErrorLiveData = new MutableLiveData<>();
     public LiveData<NetworkResult> networkErrorLiveData = _networkErrorLiveData;
 

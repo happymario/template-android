@@ -2,9 +2,9 @@ package com.victoria.bleled.app.user
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextPaint
 import android.view.View
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import com.victoria.bleled.R
 import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.common.Constants
@@ -37,58 +37,42 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
         initViewModel()
     }
 
-
     /************************************************************
-     *  Event Handler
-     ************************************************************/
-    fun onLogin(view: View) {
-        val email = binding.etId.text.toString()
-        val pwd = binding.etPwd.text.toString()
-
-        if (!CommonUtil.isValidEmail(email)) {
-            CommonUtil.showToast(this, R.string.input_valid_email)
-            return
-        }
-
-        if (pwd.length < 6) {
-            CommonUtil.showToast(this, R.string.input_valid_pwd)
-            return
-        }
-
-        viewModel.loginUser(email, pwd)
-    }
-
-    fun onSignup(view: View) {
-        goSignup()
-    }
-
-    fun onMain(view: View) {
-        goMain()
-    }
-
-    fun onAsk(view: View) {
-        CommonUtil.gotoPhone(this, Constants.CLIENT_PHONE_NUMBER)
-    }
-
-
-    /************************************************************
-     *  Helpers
+     *  Private
      ************************************************************/
     override fun initView() {
         super.initView()
 
+        // init values
+        binding.btnMain.visibility = View.GONE
+        if (Constants.IS_TEST) {
+            binding.btnMain.visibility = View.VISIBLE
+        }
+        binding.btnAsk.paintFlags = binding.btnAsk.paintFlags or TextPaint.UNDERLINE_TEXT_FLAG
+
+        // init events
         binding.llContent.setOnClickListener {
             hideKeyboard()
         }
-
-        binding.btnMain.visibility = View.GONE
-        if(Constants.IS_TEST) {
-            binding.btnMain.visibility = View.VISIBLE
+        binding.btnSignup.setOnClickListener {
+            goSignup()
+        }
+        binding.btnMain.setOnClickListener {
+            goMain()
+        }
+        binding.btnAsk.setOnClickListener {
+            CommonUtil.gotoPhone(this, Constants.CLIENT_PHONE_NUMBER)
         }
     }
 
     private fun initViewModel() {
-        viewModel.dataLoading.observe(this, Observer { loading ->
+        binding.viewmodel = viewModel
+
+        viewModel.toastMessage.observe(this, { msg ->
+            CommonUtil.showToast(this, msg)
+        })
+
+        viewModel.dataLoading.observe(this, { loading ->
             if (loading) {
                 showProgress()
             } else {
@@ -96,12 +80,11 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
             }
         })
 
-        viewModel.networkErrorLiveData.observe(this, Observer { error ->
+        viewModel.networkErrorLiveData.observe(this, { error ->
             val exception = error.error
-            if(exception is ApiException && exception.code == ApiException.ERR_NO_USER) {
+            if (exception is ApiException && exception.code == ApiException.ERR_NO_USER) {
                 CommonUtil.showToast(this, R.string.msg_no_login_user)
-            }
-            else {
+            } else {
                 val msg = NetworkObserver.getErrorMsg(this, error)
                 CommonUtil.showToast(
                     this,
@@ -110,7 +93,7 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
             }
         })
 
-        viewModel.loginCompleteEvent.observe(this, Observer {
+        viewModel.loginCompleteEvent.observe(this, {
             goMain()
         })
     }

@@ -41,6 +41,15 @@ interface IMyRemoteService {
         @Field("dev_type") dev_type: String
     ): LiveData<NetworkResult<BaseResponse<ModelUser>>>
 
+    @FormUrlEncoded
+    @POST("user/signup")
+    fun userSignup(
+        @Field("id") id: String,
+        @Field("pwd") pwd: String,
+        @Field("profile_url") profile_url: String,
+        @Field("name") name: String
+    ): LiveData<NetworkResult<BaseResponse<ModelUser>>>
+
     companion object {
         /************************************************************
          * Functions

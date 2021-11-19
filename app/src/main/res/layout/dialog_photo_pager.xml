@@ -48,8 +48,8 @@
                 android:layout_alignBottom="@+id/vp_pager"
                 android:layout_marginHorizontal="@dimen/spacing_12"
                 app:ci_animator="@anim/no_anim"
-                app:ci_drawable="@drawable/xml_bg_circle_indicator"
-                app:ci_drawable_unselected="@drawable/xml_bg_circle_indicator_unsel"
+                app:ci_drawable="@drawable/xml_circle_indicator"
+                app:ci_drawable_unselected="@drawable/xml_circle_indicator_off"
                 app:ci_gravity="center"
                 app:ci_height="5dp"
                 app:ci_margin="2dp"
@@ -61,7 +61,7 @@
             android:id="@+id/ib_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/xml_round_4_white"
+            android:src="@drawable/xml_common_bg_white_round_4"
             android:layout_margin="16dp"
             android:background="@color/transparent"/>
 

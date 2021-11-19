@@ -51,7 +51,7 @@ public class PhotoPagerAdapter extends PagerAdapter {
         String photo = photos.get(position);
 
         if (CommonUtil.isValidUrl(photo)) {
-            ImageLoader.loadImage(context, ivSliderImage, R.drawable.xml_bg_default_img, photo);
+            ImageLoader.loadImage(context, ivSliderImage, R.drawable.xml_default_img, photo);
         } else {
             ivSliderImage.setImageURI(Uri.parse(photo));
         }

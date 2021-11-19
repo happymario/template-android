@@ -3,7 +3,61 @@ package com.victoria.bleled.common;
 /*****************************************************************************
  *  Camera와 Gallery에서 얻은 이미지를 External Temp File을 만들어 조작을 진행한다.
  *  결과값은 이 tempFile을  내보낸다
+ *
+ *  이전 버전 호환성을 위해서 onActivityResult를 그대로 리용한다. 바꾸면 CropImage library가 동작하지 않음.
+ *
+ *  ex)
+ *    mediaManager = MediaManager(this, false)
+ *         mediaManager.setCropEnable(true)
+ *         mediaManager.setMediaCallback(object :
+ *             MediaManager.MediaCallback {
+ *             override fun onDelete() {
+ *                 val imageView = binding.ivPhoto
+ *                 imageView.setImageResource(R.drawable.ic_launcher_background)
+ *             }
+ *
+ *             override fun onFailed(code: Int, err: String?) {
+ *                 CommonUtil.showToast(this@SignupActivity, "Error => code($code), err($err)")
+ *             }
+ *
+ *             override fun onImage(uri: Uri?, bitmap: Bitmap?) {
+ *                 //val imageView = binding.ivPhoto
+ *                 //imageView.setImageBitmap(bitmap)
+ *
+ *                 val file = mediaManager.getFileFromUri(uri)
+ *                 CommonUtil.showToast(this@SignupActivity, uri.toString())
+ *                 CommonUtil.showToast(this@SignupActivity, "FileExist => ${file?.exists()}")
+ *
+ *                 viewModel.uploadFile(file)
+ *             }
+ *
+ *             override fun onVideo(video: Uri?, thumb: Uri?, thumbBitmap: Bitmap?) {
+ *                 val imageView = binding.ivPhoto
+ *                 imageView.setImageBitmap(thumbBitmap)
+ *
+ *                 val file = MediaManager.externalUriToFile(this@SignupActivity, video)
+ *                 CommonUtil.showToast(this@SignupActivity, video.toString())
+ *                 CommonUtil.showToast(this@SignupActivity, "FileExist => ${file.exists()}")
+ *
+ *                 viewModel.uploadFile(file)
+ *             }
+ *         })
+ *
+ *     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+ *         super.onActivityResult(requestCode, resultCode, data)
+ *
+ *         if (requestCode == MediaManager.REQ_CROP_IMAGE
+ *             || requestCode == MediaManager.REQ_SET_CAMERA
+ *             || requestCode == MediaManager.REQ_SET_GALLERY
+ *             || requestCode == MediaManager.REQ_SET_CAMERA_VIDEO
+ *         ) {
+ *             mediaManager.onActivityResult(requestCode, resultCode, data)
+ *         }
+ *     }
  ***************************************************************************/
+
+import static android.app.Activity.RESULT_OK;
+import static java.lang.StrictMath.max;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -40,9 +94,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
-import static java.lang.StrictMath.max;
 
 public class MediaManager {
     public interface MediaCallback {

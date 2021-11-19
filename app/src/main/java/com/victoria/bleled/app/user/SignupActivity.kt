@@ -5,23 +5,19 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.victoria.bleled.R
 import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.common.Constants
 import com.victoria.bleled.common.MediaManager
-import com.victoria.bleled.data.model.ModelUpload
+import com.victoria.bleled.data.remote.ApiException
 import com.victoria.bleled.data.remote.NetworkObserver
 import com.victoria.bleled.databinding.ActivitySignupBinding
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.arch.base.BaseBindingActivity
-import com.victoria.bleled.util.arch.network.NetworkResult
 import com.victoria.bleled.util.feature.PermissionUtil
 import com.victoria.bleled.util.kotlin_ext.getViewModelFactory
-import com.victoria.bleled.util.thirdparty.glide.ImageLoader
-import java.io.File
 
 class SignupActivity : BaseBindingActivity<ActivitySignupBinding>() {
     /************************************************************
@@ -57,6 +53,7 @@ class SignupActivity : BaseBindingActivity<ActivitySignupBinding>() {
 
         initMediaManager()
         initView()
+        initViewModel()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -71,52 +68,59 @@ class SignupActivity : BaseBindingActivity<ActivitySignupBinding>() {
         }
     }
 
-
-    /************************************************************
-     *  Event Handler
-     ************************************************************/
-    fun onBack(view: View) {
-        finish()
-    }
-
-    fun onProfile(view: View) {
-        checkPermissionsForMediaManager()
-    }
-
-    fun onSignup(view: View) {
-        var email = binding.etId.text.toString()
-        var pwd = binding.etPwd.text.toString()
-        var pwdConfirm = binding.etPwdConfrim.text.toString()
-        var motto = binding.etMotto.text.toString()
-
-        if (!CommonUtil.isValidEmail(email)) {
-            CommonUtil.showToast(this, R.string.input_valid_email)
-            return
-        }
-
-        if (pwd.length < 6) {
-            CommonUtil.showToast(this, R.string.input_valid_pwd)
-            return
-        }
-
-        if (pwd != pwdConfirm) {
-            CommonUtil.showToast(this, R.string.hint_pwd_confirm)
-            return
-        }
-
-        reqSignup(email, pwd, motto)
-    }
-
-
     /************************************************************
      *  Helpers
      ************************************************************/
     override fun initView() {
         super.initView()
 
+        // views
+        hideKeyboard()
+
+        // events
+        binding.ibBack.setOnClickListener {
+            finish()
+        }
         binding.llContent.setOnClickListener {
             hideKeyboard()
         }
+        binding.ivPhoto.setOnClickListener {
+            checkPermissionsForMediaManager()
+        }
+    }
+
+
+    private fun initViewModel() {
+        binding.viewmodel = viewModel
+
+        viewModel.toastMessage.observe(this, { msg ->
+            CommonUtil.showToast(this, msg)
+        })
+
+        viewModel.dataLoading.observe(this, { loading ->
+            if (loading) {
+                showProgress()
+            } else {
+                hideProgress()
+            }
+        })
+
+        viewModel.networkErrorLiveData.observe(this, { error ->
+            val exception = error.error
+            if (exception is ApiException && exception.code == ApiException.ERR_NO_USER) {
+                CommonUtil.showToast(this, R.string.msg_no_login_user)
+            } else {
+                val msg = NetworkObserver.getErrorMsg(this, error)
+                CommonUtil.showToast(
+                    this,
+                    if (msg == null || msg.isEmpty()) getString(R.string.network_connect_error) else msg
+                )
+            }
+        })
+
+        viewModel.loginCompleteEvent.observe(this, {
+            goMain()
+        })
     }
 
 
@@ -142,7 +146,7 @@ class SignupActivity : BaseBindingActivity<ActivitySignupBinding>() {
                 CommonUtil.showToast(this@SignupActivity, uri.toString())
                 CommonUtil.showToast(this@SignupActivity, "FileExist => ${file?.exists()}")
 
-                uploadFile(file)
+                viewModel.uploadFile(file)
             }
 
             override fun onVideo(video: Uri?, thumb: Uri?, thumbBitmap: Bitmap?) {
@@ -153,7 +157,7 @@ class SignupActivity : BaseBindingActivity<ActivitySignupBinding>() {
                 CommonUtil.showToast(this@SignupActivity, video.toString())
                 CommonUtil.showToast(this@SignupActivity, "FileExist => ${file.exists()}")
 
-                uploadFile(file)
+                viewModel.uploadFile(file)
             }
         })
     }
@@ -186,42 +190,4 @@ class SignupActivity : BaseBindingActivity<ActivitySignupBinding>() {
         mediaManager.showSelectPopup(false)
         //mediaManager.openCamera(true)
     }
-
-    /************************************************************
-     *  Networking
-     ************************************************************/
-    private fun reqSignup(email: String, pwd: String, motto: String) {
-        // TODO Login
-        goMain()
-    }
-
-
-    private fun uploadFile(file: File) {
-        viewModel.uploadFile(file)
-            .observe(this, object : NetworkObserver<ModelUpload>(this@SignupActivity, true) {
-                override fun onChanged(result: NetworkResult<ModelUpload>) {
-                    super.onChanged(result)
-
-                    if (result.status.value == NetworkResult.Status.loading) {
-                        showProgress()
-                    } else {
-                        hideProgress()
-
-                        if (result.status.value == NetworkResult.Status.success) {
-                            ImageLoader.loadImage(
-                                this@SignupActivity,
-                                binding.ivPhoto,
-                                R.drawable.xml_bg_default_img,
-                                result.data.file_url
-                            )
-                        }
-                    }
-                }
-            })
-    }
-
-    /************************************************************
-     *  SubClasses
-     ************************************************************/
-
 }

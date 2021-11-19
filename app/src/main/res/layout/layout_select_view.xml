@@ -24,7 +24,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:background="@drawable/xml_round_4_white">
+            android:background="@drawable/xml_common_bg_white_round_4">
 
             <TextView
                 android:id="@+id/tv_content"

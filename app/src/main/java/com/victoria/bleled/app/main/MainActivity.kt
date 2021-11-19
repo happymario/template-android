@@ -49,7 +49,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         CommonUtil.showNIToast(this)
     }
 
-    fun onFab(view:View) {
+    fun onFab(view: View) {
         if (billingDataSource == null || billingDataSource.isBillingSetupCompleted === false) {
             return
         }
@@ -73,7 +73,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
 
     private fun initPurchase() {
         billingDataSource = BillingDataSource.getInstance(
-           MyApplication.globalApplicationContext!!,
+            MyApplication.globalApplicationContext!!,
             arrayOf("pdt_1"),
             arrayOf("basic_subscription", "premium_subscription"),
             null
@@ -91,7 +91,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         })
 
         billingDataSource.isPurchased("basic_subscription").observe(this) { purchased ->
-            if(!purchased) {
+            if (!purchased) {
                 // 서버상태가 구독구매인데 purchase false이면 cancelPay api호출
                 Log.d("INAPP", "1");
             }

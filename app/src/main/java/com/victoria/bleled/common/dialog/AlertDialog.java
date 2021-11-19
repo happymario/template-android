@@ -256,11 +256,11 @@ public class AlertDialog extends BaseDialog {
 
         this.mBinding.llyBtns.setVisibility(View.GONE);
         if (cancelVisible && confirmVisible) {
-            this.mBinding.tvCancel.setBackgroundResource(R.drawable.xml_round_btn_cancel);
-            this.mBinding.tvConfirm.setBackgroundResource(R.drawable.xml_round_btn_ok);
+            this.mBinding.tvCancel.setBackgroundResource(R.drawable.xml_cancel_btn);
+            this.mBinding.tvConfirm.setBackgroundResource(R.drawable.xml_ok_btn);
             this.mBinding.llyBtns.setVisibility(View.VISIBLE);
         } else if (confirmVisible) {
-            this.mBinding.tvConfirm.setBackgroundResource(R.drawable.xml_round_btn_ok);
+            this.mBinding.tvConfirm.setBackgroundResource(R.drawable.xml_ok_btn);
             this.mBinding.llyBtns.setVisibility(View.VISIBLE);
         }
     }

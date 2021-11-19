@@ -51,7 +51,7 @@ fun setImageUrl(imageView: ImageView, url: String?, placeHolder: Int?) {
         ImageLoader.loadImage(
             imageView.context,
             imageView,
-            placeHolder ?: R.drawable.xml_bg_default_img,
+            placeHolder ?: R.drawable.xml_default_img,
             url
         )
     }

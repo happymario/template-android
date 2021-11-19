@@ -1,5 +1,7 @@
 package com.victoria.bleled.util.feature.logger;
 
+import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
+
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -11,8 +13,6 @@ import com.orhanobut.logger.LogStrategy;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
 
 /*
  public void initLogger() {
