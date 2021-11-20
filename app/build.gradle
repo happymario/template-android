@@ -51,7 +51,7 @@ android {
     buildToolsVersion "30.0.3"
     defaultConfig {
         //applicationId "com.mario.androidpacksample"
-        applicationId "com.mario.classytaxi"
+        applicationId "com.mario.classytaxi" // googlePlay LVC
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 2
@@ -228,5 +228,7 @@ dependencies {
 
     implementation project(':libMBase')
     //implementation(name:'libpicaon', ext:'aar')
+
+    implementation 'com.kakao.sdk:v2-user:2.5.0'
 }
 apply plugin: 'com.google.gms.google-services'

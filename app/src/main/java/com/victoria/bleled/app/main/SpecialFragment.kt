@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.bluetooth
+package com.victoria.bleled.app.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -73,8 +73,7 @@ class SpecialFragment : BaseBindingFragment<FragmentSpecialBinding>() {
     /************************************************************
      *  Private Functions
      ************************************************************/
-    override fun initView() {
-        super.initView()
+    fun initView() {
         binding.view = this
     }
 

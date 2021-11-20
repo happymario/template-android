@@ -1,12 +1,16 @@
 package com.victoria.bleled.app
 
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.databinding.*
+import androidx.recyclerview.widget.RecyclerView
 import com.victoria.bleled.R
 import com.victoria.bleled.util.thirdparty.glide.ImageLoader
+import com.victoria.bleled.util.view.recycleview.CustomDecoration
 
 @BindingMethods(
     value = [
@@ -55,4 +59,18 @@ fun setImageUrl(imageView: ImageView, url: String?, placeHolder: Int?) {
             url
         )
     }
+}
+
+@BindingAdapter(value = ["dividerHeight", "dividerPadding", "dividerColor"], requireAll = false)
+fun RecyclerView.setDivider(
+    dividerHeight: Float?,
+    dividerPadding: Float?,
+    @ColorInt dividerColor: Int?
+) {
+    val decoration = CustomDecoration(
+        height = dividerHeight ?: 0f,
+        padding = dividerPadding ?: 0f,
+        color = dividerColor ?: Color.TRANSPARENT
+    )
+    addItemDecoration(decoration)
 }

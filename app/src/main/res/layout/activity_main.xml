@@ -35,11 +35,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
                         android:background="?attr/colorPrimary"
+                        app:titleMarginStart="0dp"
+                        app:contentInsetStartWithNavigation="0dp"
                         app:layout_scrollFlags="scroll|enterAlways|snap"
                         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tabs"
+                        style="@style/AppTheme.TabLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 

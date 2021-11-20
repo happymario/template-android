@@ -23,11 +23,8 @@ class MyFastBleDevice(private val mContext: Context, private val mBleDevice: Ble
     val isMyDevice: Boolean
         get() {
             val name = mBleDevice!!.name
-            return if (name != null && name.toLowerCase()
-                    .contains(SCAN_IDENTIFIER.toLowerCase()) == true
-            ) {
-                true
-            } else false
+            return name != null && name.toLowerCase()
+                .contains(SCAN_IDENTIFIER.toLowerCase())
         }
 
     var sentText: String = ""

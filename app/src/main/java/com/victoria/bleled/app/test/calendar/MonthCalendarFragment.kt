@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.main.calendar
+package com.victoria.bleled.app.test.calendar
 
 import android.os.Bundle
 import android.view.LayoutInflater

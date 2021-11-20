@@ -5,23 +5,24 @@
     tools:context=".app.main.MainFragment">
 
     <data>
+        <import type="android.view.View" />
         <variable
-            name="view"
-            type="com.victoria.bleled.app.main.MainFragment" />
+            name="viewmodel"
+            type="com.victoria.bleled.app.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            android:text="Main"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="12"
+            tools:listitem="@layout/item_task"
+            app:dividerColor="@{@color/divider}"
+            app:dividerHeight="@{@dimen/spacing_1}"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

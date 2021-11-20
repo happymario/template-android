@@ -46,11 +46,5 @@ public abstract class BaseBindingFragment<T extends ViewDataBinding> extends Bas
     /************************************************************
      *  Helpers
      ************************************************************/
-    protected void initView() {
-        binding.setLifecycleOwner(this);
-    }
 
-    /************************************************************
-     *  Sub Classes
-     ************************************************************/
 }

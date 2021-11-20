@@ -97,6 +97,21 @@
 
     <!-- Main -->
     <string name="tab_main">기본기술</string>
-    <string name="tab_special">특기기술</string>
     <string name="tab_latest">최신기술</string>
+    <string name="tab_special">특기기술</string>
+    <string name="hint_search">검색어를 입력해주세요.</string>
+
+    <string-array name="arr_main_tech">
+        <item>Menu</item>
+        <item>Animation</item>
+        <item>카메라</item>
+    </string-array>
+
+    <string-array name="arr_recent_tech">
+        <item>PictureInPicture</item>
+    </string-array>
+
+    <string-array name="arr_special_tech">
+        <item>Bluetooth</item>
+    </string-array>
 </resources>

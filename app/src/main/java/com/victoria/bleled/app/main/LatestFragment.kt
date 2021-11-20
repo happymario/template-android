@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.test
+package com.victoria.bleled.app.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.victoria.bleled.R
+import com.victoria.bleled.app.test.CameraTestActivity
+import com.victoria.bleled.app.test.EtcTestActivity
 import com.victoria.bleled.app.test.animation.AnimationTestActivity
 import com.victoria.bleled.databinding.FragmentLatestBinding
 import com.victoria.bleled.util.arch.base.BaseBindingFragment
@@ -89,8 +91,7 @@ class LatestFragment : BaseBindingFragment<FragmentLatestBinding>() {
     /************************************************************
      *  Private Functions
      ************************************************************/
-    override fun initView() {
-        super.initView()
+    fun initView() {
         binding.view = this
     }
 

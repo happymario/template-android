@@ -2,16 +2,18 @@ package com.victoria.bleled.app.main
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.widget.SearchView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victoria.bleled.R
 import com.victoria.bleled.app.MyApplication
 import com.victoria.bleled.databinding.ActivityMainBinding
 import com.victoria.bleled.service.billing.BillingDataSource
-import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.arch.base.BaseBindingActivity
+
 
 class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
     /************************************************************
@@ -36,27 +38,35 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         initPurchase()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
 
-    override fun onPause() {
-        super.onPause()
+        val searchView = menu?.findItem(R.id.action_search)?.actionView as SearchView
+        searchView.maxWidth = Integer.MAX_VALUE
+        searchView.queryHint = getString(R.string.hint_search)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.isIconified = true
+                searchView.onActionViewCollapsed()
+                return false
+            }
+        })
+
+        return super.onCreateOptionsMenu(menu)
     }
 
-
-    /************************************************************
-     *  Event Handler
-     ************************************************************/
-    fun onMenu(view: View) {
-        CommonUtil.showNIToast(this)
-    }
-
-    fun onFab(view: View) {
-        if (billingDataSource == null || billingDataSource.isBillingSetupCompleted === false) {
-            return
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                binding.drawerLayout.open()
+            }
         }
-
-        billingDataSource.launchBillingFlow(this, "basic_subscription")
+        return super.onOptionsItemSelected(item)
     }
-
 
     /************************************************************
      *  Helpers
@@ -65,10 +75,19 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         super.initView()
 
         setupToolbar()
+
         setupViewPager(binding.viewpager)
         TabLayoutMediator(binding.tabs, binding.viewpager) { tab, position ->
             tab.text = pagerAdapter?.getFragmentTitle(position)
         }.attach()
+
+        binding.fab.setOnClickListener {
+            if (billingDataSource == null || billingDataSource.isBillingSetupCompleted === false) {
+                return@setOnClickListener
+            }
+
+            billingDataSource.launchBillingFlow(this, "basic_subscription")
+        }
     }
 
     private fun initPurchase() {
@@ -113,15 +132,10 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
 
         val titleArray = ArrayList<String>()
         titleArray.add(getString(R.string.tab_main))
-        titleArray.add(getString(R.string.tab_special))
         titleArray.add(getString(R.string.tab_latest))
+        titleArray.add(getString(R.string.tab_special))
         pagerAdapter?.setFragmentTitle(titleArray)
 
         viewPager.adapter = pagerAdapter
     }
-
-    /************************************************************
-     *  SubClasses
-     ************************************************************/
-
 }
