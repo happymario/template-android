@@ -100,18 +100,23 @@
     <string name="tab_latest">최신기술</string>
     <string name="tab_special">특기기술</string>
     <string name="hint_search">검색어를 입력해주세요.</string>
+    <string name="about">대하여</string>
+    <string name="logout">나가기</string>
 
     <string-array name="arr_main_tech">
         <item>Menu</item>
         <item>Animation</item>
-        <item>카메라</item>
+        <item>Camera</item>
     </string-array>
 
     <string-array name="arr_recent_tech">
+        <item>WorkManager</item>
         <item>PictureInPicture</item>
     </string-array>
 
     <string-array name="arr_special_tech">
         <item>Bluetooth</item>
+        <item>Calender</item>
+        <item>ImageSearch</item>
     </string-array>
 </resources>

@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.bluetooth
+package com.victoria.bleled.app.special.bluetooth
 
 import android.os.Bundle
 import android.view.View

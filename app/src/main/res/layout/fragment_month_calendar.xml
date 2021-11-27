@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".app.test.calendar.MonthCalendarFragment">
+    tools:context=".app.special.calendar.MonthCalendarFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,13 +22,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 />
-            <com.victoria.bleled.app.test.calendar.DayScheduleView
+            <com.victoria.bleled.app.special.calendar.DayScheduleView
                 android:id="@+id/v_schedule"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorAccent" >
 
-            </com.victoria.bleled.app.test.calendar.DayScheduleView>
+            </com.victoria.bleled.app.special.calendar.DayScheduleView>
 
         </com.daimajia.swipe.SwipeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.victoria.bleled.app.test.animation.AnimationTestActivity">
+    tools:context="com.victoria.bleled.app.essential.animation.AnimationTestActivity">
 
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/motionLayout"
@@ -28,7 +28,7 @@
     </androidx.constraintlayout.motion.widget.MotionLayout>
 
 
-    <com.victoria.bleled.app.test.animation.DialView
+    <com.victoria.bleled.app.essential.animation.DialView
         android:id="@+id/imageView3"
         android:layout_width="200dp"
         android:layout_height="200dp"

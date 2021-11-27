@@ -24,9 +24,9 @@ class MainPagerAdapter constructor(fa: FragmentActivity) : FragmentStateAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            1 -> LatestFragment.newInstance()
-            2 -> SpecialFragment.newInstance()
-            else -> MainFragment.newInstance()
+            1 -> TaskFragment.newInstance(1)
+            2 -> TaskFragment.newInstance(2)
+            else -> TaskFragment.newInstance(position)
         }
     }
 

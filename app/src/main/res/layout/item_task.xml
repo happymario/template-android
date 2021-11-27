@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="data"
             type="String" />
+
+        <variable
+            name="viewmodel"
+            type="com.victoria.bleled.app.main.MainViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/list_item_padding"
+        android:paddingTop="@dimen/list_item_padding"
+        android:onClick="@{v -> viewmodel.openTask(v, data)}">
 
         <TextView
             android:id="@+id/textView5"
@@ -18,8 +29,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{data}"
-            android:layout_margin="10dp"
+            android:clickable="true"
+            android:onClick="@{v -> viewmodel.openTask(v, data)}"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

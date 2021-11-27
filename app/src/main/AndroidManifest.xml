@@ -83,16 +83,16 @@
             android:name=".app.user.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".app.test.animation.AnimationTestActivity"
+            android:name=".app.essential.animation.AnimationTestActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".app.test.CameraTestActivity"
+            android:name=".app.essential.CameraTestActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name="com.victoria.bleled.app.bluetooth.BluetoothTestActivity"
+            android:name="com.victoria.bleled.app.special.bluetooth.BluetoothTestActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".app.test.EtcTestActivity"
+            android:name=".app.recent.EtcTestActivity"
             android:screenOrientation="portrait"
             android:supportsPictureInPicture="true">
             <layout

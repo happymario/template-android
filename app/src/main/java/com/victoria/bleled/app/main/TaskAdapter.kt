@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.victoria.bleled.databinding.ItemTaskBinding
 
-class TasksAdapter(private val viewModel: MainViewModel) : RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
+class TaskAdapter(private val viewModel: MainViewModel) :
+    RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
     var list: ArrayList<String> = arrayListOf()
     var listener: ((Int) -> Unit)? = null
 
@@ -23,8 +24,11 @@ class TasksAdapter(private val viewModel: MainViewModel) : RecyclerView.Adapter<
 
     class ViewHolder private constructor(val binding: ItemTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(adapter: TasksAdapter, pos: Int) {
-            //binding.viewmodel = adapter.viewModel
+        fun bind(adapter: TaskAdapter, pos: Int) {
+            binding.viewmodel = adapter.viewModel
+            binding.root.setOnClickListener {
+                adapter.viewModel.openTask(binding.root, adapter.list[pos])
+            }
             binding.data = adapter.list[pos]
             binding.executePendingBindings()
         }
@@ -32,7 +36,8 @@ class TasksAdapter(private val viewModel: MainViewModel) : RecyclerView.Adapter<
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ItemTaskBinding.inflate(layoutInflater)
+                /*parent가 없으면 부모의 match_parent를 얻어올수가 없음**/
+                val binding = ItemTaskBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }

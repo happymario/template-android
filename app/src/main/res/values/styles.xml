@@ -22,6 +22,12 @@
         <item name="android:clickable">true</item>
     </style>
 
+    <style name="DividerView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="background">@color/divider</item>
+    </style>
+
     <style name="LoginEditText">
         <item name="android:textSize">@dimen/font_13</item>
         <item name="android:textColor">@color/common_text</item>
@@ -58,9 +64,15 @@
     </style>
 
     <style name="ListTitleText">
-        <item name="android:textSize">@dimen/font_24</item>
-        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">@dimen/font_18</item>
+        <item name="android:textColor">@color/common_text</item>
         <item name="android:background">@color/transparent</item>
         <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="DefaultText">
+        <item name="android:textSize">@dimen/default_text_size</item>
+        <item name="android:textColor">@color/common_text</item>
+        <item name="android:background">@color/transparent</item>
     </style>
 </resources>

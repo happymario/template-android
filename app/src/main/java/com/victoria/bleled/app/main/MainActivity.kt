@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.SearchView
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victoria.bleled.R
@@ -74,9 +75,12 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
     override fun initView() {
         super.initView()
 
+        // views
         setupToolbar()
-
+        setupNavigationDrawer()
         setupViewPager(binding.viewpager)
+
+        // events
         TabLayoutMediator(binding.tabs, binding.viewpager) { tab, position ->
             tab.text = pagerAdapter?.getFragmentTitle(position)
         }.attach()
@@ -137,5 +141,13 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         pagerAdapter?.setFragmentTitle(titleArray)
 
         viewPager.adapter = pagerAdapter
+        //viewPager.isUserInputEnabled = false
+    }
+
+    private fun setupNavigationDrawer() {
+        (findViewById<DrawerLayout>(R.id.drawer_layout))
+            .apply {
+                setStatusBarBackground(R.color.colorPrimaryDark)
+            }
     }
 }
