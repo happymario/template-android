@@ -3,28 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.victoria.bleled">
 
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-
-    <!-- camera, gallary, storage -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!-- Manage External은 전체 파일에 Access해야 할시만 이용 -->
-    <!--    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />-->
-    <!-- android 11이상일 경우 WRITE_EXTERNAL_STORAGE은 더이상 지원안됨. read만 요청해도 특정 external과 scope령역 액세스가능함-->
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- camera, gallary, storage -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- Manage External은 전체 파일에 Access해야 할시만 이용 -->
+    <!-- <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" /> -->
+    <!-- android 11이상일 경우 WRITE_EXTERNAL_STORAGE은 더이상 지원안됨. read만 요청해도 특정 external과 scope령역 액세스가능함 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <!-- gps and bluetooth -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!-- Background권한은 반드시 이용사유를 동영상으로 제출해야 하며 처음에 요청페지가 떠야 함. -->
-    <!--    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- gps and bluetooth -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Background권한은 반드시 이용사유를 동영상으로 제출해야 하며 처음에 요청페지가 떠야 함. -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
-    <!-- read phone state -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-    <!-- for push when closed -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> <!-- read phone state -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- for push when closed -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
@@ -38,17 +30,21 @@
         <!-- mail -->
         <intent>
             <action android:name="android.intent.action.SENDTO" />
+
             <data android:scheme="*" />
         </intent>
 
         <!-- Browser -->
         <intent>
             <action android:name="android.intent.action.VIEW" />
+
             <data android:scheme="http" />
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
+
             <category android:name="android.intent.category.BROWSABLE" />
+
             <data android:scheme="https" />
         </intent>
 
@@ -63,8 +59,6 @@
         </intent>
     </queries>
 
-    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
-
     <application
         android:name=".app.MyApplication"
         android:allowBackup="false"
@@ -74,8 +68,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
-        tools:replace="android:allowBackup"
-        tools:ignore="LockedOrientationActivity">
+        tools:ignore="LockedOrientationActivity"
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".app.more.AboutActivity"
+            android:exported="false" />
+        <activity android:name=".app.more.SettingActivity" />
         <activity
             android:name=".app.user.SignupActivity"
             android:screenOrientation="portrait" />
@@ -89,7 +87,7 @@
             android:name=".app.essential.CameraTestActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name="com.victoria.bleled.app.special.bluetooth.BluetoothTestActivity"
+            android:name=".app.special.bluetooth.BluetoothTestActivity"
             android:screenOrientation="fullSensor" />
         <activity
             android:name=".app.recent.EtcTestActivity"
@@ -119,9 +117,7 @@
         </activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
-
-        <!-- file provider for camera -->
+            android:theme="@style/Base.Theme.AppCompat" /> <!-- file provider for camera -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -130,9 +126,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
-        </provider>
-
-        <!-- fcm -->
+        </provider> <!-- fcm -->
         <service
             android:name=".service.fcm.MyFirebaseMessagingService"
             android:stopWithTask="false">

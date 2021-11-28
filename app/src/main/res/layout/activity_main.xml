@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewmodel"
+            type="com.victoria.bleled.app.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -75,7 +77,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
                 app:headerLayout="@layout/layout_left_navigation"
-                app:menu="@menu/drawer_actions" />
+                app:menu="@menu/drawer_actions"
+                app:itemBackground="@drawable/xml_bg_drawer_item"/>
 <!--            <LinearLayout-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="match_parent"-->

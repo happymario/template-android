@@ -15,10 +15,9 @@ interface UserDao {
     fun loadAllByIds(userIds: IntArray?): List<ModelUser?>?
 
     @Query(
-        "SELECT * FROM tb_user WHERE first_name LIKE :first AND " +
-                "last_name LIKE :last LIMIT 1"
+        "SELECT * FROM tb_user WHERE name LIKE :first LIMIT 1"
     )
-    fun findByName(first: String?, last: String?): ModelUser?
+    fun findByName(first: String?): ModelUser?
 
     @Insert
     fun insertAll(vararg users: ModelUser?)

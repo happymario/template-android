@@ -113,6 +113,8 @@ public class DataRepository {
                 if (status == NetworkResult.Status.loading) {
                     callback.onChanged(NetworkResult.loading());
                 } else {
+                    liveData.removeObserver(this);
+
                     if (status == NetworkResult.Status.success) {
                         if (baseResponseNetworkResult.data == null) {
                             callback.onChanged(NetworkResult.error(new Exception()));
@@ -124,7 +126,6 @@ public class DataRepository {
                     } else {
                         callback.onChanged(NetworkResult.error(baseResponseNetworkResult.error));
                     }
-                    liveData.removeObserver(this);
                 }
             }
         };

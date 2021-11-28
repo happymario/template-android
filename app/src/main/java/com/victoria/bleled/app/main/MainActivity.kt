@@ -1,19 +1,32 @@
 package com.victoria.bleled.app.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.SearchView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victoria.bleled.R
 import com.victoria.bleled.app.MyApplication
+import com.victoria.bleled.app.more.AboutActivity
+import com.victoria.bleled.app.more.SettingActivity
+import com.victoria.bleled.app.setImageUrl
+import com.victoria.bleled.app.user.LoginActivity
+import com.victoria.bleled.common.dialog.AlertDialog
 import com.victoria.bleled.databinding.ActivityMainBinding
 import com.victoria.bleled.service.billing.BillingDataSource
+import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.arch.base.BaseBindingActivity
+import com.victoria.bleled.util.kotlin_ext.getViewModelFactory
 
 
 class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
@@ -27,6 +40,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
      ************************************************************/
     private var pagerAdapter: MainPagerAdapter? = null
     private lateinit var billingDataSource: BillingDataSource
+    private val viewModel by viewModels<MainViewModel> { getViewModelFactory() }
 
     /************************************************************
      *  Overrides
@@ -35,8 +49,12 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initView()
         initPurchase()
+
+        initView()
+        initViewModel()
+
+        viewModel.start()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -53,6 +71,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchView.isIconified = true
                 searchView.onActionViewCollapsed()
+                CommonUtil.showNIToast(this@MainActivity)
                 return false
             }
         })
@@ -92,6 +111,44 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
 
             billingDataSource.launchBillingFlow(this, "basic_subscription")
         }
+        binding.navView.getHeaderView(0).findViewById<View>(R.id.imageButton).setOnClickListener {
+            goSetting()
+        }
+        binding.navView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { it ->
+            when (it.itemId) {
+                R.id.menu_about -> {
+                    goAbout()
+                    false
+                }
+
+                R.id.menu_logout -> {
+                    showLogoutDlg()
+                    false
+                }
+                else -> {
+                    true
+                }
+            }
+        })
+    }
+
+    private fun initViewModel() {
+        binding.viewmodel = viewModel
+
+        viewModel.userInfo.observe(this, { user ->
+            if(user == null) {
+                goLogin()
+                return@observe
+            }
+            val parent = binding.navView.getHeaderView(0)
+            parent.findViewById<TextView>(R.id.tv_nickname).text =
+                user.name
+            parent.findViewById<TextView>(R.id.tv_email).text = user.id
+            setImageUrl(
+                parent.findViewById<ImageView>(R.id.iv_profile),
+                user.profile_url, R.drawable.profile
+            )
+        })
     }
 
     private fun initPurchase() {
@@ -149,5 +206,33 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
             .apply {
                 setStatusBarBackground(R.color.colorPrimaryDark)
             }
+    }
+
+    private fun goSetting() {
+        val intent = Intent(this, SettingActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goAbout() {
+        val intent = Intent(this, AboutActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goLogin() {
+        val intent = Intent(this, LoginActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+        startActivity(intent)
+    }
+
+    private fun showLogoutDlg() {
+        AlertDialog.Builder(this)
+            .setMessage(getString(R.string.msg_logout))
+            .setPositiveButton(R.string.confirm) { dialog, which ->
+                viewModel.logout()
+            }
+            .setNegativeButton(R.string.cancel) { dialog, which ->
+            }
+            .show()
     }
 }

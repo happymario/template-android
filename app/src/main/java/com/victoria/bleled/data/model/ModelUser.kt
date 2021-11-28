@@ -16,24 +16,20 @@ data class ModelUser(@PrimaryKey(autoGenerate = true) var uid: Int) : BaseModel(
     var id: String? = null
 
     @JvmField
-    @ColumnInfo(name = "first_name")
-    var first_name: String? = null
-
-    @JvmField
-    @ColumnInfo(name = "last_name")
-    var last_name: String? = null
+    @ColumnInfo(name = "name")
+    var name: String? = null
 
     @Ignore
     private val reg_time: String? = null
 
     @Ignore
-    private val profile_url: String? = null
+    val profile_url: String? = null
 
     @Ignore
     private val profile_url_check: String? = null
 
     @Ignore
-    private val status = 0
+    val status = 0
 
     @Ignore
     var pwd: String = ""

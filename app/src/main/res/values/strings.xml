@@ -102,6 +102,7 @@
     <string name="hint_search">검색어를 입력해주세요.</string>
     <string name="about">대하여</string>
     <string name="logout">나가기</string>
+    <string name="msg_logout">App에서 나가시겠습니까?</string>
 
     <string-array name="arr_main_tech">
         <item>Menu</item>

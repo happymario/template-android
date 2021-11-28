@@ -102,7 +102,7 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
 
     private fun openTaskDetails(view: View) {
         val id = view.tag as String
-        if (id.toLowerCase() == "menu") {
+        if (id.lowercase(Locale.getDefault()) == "menu") {
             val popup = PopupMenu(requireContext(), view)
             val inflater: MenuInflater = popup.menuInflater
             inflater.inflate(R.menu.menu_example, popup.menu)
