@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="com.victoria.bleled.util.feature.gallary.Gallary" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="1.5dp"
+        selected = "@{item == null? false: item.is_select}">
+
+        <ImageView
+            android:id="@+id/aspectRatioImageView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1.0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_camera"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#E0E0E0"
+            android:padding="36dp"
+            android:src="@drawable/xml_default_img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_gallary"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/xml_default_img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            imageUrl='@{item == null? "" : item.imageUri.toString()}'/>
+
+        <ImageView
+            android:id="@+id/iv_dim"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="@id/iv_gallary"
+            app:layout_constraintTop_toTopOf="@id/iv_gallary"
+            app:layout_constraintEnd_toEndOf="@id/iv_gallary"
+            app:layout_constraintStart_toStartOf="@id/iv_gallary"/>
+
+        <TextView
+            android:id="@+id/tv_cnt"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="@dimen/spacing_5"
+            android:layout_marginRight="@dimen/spacing_5"
+            android:background="@drawable/xml_circle_badge"
+            android:text='@{(item == null || item.num == 0)? "":String.valueOf(item.num)}'
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_10"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="@id/iv_gallary"
+            app:layout_constraintTop_toTopOf="@id/iv_gallary" />
+
+        <ImageView
+            android:id="@+id/iv_check"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="@dimen/spacing_5"
+            android:layout_marginRight="@dimen/spacing_5"
+            android:src="@drawable/xml_checkbox_selector"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="@id/iv_gallary"
+            app:layout_constraintTop_toTopOf="@id/iv_gallary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -119,7 +119,7 @@ public class BaseActivity extends AppCompatActivity {
             mProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         }
         mProgressDialog.setCancelable(false);
-        View linearLayout = LayoutInflater.from(this).inflate(R.layout.layout_loading_only, null);
+        View linearLayout = LayoutInflater.from(this).inflate(R.layout.view_loading_only, null);
         mProgressDialog.setContentView(linearLayout);
         ProgressBar progressBar = mProgressDialog.findViewById(R.id.progressBar1);
         progressBar.setIndeterminate(true);

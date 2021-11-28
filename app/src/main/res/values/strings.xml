@@ -3,6 +3,8 @@
     <string name="app_finish_message">"'뒤로' 버튼을 한번 더 누르면 종료됩니다."</string>
     <string name="pms_des">해당 기능을 사용하려면 권한이 필요합니다. 권한을 허용해주세요.</string>
     <string name="ready_service">서비스 준비중입니다.</string>
+    <string name="not_supported_feature">해당 기기에서는 지원하지 않는 기능입니다.</string>
+
     <!-- Network 통신 관련 -->
     <string name="error">오류</string>
     <string name="server_problem">죄송합니다. 서버점검시간입니다.</string>
@@ -53,6 +55,8 @@
     <string name="modify">수정</string>
     <string name="close">닫기</string>
     <string name="next">다음</string>
+    <string name="no_name">미정</string>
+    <string name="all">전체</string>
 
     <string-array name="week">
         <item>SUN</item>
@@ -103,11 +107,18 @@
     <string name="about">대하여</string>
     <string name="logout">나가기</string>
     <string name="msg_logout">App에서 나가시겠습니까?</string>
-
+    <string name="msg_workmanager_alarm">1분후 앱이 다시 켜집니다.</string>
+    <string name="mode">방식</string>
+    <string name="prev">&lt;-</string>
+    <string name="after">-&gt;</string>
+    <string name="msg_photo_count_limit" formatted="true">최대 %d장까지 등록 할수 있습니다.</string>
+    <string name="gallery_select">올리기</string>
+    <string name="gallery_cannot_load">갤러리를 로딩할수 없습니다.</string>
     <string-array name="arr_main_tech">
         <item>Menu</item>
         <item>Animation</item>
         <item>Camera</item>
+        <item>Gallery</item>
     </string-array>
 
     <string-array name="arr_recent_tech">
@@ -117,7 +128,7 @@
 
     <string-array name="arr_special_tech">
         <item>Bluetooth</item>
-        <item>Calender</item>
+        <item>Calendar</item>
         <item>ImageSearch</item>
     </string-array>
 </resources>

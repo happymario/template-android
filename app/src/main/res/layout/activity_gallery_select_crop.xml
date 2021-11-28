@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".app.essential.gallery.GallerySelectCropActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="view"
+            type="com.victoria.bleled.app.essential.gallery.GallerySelectCropActivity" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cv_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/linearLayout9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_10"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_crop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/xml_common_edit_bg"
+                    android:onClick="onCrop"
+                    android:padding="4dp"
+                    android:text="4:3"
+                    android:textColor="@color/colorPrimary" />
+            </LinearLayout>
+
+            <com.victoria.bleled.util.view.imageview.TouchImageView
+                android:id="@+id/iv_photo2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="center"
+                android:src="@drawable/xml_default_img"
+                android:background="@drawable/xml_default_img"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginVertical="20dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout9"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <com.victoria.bleled.util.view.imageview.TouchImageView
+                android:id="@+id/iv_photo1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="center"
+                android:src="@drawable/xml_default_img"
+                android:background="@drawable/xml_default_img"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginVertical="20dp"
+                app:layout_constraintDimensionRatio="4:3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout9"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:behavior_hideable="false"
+            app:behavior_peekHeight="320dp"
+            app:layout_behavior="@string/bottom_sheet_behavior">
+
+            <LinearLayout
+                android:id="@+id/ll_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:orientation="horizontal"
+                        android:background="@color/colorPrimary">
+                        <ImageButton
+                            android:layout_width="50dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/btn_back"
+                            android:background="@color/transparent"
+                            android:layout_marginRight="30dp"
+                            android:onClick="@{v -> view.onClose(v)}"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_toEndOf="@+id/ib_btn"
+                            android:background="@color/transparent"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/sp_folder"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="@color/transparent" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/transparent"
+                                android:src="@drawable/drop_down_w" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_select"
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent"
+                            android:text="@string/gallery"
+                            android:textSize="@dimen/font_14"
+                            android:textColor="@color/white"
+                            android:gravity="center"
+                            android:onClick="@{v -> view.onSelect(v)}"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider"/>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="@dimen/spacing_10"
+                    android:background="@color/transparent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal"
+                    tools:itemCount="12"
+                    tools:listitem="@layout/item_gallery_top" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="480dp"
+                    android:layout_marginTop="@dimen/spacing_10"
+                    android:background="@color/transparent"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="4"
+                    tools:itemCount="12"
+                    tools:listitem="@layout/item_gallery_select" />
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

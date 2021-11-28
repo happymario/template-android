@@ -5,9 +5,11 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.NonNull
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.victoria.bleled.R
 import com.victoria.bleled.common.ExternalFolderManager
@@ -35,6 +37,16 @@ class CameraTestActivity : AppCompatActivity() {
 
         initMediaManager()
         mStorageManager = ExternalFolderManager(this, "template")
+        setupToolbar()
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId === android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -194,6 +206,15 @@ class CameraTestActivity : AppCompatActivity() {
                 RC_GALLARY_PERMS
             )
         }
+    }
+
+
+    private fun setupToolbar() {
+        setSupportActionBar(findViewById(R.id.toolbar))
+
+        val ab: ActionBar? = supportActionBar
+        ab?.title = resources.getStringArray(R.array.arr_main_tech)[2]
+        ab?.setDisplayHomeAsUpEnabled(true)
     }
 
     fun onCamera(view: View) {

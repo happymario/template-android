@@ -5,6 +5,9 @@
 
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- camera, gallary, storage -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- Manage External은 전체 파일에 Access해야 할시만 이용 -->
@@ -71,9 +74,24 @@
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:allowBackup">
         <activity
-            android:name=".app.more.AboutActivity"
+            android:name="com.victoria.bleled.app.essential.gallery.GallerySelectCropActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.etc.WebViewActivity"
             android:exported="false" />
-        <activity android:name=".app.more.SettingActivity" />
+        <activity
+            android:name=".app.special.calendar.CalendarActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.special.imagesearch.ImageSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.more.AboutActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.more.SettingActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".app.user.SignupActivity"
             android:screenOrientation="portrait" />
@@ -81,7 +99,7 @@
             android:name=".app.user.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".app.essential.animation.AnimationTestActivity"
+            android:name=".app.essential.anim.AnimActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".app.essential.CameraTestActivity"
@@ -90,7 +108,8 @@
             android:name=".app.special.bluetooth.BluetoothTestActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".app.recent.EtcTestActivity"
+            android:name=".app.recent.VideoPlayerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:supportsPictureInPicture="true">
             <layout

@@ -47,13 +47,13 @@ android {
         }
     }
 
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion 31
+    buildToolsVersion "31.0.0"
     defaultConfig {
         //applicationId "com.mario.androidpacksample"
         applicationId "com.mario.classytaxi" // googlePlay LVC
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 2
         versionName "1.0.0"
         multiDexEnabled = true
@@ -216,6 +216,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:18.0.0'
     implementation 'com.google.maps.android:android-maps-utils:2.2.0'
 
+    // video player
+    implementation 'com.google.android.exoplayer:exoplayer:2.16.1'
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+
     // log
     implementation 'com.orhanobut:logger:2.2.0'
     implementation "com.jakewharton.timber:timber:4.7.1"
@@ -228,7 +232,5 @@ dependencies {
 
     implementation project(':libMBase')
     //implementation(name:'libpicaon', ext:'aar')
-
-    implementation 'com.kakao.sdk:v2-user:2.5.0'
 }
 apply plugin: 'com.google.gms.google-services'

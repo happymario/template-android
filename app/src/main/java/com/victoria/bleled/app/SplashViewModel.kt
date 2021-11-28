@@ -2,13 +2,11 @@ package com.victoria.bleled.app
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.victoria.bleled.R
 import com.victoria.bleled.data.DataRepository
 import com.victoria.bleled.data.model.ModelAppInfo
 import com.victoria.bleled.data.model.ModelUser
 import com.victoria.bleled.data.remote.NetworkObserver
 import com.victoria.bleled.data.remote.myservice.BaseResponse
-import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.arch.Event
 import com.victoria.bleled.util.arch.base.BaseViewModel
 import com.victoria.bleled.util.arch.network.NetworkResult
@@ -59,7 +57,7 @@ class SplashViewModel constructor(private val repository: DataRepository) : Base
         })
     }
 
-    fun loginUser(user:ModelUser) {
+    fun loginUser(user: ModelUser) {
         val prefDataSource = repository.prefDataSource
         val api = repository.remoteService.userLogin(
             user.id!!,

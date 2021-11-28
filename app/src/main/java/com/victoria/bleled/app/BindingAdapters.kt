@@ -48,7 +48,11 @@ fun setSelected(view: View, selected: Boolean) {
 }
 
 @BindingAdapter(value = ["imageUrl", "placeholder"], requireAll = false)
-fun setImageUrl(imageView: ImageView, url: String?, placeHolder: Int? = R.drawable.xml_default_img) {
+fun setImageUrl(
+    imageView: ImageView,
+    url: String?,
+    placeHolder: Int? = R.drawable.xml_default_img
+) {
     if (url == null) {
         imageView.setImageResource(placeHolder ?: R.drawable.xml_default_img)
     } else {

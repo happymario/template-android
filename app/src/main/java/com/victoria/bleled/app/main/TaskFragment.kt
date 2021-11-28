@@ -1,17 +1,31 @@
 package com.victoria.bleled.app.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.viewModels
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.victoria.bleled.R
+import com.victoria.bleled.app.essential.CameraTestActivity
+import com.victoria.bleled.app.essential.anim.AnimActivity
+import com.victoria.bleled.app.essential.gallery.GallerySelectCropActivity
+import com.victoria.bleled.app.recent.SimpleWorker
+import com.victoria.bleled.app.recent.VideoPlayerActivity
+import com.victoria.bleled.app.special.bluetooth.BluetoothTestActivity
+import com.victoria.bleled.app.special.calendar.CalendarActivity
+import com.victoria.bleled.app.special.imagesearch.ImageSearchActivity
+import com.victoria.bleled.common.Constants
 import com.victoria.bleled.databinding.FragmentMainBinding
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.arch.EventObserver
 import com.victoria.bleled.util.arch.base.BaseBindingFragment
+import com.victoria.bleled.util.feature.gallary.Gallary
 import com.victoria.bleled.util.kotlin_ext.getViewModelFactory
 import timber.log.Timber
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
@@ -101,8 +115,12 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
     }
 
     private fun openTaskDetails(view: View) {
-        val id = view.tag as String
-        if (id.lowercase(Locale.getDefault()) == "menu") {
+        val tag = view.tag as String
+        val id = tag.lowercase(Locale.getDefault())
+        val context = requireContext()
+
+        // essential
+        if (id == "menu") {
             val popup = PopupMenu(requireContext(), view)
             val inflater: MenuInflater = popup.menuInflater
             inflater.inflate(R.menu.menu_example, popup.menu)
@@ -111,6 +129,53 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
                 true
             }
             popup.show()
+        } else if (id == "animation") {
+            val intent = Intent(requireActivity(), AnimActivity::class.java)
+            startActivity(intent)
+        } else if (id == "camera") {
+            val intent = Intent(requireActivity(), CameraTestActivity::class.java)
+            startActivity(intent)
+        } else if (id == "gallery") {
+            val intent = Intent(requireActivity(), GallerySelectCropActivity::class.java)
+            intent.putExtra(Constants.ARG_TYPE, 1)
+            intent.putExtra(Constants.ARG_DATA, ArrayList<Gallary>())
+            startActivity(intent)
         }
+
+
+        // recent
+        if (id == "workmanager") {
+            // 주기적인 작업의 최소 interval은 15분... 왜냐면 workmanager는 시스템상태에 우선도를 부여하기때문이다.
+            val workRequest =
+                PeriodicWorkRequestBuilder<SimpleWorker>(15, TimeUnit.MINUTES).setInitialDelay(
+                    1,
+                    TimeUnit.MINUTES
+                ).build()
+            val workManager = WorkManager.getInstance(context)
+            workManager.cancelAllWork()
+            workManager.enqueue(workRequest)
+
+            CommonUtil.showToast(context, R.string.msg_workmanager_alarm)
+            requireActivity().finish()
+        }
+        if (id == "pictureinpicture" || id == "videoplayer") {
+            val intent = Intent(requireActivity(), VideoPlayerActivity::class.java)
+            startActivity(intent)
+        }
+
+        // special
+        if (id == "bluetooth") {
+            val intent = Intent(requireActivity(), BluetoothTestActivity::class.java)
+            startActivity(intent)
+        }
+        if (id == "calendar") {
+            val intent = Intent(requireActivity(), CalendarActivity::class.java)
+            startActivity(intent)
+        }
+        if (id == "imagesearch") {
+            val intent = Intent(requireActivity(), ImageSearchActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

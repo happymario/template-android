@@ -1,7 +1,7 @@
 package com.victoria.bleled.app.more
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.victoria.bleled.R
 
 class SettingActivity : AppCompatActivity() {

@@ -1,12 +1,18 @@
 package com.victoria.bleled.app.special.bluetooth
 
+import android.app.Activity
+import android.bluetooth.BluetoothAdapter
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import app.akexorcist.bluetotohspp.library.BluetoothSPP
 import app.akexorcist.bluetotohspp.library.BluetoothState
+import app.akexorcist.bluetotohspp.library.DeviceList
 import com.clj.fastble.BleManager
 import com.clj.fastble.callback.BleScanCallback
 import com.clj.fastble.data.BleDevice
@@ -32,30 +38,49 @@ class BluetoothTestActivity : AppCompatActivity() {
         }
 
         if (!bt.isBluetoothEnabled) {
-//            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-//            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
+            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            startActivityForResult(enableBtIntent, BluetoothState.REQUEST_ENABLE_BT)
             return
         }
 
         startSPP()
         // startScanBle();
+        setupToolbar()
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if (requestCode == BluetoothState.REQUEST_CONNECT_DEVICE) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                bt.connect(data)
-//            }
-//        } else if (requestCode == BluetoothState.REQUEST_ENABLE_BT) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                startSPP()
-//            } else {
-//                CommonUtil.showToast(applicationContext, "Bluetooth is not available")
-//            }
-//        }
-//    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId === android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun setupToolbar() {
+        setSupportActionBar(findViewById(R.id.toolbar))
+
+        val ab: ActionBar? = supportActionBar
+        ab?.title = resources.getStringArray(R.array.arr_special_tech)[0]
+        ab?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == BluetoothState.REQUEST_CONNECT_DEVICE) {
+            if (resultCode == Activity.RESULT_OK) {
+                bt.connect(data)
+            }
+        } else if (requestCode == BluetoothState.REQUEST_ENABLE_BT) {
+            if (resultCode == Activity.RESULT_OK) {
+                startSPP()
+            } else {
+                CommonUtil.showToast(applicationContext, "Bluetooth is not available")
+            }
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -67,8 +92,8 @@ class BluetoothTestActivity : AppCompatActivity() {
         if (bt.serviceState == BluetoothState.STATE_CONNECTED) {
             bt.disconnect()
         } else {
-//            val intent = Intent(applicationContext, DeviceList::class.java)
-//            startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE)
+            val intent = Intent(applicationContext, DeviceList::class.java)
+            startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE)
         }
     }
 

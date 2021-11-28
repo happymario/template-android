@@ -66,4 +66,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="list_item_padding">8dp</dimen>
     <dimen name="header_status_height">26dp</dimen>
+    <dimen name="default_spinner_height">46dp</dimen>
 </resources>

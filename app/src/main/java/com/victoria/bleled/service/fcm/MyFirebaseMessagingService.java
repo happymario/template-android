@@ -50,28 +50,28 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //        if (image_url != null && image_url.isEmpty() == false) {
 //            new sendNotification(context, pushMessage).execute(image_url);
 //        } else {
-        showNotification(pushMessage, null);
+        showNotification(context, pushMessage, null);
 //        }
     }
 
-    private void showNotification(PushMessage pushMessage, Bitmap bitmap) {
-        Intent intent = new Intent(this, SplashActivity.class);
+    public static void showNotification(Context context, PushMessage pushMessage, Bitmap bitmap) {
+        Intent intent = new Intent(context, SplashActivity.class);
         //Intent intent = new Intent(this, SplashActivity.class);
         //intent.putExtra(PARAM_PUSH_MSG, pushMessage);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0 /* Request code */, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(pushMessage.getDisplayTitle(this))
-                .setContentText(pushMessage.getDisplayMsg(this))
+                .setContentTitle(pushMessage.getDisplayTitle(context))
+                .setContentText(pushMessage.getDisplayMsg(context))
                 .setAutoCancel(true)
                 .setLights(000000255, 500, 2000)
                 .setContentIntent(pendingIntent);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            notificationBuilder.setColor(getResources().getColor(R.color.black));
+            notificationBuilder.setColor(context.getResources().getColor(R.color.black));
         }
 
         if (bitmap != null) {
@@ -80,7 +80,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationBuilder.setStyle(style);
         }
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String allChannelId = "알림";
             NotificationChannel channel_all = new NotificationChannel(allChannelId, allChannelId, NotificationManager.IMPORTANCE_HIGH);
@@ -93,7 +93,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationBuilder.setSound(defaultSoundUri);
         }
 
-        PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 "MyApp::MyWakelockTag");
         wakeLock.acquire(5000);

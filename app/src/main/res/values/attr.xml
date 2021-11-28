@@ -41,4 +41,8 @@
     <declare-styleable name="FontTextView">
         <attr name="defaultTextSize" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="MyVideoPlayer">
+        <attr name="url" format="string" />
+    </declare-styleable>
 </resources>

@@ -136,7 +136,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         binding.viewmodel = viewModel
 
         viewModel.userInfo.observe(this, { user ->
-            if(user == null) {
+            if (user == null) {
                 goLogin()
                 return@observe
             }

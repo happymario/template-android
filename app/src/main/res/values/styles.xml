@@ -1,5 +1,4 @@
 <resources>
-
     <style name="AppTheme.TabLayout" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabIndicatorColor">@color/colorPrimary</item>
         <item name="tabTextColor">@color/xml_tab_text</item>

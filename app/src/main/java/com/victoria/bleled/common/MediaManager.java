@@ -398,6 +398,17 @@ public class MediaManager {
         return mLastUri;
     }
 
+    public Uri createFileUri(Bitmap bitmap) {
+        File file = createNewFile(false);
+        saveBitmap(bitmap, file.getAbsolutePath());
+        Uri uri = getUriFromFile(mActivity, file);
+        return uri;
+    }
+
+    public Bitmap rotateBitmapUri(Uri fileUri, Bitmap bitmap) {
+        return rotateWithCheck(fileUri, bitmap);
+    }
+
     /************************************************************
      *  Helper
      ************************************************************/
@@ -426,13 +437,6 @@ public class MediaManager {
         File tempFile = new File(uri.getPath());
         File file = new File(folder.getAbsolutePath() + File.separatorChar + tempFile.getName());
         return file;
-    }
-
-    private Uri createFileUri(Bitmap bitmap) {
-        File file = createNewFile(false);
-        saveBitmap(bitmap, file.getAbsolutePath());
-        Uri uri = getUriFromFile(mActivity, file);
-        return uri;
     }
 
     private File createNewFile(boolean isVideo) {

@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.essential.animation
+package com.victoria.bleled.app.essential.anim
 
 import android.content.Context
 import android.graphics.*

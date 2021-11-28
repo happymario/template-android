@@ -14,7 +14,7 @@ class MainViewModel constructor(private val repository: DataRepository) : BaseVi
     val openTaskEvent: LiveData<Event<View>> = _openTaskEvent
 
     private val _userInfo = MutableLiveData<ModelUser>()
-    val userInfo:LiveData<ModelUser> =  _userInfo
+    val userInfo: LiveData<ModelUser> = _userInfo
 
     fun start() {
         val prefDataSource = repository.prefDataSource
