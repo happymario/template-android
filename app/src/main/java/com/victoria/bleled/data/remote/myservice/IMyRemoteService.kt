@@ -3,6 +3,7 @@ package com.victoria.bleled.data.remote.myservice
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.google.gson.Gson
+import com.victoria.bleled.data.model.BaseModel
 import com.victoria.bleled.data.model.ModelAppInfo
 import com.victoria.bleled.data.model.ModelUpload
 import com.victoria.bleled.data.model.ModelUser
@@ -50,6 +51,12 @@ interface IMyRemoteService {
         @Field("name") name: String
     ): LiveData<NetworkResult<BaseResponse<ModelUser>>>
 
+    @FormUrlEncoded
+    @POST("user/signout")
+    fun useSignout(
+        @Field("access_token") access_token: String
+    ): LiveData<NetworkResult<BaseResponse<BaseModel>>>
+
     companion object {
         /************************************************************
          * Functions
@@ -79,7 +86,8 @@ interface IMyRemoteService {
         /************************************************************
          * Constants
          */
-        const val API_BASE_URL = "http://192.168.0.13:9101/api/"
+        const val BASE_URL = "http://192.168.0.13:9101"
+        const val API_BASE_URL = "$BASE_URL/api/"
         const val API_KEY = "clubonline20200519key"
     }
 }

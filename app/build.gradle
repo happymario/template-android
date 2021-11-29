@@ -144,9 +144,9 @@ repositories {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.21"
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
@@ -154,16 +154,16 @@ dependencies {
 
     // architecture
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation "androidx.multidex:multidex:2.0.1"
-    implementation ("androidx.work:work-runtime-ktx:2.6.0") {
+    implementation ("androidx.work:work-runtime-ktx:2.7.1") {
         //Needed due to a transitive dependency clash with the google api client dep
         exclude group: 'com.google.guava', module:'listenablefuture'
     }
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
     // ui
     implementation "androidx.recyclerview:recyclerview:1.2.1"
@@ -181,8 +181,8 @@ dependencies {
     kapt "androidx.room:room-compiler:2.3.0"
 
     // image
-    implementation "com.github.bumptech.glide:glide:4.11.0"
-    annotationProcessor "com.github.bumptech.glide:compiler:4.11.0"
+    implementation "com.github.bumptech.glide:glide:4.12.0"
+    annotationProcessor "com.github.bumptech.glide:compiler:4.12.0"
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
     // network
@@ -193,18 +193,22 @@ dependencies {
     implementation 'com.zhy:okhttputils:2.6.2'
 
     // paging
-    implementation "androidx.paging:paging-runtime-ktx:3.0.1"
+    implementation "androidx.paging:paging-runtime-ktx:3.1.0"
 
     // ble
     implementation 'com.akexorcist:bluetoothspp:1.0.0'
     implementation 'com.clj.fastble:FastBleLib:2.3.4'
+
+    // auth
+    implementation "androidx.biometric:biometric:1.1.0"
+
 
     // dagger-hilt
     implementation 'com.google.dagger:dagger:2.38.1'
     kapt 'com.google.dagger:dagger-compiler:2.38.1'
 
     // fcm push
-    implementation "com.google.firebase:firebase-core:19.0.1"
+    implementation "com.google.firebase:firebase-core:20.0.0"
     implementation "com.google.firebase:firebase-messaging:23.0.0"
 
     // inapp 4.0.0
@@ -212,7 +216,7 @@ dependencies {
 
     // google map
     implementation 'com.google.android.gms:play-services-basement:17.6.0'
-    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'com.google.android.gms:play-services-maps:18.0.0'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
     implementation 'com.google.maps.android:android-maps-utils:2.2.0'
 

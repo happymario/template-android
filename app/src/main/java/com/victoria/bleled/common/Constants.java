@@ -1,10 +1,14 @@
 package com.victoria.bleled.common;
 
+import com.victoria.bleled.data.remote.myservice.IMyRemoteService;
+
 public interface Constants {
     boolean IS_TEST = true;
 
     String MARKET = "google"; // onestore, google
     String CLIENT_PHONE_NUMBER = "191-245-3575";
+    String URL_ABOUT = IMyRemoteService.BASE_URL + "/admin/login/term?term_kind=about";
+    String URL_USE_AGREE = IMyRemoteService.BASE_URL + "/admin/login/term?term_kind=use";
 
     /********************************************************************
      * INTENT NAMES

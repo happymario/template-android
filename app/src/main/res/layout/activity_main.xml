@@ -78,7 +78,9 @@
                 android:layout_gravity="start"
                 app:headerLayout="@layout/view_left_navigation"
                 app:menu="@menu/drawer_actions"
-                app:itemBackground="@drawable/xml_bg_drawer_item"/>
+                app:itemBackground="@drawable/xml_bg_drawer_item"
+                app:itemTextColor="@color/common_text"
+                android:background="@color/white"/>
 <!--            <LinearLayout-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="match_parent"-->

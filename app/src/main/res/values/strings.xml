@@ -48,7 +48,6 @@
     <string name="no">아니요</string>
     <string name="agree">수락하기</string>
     <string name="refuse">거절</string>
-    <string name="app_version" formatted="true">버전 %s</string>
     <string name="do_install">설치하기</string>
     <string name="add">추가</string>
     <string name="remove">삭제</string>
@@ -131,4 +130,13 @@
         <item>Calendar</item>
         <item>ImageSearch</item>
     </string-array>
+
+    <!-- More -->
+    <string name="setting">설정</string>
+    <string name="alarm">알림</string>
+    <string name="use_agreement">리용약관</string>
+    <string name="signout">탈퇴하기</string>
+    <string name="ver">판본</string>
+    <string name="msg_signout">정말 탈퇴하시겠습니까?\n탈퇴후 다시 들어올수 없습니다.</string>
+
 </resources>

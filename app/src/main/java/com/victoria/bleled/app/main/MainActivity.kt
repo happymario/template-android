@@ -2,6 +2,8 @@ package com.victoria.bleled.app.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -17,10 +19,11 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victoria.bleled.R
 import com.victoria.bleled.app.MyApplication
-import com.victoria.bleled.app.more.AboutActivity
+import com.victoria.bleled.app.etc.WebViewActivity
 import com.victoria.bleled.app.more.SettingActivity
 import com.victoria.bleled.app.setImageUrl
 import com.victoria.bleled.app.user.LoginActivity
+import com.victoria.bleled.common.Constants
 import com.victoria.bleled.common.dialog.AlertDialog
 import com.victoria.bleled.databinding.ActivityMainBinding
 import com.victoria.bleled.service.billing.BillingDataSource
@@ -41,6 +44,9 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
     private var pagerAdapter: MainPagerAdapter? = null
     private lateinit var billingDataSource: BillingDataSource
     private val viewModel by viewModels<MainViewModel> { getViewModelFactory() }
+    private var isFirstLoading = true
+    private var isFinishAppWhenPressedBackKey = true
+    private var isFinishDoing = false
 
     /************************************************************
      *  Overrides
@@ -86,6 +92,17 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    /************************************************************
+     *  Events
+     ************************************************************/
+    override fun onBackPressed() {
+        if (isFinishAppWhenPressedBackKey) {
+            finishWithMsg()
+            return
+        }
+        super.onBackPressed()
     }
 
     /************************************************************
@@ -137,7 +154,11 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
 
         viewModel.userInfo.observe(this, { user ->
             if (user == null) {
-                goLogin()
+                if (!isFirstLoading) {
+                    goLogin()
+                } else {
+                    isFirstLoading = true
+                }
                 return@observe
             }
             val parent = binding.navView.getHeaderView(0)
@@ -214,7 +235,11 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
     }
 
     private fun goAbout() {
-        val intent = Intent(this, AboutActivity::class.java)
+        val intent = Intent(this, WebViewActivity::class.java).apply {
+            putExtra(Constants.ARG_TYPE, getString(R.string.about))
+            putExtra(Constants.ARG_DATA, Constants.URL_ABOUT)
+        }
+
         startActivity(intent)
     }
 
@@ -234,5 +259,35 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
             .setNegativeButton(R.string.cancel) { dialog, which ->
             }
             .show()
+    }
+
+    private fun finishWithMsg() {
+        if (!isFinishDoing) {
+            isFinishDoing = true
+            CommonUtil.showToast(this, R.string.app_finish_message)
+
+            Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                isFinishDoing = false
+            }, 2000)
+        } else {
+            finish()
+            instance = null
+        }
+    }
+
+    /************************************************************
+     *  Static & Global Members
+     ************************************************************/
+    companion object {
+        @Volatile
+        private var instance: MainActivity? = null
+
+        /**
+         * singleton 애플리케이션 객체를 얻는다
+         *
+         * @return singleton 애플리케이션 객체
+         */
+        val gInstance: MainActivity?
+            get() = instance
     }
 }
