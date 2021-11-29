@@ -1,16 +1,21 @@
 package com.victoria.bleled.app.main
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.PopupMenu
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.victoria.bleled.R
 import com.victoria.bleled.app.essential.CameraTestActivity
 import com.victoria.bleled.app.essential.anim.AnimActivity
 import com.victoria.bleled.app.essential.gallery.GallerySelectCropActivity
+import com.victoria.bleled.app.recent.AlarmReceiver
 import com.victoria.bleled.app.recent.SimpleWorker
 import com.victoria.bleled.app.recent.VideoPlayerActivity
 import com.victoria.bleled.app.special.bluetooth.BluetoothTestActivity
@@ -45,7 +50,7 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
     /************************************************************
      *  UI controls & Data members
      ************************************************************/
-    private val viewModel by viewModels<MainViewModel> { getViewModelFactory() }
+    private lateinit var viewModel: MainViewModel
     private lateinit var listAdapter: TaskAdapter
     private var type: Int = 0
 
@@ -66,6 +71,11 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
         if (arguments != null) {
             type = requireArguments().getInt("type")
         }
+
+        val viewModel by activityViewModels<MainViewModel> {
+            getViewModelFactory()
+        }
+        this.viewModel = viewModel
         binding.apply {
             viewmodel = this@TaskFragment.viewModel
         }
@@ -76,7 +86,6 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        viewModel.start()
     }
 
 
@@ -95,13 +104,6 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
         val viewModel = binding.viewmodel
         if (viewModel != null) {
             listAdapter = TaskAdapter(viewModel)
-
-            val arrIds =
-                arrayOf(R.array.arr_main_tech, R.array.arr_recent_tech, R.array.arr_special_tech)
-            val arrTitle = if (type < arrIds.size) resources.getStringArray(arrIds[type]) else {
-                resources.getStringArray(arrIds[0])
-            }
-            listAdapter.list.addAll(arrTitle)
             binding.rvList.adapter = listAdapter
         } else {
             Timber.w("ViewModel not initialized when attempting to set up adapter.")
@@ -142,10 +144,10 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
             startActivity(intent)
         }
 
-
         // recent
         if (id == "workmanager") {
-            // 주기적인 작업의 최소 interval은 15분... 왜냐면 workmanager는 시스템상태에 우선도를 부여하기때문이다.
+            // 즉시 실행해야 한다면 WorkManager OneTime과 koroutine을 쓴다.
+            // 주기적인 작업의 최소 interval은 15분... workmanager주기작업은 꼭 지연이 있는데 왜냐면 시스템상태에 우선도를 부여하기때문이다.
             val workRequest =
                 PeriodicWorkRequestBuilder<SimpleWorker>(15, TimeUnit.MINUTES).setInitialDelay(
                     1,
@@ -155,6 +157,25 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
             workManager.cancelAllWork()
             workManager.enqueue(workRequest)
 
+            // 정확한 시간에 실행해야 한다면 AlarmManager
+            val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val intent = Intent(
+                requireActivity(),
+                AlarmReceiver::class.java
+            )
+            val pi: PendingIntent = PendingIntent.getBroadcast(
+                requireContext(),
+                10,
+                intent,
+                0
+            )
+            val calNow = Calendar.getInstance()
+            calNow.add(Calendar.MINUTE, 1)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                am.setExact(AlarmManager.RTC_WAKEUP, calNow.getTimeInMillis(), pi)
+            } else {
+                am.set(AlarmManager.RTC_WAKEUP, calNow.getTimeInMillis(), pi)
+            }
             CommonUtil.showToast(context, R.string.msg_workmanager_alarm)
             requireActivity().finish()
         }

@@ -77,7 +77,10 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchView.isIconified = true
                 searchView.onActionViewCollapsed()
-                CommonUtil.showNIToast(this@MainActivity)
+
+                if(query != null)
+                    viewModel.searchTask(query)
+
                 return false
             }
         })
@@ -145,6 +148,24 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
                 else -> {
                     true
                 }
+            }
+        })
+        binding.viewpager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+            }
+
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                viewModel.setPage(position)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
             }
         })
     }

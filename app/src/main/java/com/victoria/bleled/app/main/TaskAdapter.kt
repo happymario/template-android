@@ -2,17 +2,29 @@ package com.victoria.bleled.app.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.victoria.bleled.databinding.ItemTaskBinding
 
+@BindingAdapter("app:items")
+fun setItems(listView: RecyclerView, items: List<String>?) {
+    items?.let {
+        (listView.adapter as TaskAdapter).submitList(items)
+    }
+}
+
+
+//class TaskAdapter(private val viewModel: MainViewModel) : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 class TaskAdapter(private val viewModel: MainViewModel) :
-    RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
-    var list: ArrayList<String> = arrayListOf()
+    ListAdapter<String, TaskAdapter.ViewHolder>(TaskDiffCallback()) {
+    //var list: ArrayList<String> = arrayListOf()
     var listener: ((Int) -> Unit)? = null
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
+//    override fun getItemCount(): Int {
+//        return list.size
+//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -26,10 +38,7 @@ class TaskAdapter(private val viewModel: MainViewModel) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(adapter: TaskAdapter, pos: Int) {
             binding.viewmodel = adapter.viewModel
-            binding.root.setOnClickListener {
-                adapter.viewModel.openTask(binding.root, adapter.list[pos])
-            }
-            binding.data = adapter.list[pos]
+            binding.data = adapter.getItem(pos)
             binding.executePendingBindings()
         }
 
@@ -41,5 +50,21 @@ class TaskAdapter(private val viewModel: MainViewModel) :
                 return ViewHolder(binding)
             }
         }
+    }
+}
+
+/**
+ * Callback for calculating the diff between two non-null items in a list.
+ *
+ * Used by ListAdapter to calculate the minimum number of changes between and old list and a new
+ * list that's been passed to `submitList`.
+ */
+class TaskDiffCallback : DiffUtil.ItemCallback<String>() {
+    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+        return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+        return oldItem == newItem
     }
 }
