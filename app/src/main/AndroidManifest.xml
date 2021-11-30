@@ -23,6 +23,9 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+
     <meta-data
         android:name="android.allow_multiple_resumed_activities"
         android:value="true" />
@@ -73,6 +76,17 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:allowBackup">
+
+        <receiver
+            android:name=".app.recent.AlarmReceiver"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name="com.victoria.bleled.app.essential.gallery.GallerySelectCropActivity"
             android:screenOrientation="portrait" />

@@ -32,7 +32,7 @@ class MainViewModel constructor(private val repository: DataRepository) : BaseVi
         }
 
         val result = MutableLiveData<List<String>>()
-        result.value = arrTitle.filter { it.contains(search) }
+        result.value = arrTitle.filter { it.uppercase().contains(search.uppercase()) }
         result
     }
 

@@ -88,7 +88,7 @@ class BluetoothTestActivity : AppCompatActivity() {
         bt.stopService() //블루투스 중지
     }
 
-    fun onScan() {
+    fun onScan(view: View) {
         if (bt.serviceState == BluetoothState.STATE_CONNECTED) {
             bt.disconnect()
         } else {

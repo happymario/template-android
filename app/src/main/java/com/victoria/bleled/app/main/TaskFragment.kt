@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.victoria.bleled.R
@@ -72,7 +73,10 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
             type = requireArguments().getInt("type")
         }
 
-        val viewModel by activityViewModels<MainViewModel> {
+//        val viewModel by activityViewModels<MainViewModel> {
+//            getViewModelFactory()
+//        }
+        val viewModel by viewModels<MainViewModel> {
             getViewModelFactory()
         }
         this.viewModel = viewModel
@@ -86,6 +90,14 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        this.viewModel.setPage(type)
+    }
+
+    /************************************************************
+     *  public Functions
+     ************************************************************/
+    fun getViewModel(): MainViewModel {
+        return viewModel
     }
 
 

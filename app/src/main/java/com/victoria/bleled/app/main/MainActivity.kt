@@ -78,9 +78,10 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
                 searchView.isIconified = true
                 searchView.onActionViewCollapsed()
 
-                if(query != null)
-                    viewModel.searchTask(query)
-
+                if(query != null) {
+                    val fragment = pagerAdapter?.getFragment(binding.viewpager.currentItem) as? TaskFragment
+                    fragment?.getViewModel()?.searchTask(query)
+                }
                 return false
             }
         })
@@ -161,7 +162,9 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                viewModel.setPage(position)
+
+                val fragment = pagerAdapter?.getFragment(binding.viewpager.currentItem) as? TaskFragment
+                fragment?.getViewModel()?.setPage(position)
             }
 
             override fun onPageScrollStateChanged(state: Int) {

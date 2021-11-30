@@ -8,6 +8,7 @@ import java.util.*
 class MainPagerAdapter constructor(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 
     private val mFragmentTitles: MutableList<String> = ArrayList()
+    private val hashMap: HashMap<Int, Fragment> = HashMap()
 
     fun setFragmentTitle(list: List<String>) {
         mFragmentTitles.clear()
@@ -18,16 +19,22 @@ class MainPagerAdapter constructor(fa: FragmentActivity) : FragmentStateAdapter(
         return mFragmentTitles[position]
     }
 
+    fun getFragment(position: Int): Fragment? {
+        return hashMap.get(position)
+    }
+
     override fun getItemCount(): Int {
         return mFragmentTitles.size
     }
 
     override fun createFragment(position: Int): Fragment {
-        return when (position) {
+        val fragment = when (position) {
             1 -> TaskFragment.newInstance(1)
             2 -> TaskFragment.newInstance(2)
             else -> TaskFragment.newInstance(position)
         }
+        hashMap.put(position, fragment)
+        return fragment
     }
 
 }
