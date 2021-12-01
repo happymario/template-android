@@ -2,17 +2,17 @@ package com.victoria.bleled.app.main
 
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.content.Context
+import android.content.Context.ALARM_SERVICE
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.*
 import androidx.appcompat.widget.PopupMenu
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
+import androidx.work.*
 import com.victoria.bleled.R
+import com.victoria.bleled.app.MyApplication
 import com.victoria.bleled.app.essential.CameraTestActivity
 import com.victoria.bleled.app.essential.anim.AnimActivity
 import com.victoria.bleled.app.essential.gallery.GallerySelectCropActivity
@@ -31,7 +31,6 @@ import com.victoria.bleled.util.feature.gallary.Gallary
 import com.victoria.bleled.util.kotlin_ext.getViewModelFactory
 import timber.log.Timber
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 
 class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
@@ -137,7 +136,7 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
         if (id == "menu") {
             val popup = PopupMenu(requireContext(), view)
             val inflater: MenuInflater = popup.menuInflater
-            inflater.inflate(R.menu.menu_example, popup.menu)
+            inflater.inflate(R.menu.list_operation, popup.menu)
             popup.setOnMenuItemClickListener {
                 CommonUtil.showNIToast(requireContext())
                 true
@@ -158,37 +157,59 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
 
         // recent
         if (id == "workmanager") {
-            // 즉시 실행해야 한다면 WorkManager OneTime과 koroutine을 쓴다.
-            // 주기적인 작업의 최소 interval은 15분... workmanager주기작업은 꼭 지연이 있는데 왜냐면 시스템상태에 우선도를 부여하기때문이다.
-            val workRequest =
-                PeriodicWorkRequestBuilder<SimpleWorker>(15, TimeUnit.MINUTES).setInitialDelay(
-                    1,
-                    TimeUnit.MINUTES
-                ).build()
             val workManager = WorkManager.getInstance(context)
             workManager.cancelAllWork()
-            workManager.enqueue(workRequest)
 
+            // 즉시 실행작업: WorkManager OneTime과 koroutine을 쓴다.
+            val notificationData = Data.Builder()
+                .putString(Constants.ARG_TYPE, "BootReceiver")
+                .build()
+            val workRequest1 =
+                OneTimeWorkRequestBuilder<SimpleWorker>()
+                    .setInputData(notificationData)
+                    .setBackoffCriteria(BackoffPolicy.LINEAR, 30000,
+                        java.util.concurrent.TimeUnit.MILLISECONDS
+                    )
+                    .build()
+            workManager.enqueue(workRequest1)
+
+            // 지연된 작업: 주기적인 작업의 최소 interval은 15분... workmanager주기작업은 꼭 지연이 있는데 왜냐면 시스템상태에 우선도를 부여하기때문이다.
+            val workRequest2 =
+                PeriodicWorkRequestBuilder<SimpleWorker>(15, java.util.concurrent.TimeUnit.MINUTES).setInitialDelay(
+                    1,
+                    java.util.concurrent.TimeUnit.MINUTES
+                ).build()
+            workManager.enqueue(workRequest2)
+        }
+        if (id == "alarmmanager") {
             // 정확한 시간에 실행해야 한다면 AlarmManager
-            val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            val intent = Intent(
-                requireActivity(),
-                AlarmReceiver::class.java
-            )
-            val pi: PendingIntent = PendingIntent.getBroadcast(
-                requireContext(),
-                10,
-                intent,
-                0
-            )
-            val calNow = Calendar.getInstance()
-            calNow.add(Calendar.MINUTE, 1)
+            val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
+
+            val intent = Intent(context, AlarmReceiver::class.java)
+            val pendingIntent = PendingIntent.getBroadcast(
+                context, AlarmReceiver.NOTIFICATION_ID, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT)
+            val triggerTime = (SystemClock.elapsedRealtime()
+                    + 60 * 1000)
+
+            alarmManager.cancel(pendingIntent)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                am.setExact(AlarmManager.RTC_WAKEUP, calNow.getTimeInMillis(), pi)
+                alarmManager.setExact(
+                    AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    triggerTime,
+                    pendingIntent
+                )
             } else {
-                am.set(AlarmManager.RTC_WAKEUP, calNow.getTimeInMillis(), pi)
+                alarmManager.set(
+                    AlarmManager.RTC_WAKEUP,
+                    triggerTime,
+                    pendingIntent
+                )
             }
+
+            // 앱끄기
             CommonUtil.showToast(context, R.string.msg_workmanager_alarm)
+            MyApplication.globalApplicationContext?.finishAllActivityWithoutMain()
             requireActivity().finish()
         }
         if (id == "pictureinpicture" || id == "videoplayer") {

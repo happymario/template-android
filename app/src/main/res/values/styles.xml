@@ -74,4 +74,20 @@
         <item name="android:textColor">@color/common_text</item>
         <item name="android:background">@color/transparent</item>
     </style>
+
+    <style name="TabButton">
+        <item name="android:textSize">@dimen/font_14</item>
+        <item name="android:textColor">@color/xml_tab_text</item>
+        <item name="android:background">@color/white</item>
+        <item name="backgroundTint">@null</item>
+    </style>
+
+    <style name="OkButton">
+        <item name="android:textSize">@dimen/font_12</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/xml_ok_btn</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingTop">@dimen/spacing_4</item>
+        <item name="android:paddingBottom">@dimen/spacing_4</item>
+    </style>
 </resources>

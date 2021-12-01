@@ -1,39 +1,25 @@
 package com.victoria.bleled.app.recent
 
-
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import androidx.work.BackoffPolicy
-import androidx.work.Data
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import com.victoria.bleled.R
-import com.victoria.bleled.common.Constants
-import java.util.concurrent.TimeUnit
+import com.victoria.bleled.service.fcm.MyFirebaseMessagingService
+import com.victoria.bleled.service.fcm.PushMessage
 
 class AlarmReceiver : BroadcastReceiver() {
 
-    override fun onReceive(context: Context, intent: Intent?) {
-        Log.d("AlarmReceiver", "onReceive");
-        intent?.let {
-            val title = context.getString(R.string.app_name)
-            val message = "Please click this."
-            val notificationData = Data.Builder()
-                .putString(Constants.ARG_TYPE, title)
-                .putString(Constants.ARG_DATA, message)
-                .build()
+    companion object {
+        const val TAG = "AlarmReceiver"
+        const val NOTIFICATION_ID = 0
+    }
 
-            // WorkManager 사용
-            val workRequest =
-                OneTimeWorkRequestBuilder<SimpleWorker>()
-                    .setInputData(notificationData)
-                    .setBackoffCriteria(BackoffPolicy.LINEAR, 30000, TimeUnit.MILLISECONDS)
-                    .build()
-
-            val workManager = WorkManager.getInstance(context)
-            workManager.enqueue(workRequest)
-        }
+    override fun onReceive(context: Context, intent: Intent) {
+        Log.d(TAG, "Received intent : $intent")
+        val data = HashMap<String, String>()
+        data.put("type", "AlarmManager")
+        data.put("body", "Click AlarmManager")
+        val message = PushMessage(data)
+        MyFirebaseMessagingService.showNotification(context, message, null)
     }
 }

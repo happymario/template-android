@@ -11,6 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.victoria.bleled.R
 import com.victoria.bleled.util.thirdparty.glide.ImageLoader
 import com.victoria.bleled.util.view.recycleview.CustomDecoration
+import android.view.ViewGroup
+
+import androidx.databinding.BindingAdapter
+
+
+
 
 @BindingMethods(
     value = [
@@ -77,4 +83,11 @@ fun RecyclerView.setDivider(
         color = dividerColor ?: Color.TRANSPARENT
     )
     addItemDecoration(decoration)
+}
+
+@BindingAdapter("android:layout_height")
+fun setLayoutHeight(view: View, height: Float) {
+    val layoutParams = view.layoutParams
+    layoutParams.height = height.toInt()
+    view.layoutParams = layoutParams
 }

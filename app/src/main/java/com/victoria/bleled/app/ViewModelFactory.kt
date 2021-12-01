@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.victoria.bleled.app.main.MainViewModel
 import com.victoria.bleled.app.more.SettingViewModel
+import com.victoria.bleled.app.special.bluetooth.BluetoothViewModel
 import com.victoria.bleled.app.user.UserViewModel
 import com.victoria.bleled.data.DataRepository
 
@@ -49,6 +50,8 @@ class ViewModelFactory constructor(
                 MainViewModel(dataRepository)
             isAssignableFrom(SettingViewModel::class.java) ->
                 SettingViewModel(dataRepository)
+            isAssignableFrom(BluetoothViewModel::class.java) ->
+                BluetoothViewModel(dataRepository)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

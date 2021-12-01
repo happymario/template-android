@@ -106,13 +106,7 @@
     <string name="about">대하여</string>
     <string name="logout">나가기</string>
     <string name="msg_logout">App에서 나가시겠습니까?</string>
-    <string name="msg_workmanager_alarm">1분후 앱이 다시 켜집니다.</string>
-    <string name="mode">방식</string>
-    <string name="prev">&lt;-</string>
-    <string name="after">-&gt;</string>
-    <string name="msg_photo_count_limit" formatted="true">최대 %d장까지 등록 할수 있습니다.</string>
-    <string name="gallery_select">올리기</string>
-    <string name="gallery_cannot_load">갤러리를 로딩할수 없습니다.</string>
+    <string name="msg_workmanager_alarm">1분후 부터 정기적인 알림이 옵니다.</string>
     <string-array name="arr_main_tech">
         <item>Menu</item>
         <item>Animation</item>
@@ -122,6 +116,7 @@
 
     <string-array name="arr_recent_tech">
         <item>WorkManager</item>
+        <item>AlarmManager</item>
         <item>PictureInPicture</item>
     </string-array>
 
@@ -130,6 +125,18 @@
         <item>Calendar</item>
         <item>ImageSearch</item>
     </string-array>
+    <string name="mode">방식</string>
+    <string name="prev">&lt;-</string>
+    <string name="after">-&gt;</string>
+    <string name="msg_photo_count_limit" formatted="true">최대 %d장까지 등록 할수 있습니다.</string>
+    <string name="gallery_select">올리기</string>
+    <string name="gallery_cannot_load">갤러리를 로딩할수 없습니다.</string>
+    <string name="scan">Scan</string>
+    <string name="classic">Classic</string>
+    <string name="ble">BLE</string>
+    <string name="connect">련결</string>
+    <string name="disconnect">끊기</string>
+    <string name="write">쓰기</string>
 
     <!-- More -->
     <string name="setting">설정</string>
