@@ -20,7 +20,7 @@ fun setItems(listView: RecyclerView, items: List<String>?) {
 class TaskAdapter(private val viewModel: MainViewModel) :
     ListAdapter<String, TaskAdapter.ViewHolder>(TaskDiffCallback()) {
     //var list: ArrayList<String> = arrayListOf()
-    var listener: ((Int) -> Unit)? = null
+    //var listener: ((Int) -> Unit)? = null
 
 //    override fun getItemCount(): Int {
 //        return list.size

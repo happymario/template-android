@@ -27,12 +27,13 @@ class MainViewModel constructor(private val repository: DataRepository) : BaseVi
         val context = MyApplication.globalApplicationContext
         val arrIds =
             arrayOf(R.array.arr_main_tech, R.array.arr_recent_tech, R.array.arr_special_tech)
-        var arrTitle = if (currentPageIdx < arrIds.size) context?.resources!!.getStringArray(arrIds[currentPageIdx]) else {
+        val arrTitle = if (currentPageIdx < arrIds.size) context?.resources!!.getStringArray(arrIds[currentPageIdx]) else {
             context?.resources!!.getStringArray(arrIds[0])
         }
 
         val result = MutableLiveData<List<String>>()
-        result.value = arrTitle.filter { it.uppercase().contains(search.uppercase()) }
+        result.value = arrTitle.filter { it.toUpperCase().contains(search.toUpperCase()) }
+
         result
     }
 

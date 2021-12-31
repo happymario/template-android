@@ -8,8 +8,7 @@ class BluetoothViewModel constructor(private val repository: DataRepository) : B
 
     var curTabIdx: MutableLiveData<Int> = MutableLiveData(0)
 
-    fun setTab(idx:Int) {
+    fun setTab(idx: Int) {
         curTabIdx.value = idx
     }
-
 }

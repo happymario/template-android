@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.TextPaint
 import android.view.View
 import androidx.activity.viewModels
-import com.victoria.bleled.R
 import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.common.Constants
 import com.victoria.bleled.data.remote.ApiException
@@ -14,6 +13,12 @@ import com.victoria.bleled.databinding.ActivityLoginBinding
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.arch.base.BaseBindingActivity
 import com.victoria.bleled.util.kotlin_ext.getViewModelFactory
+
+import android.text.style.ImageSpan
+
+import android.text.SpannableStringBuilder
+import com.victoria.bleled.R
+
 
 class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
     /************************************************************
@@ -35,6 +40,13 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
 
         initView()
         initViewModel()
+
+//        val builder = SpannableStringBuilder()
+//        builder.append("My string. I123123123123123123123 ")
+//            .append(" ", ImageSpan(this, com.victoria.bleled.R.drawable.search_1), 0)
+//            .append(" Cree by Dexode")
+//
+//        binding.textView3.setText(builder)
     }
 
     /************************************************************

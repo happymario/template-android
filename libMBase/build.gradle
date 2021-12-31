@@ -9,8 +9,6 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -56,10 +54,10 @@ dependencies {
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
 
     // ImageView
-    implementation 'com.github.christophesmet:android_maskable_layout:v1.3.2'
     implementation 'com.github.stfalcon:stfalcon-imageviewer:1.0.10'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
+    implementation 'com.github.christophesmet:android_maskable_layout:v1.3.2'
 
     // TextView
     def htextview_version = "0.1.6"
@@ -102,6 +100,7 @@ dependencies {
     implementation "com.google.android.exoplayer:exoplayer-core:2.14.1"
     implementation "com.google.android.exoplayer:exoplayer-ui:2.14.1"
     implementation "com.google.android.exoplayer:exoplayer-hls:2.14.1"
+    implementation 'com.remotemonster:sdk:2.7.4'
 
     //barcode
     implementation 'com.journeyapps:zxing-android-embedded:4.1.0'

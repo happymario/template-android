@@ -5,6 +5,11 @@
 
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!-- camera, gallary, storage -->
@@ -16,14 +21,31 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <!-- gps and bluetooth -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <!-- Background권한은 반드시 이용사유를 동영상으로 제출해야 하며 처음에 요청페지가 떠야 함. -->
     <!-- <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> -->
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <!-- Request legacy Bluetooth permissions on older devices. -->
+    <uses-permission android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
+        android:maxSdkVersion="30" />
+
+    <!-- Needed only if your app looks for Bluetooth devices.
+         If your app doesn't use Bluetooth scan results to derive physical
+         location information, you can strongly assert that your app
+         doesn't derive physical location. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+
+    <!-- Needed only if your app makes the device discoverable to Bluetooth
+         devices. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+
+    <!-- Needed only if your app communicates with already-paired Bluetooth
+         devices. -->
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+    <!-- Needed only if your app uses Bluetooth scan results to derive physical location. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!-- read phone state -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -136,7 +158,9 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".app.SplashActivity"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -163,7 +187,8 @@
         <!-- fcm -->
         <service
             android:name=".service.fcm.MyFirebaseMessagingService"
-            android:stopWithTask="false">
+            android:stopWithTask="false"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -180,7 +205,8 @@
         <receiver android:name=".app.recent.AlarmReceiver"
             android:exported="false">
         </receiver>
-        <receiver android:name=".app.recent.BootReceiver">
+        <receiver android:name=".app.recent.BootReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
