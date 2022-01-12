@@ -126,8 +126,8 @@ class CameraTestActivity : AppCompatActivity() {
 
 
     private fun initMediaManager() {
-        mMediaManager = MediaManager(this, false)
-        mMediaManager?.setCropEnable(false)
+        mMediaManager = MediaManager(this, true)
+        mMediaManager?.setCropEnable(true)
         mMediaManager?.setMediaCallback(object :
             MediaManager.MediaCallback {
             override fun onDelete() {

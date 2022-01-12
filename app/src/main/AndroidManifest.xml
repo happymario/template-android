@@ -11,50 +11,41 @@
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <!-- camera, gallary, storage -->
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <!-- Manage External은 전체 파일에 Access해야 할시만 이용 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- camera, gallary, storage -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- Manage External은 전체 파일에 Access해야 할시만 이용 -->
     <!-- <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" /> -->
     <!-- android 11이상일 경우 WRITE_EXTERNAL_STORAGE은 더이상 지원안됨. read만 요청해도 특정 external과 scope령역 액세스가능함 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <!-- Background권한은 반드시 이용사유를 동영상으로 제출해야 하며 처음에 요청페지가 떠야 함. -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- Background권한은 반드시 이용사유를 동영상으로 제출해야 하며 처음에 요청페지가 떠야 함. -->
     <!-- <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> -->
-
     <!-- Request legacy Bluetooth permissions on older devices. -->
-    <uses-permission android:name="android.permission.BLUETOOTH"
+    <uses-permission
+        android:name="android.permission.BLUETOOTH"
         android:maxSdkVersion="30" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_ADMIN"
         android:maxSdkVersion="30" />
-
-    <!-- Needed only if your app looks for Bluetooth devices.
+    <!--
+ Needed only if your app looks for Bluetooth devices.
          If your app doesn't use Bluetooth scan results to derive physical
          location information, you can strongly assert that your app
-         doesn't derive physical location. -->
+         doesn't derive physical location.
+    -->
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
-
-    <!-- Needed only if your app makes the device discoverable to Bluetooth
-         devices. -->
+    <!--
+ Needed only if your app makes the device discoverable to Bluetooth
+         devices.
+    -->
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
-
-    <!-- Needed only if your app communicates with already-paired Bluetooth
-         devices. -->
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-
-    <!-- Needed only if your app uses Bluetooth scan results to derive physical location. -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <!-- read phone state -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-    <!-- for push when closed -->
+    <!--
+ Needed only if your app communicates with already-paired Bluetooth
+         devices.
+    -->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" /> <!-- Needed only if your app uses Bluetooth scan results to derive physical location. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- read phone state -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- for push when closed -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <!-- reboot receive -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- reboot receive -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <meta-data
@@ -109,9 +100,13 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:allowBackup">
-
         <activity
-            android:name="com.victoria.bleled.app.essential.gallery.GallerySelectCropActivity"
+            android:name=".app.recent.ComposeUiActivity"
+            android:exported="false"
+            android:label="@string/title_activity_compose_ui"
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
+        <activity
+            android:name=".app.essential.gallery.GallerySelectCropActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".app.etc.WebViewActivity"
@@ -160,9 +155,9 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".app.SplashActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:exported="true"
             android:screenOrientation="portrait"
-            android:exported="true">
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -170,15 +165,10 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".app.recent.MyAlarmService" />
-
-
-        <!-- crop -->
+        <service android:name=".app.recent.MyAlarmService" /> <!-- crop -->
         <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
-
-        <!-- file provider for camera -->
+            android:name="com.canhub.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" /> <!-- file provider for camera -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -187,13 +177,11 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
-        </provider>
-
-        <!-- fcm -->
+        </provider> <!-- fcm -->
         <service
             android:name=".service.fcm.MyFirebaseMessagingService"
-            android:stopWithTask="false"
-            android:exported="true">
+            android:exported="true"
+            android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -204,20 +192,17 @@
             android:value="true" />
         <meta-data
             android:name="firebase_analytics_collection_enabled"
-            android:value="true" />
-
-        <!-- Alarm Manager -->
-        <receiver android:name=".app.recent.AlarmReceiver"
-            android:exported="false">
-        </receiver>
-        <receiver android:name=".app.recent.BootReceiver"
+            android:value="true" /> <!-- Alarm Manager -->
+        <receiver
+            android:name=".app.recent.AlarmReceiver"
+            android:exported="false"></receiver>
+        <receiver
+            android:name=".app.recent.BootReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
-
     </application>
 
 </manifest>

@@ -63,7 +63,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         viewModel.start()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
 
         val searchView = menu?.findItem(R.id.action_search)?.actionView as SearchView
@@ -78,8 +78,9 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
                 searchView.isIconified = true
                 searchView.onActionViewCollapsed()
 
-                if(query != null) {
-                    val fragment = pagerAdapter?.getFragment(binding.viewpager.currentItem) as? TaskFragment
+                if (query != null) {
+                    val fragment =
+                        pagerAdapter?.getFragment(binding.viewpager.currentItem) as? TaskFragment
                     fragment?.getViewModel()?.searchTask(query)
                 }
                 return false
@@ -151,7 +152,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
                 }
             }
         })
-        binding.viewpager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+        binding.viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
@@ -163,7 +164,8 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
 
-                val fragment = pagerAdapter?.getFragment(binding.viewpager.currentItem) as? TaskFragment
+                val fragment =
+                    pagerAdapter?.getFragment(binding.viewpager.currentItem) as? TaskFragment
                 fragment?.getViewModel()?.setPage(position)
             }
 

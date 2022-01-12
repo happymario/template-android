@@ -17,7 +17,7 @@ import com.victoria.bleled.app.essential.CameraTestActivity
 import com.victoria.bleled.app.essential.anim.AnimActivity
 import com.victoria.bleled.app.essential.gallery.GallerySelectCropActivity
 import com.victoria.bleled.app.recent.AlarmReceiver
-import com.victoria.bleled.app.recent.MyAlarmService
+import com.victoria.bleled.app.recent.ComposeUiActivity
 import com.victoria.bleled.app.recent.SimpleWorker
 import com.victoria.bleled.app.recent.VideoPlayerActivity
 import com.victoria.bleled.app.special.bluetooth.BluetoothTestActivity
@@ -168,7 +168,8 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
             val workRequest1 =
                 OneTimeWorkRequestBuilder<SimpleWorker>()
                     .setInputData(notificationData)
-                    .setBackoffCriteria(BackoffPolicy.LINEAR, 30000,
+                    .setBackoffCriteria(
+                        BackoffPolicy.LINEAR, 30000,
                         java.util.concurrent.TimeUnit.MILLISECONDS
                     )
                     .build()
@@ -176,7 +177,10 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
 
             // 지연된 작업: 주기적인 작업의 최소 interval은 15분... workmanager주기작업은 꼭 지연이 있는데 왜냐면 시스템상태에 우선도를 부여하기때문이다.
             val workRequest2 =
-                PeriodicWorkRequestBuilder<SimpleWorker>(15, java.util.concurrent.TimeUnit.MINUTES).setInitialDelay(
+                PeriodicWorkRequestBuilder<SimpleWorker>(
+                    15,
+                    java.util.concurrent.TimeUnit.MINUTES
+                ).setInitialDelay(
                     1,
                     java.util.concurrent.TimeUnit.MINUTES
                 ).build()
@@ -188,7 +192,8 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
 
             val intent = Intent(context, AlarmReceiver::class.java)
             //val intent = Intent(context, MyAlarmService::class.java)
-            val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            val pendingIntent =
+                PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
             //val pendingIntent = PendingIntent.getService(context, 0, intent, 0)
             val triggerTime = (SystemClock.elapsedRealtime()
                     + 10 * 1000)
@@ -215,6 +220,10 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
         }
         if (id == "pictureinpicture" || id == "videoplayer") {
             val intent = Intent(requireActivity(), VideoPlayerActivity::class.java)
+            startActivity(intent)
+        }
+        if (id == "compose") {
+            val intent = Intent(requireActivity(), ComposeUiActivity::class.java)
             startActivity(intent)
         }
 

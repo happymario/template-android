@@ -59,7 +59,6 @@ package com.victoria.bleled.common;
 import static android.app.Activity.RESULT_OK;
 import static java.lang.StrictMath.max;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -82,9 +81,16 @@ import android.util.Log;
 import android.util.Size;
 import android.widget.ArrayAdapter;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
-import com.theartofdev.edmodo.cropper.CropImage;
+import com.canhub.cropper.CropImage;
+import com.canhub.cropper.CropImageContract;
+import com.canhub.cropper.CropImageContractOptions;
+import com.canhub.cropper.CropImageOptions;
+import com.canhub.cropper.CropImageView;
 import com.victoria.bleled.R;
 
 import java.io.File;
@@ -176,7 +182,7 @@ public class MediaManager {
     /************************************************************
      *  Variables
      ************************************************************/
-    private Activity mActivity = null;
+    private AppCompatActivity mActivity = null;
 
     private boolean mCropFreeRatio = true;
     private boolean mCropByOS = true;
@@ -192,20 +198,44 @@ public class MediaManager {
 
     private MediaCallback mCallback = null;
 
+    private ActivityResultLauncher cropImage = null;
+
     /************************************************************
      *  Public
      ************************************************************/
-    public MediaManager(Activity activity) {
+    public MediaManager(AppCompatActivity activity) {
         mActivity = activity;
         mCropByOS = true;
     }
 
-    public MediaManager(Activity activity, boolean useOtherCrop) {
+    public MediaManager(AppCompatActivity activity, boolean useOtherCrop) {
         mActivity = activity;
         mCropByOS = !useOtherCrop;
 
         if (useOtherCrop == true) {
             REQ_CROP_IMAGE = CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE;
+            cropImage = activity.registerForActivityResult(new CropImageContract(), new ActivityResultCallback<CropImageView.CropResult>() {
+                @Override
+                public void onActivityResult(CropImageView.CropResult result) {
+                    if (result.isSuccessful()) {
+                        // use the returned uri
+                        Uri uriContent = result.getUriContent();
+                        String uriFilePath = result.getUriFilePath(mActivity, false); // optional usage
+
+                        if (result == null || uriContent == null) {
+                            //Exception error = result.getError();
+                            mCallback.onFailed(FAILED_BY_APPS, String.valueOf(REQ_CROP_IMAGE));
+                            return;
+                        }
+
+                        Uri resultUri = createNewResizeAndRotate(uriContent);
+                        setImageLastResult(resultUri);
+                    } else {
+                        // an error occurred
+                        mCallback.onFailed(FAILED_BY_APPS, String.valueOf(REQ_CROP_IMAGE));
+                    }
+                }
+            });
         }
     }
 
@@ -376,16 +406,11 @@ public class MediaManager {
         } else if (requestCode == REQ_CROP_IMAGE) {
             Uri cropOutputUri = null;
 
-            if (!mCropByOS) {
-                CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                if (result == null || result.getUri() == null) {
-                    //Exception error = result.getError();
-                    mCallback.onFailed(FAILED_BY_APPS, String.valueOf(REQ_CROP_IMAGE));
-                    return;
-                }
-                cropOutputUri = result.getUri();
-            } else {
+            if (mCropByOS) {
                 cropOutputUri = mCropOutputUri;
+            }
+            else {
+                return;
             }
 
             Uri resultUri = createNewResizeAndRotate(cropOutputUri);
@@ -651,11 +676,15 @@ public class MediaManager {
         mCropInputUri = externalUri;
 
         if (!mCropByOS) {
+            CropImageOptions options = new CropImageOptions();
             if (mCropFreeRatio) {
-                CropImage.activity(externalUri).start(mActivity);
+                options.fixAspectRatio = false;
             } else {
-                CropImage.activity(externalUri).setAspectRatio(1, 1).start(mActivity);
+                options.aspectRatioX = 1;
+                options.aspectRatioY = 1;
             }
+            CropImageContractOptions launchOption = new CropImageContractOptions(externalUri, options);
+            cropImage.launch(launchOption);
         } else {
             // android 7.0 gallaxy s7 crop activity is not supported of "not contained file type in name"
             File file;

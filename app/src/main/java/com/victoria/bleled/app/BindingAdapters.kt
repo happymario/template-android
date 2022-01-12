@@ -11,11 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.victoria.bleled.R
 import com.victoria.bleled.util.thirdparty.glide.ImageLoader
 import com.victoria.bleled.util.view.recycleview.CustomDecoration
-import android.view.ViewGroup
-
-import androidx.databinding.BindingAdapter
-
-
 
 
 @BindingMethods(

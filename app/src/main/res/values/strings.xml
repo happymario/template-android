@@ -99,14 +99,6 @@
     <string name="msg_no_login_user">회원정보가 없습니다. ‘회원가입‘을 진행해주십시오</string>
 
     <!-- Main -->
-    <string name="tab_main">기본기술</string>
-    <string name="tab_latest">최신기술</string>
-    <string name="tab_special">특기기술</string>
-    <string name="hint_search">검색어를 입력해주세요.</string>
-    <string name="about">대하여</string>
-    <string name="logout">나가기</string>
-    <string name="msg_logout">App에서 나가시겠습니까?</string>
-    <string name="msg_workmanager_alarm">1분후 부터 정기적인 알림이 옵니다.</string>
     <string-array name="arr_main_tech">
         <item>Menu</item>
         <item>Animation</item>
@@ -118,6 +110,7 @@
         <item>WorkManager</item>
         <item>AlarmManager</item>
         <item>PictureInPicture</item>
+        <item>Compose</item>
     </string-array>
 
     <string-array name="arr_special_tech">
@@ -125,6 +118,15 @@
         <item>Calendar</item>
         <item>ImageSearch</item>
     </string-array>
+
+    <string name="tab_main">기본기술</string>
+    <string name="tab_latest">최신기술</string>
+    <string name="tab_special">특기기술</string>
+    <string name="hint_search">검색어를 입력해주세요.</string>
+    <string name="about">대하여</string>
+    <string name="logout">나가기</string>
+    <string name="msg_logout">App에서 나가시겠습니까?</string>
+    <string name="msg_workmanager_alarm">1분후 부터 정기적인 알림이 옵니다.</string>
     <string name="mode">방식</string>
     <string name="prev">&lt;-</string>
     <string name="after">-&gt;</string>
@@ -145,5 +147,6 @@
     <string name="signout">탈퇴하기</string>
     <string name="ver">판본</string>
     <string name="msg_signout">정말 탈퇴하시겠습니까?\n탈퇴후 다시 들어올수 없습니다.</string>
+    <string name="title_activity_compose_ui">ComposeUiActivity</string>
 
 </resources>

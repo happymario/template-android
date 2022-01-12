@@ -1,5 +1,6 @@
 package com.victoria.bleled
 
+import com.victoria.bleled.util.CommonUtil
 import org.junit.Test
 
 import org.junit.Assert.*

@@ -6,16 +6,17 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import androidx.multidex.MultiDex
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.facebook.stetho.Stetho
 import com.orhanobut.logger.Logger
 import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.util.feature.LocaleUtil
 import com.victoria.bleled.util.feature.logger.MyDiskLogAdapter
-import com.zhy.http.okhttp.OkHttpUtils
-import com.zhy.http.okhttp.callback.Callback
-import okhttp3.Call
-import okhttp3.Response
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.io.Writer
@@ -234,27 +235,20 @@ class MyApplication : Application() {
             for (i in parameters.indices) {
                 parametersList.append((if (i > 0) "&" else "") + parameters[i])
             }
-            OkHttpUtils
-                .get()
-                .url(url + parametersList.toString())
-                .headers(headers)
-                .build()
-                .execute(object : Callback<String>() {
-                    override fun onError(call: Call?, e: Exception?, id: Int) {
-
-                    }
-
-                    override fun onResponse(response: String?, id: Int) {
-
-                    }
-
-                    override fun parseNetworkResponse(response: Response?, id: Int): String {
-                        if (response?.body?.string() != null) {
-                            return response?.body?.string()!!
-                        }
-                        return ""
-                    }
+            val queue = Volley.newRequestQueue(application)
+            // Request a string response from the provided URL.
+            val stringRequest = StringRequest(
+                Request.Method.GET, url,
+                Response.Listener<String> { response ->
+                    // Display the first 500 characters of the response string.
+                    Log.e("CrashLog", "Response is: ${response.substring(0, 500)}")
+                },
+                Response.ErrorListener {
+                    Log.e("CrashLog",  "That didn't work!")
                 })
+
+            // Add the request to the RequestQueue.
+            queue.add(stringRequest)
             application.uncaughtExceptionHandler?.uncaughtException(thread, ex)
         }
     }

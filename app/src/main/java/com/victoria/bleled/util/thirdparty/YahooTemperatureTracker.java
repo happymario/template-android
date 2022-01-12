@@ -4,8 +4,13 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,8 +30,6 @@ import java.util.Random;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-
-import okhttp3.Call;
 
 public class YahooTemperatureTracker {
 
@@ -122,21 +125,13 @@ public class YahooTemperatureTracker {
         headers.put("Yahoo-App-Id", appId);
         headers.put("Content-Type", "application/json");
 
-        OkHttpUtils
-                .get()
-                .url((url + params))
-                .headers(headers)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        if (callback != null) {
-                            callback.onChange(null);
-                        }
-                    }
+        RequestQueue queue = Volley.newRequestQueue(mContext);
 
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url+ params,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String response, int id) {
+                    public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         ShortWeather weather = new ShortWeather();
                         try {
@@ -157,7 +152,22 @@ public class YahooTemperatureTracker {
                             callback.onChange(weather);
                         }
                     }
-                });
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (callback != null) {
+                    callback.onChange(null);
+                }
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+               return headers;
+            }
+        };
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 
     public void getWeatherOld(double latitude, double longitude, WeatherCallback callback) {
@@ -168,20 +178,13 @@ public class YahooTemperatureTracker {
 
         String url = "https://query.yahooapis.com/v1/public/yql?q=" + sql + "&format=json&env=store://datatables.org/alltableswithkeys";
 
-        OkHttpUtils
-                .get()
-                .url(url)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        if (callback != null) {
-                            callback.onChange(null);
-                        }
-                    }
+        RequestQueue queue = Volley.newRequestQueue(mContext);
 
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String response, int id) {
+                    public void onResponse(String response) {
                         ShortWeather weather = new ShortWeather();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -201,7 +204,17 @@ public class YahooTemperatureTracker {
                             callback.onChange(weather);
                         }
                     }
-                });
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (callback != null) {
+                    callback.onChange(null);
+                }
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 
     public void getWeather(String locality, String subLocality, String throughfair, WeatherCallback callback) {
@@ -221,20 +234,13 @@ public class YahooTemperatureTracker {
     }
 
     private void getLocality(String url, String preTopCode, int step, WeatherCallback callback) {
-        OkHttpUtils
-                .get()
-                .url(url)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        if (callback != null) {
-                            callback.onChange(null);
-                        }
-                    }
+        RequestQueue queue = Volley.newRequestQueue(mContext);
 
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String response, int id) {
+                    public void onResponse(String response) {
                         try {
                             String temp = "";
                             String topCode = preTopCode;
@@ -291,26 +297,27 @@ public class YahooTemperatureTracker {
                         }
 
                     }
-                });
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (callback != null) {
+                    callback.onChange(null);
+                }
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 
     private void getWheater(String zoneCode, WeatherCallback callback) {
         String url = "http://www.kma.go.kr/wid/queryDFSRSS.jsp?zone=" + zoneCode;
-
-        OkHttpUtils
-                .get()
-                .url(url)
-                .build()
-                .execute(new StringCallback() {
+        // Request a string response from the provided URL.
+        RequestQueue queue = Volley.newRequestQueue(mContext);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onError(Call call, Exception e, int id) {
-                        if (callback != null) {
-                            callback.onChange(null);
-                        }
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
+                    public void onResponse(String response) {
                         String xml = response;
                         try {
                             String tagName = "";
@@ -400,8 +407,19 @@ public class YahooTemperatureTracker {
                                 callback.onChange(null);
                             }
                         }
+
                     }
-                });
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (callback != null) {
+                    callback.onChange(null);
+                }
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 
 

@@ -1,11 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.4.32'
-    ext.nav_version = '2.3.5'
+    ext {
+        kotlin_version = '1.5.31'
+        nav_version = '2.3.5'
+        compose_version = '1.0.5'
+    }
+
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+
 //        maven {
 //            url "http://192.168.0.13:8083/repository/gradle_proxy/"
 //            allowInsecureProtocol = true
@@ -21,25 +26,23 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.4'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
-
-        classpath 'com.google.gms:google-services:4.3.8'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'com.google.gms:google-services:4.3.10'
     }
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
+        //jcenter() // 2022년 2월 11일에 종료
+        mavenCentral()
         maven { url "https://jitpack.io" }
-        maven {
-            url "https://maven.google.com"
-        }
-        maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/'}
+        maven { url "https://maven.google.com" }
+        maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
 
 //        maven {
 //            url "http://192.168.0.13:8083/repository/jtpack_proxy/"
@@ -58,7 +61,10 @@ allprojects {
 //            allowInsecureProtocol = true
 //        }
 
-        //maven { url "http://192.168.0.13:8083/repository/maven_group/" }
+//        maven {
+//            url "http://192.168.0.13:8083/repository/maven_group/"
+//            allowInsecureProtocol = true
+//        }
     }
 }
 

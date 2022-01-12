@@ -41,42 +41,31 @@ dependencies {
 
     // UI
     implementation 'com.github.takusemba:multisnaprecyclerview:2.0.2'
-    implementation 'com.yarolegovich:discrete-scrollview:1.4.9'
+    implementation 'com.github.yarolegovich:DiscreteScrollView:v1.5.1'
 
     // tabs
     implementation "com.ogaclejapan.smarttablayout:library:1.7.0@aar"
     implementation "com.ogaclejapan.smarttablayout:utils-v4:1.7.0@aar"
 
     // indicator
-    implementation "com.romandanylyk:pageindicatorview:1.0.3"
+    implementation 'com.github.romandanylyk:PageIndicatorView:v.1.0.3'
 
     // swipe
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
 
     // ImageView
-    implementation 'com.github.stfalcon:stfalcon-imageviewer:1.0.10'
+    implementation 'com.github.stfalcon-studio:StfalconImageViewer:v1.0.1'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
     implementation 'com.github.christophesmet:android_maskable_layout:v1.3.2'
 
     // TextView
-    def htextview_version = "0.1.6"
-    implementation "com.hanks:htextview-base:$htextview_version"        // base library
-
-    implementation "com.hanks:htextview-fade:$htextview_version"        // optional
-    implementation "com.hanks:htextview-line:$htextview_version"        // optional
-    implementation "com.hanks:htextview-rainbow:$htextview_version"     // optional
-    implementation "com.hanks:htextview-typer:$htextview_version"       // optional
-
-    implementation "com.hanks:htextview-scale:$htextview_version"       // optional
-    implementation "com.hanks:htextview-evaporate:$htextview_version"   // optional
-    implementation "com.hanks:htextview-fall:$htextview_version"        // optional
-
     implementation 'com.google.maps.android:android-maps-utils:2.2.0'
 
     // Tags
+    // implementation 'com.hanks:htextview-base:0.1.6'
     implementation "me.gujun.android.taggroup:library:1.4@aar"
-    implementation 'co.lujun:androidtagview:1.1.7'
+    implementation 'com.github.lzjin:AndroidTagView:1.1.8'
     implementation 'it.sephiroth.android.library.targettooltip:target-tooltip-library:2.0.1'
 
     // progress
@@ -86,21 +75,22 @@ dependencies {
     implementation 'com.github.Jay-Goo:RangeSeekBar:v3.0.0'
 
     // picker
-    implementation "com.shawnlin:number-picker:2.4.6"
+    implementation 'io.github.ShawnLin013:number-picker:2.4.13'
 
     // chart
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4' // 중요하므로 manual까지 자산화필요
 
     // Audio
-    implementation 'com.chibde:audiovisualizer:2.2.0'
-    implementation 'com.github.piasy:rxandroidaudio:1.5.1' // 쉬운 리용
-    implementation 'com.kailashdabhi:om-recorder:1.1.5' // amplifier동시 표시 구현
+    //implementation 'com.chibde:audiovisualizer:2.2.0'
+    implementation 'com.github.piasy:rxandroidaudio:1.7.0'
+    implementation 'com.github.piasy:AudioProcessor:1.7.0' // 쉬운 리용
+    //implementation 'com.kailashdabhi:om-recorder:1.1.5' // amplifier동시 표시 구현
 
     // video
     implementation "com.google.android.exoplayer:exoplayer-core:2.14.1"
     implementation "com.google.android.exoplayer:exoplayer-ui:2.14.1"
     implementation "com.google.android.exoplayer:exoplayer-hls:2.14.1"
-    implementation 'com.remotemonster:sdk:2.7.4'
+    //implementation 'com.remotemonster:sdk:2.7.4'
 
     //barcode
     implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
