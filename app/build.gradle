@@ -224,6 +224,7 @@ dependencies {
     // video player
     implementation 'com.google.android.exoplayer:exoplayer:2.16.1'
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    implementation 'com.github.HBiSoft:HBRecorder:2.0.3'
 
     // log
     implementation 'com.orhanobut:logger:2.2.0'

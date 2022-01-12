@@ -86,7 +86,7 @@ interface IMyRemoteService {
         /************************************************************
          * Constants
          */
-        const val BASE_URL = "http://192.168.0.13:9101"
+        const val BASE_URL = "http://192.168.0.13:8101"
         const val API_BASE_URL = "$BASE_URL/api/"
         const val API_KEY = "clubonline20200519key"
     }

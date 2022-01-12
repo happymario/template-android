@@ -54,7 +54,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //        }
     }
 
-    public static void showNotification(Context context, PushMessage pushMessage, Bitmap bitmap) {
+    public static Notification getNotification(Context context, PushMessage pushMessage, Bitmap bitmap) {
         Intent intent = new Intent(context, SplashActivity.class);
         //Intent intent = new Intent(this, SplashActivity.class);
         //intent.putExtra(PARAM_PUSH_MSG, pushMessage);
@@ -97,8 +97,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         PowerManager.WakeLock wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 "MyApp::MyWakelockTag");
         wakeLock.acquire(5000);
+        return notificationBuilder.build();
+    }
 
+    public static void showNotification(Context context, PushMessage pushMessage, Bitmap bitmap) {
         int id = 0;
-        notificationManager.notify(id /* ID of notification */, notificationBuilder.build());
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notification = getNotification(context, pushMessage, bitmap);
+        notificationManager.notify(id /* ID of notification */, notification);
     }
 }

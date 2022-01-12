@@ -41,6 +41,11 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>() {
         initView()
         initViewModel()
 
+        if(Constants.IS_TEST) {
+            binding.etId.setText("dev1@gmail.com")
+            binding.etPwd.setText("test123")
+        }
+
 //        val builder = SpannableStringBuilder()
 //        builder.append("My string. I123123123123123123123 ")
 //            .append(" ", ImageSpan(this, com.victoria.bleled.R.drawable.search_1), 0)

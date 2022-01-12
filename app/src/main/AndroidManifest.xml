@@ -61,6 +61,8 @@
         android:name="android.allow_multiple_resumed_activities"
         android:value="true" />
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <queries>
         <package android:name="com.android.camera.action.CROP" />
 
@@ -167,6 +169,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".app.recent.MyAlarmService" />
+
 
         <!-- crop -->
         <activity

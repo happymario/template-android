@@ -17,6 +17,7 @@ import com.victoria.bleled.app.essential.CameraTestActivity
 import com.victoria.bleled.app.essential.anim.AnimActivity
 import com.victoria.bleled.app.essential.gallery.GallerySelectCropActivity
 import com.victoria.bleled.app.recent.AlarmReceiver
+import com.victoria.bleled.app.recent.MyAlarmService
 import com.victoria.bleled.app.recent.SimpleWorker
 import com.victoria.bleled.app.recent.VideoPlayerActivity
 import com.victoria.bleled.app.special.bluetooth.BluetoothTestActivity
@@ -186,11 +187,11 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
             val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
 
             val intent = Intent(context, AlarmReceiver::class.java)
-            val pendingIntent = PendingIntent.getBroadcast(
-                context, AlarmReceiver.NOTIFICATION_ID, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT)
+            //val intent = Intent(context, MyAlarmService::class.java)
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            //val pendingIntent = PendingIntent.getService(context, 0, intent, 0)
             val triggerTime = (SystemClock.elapsedRealtime()
-                    + 60 * 1000)
+                    + 10 * 1000)
 
             alarmManager.cancel(pendingIntent)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
