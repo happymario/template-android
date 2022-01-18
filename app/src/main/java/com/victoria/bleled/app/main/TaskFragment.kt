@@ -16,10 +16,10 @@ import com.victoria.bleled.app.MyApplication
 import com.victoria.bleled.app.essential.CameraTestActivity
 import com.victoria.bleled.app.essential.anim.AnimActivity
 import com.victoria.bleled.app.essential.gallery.GallerySelectCropActivity
-import com.victoria.bleled.app.recent.AlarmReceiver
-import com.victoria.bleled.app.recent.ComposeUiActivity
-import com.victoria.bleled.app.recent.SimpleWorker
+import com.victoria.bleled.app.recent.background.AlarmReceiver
+import com.victoria.bleled.app.recent.background.SimpleWorker
 import com.victoria.bleled.app.recent.VideoPlayerActivity
+import com.victoria.bleled.app.recent.compose.ComposeUiActivity
 import com.victoria.bleled.app.special.bluetooth.BluetoothTestActivity
 import com.victoria.bleled.app.special.calendar.CalendarActivity
 import com.victoria.bleled.app.special.imagesearch.ImageSearchActivity

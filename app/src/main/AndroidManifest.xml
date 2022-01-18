@@ -99,9 +99,10 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
-        tools:replace="android:allowBackup">
+        tools:replace="android:allowBackup"
+        android:largeHeap="true">
         <activity
-            android:name=".app.recent.ComposeUiActivity"
+            android:name=".app.recent.compose.ComposeUiActivity"
             android:exported="false"
             android:label="@string/title_activity_compose_ui"
             android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
@@ -165,7 +166,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".app.recent.MyAlarmService" /> <!-- crop -->
+        <service android:name=".app.recent.background.MyAlarmService" /> <!-- crop -->
         <activity
             android:name="com.canhub.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" /> <!-- file provider for camera -->
@@ -194,10 +195,10 @@
             android:name="firebase_analytics_collection_enabled"
             android:value="true" /> <!-- Alarm Manager -->
         <receiver
-            android:name=".app.recent.AlarmReceiver"
+            android:name=".app.recent.background.AlarmReceiver"
             android:exported="false"></receiver>
         <receiver
-            android:name=".app.recent.BootReceiver"
+            android:name=".app.recent.background.BootReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.recent
+package com.victoria.bleled.app.recent.background
 
 import android.app.Service
 import android.content.Intent

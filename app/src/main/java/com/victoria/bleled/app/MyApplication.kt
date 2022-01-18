@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.multidex.MultiDex
 import com.android.volley.Request
+import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -51,9 +52,9 @@ class MyApplication : Application() {
 
     private var uncaughtExceptionHandler: Thread.UncaughtExceptionHandler? = null
     private lateinit var diskLogAdapter: MyDiskLogAdapter
+    var volleyQueue:RequestQueue? = null
 
-
-    /************************************************************
+        /************************************************************
      *  Overrides
      ************************************************************/
     override fun onCreate() {
@@ -222,6 +223,7 @@ class MyApplication : Application() {
         }
 
         override fun uncaughtException(thread: Thread, ex: Throwable) {
+            Log.e("uncaughtException", getStackTrace(ex))
             Logger.e("uncaughtException", getStackTrace(ex))
 
             val url = "https://crashlog.com/add_crash"
@@ -235,7 +237,11 @@ class MyApplication : Application() {
             for (i in parameters.indices) {
                 parametersList.append((if (i > 0) "&" else "") + parameters[i])
             }
-            val queue = Volley.newRequestQueue(application)
+
+            if(application.volleyQueue == null) {
+                application.volleyQueue = Volley.newRequestQueue(application)
+            }
+
             // Request a string response from the provided URL.
             val stringRequest = StringRequest(
                 Request.Method.GET, url,
@@ -248,8 +254,8 @@ class MyApplication : Application() {
                 })
 
             // Add the request to the RequestQueue.
-            queue.add(stringRequest)
-            application.uncaughtExceptionHandler?.uncaughtException(thread, ex)
+            application.volleyQueue!!.add(stringRequest)
+            //application.uncaughtExceptionHandler?.uncaughtException(thread, ex)
         }
     }
 }

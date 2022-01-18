@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.recent.ui.theme
+package com.victoria.bleled.app.recent.compose.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

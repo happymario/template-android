@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.recent.ui.theme
+package com.victoria.bleled.app.recent.compose.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
