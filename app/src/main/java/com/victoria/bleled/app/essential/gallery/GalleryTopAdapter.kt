@@ -17,7 +17,7 @@ class GalleryTopAdapter : RecyclerView.Adapter<GalleryTopAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): ViewHolder {
         return ViewHolder.from(parent)
     }

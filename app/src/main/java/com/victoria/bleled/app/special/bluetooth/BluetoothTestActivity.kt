@@ -24,7 +24,6 @@ import com.victoria.bleled.databinding.ActivityTestBluetoothBinding
 import com.victoria.bleled.util.arch.base.BaseBindingActivity
 import com.victoria.bleled.util.feature.PermissionUtil
 import com.victoria.bleled.util.kotlin_ext.getViewModelFactory
-import java.util.*
 
 @SuppressWarnings("MissingPermission")
 class BluetoothTestActivity : BaseBindingActivity<ActivityTestBluetoothBinding>() {

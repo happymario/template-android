@@ -221,7 +221,7 @@ class GallerySelectCropActivity : BaseBindingActivity<ActivityGallerySelectCropB
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
-                id: Long
+                id: Long,
             ) {
                 // 선택된 folder
                 var folder = folderList.get(position)
@@ -404,7 +404,7 @@ class GallerySelectCropActivity : BaseBindingActivity<ActivityGallerySelectCropB
 
                 override fun onImageLoaded(
                     images: MutableList<Gallary>?,
-                    folders: MutableList<Folder>?
+                    folders: MutableList<Folder>?,
                 ) {
                     folderList.clear()
 

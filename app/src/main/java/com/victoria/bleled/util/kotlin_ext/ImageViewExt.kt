@@ -52,7 +52,7 @@ fun ImageView.loadImage(url: String, defaultResId: Int, callback: ImageLoadListe
                     override fun onLoadFailed(
                         @Nullable e: GlideException?, model: Any,
                         target: Target<Drawable>,
-                        isFirstResource: Boolean
+                        isFirstResource: Boolean,
                     ): Boolean {
                         if (defaultResId != 0) {
                             this@loadImage.setImageResource(defaultResId)
@@ -69,7 +69,7 @@ fun ImageView.loadImage(url: String, defaultResId: Int, callback: ImageLoadListe
                         model: Any,
                         target: Target<Drawable>,
                         dataSource: DataSource,
-                        isFirstResource: Boolean
+                        isFirstResource: Boolean,
                     ): Boolean {
                         callback?.onSuccess()
 

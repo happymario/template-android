@@ -1,6 +1,5 @@
 package com.victoria.bleled.app.recent.compose
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -38,7 +37,7 @@ import com.victoria.bleled.app.recent.compose.ui.theme.MyApplicationTheme
 import kotlinx.coroutines.launch
 
 
-class ComposeUiActivity : ComponentActivity() {
+class ComposeCodelabActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -107,7 +106,7 @@ fun SimpleList() {
     val coroutineScope = rememberCoroutineScope()
 
     Column {
-        Row{
+        Row {
             Button(onClick = {
                 coroutineScope.launch {
                     // 0 is the first item index
@@ -118,7 +117,7 @@ fun SimpleList() {
             }
             Button(onClick = {
                 coroutineScope.launch {
-                    scrollState.animateScrollToItem(listSize-1)
+                    scrollState.animateScrollToItem(listSize - 1)
                 }
             }) {
                 Text("Scroll to the bottom")
@@ -260,7 +259,7 @@ fun TextWithNormalPaddingPreview() {
 @Composable
 fun MyOwnColumn(
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     Layout(
         modifier = modifier,

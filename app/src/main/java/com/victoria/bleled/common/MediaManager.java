@@ -408,8 +408,7 @@ public class MediaManager {
 
             if (mCropByOS) {
                 cropOutputUri = mCropOutputUri;
-            }
-            else {
+            } else {
                 return;
             }
 

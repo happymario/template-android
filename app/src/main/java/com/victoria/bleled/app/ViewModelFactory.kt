@@ -33,13 +33,13 @@ import com.victoria.bleled.data.DataRepository
 class ViewModelFactory constructor(
     private val dataRepository: DataRepository,
     owner: SavedStateRegistryOwner,
-    defaultArgs: Bundle? = null
+    defaultArgs: Bundle? = null,
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
 
     override fun <T : ViewModel> create(
         key: String,
         modelClass: Class<T>,
-        handle: SavedStateHandle
+        handle: SavedStateHandle,
     ) = with(modelClass) {
         when {
             isAssignableFrom(SplashViewModel::class.java) ->

@@ -35,7 +35,7 @@ private const val RADIUS_OFFSET_INDICATOR = -35
 class DialView @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet?,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) :
     View(context, attrs, defStyleAttr) {
     private var radius = 0.0f                   // Radius of the Circle
@@ -64,7 +64,7 @@ class DialView @JvmOverloads constructor(
         ViewCompat.setAccessibilityDelegate(this, object : AccessibilityDelegateCompat() {
             override fun onInitializeAccessibilityNodeInfo(
                 host: View?,
-                info: AccessibilityNodeInfoCompat?
+                info: AccessibilityNodeInfoCompat?,
             ) {
                 super.onInitializeAccessibilityNodeInfo(host, info)
                 val customClick = AccessibilityNodeInfoCompat.AccessibilityActionCompat(

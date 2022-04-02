@@ -52,7 +52,7 @@ fun setSelected(view: View, selected: Boolean) {
 fun setImageUrl(
     imageView: ImageView,
     url: String?,
-    placeHolder: Int? = R.drawable.xml_default_img
+    placeHolder: Int? = R.drawable.xml_default_img,
 ) {
     if (url == null) {
         imageView.setImageResource(placeHolder ?: R.drawable.xml_default_img)
@@ -70,7 +70,7 @@ fun setImageUrl(
 fun RecyclerView.setDivider(
     dividerHeight: Float?,
     dividerPadding: Float?,
-    @ColorInt dividerColor: Int?
+    @ColorInt dividerColor: Int?,
 ) {
     val decoration = CustomDecoration(
         height = dividerHeight ?: 0f,

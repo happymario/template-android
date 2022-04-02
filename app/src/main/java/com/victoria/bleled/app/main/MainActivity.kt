@@ -156,7 +156,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
-                positionOffsetPixels: Int
+                positionOffsetPixels: Int,
             ) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
             }

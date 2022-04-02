@@ -9,7 +9,7 @@ interface IGithubService {
     @GET("search/repositories?sort=stars")
     fun searchRepo(
         @Query("q") q: String,
-        @Query("page") page: Int
+        @Query("page") page: Int,
     ): LiveData<NetworkResult<ResponseSearchRepo>>
 
     companion object {

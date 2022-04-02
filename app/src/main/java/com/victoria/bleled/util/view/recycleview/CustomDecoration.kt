@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 class CustomDecoration(
     private val height: Float,
     private val padding: Float,
-    @ColorInt private val color: Int
+    @ColorInt private val color: Int,
 ) : RecyclerView.ItemDecoration() {
     private val paint = Paint()
 

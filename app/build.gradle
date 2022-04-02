@@ -84,7 +84,7 @@ android {
 //            versionCode 6
 //            versionName "1.0.3"
 //
-//            resValue "string", "app_name", "즐팅♡방"
+//            resValue "string", "app_name", "Jul♡Talk"
 //
 //            buildConfigField 'String', 'APP_ID', '"angtalk"'
 //            //buildConfigField 'String', 'SERVER_URL', '"http://192.168.0.10:9969/api/"'
@@ -157,19 +157,19 @@ repositories {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // architecture
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation "androidx.multidex:multidex:2.0.1"
     implementation ("androidx.work:work-runtime-ktx:2.7.1") {
@@ -182,7 +182,7 @@ dependencies {
     // ui
     implementation "androidx.recyclerview:recyclerview:1.2.1"
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.google.android.material:material:1.5.0'
     //// navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
@@ -191,8 +191,8 @@ dependencies {
     implementation 'me.relex:circleindicator:2.1.6'
 
     // local db
-    implementation "androidx.room:room-runtime:2.4.0"
-    kapt "androidx.room:room-compiler:2.4.0"
+    implementation "androidx.room:room-runtime:2.4.2"
+    kapt "androidx.room:room-compiler:2.4.2"
 
     // image
     implementation "com.github.bumptech.glide:glide:4.12.0"
@@ -205,9 +205,10 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
     implementation "com.squareup.retrofit2:converter-scalars:2.9.0"
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+    implementation group: 'commons-net', name: 'commons-net', version: '3.6'
 
     // paging
-    implementation "androidx.paging:paging-runtime-ktx:3.1.0"
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
 
     // ble
     implementation 'com.akexorcist:bluetoothspp:1.0.0'
@@ -218,16 +219,16 @@ dependencies {
 
 
     // dagger-hilt
-    implementation 'com.google.dagger:dagger:2.38.1'
-    kapt 'com.google.dagger:dagger-compiler:2.38.1'
+    implementation 'com.google.dagger:dagger:2.39'
+    kapt 'com.google.dagger:dagger-compiler:2.39'
 
     // fcm push
-    implementation "com.google.firebase:firebase-core:20.0.2"
-    implementation "com.google.firebase:firebase-messaging:23.0.0"
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.0.0'
+    implementation "com.google.firebase:firebase-core:20.1.1"
+    implementation "com.google.firebase:firebase-messaging:23.0.2"
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.0.2'
 
     // inapp 4.0.0
-    implementation "com.android.billingclient:billing:4.0.0"
+    implementation "com.android.billingclient:billing:4.1.0"
 
     // google map
     implementation 'com.google.android.gms:play-services-basement:18.0.0'
@@ -236,7 +237,7 @@ dependencies {
     implementation 'com.google.maps.android:android-maps-utils:2.2.0'
 
     // video player
-    implementation 'com.google.android.exoplayer:exoplayer:2.16.1'
+    implementation 'com.google.android.exoplayer:exoplayer:2.17.1'
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.1'
     implementation 'com.github.HBiSoft:HBRecorder:2.0.3'
 
@@ -263,29 +264,39 @@ dependencies {
     // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
     implementation "androidx.compose.foundation:foundation:$compose_version"
     // Material Design
-    implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.material:material:1.1.1"
     // Material design icons
-    implementation "androidx.compose.material:material-icons-core:$compose_version"
-    implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    implementation "androidx.compose.material:material-icons-core:1.1.1"
+    implementation "androidx.compose.material:material-icons-extended:1.1.1"
     // Integration with activities
     implementation 'androidx.activity:activity-compose:1.4.0'
     // Integration with constraint layout
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0"
     // Integration with ViewModels
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1'
     // Integration with observables
-    implementation 'androidx.compose.runtime:runtime-livedata:1.0.5'
-    implementation 'androidx.compose.runtime:runtime-rxjava2:1.0.5'
+    implementation 'androidx.compose.runtime:runtime-livedata:1.1.1'
+    implementation 'androidx.compose.runtime:runtime-rxjava2:1.1.1'
     // Animations
-    implementation 'androidx.compose.animation:animation:1.0.5'
+    implementation 'androidx.compose.animation:animation:1.1.1'
     // When using a MDC theme
-    implementation "com.google.android.material:compose-theme-adapter:1.1.3"
+    implementation "com.google.android.material:compose-theme-adapter:1.1.6"
     // When using a AppCompat theme
     implementation "com.google.accompanist:accompanist-appcompat-theme:0.16.0"
     // UI Tests
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.0.5'
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.1.1'
     // Network image
     implementation 'io.coil-kt:coil-compose:1.4.0'
+    // System Ui
+    implementation 'com.google.accompanist:accompanist-insets:0.23.1'
+    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.23.1'
+    implementation 'com.google.accompanist:accompanist-flowlayout:0.23.1'
+    // navigation
+    implementation "androidx.navigation:navigation-compose:2.4.1"
+    // Util
+    implementation 'androidx.compose.ui:ui-util:1.1.1'
 
+    // splash screen
+    implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -2,7 +2,6 @@ package com.victoria.bleled.data.remote.myservice
 
 import com.victoria.bleled.data.remote.ApiException
 import java.io.Serializable
-import java.util.*
 
 class BaseResponse<T> : Serializable {
     var result: Int = ApiException.Companion.SUCCESS

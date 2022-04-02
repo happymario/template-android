@@ -7,7 +7,10 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.work.*
@@ -16,10 +19,10 @@ import com.victoria.bleled.app.MyApplication
 import com.victoria.bleled.app.essential.CameraTestActivity
 import com.victoria.bleled.app.essential.anim.AnimActivity
 import com.victoria.bleled.app.essential.gallery.GallerySelectCropActivity
+import com.victoria.bleled.app.recent.VideoPlayerActivity
 import com.victoria.bleled.app.recent.background.AlarmReceiver
 import com.victoria.bleled.app.recent.background.SimpleWorker
-import com.victoria.bleled.app.recent.VideoPlayerActivity
-import com.victoria.bleled.app.recent.compose.ComposeUiActivity
+import com.victoria.bleled.app.recent.compose.ComposeCodelabActivity
 import com.victoria.bleled.app.special.bluetooth.BluetoothTestActivity
 import com.victoria.bleled.app.special.calendar.CalendarActivity
 import com.victoria.bleled.app.special.imagesearch.ImageSearchActivity
@@ -65,7 +68,7 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val root = super.onCreateView(inflater, container, savedInstanceState)
 
@@ -223,7 +226,7 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
             startActivity(intent)
         }
         if (id == "compose") {
-            val intent = Intent(requireActivity(), ComposeUiActivity::class.java)
+            val intent = Intent(requireActivity(), ComposeCodelabActivity::class.java)
             startActivity(intent)
         }
 

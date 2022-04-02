@@ -25,7 +25,7 @@ import com.victoria.bleled.R
 
 @SuppressWarnings("MissingPermission")
 class DeviceScanAdapter(
-    private val onDeviceSelected: (BluetoothDevice) -> Unit
+    private val onDeviceSelected: (BluetoothDevice) -> Unit,
 ) : RecyclerView.Adapter<DeviceScanAdapter.DeviceScanViewHolder>() {
 
     private var items = listOf<BluetoothDevice>()
@@ -58,7 +58,7 @@ class DeviceScanAdapter(
 
     class DeviceScanViewHolder(
         view: View,
-        val onDeviceSelected: (BluetoothDevice) -> Unit
+        val onDeviceSelected: (BluetoothDevice) -> Unit,
     ) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private val name = itemView.findViewById<TextView>(R.id.tv_name)

@@ -10,7 +10,7 @@ import java.nio.charset.Charset
 
 public class AddParamsInterceptor(
     getMap: HashMap<String, String>,
-    postMap: HashMap<String, String>
+    postMap: HashMap<String, String>,
 ) :
     Interceptor {
     private var mGETMap = getMap

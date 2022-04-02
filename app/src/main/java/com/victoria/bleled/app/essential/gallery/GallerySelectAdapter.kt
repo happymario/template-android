@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.victoria.bleled.databinding.ItemGallerySelectBinding
 import com.victoria.bleled.util.feature.gallary.Gallary
-import java.util.*
 
 class GallerySelectAdapter constructor(var selectMax: Int = 1) :
     RecyclerView.Adapter<GallerySelectAdapter.ViewHolder>() {
@@ -31,7 +30,7 @@ class GallerySelectAdapter constructor(var selectMax: Int = 1) :
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): ViewHolder {
         return ViewHolder.from(parent)
     }

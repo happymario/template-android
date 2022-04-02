@@ -22,7 +22,6 @@ import java.io.PrintWriter
 import java.io.StringWriter
 import java.io.Writer
 import java.util.*
-import kotlin.collections.HashSet
 
 
 class MyApplication : Application() {
@@ -52,9 +51,9 @@ class MyApplication : Application() {
 
     private var uncaughtExceptionHandler: Thread.UncaughtExceptionHandler? = null
     private lateinit var diskLogAdapter: MyDiskLogAdapter
-    var volleyQueue:RequestQueue? = null
+    var volleyQueue: RequestQueue? = null
 
-        /************************************************************
+    /************************************************************
      *  Overrides
      ************************************************************/
     override fun onCreate() {
@@ -238,7 +237,7 @@ class MyApplication : Application() {
                 parametersList.append((if (i > 0) "&" else "") + parameters[i])
             }
 
-            if(application.volleyQueue == null) {
+            if (application.volleyQueue == null) {
                 application.volleyQueue = Volley.newRequestQueue(application)
             }
 
@@ -250,7 +249,7 @@ class MyApplication : Application() {
                     Log.e("CrashLog", "Response is: ${response.substring(0, 500)}")
                 },
                 Response.ErrorListener {
-                    Log.e("CrashLog",  "That didn't work!")
+                    Log.e("CrashLog", "That didn't work!")
                 })
 
             // Add the request to the RequestQueue.

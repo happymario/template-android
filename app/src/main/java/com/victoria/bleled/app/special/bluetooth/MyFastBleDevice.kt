@@ -82,7 +82,7 @@ class MyFastBleDevice(private val mContext: Context, private val mBleDevice: Ble
             override fun onStartConnect() {}
             override fun onConnectFail(
                 bleDevice: BleDevice,
-                exception: BleException
+                exception: BleException,
             ) {
                 CommonUtil.showToast(mContext, exception.description)
                 isConnecting = false
@@ -94,7 +94,7 @@ class MyFastBleDevice(private val mContext: Context, private val mBleDevice: Ble
             override fun onConnectSuccess(
                 bleDevice: BleDevice,
                 gatt: BluetoothGatt,
-                status: Int
+                status: Int,
             ) {
                 mBleGattProfile = gatt
                 initReadListener()
@@ -107,7 +107,7 @@ class MyFastBleDevice(private val mContext: Context, private val mBleDevice: Ble
                 isActiveDisConnected: Boolean,
                 device: BleDevice,
                 gatt: BluetoothGatt,
-                status: Int
+                status: Int,
             ) {
                 if (mListener != null) {
                     mListener!!.onDisconnected()
@@ -177,7 +177,7 @@ class MyFastBleDevice(private val mContext: Context, private val mBleDevice: Ble
                     override fun onWriteSuccess(
                         current: Int,
                         total: Int,
-                        justWrite: ByteArray
+                        justWrite: ByteArray,
                     ) {
                         if (noNeedErrorShow) {
                             return
@@ -313,7 +313,7 @@ class MyFastBleDevice(private val mContext: Context, private val mBleDevice: Ble
 
     data class CharacterData(
         var char: String,
-        var data: Array<Byte>
+        var data: Array<Byte>,
     )
 
     interface Listener {

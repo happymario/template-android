@@ -15,7 +15,6 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import java.lang.reflect.Type
-import java.util.*
 
 interface IMyRemoteService {
     /************************************************************
@@ -39,7 +38,7 @@ interface IMyRemoteService {
         @Field("id") id: String,
         @Field("pwd") pwd: String,
         @Field("push_token") push_token: String,
-        @Field("dev_type") dev_type: String
+        @Field("dev_type") dev_type: String,
     ): LiveData<NetworkResult<BaseResponse<ModelUser>>>
 
     @FormUrlEncoded
@@ -48,13 +47,13 @@ interface IMyRemoteService {
         @Field("id") id: String,
         @Field("pwd") pwd: String,
         @Field("profile_url") profile_url: String,
-        @Field("name") name: String
+        @Field("name") name: String,
     ): LiveData<NetworkResult<BaseResponse<ModelUser>>>
 
     @FormUrlEncoded
     @POST("user/signout")
     fun useSignout(
-        @Field("access_token") access_token: String
+        @Field("access_token") access_token: String,
     ): LiveData<NetworkResult<BaseResponse<BaseModel>>>
 
     companion object {

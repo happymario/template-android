@@ -41,7 +41,7 @@ object BiometricPromptUtils {
     private const val TAG = "BiometricPromptUtils"
     fun createBiometricPrompt(
         activity: AppCompatActivity,
-        processSuccess: (BiometricPrompt.AuthenticationResult) -> Unit
+        processSuccess: (BiometricPrompt.AuthenticationResult) -> Unit,
     ): BiometricPrompt {
         val executor = ContextCompat.getMainExecutor(activity)
 

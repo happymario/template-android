@@ -128,7 +128,7 @@ public class YahooTemperatureTracker {
         RequestQueue queue = Volley.newRequestQueue(mContext);
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url+ params,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + params,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -159,10 +159,10 @@ public class YahooTemperatureTracker {
                     callback.onChange(null);
                 }
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-               return headers;
+                return headers;
             }
         };
 

@@ -1,10 +1,17 @@
 package com.victoria.bleled.app
 
 import android.Manifest
+import android.animation.ObjectAnimator
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.view.ViewTreeObserver
+import android.view.animation.AnticipateInterpolator
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.animation.doOnEnd
 import androidx.lifecycle.Observer
 import com.victoria.bleled.R
 import com.victoria.bleled.app.main.MainActivity
@@ -16,6 +23,8 @@ import com.victoria.bleled.util.arch.EventObserver
 import com.victoria.bleled.util.arch.base.BaseActivity
 import com.victoria.bleled.util.feature.PermissionUtil
 import com.victoria.bleled.util.kotlin_ext.getViewModelFactory
+import java.time.Duration
+import java.time.Instant
 
 
 class SplashActivity : BaseActivity() {
@@ -46,6 +55,7 @@ class SplashActivity : BaseActivity() {
             }
         }
 
+
     /************************************************************
      *  Overrides
      ************************************************************/
@@ -53,6 +63,7 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        initView()
         initViewModel()
         checkPermissions()
     }
@@ -67,6 +78,65 @@ class SplashActivity : BaseActivity() {
         } else {
             val arrPermission = requiredPermissions + optionalPermissions
             permissionLauncher.launch(arrPermission)
+        }
+    }
+
+    private fun initView() {
+        // Set up an OnPreDrawListener to the root view.
+        val content: View = findViewById(android.R.id.content)
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    // Check if the initial data is ready.
+                    return if (viewModel.isReady.value == true) {
+                        // The content is ready; start drawing.
+                        content.viewTreeObserver.removeOnPreDrawListener(this)
+                        true
+                    } else {
+                        // The content is not ready; suspend.
+                        false
+                    }
+                }
+            }
+        )
+
+        // Add a callback that's called when the splash screen is animating to
+        // the app content.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            splashScreen.setOnExitAnimationListener { splashScreenView ->
+
+                // Get the duration of the animated vector drawable.
+                val animationDuration = splashScreenView.iconAnimationDuration
+                // Get the start time of the animation.
+                val animationStart = splashScreenView.iconAnimationStart
+                // Calculate the remaining duration of the animation.
+                val remainingDuration = if (animationDuration != null && animationStart != null) {
+                    (animationDuration - Duration.between(animationStart, Instant.now()))
+                        .toMillis()
+                        .coerceAtLeast(0L)
+                } else {
+                    0L
+                }
+                Log.e("test", "animationDuration - $remainingDuration")
+                Log.e("test", "animationStart - $remainingDuration")
+                Log.e("test", "remainingDuration - $remainingDuration")
+
+                // Create your custom animation.
+                val slideUp = ObjectAnimator.ofFloat(
+                    splashScreenView,
+                    View.TRANSLATION_Y,
+                    0f,
+                    -splashScreenView.height.toFloat()
+                )
+                slideUp.interpolator = AnticipateInterpolator()
+                slideUp.duration = 200L
+
+                // Call SplashScreenView.remove at the end of your custom animation.
+                slideUp.doOnEnd { splashScreenView.remove() }
+
+                // Run your animation.
+                slideUp.start()
+            }
         }
     }
 

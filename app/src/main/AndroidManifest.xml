@@ -102,15 +102,9 @@
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:allowBackup">
         <activity
-            android:name=".app.recent.compose.Codelab06Activity"
+            android:name=".app.recent.compose.ComposeCodelabActivity"
             android:exported="false"
-            android:label="@string/title_activity_codelab06"
-            android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
-        <activity
-            android:name=".app.recent.compose.ComposeUiActivity"
-            android:exported="false"
-            android:label="@string/title_activity_compose_ui"
-            android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".app.essential.gallery.GallerySelectCropActivity"
             android:screenOrientation="portrait" />
@@ -145,7 +139,8 @@
             android:name=".app.recent.VideoPlayerActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:supportsPictureInPicture="true">
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n">
             <layout
                 android:defaultWidth="600dp"
                 android:defaultHeight="500dp"
@@ -158,12 +153,14 @@
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:resizeableActivity="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            tools:targetApi="n" />
         <activity
             android:name=".app.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

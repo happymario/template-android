@@ -91,7 +91,7 @@ class CameraTestActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(
         requestCode: Int,
         @NonNull permissions: Array<String>,
-        @NonNull grantResults: IntArray
+        @NonNull grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 

@@ -18,6 +18,9 @@ class SplashViewModel constructor(private val repository: DataRepository) : Base
     private val _openEvent = MutableLiveData<Event<Int>>()
     val openEvent: LiveData<Event<Int>> = _openEvent
 
+    private val _isReady = MutableLiveData<Boolean>(false)
+    val isReady: LiveData<Boolean> = _isReady
+
     /************************************************************
      *  Public Functions
      ************************************************************/

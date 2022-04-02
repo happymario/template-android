@@ -147,6 +147,5 @@
     <string name="signout">탈퇴하기</string>
     <string name="ver">판본</string>
     <string name="msg_signout">정말 탈퇴하시겠습니까?\n탈퇴후 다시 들어올수 없습니다.</string>
-    <string name="title_activity_compose_ui">ComposeUiActivity</string>
 
 </resources>
