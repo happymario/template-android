@@ -22,7 +22,7 @@ import com.victoria.bleled.app.essential.gallery.GallerySelectCropActivity
 import com.victoria.bleled.app.recent.VideoPlayerActivity
 import com.victoria.bleled.app.recent.background.AlarmReceiver
 import com.victoria.bleled.app.recent.background.SimpleWorker
-import com.victoria.bleled.app.recent.compose.ComposeCodelabActivity
+import com.victoria.bleled.app.recent.compose.ComposeMainActivity
 import com.victoria.bleled.app.special.bluetooth.BluetoothTestActivity
 import com.victoria.bleled.app.special.calendar.CalendarActivity
 import com.victoria.bleled.app.special.imagesearch.ImageSearchActivity
@@ -226,7 +226,7 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
             startActivity(intent)
         }
         if (id == "compose") {
-            val intent = Intent(requireActivity(), ComposeCodelabActivity::class.java)
+            val intent = Intent(requireActivity(), ComposeMainActivity::class.java)
             startActivity(intent)
         }
 

@@ -23,6 +23,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.layout.FirstBaseline
 import androidx.compose.ui.layout.Layout
@@ -33,7 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import com.victoria.bleled.app.recent.compose.ui.theme.MyApplicationTheme
+import com.victoria.bleled.app.recent.compose.theme.MyApplicationTheme
 import kotlinx.coroutines.launch
 
 
@@ -78,13 +79,16 @@ fun LayoutsCodelab() {
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(Icons.Filled.Favorite, contentDescription = null)
                     }
-                }
+                },
+                backgroundColor = Color.White
             )
         }
     ) { innerPadding ->
         BodyContent(Modifier
             .padding(innerPadding)
-            .padding(8.dp))
+            .padding(8.dp)
+            .background(Color.White)
+        )
     }
 }
 

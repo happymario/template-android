@@ -102,6 +102,10 @@
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".app.recent.compose.ComposeMainActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".app.recent.compose.ComposeCodelabActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
