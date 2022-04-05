@@ -10,10 +10,7 @@ import com.victoria.bleled.data.model.ModelUser
 import com.victoria.bleled.util.arch.network.NetworkResult
 import com.victoria.bleled.util.arch.network.RetrofitHelper
 import okhttp3.MultipartBody.Part
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.Multipart
-import retrofit2.http.POST
+import retrofit2.http.*
 import java.lang.reflect.Type
 
 interface IMyRemoteService {
@@ -33,7 +30,7 @@ interface IMyRemoteService {
     fun uploadList(@retrofit2.http.Part files: List<Part>): LiveData<NetworkResult<BaseResponse<List<ModelUpload>>>>
 
     @FormUrlEncoded
-    @POST("user/login")
+    @POST("auth/login")
     fun userLogin(
         @Field("id") id: String,
         @Field("pwd") pwd: String,
@@ -42,7 +39,7 @@ interface IMyRemoteService {
     ): LiveData<NetworkResult<BaseResponse<ModelUser>>>
 
     @FormUrlEncoded
-    @POST("user/signup")
+    @POST("auth/signup")
     fun userSignup(
         @Field("id") id: String,
         @Field("pwd") pwd: String,
@@ -50,10 +47,9 @@ interface IMyRemoteService {
         @Field("name") name: String,
     ): LiveData<NetworkResult<BaseResponse<ModelUser>>>
 
-    @FormUrlEncoded
     @POST("user/signout")
-    fun useSignout(
-        @Field("access_token") access_token: String,
+    fun userSignout(
+        @Header("Authorization") token: String,
     ): LiveData<NetworkResult<BaseResponse<BaseModel>>>
 
     companion object {
@@ -85,7 +81,7 @@ interface IMyRemoteService {
         /************************************************************
          * Constants
          */
-        const val BASE_URL = "http://192.168.0.13:8101"
+        const val BASE_URL = "http://192.168.0.22:8101"
         const val API_BASE_URL = "$BASE_URL/api/"
         const val API_KEY = "clubonline20200519key"
     }

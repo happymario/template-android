@@ -2,6 +2,9 @@ package com.victoria.bleled.util.arch.network;
 
 import androidx.lifecycle.LiveData;
 
+import com.victoria.bleled.data.remote.ApiException;
+
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -37,7 +40,20 @@ public class LiveDataCallAdapter<R> implements CallAdapter<R, LiveData<NetworkRe
                     call.enqueue(new Callback<R>() {
                         @Override
                         public void onResponse(Call<R> call, Response<R> response) {
-                            postValue(NetworkResult.success(response.body()));
+                            if (response.body() != null) {
+                                postValue(NetworkResult.success(response.body()));
+                            } else {
+                                ApiException exception = new ApiException(response.code(), response.message(), "");
+
+                                try {
+                                    if (response.errorBody() != null) {
+                                        exception = new ApiException(response.code(), response.message(), response.errorBody().string());
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                postValue(NetworkResult.error(exception));
+                            }
                         }
 
                         @Override

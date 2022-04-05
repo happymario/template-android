@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.recent.compose.model
+package com.victoria.bleled.app.components
 
 import androidx.annotation.StringRes
 import kotlinx.coroutines.flow.MutableStateFlow

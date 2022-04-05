@@ -2,14 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".app.user.SignupActivity">
+    tools:context=".app.auth.SignupActivity">
 
     <data>
         <import type="android.view.View"/>
         <import type="com.victoria.bleled.R"/>
         <variable
             name="viewmodel"
-            type="com.victoria.bleled.app.user.UserViewModel" />
+            type="com.victoria.bleled.app.auth.UserViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

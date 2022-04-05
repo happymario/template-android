@@ -9,13 +9,14 @@ import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.animation.AnticipateInterpolator
+import android.widget.FrameLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.animation.doOnEnd
 import androidx.lifecycle.Observer
 import com.victoria.bleled.R
+import com.victoria.bleled.app.auth.SigninActivity
 import com.victoria.bleled.app.main.MainActivity
-import com.victoria.bleled.app.user.LoginActivity
 import com.victoria.bleled.common.Constants
 import com.victoria.bleled.data.remote.NetworkObserver
 import com.victoria.bleled.util.CommonUtil
@@ -61,7 +62,7 @@ class SplashActivity : BaseActivity() {
      ************************************************************/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        setContentView(FrameLayout(this))
 
         initView()
         initViewModel()
@@ -167,7 +168,7 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun goLogin() {
-        val intent = Intent(this, LoginActivity::class.java).apply {
+        val intent = Intent(this, SigninActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
         startActivity(intent)

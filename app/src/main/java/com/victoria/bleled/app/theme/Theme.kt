@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.recent.compose.theme
+package com.victoria.bleled.app.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
@@ -25,7 +25,7 @@ fun MyApplicationTheme(
 
     ProvideMyColors(colors = colors) {
         MaterialTheme(
-            colors = debugColors(darkTheme = darkTheme),
+            colors = originColors(darkTheme = darkTheme),
             typography = Typography,
             shapes = Shapes,
             content = content

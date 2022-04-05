@@ -26,8 +26,8 @@ class SettingViewModel constructor(private val repository: DataRepository) : Bas
             return
         }
 
-        val api = repository.remoteService.useSignout(
-            prefDataSource.user!!.access_token!!
+        val api = repository.remoteService.userSignout(
+            "Bearer " + prefDataSource.user!!.access_token!!
         )
 
         _dataLoading.value = true

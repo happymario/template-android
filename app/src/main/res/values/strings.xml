@@ -89,9 +89,9 @@
     <string name="hint_pwd">비밀번호를 입력해주십시오.</string>
     <string name="hint_pwd_confirm">비밀번호를 확인해주십시오.</string>
     <string name="hint_motto">좌우명을 입력해주십시오.</string>
-    <string name="login">들어가기</string>
+    <string name="login">Login</string>
     <string name="signup">회원가입</string>
-    <string name="to_main">기본화면으로</string>
+    <string name="to_main">SignInGuest</string>
     <string name="to_ask">문의하기</string>
     <string name="input_valid_email">유효한 이메일을 입력해주십시오.</string>
     <string name="input_valid_pwd">유효한 비밀번호를 입력해주십시오.</string>

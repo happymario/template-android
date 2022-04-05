@@ -19,10 +19,10 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victoria.bleled.R
 import com.victoria.bleled.app.MyApplication
+import com.victoria.bleled.app.auth.SigninActivity
 import com.victoria.bleled.app.etc.WebViewActivity
 import com.victoria.bleled.app.more.SettingActivity
 import com.victoria.bleled.app.setImageUrl
-import com.victoria.bleled.app.user.LoginActivity
 import com.victoria.bleled.common.Constants
 import com.victoria.bleled.common.dialog.AlertDialog
 import com.victoria.bleled.databinding.ActivityMainBinding
@@ -270,7 +270,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
     }
 
     private fun goLogin() {
-        val intent = Intent(this, LoginActivity::class.java).apply {
+        val intent = Intent(this, SigninActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
         startActivity(intent)

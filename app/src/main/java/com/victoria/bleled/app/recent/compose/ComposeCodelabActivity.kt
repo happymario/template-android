@@ -6,13 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -33,10 +31,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
-import com.victoria.bleled.app.recent.compose.theme.MyApplicationTheme
-import kotlinx.coroutines.launch
+import com.victoria.bleled.app.theme.MyApplicationTheme
 
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun DefaultPreview() {
+    MyApplicationTheme {
+        LayoutsCodelab()
+    }
+}
 
 class ComposeCodelabActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,24 +51,6 @@ class ComposeCodelabActivity : ComponentActivity() {
         }
     }
 }
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-        LayoutsCodelab()
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun OnboardingPreview() {
-    MaterialTheme {
-        MyApp()
-    }
-}
-
 
 @Composable
 fun LayoutsCodelab() {
@@ -79,76 +64,16 @@ fun LayoutsCodelab() {
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(Icons.Filled.Favorite, contentDescription = null)
                     }
-                },
-                backgroundColor = Color.White
+                }
             )
         }
     ) { innerPadding ->
-        BodyContent(Modifier
-            .padding(innerPadding)
-            .padding(8.dp)
-            .background(Color.White)
-        )
+        MyContent()
     }
 }
 
 @Composable
-fun BodyContent(modifier: Modifier = Modifier) {
-    MyOwnColumn(modifier.padding(8.dp)) {
-        Text("MyOwnColumn")
-        Text("places items")
-        Text("vertically.")
-        Text("We've done it by hand!")
-    }
-}
-
-
-@Composable
-fun SimpleList() {
-    val listSize = 100
-    val scrollState = rememberLazyListState()
-    val coroutineScope = rememberCoroutineScope()
-
-    Column {
-        Row {
-            Button(onClick = {
-                coroutineScope.launch {
-                    // 0 is the first item index
-                    scrollState.animateScrollToItem(0)
-                }
-            }) {
-                Text("Scroll to the top")
-            }
-            Button(onClick = {
-                coroutineScope.launch {
-                    scrollState.animateScrollToItem(listSize - 1)
-                }
-            }) {
-                Text("Scroll to the bottom")
-            }
-        }
-        LazyColumn(state = scrollState) {
-            items(listSize) {
-                ImageListItem(it)
-            }
-        }
-    }
-}
-
-@Composable
-fun ImageListItem(index: Int) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Image(painter = rememberImagePainter(data = "https://developer.android.com/images/brand/Android_Robot.png"),
-            contentDescription = "Android Logo",
-            modifier = Modifier.size(50.dp))
-        Spacer(Modifier.width(10.dp))
-        Text("Item #$index", style = MaterialTheme.typography.subtitle1)
-    }
-}
-
-
-@Composable
-private fun MyApp() {
+private fun MyContent() {
     //var shouldShowOnboarding by remember { mutableStateOf(true)}
     var shouldShowBoarding by rememberSaveable { mutableStateOf(true) }
     Surface(color = MaterialTheme.colors.background) {
@@ -221,10 +146,14 @@ fun OnboardingScreen(onContinueClicked: () -> Unit) {
                 }) {
                 Text("Next Screen")
             }
+            BodyContent(Modifier
+                .padding(2.dp)
+                .padding(8.dp)
+                .background(Color.Gray)
+            )
         }
     }
 }
-
 
 fun Modifier.firstBaselineToTop(firstBaselineToTop: Dp) = this.then(
     layout { measurable, constraints ->
@@ -242,23 +171,6 @@ fun Modifier.firstBaselineToTop(firstBaselineToTop: Dp) = this.then(
         }
     }
 )
-
-
-@Preview(showBackground = true)
-@Composable
-fun TextWithPaddingToBaselinePreview() {
-    MyApplicationTheme {
-        Text("Hi there!", Modifier.firstBaselineToTop(32.dp))
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TextWithNormalPaddingPreview() {
-    MyApplicationTheme {
-        Text("Hi there!", Modifier.padding(top = 32.dp))
-    }
-}
 
 @Composable
 fun MyOwnColumn(
@@ -293,12 +205,25 @@ fun MyOwnColumn(
     }
 }
 
+
+@Composable
+fun BodyContent(modifier: Modifier = Modifier) {
+    MyOwnColumn(modifier.padding(8.dp)) {
+        Text("MyOwnColumn")
+        Text("places items")
+        Text("vertically.")
+        Text("We've done it by hand!")
+        PhotographerCard()
+    }
+}
+
+
 @Composable
 fun PhotographerCard(modifier: Modifier = Modifier) {
     Row(modifier =
     modifier
         .clip(RoundedCornerShape(4.dp))
-        .background(MaterialTheme.colors.surface)
+        .background(MaterialTheme.colors.background)
         .clickable(onClick = {/**/ })
         .padding(16.dp)) {
         Surface(

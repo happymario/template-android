@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.os.ConfigurationCompat
 import androidx.navigation.compose.NavHost
@@ -31,17 +30,8 @@ import com.victoria.bleled.R
 import com.victoria.bleled.app.recent.compose.main.Essential
 import com.victoria.bleled.app.recent.compose.main.Recent
 import com.victoria.bleled.app.recent.compose.main.Special
-import com.victoria.bleled.app.recent.compose.theme.MyApplicationTheme
+import com.victoria.bleled.app.theme.MyApplicationTheme
 import kotlinx.coroutines.launch
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ComposeMainActivityPreview() {
-    MyApplicationTheme {
-        LayoutMainActivity()
-    }
-}
 
 class ComposeMainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -199,7 +189,9 @@ fun DrawerContentComponent(
             Surface(
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(text = "Setting", modifier = Modifier.padding(16.dp), color = Color.Black)
+                Text(text = "Setting",
+                    modifier = Modifier.padding(16.dp),
+                    color = MaterialTheme.colors.onSecondary)
             }
         })
 
@@ -209,7 +201,9 @@ fun DrawerContentComponent(
             Surface(
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(text = "Exit", modifier = Modifier.padding(16.dp), color = Color.Black)
+                Text(text = "Exit",
+                    modifier = Modifier.padding(16.dp),
+                    color = MaterialTheme.colors.onSecondary)
             }
         })
     }

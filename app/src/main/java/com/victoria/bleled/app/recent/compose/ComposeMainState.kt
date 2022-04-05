@@ -7,15 +7,18 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.*
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDestination
+import androidx.navigation.NavGraph
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.victoria.bleled.app.recent.compose.model.SnackbarManager
+import com.victoria.bleled.app.components.SnackbarManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 /**
- * Remembers and creates an instance of [JetsnackAppState]
+ * Remembers and creates an instance of [ComposeMainState]
  */
 @Composable
 fun rememberComposeMainState(

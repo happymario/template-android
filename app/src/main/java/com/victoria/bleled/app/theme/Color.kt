@@ -1,7 +1,9 @@
-package com.victoria.bleled.app.recent.compose.theme
+package com.victoria.bleled.app.theme
 
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 
@@ -81,25 +83,42 @@ fun ProvideMyColors(
     CompositionLocalProvider(LocalMyColors provides colorPalette, content = content)
 }
 
+val LightThemeColors = lightColors(
+    primary = Purple700,
+    primaryVariant = Purple500,
+    onPrimary = Color.White,
+    secondary = Color.White,
+    onSecondary = Color.Black,
+    background = Color.White,
+    onBackground = Color.Black,
+    surface = Color.White,
+    onSurface = Color.Black,
+    error = Error,
+    onError = Color.White
+)
+
+val DarkThemeColors = darkColors(
+    primary = Purple200,
+    primaryVariant = Purple500,
+    onPrimary = Color.Black,
+    secondary = Color.Black,
+    onSecondary = Color.White,
+    background = Color.Black,
+    onBackground = Color.White,
+    surface = Color.Black,
+    onSurface = Color.White,
+    error = Error,
+    onError = Color.Black
+)
+
 /**
  * A Material [Colors] implementation which sets all colors to [debugColor] to discourage usage of
  * [MaterialTheme.colors] in preference to [JetsnackTheme.colors].
  */
-fun debugColors(
+fun originColors(
     darkTheme: Boolean,
-    debugColor: Color = Color.Magenta,
-) = Colors(
-    primary = debugColor,
-    primaryVariant = debugColor,
-    secondary = debugColor,
-    secondaryVariant = debugColor,
-    background = debugColor,
-    surface = debugColor,
-    error = debugColor,
-    onPrimary = debugColor,
-    onSecondary = debugColor,
-    onBackground = debugColor,
-    onSurface = debugColor,
-    onError = debugColor,
-    isLight = !darkTheme
-)
+) = if (darkTheme) {
+    DarkThemeColors
+} else {
+    LightThemeColors
+}

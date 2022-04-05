@@ -15,32 +15,22 @@
  */
 package com.victoria.bleled.app
 
+import android.content.Context
 import android.os.Bundle
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.savedstate.SavedStateRegistryOwner
+import com.victoria.bleled.app.auth.UserViewModel
 import com.victoria.bleled.app.main.MainViewModel
 import com.victoria.bleled.app.more.SettingViewModel
 import com.victoria.bleled.app.special.bluetooth.BluetoothViewModel
-import com.victoria.bleled.app.user.UserViewModel
 import com.victoria.bleled.data.DataRepository
 
-/**
- * Factory for all ViewModels.
- */
-@Suppress("UNCHECKED_CAST")
-class ViewModelFactory constructor(
-    private val dataRepository: DataRepository,
-    owner: SavedStateRegistryOwner,
-    defaultArgs: Bundle? = null,
-) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
 
-    override fun <T : ViewModel> create(
-        key: String,
-        modelClass: Class<T>,
-        handle: SavedStateHandle,
-    ) = with(modelClass) {
+fun <T : ViewModel> createViewModel(dataRepository: DataRepository, modelClass: Class<T>) =
+    with(modelClass) {
         when {
             isAssignableFrom(SplashViewModel::class.java) ->
                 SplashViewModel(dataRepository)
@@ -56,4 +46,29 @@ class ViewModelFactory constructor(
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     } as T
+
+/**
+ * Factory for all ViewModels.
+ */
+@Suppress("UNCHECKED_CAST")
+class ViewModelFactory constructor(
+    private val dataRepository: DataRepository,
+    owner: SavedStateRegistryOwner,
+    defaultArgs: Bundle? = null,
+) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
+
+    override fun <T : ViewModel> create(
+        key: String,
+        modelClass: Class<T>,
+        handle: SavedStateHandle,
+    ) = createViewModel(dataRepository = dataRepository, modelClass = modelClass)
+}
+
+@Suppress("UNCHECKED_CAST")
+class ViewModelFactory2(val context: Context) : ViewModelProvider.Factory {
+    private val dataRepository = DataRepository.provideDataRepository(context)
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return createViewModel(dataRepository = dataRepository, modelClass = modelClass)
+    }
 }

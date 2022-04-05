@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.user
+package com.victoria.bleled.app.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -95,7 +95,7 @@ class UserViewModel constructor(private val repository: DataRepository) : BaseVi
             override fun onChanged(result: NetworkResult<BaseResponse<ModelUser>>) {
                 super.onChanged(result)
 
-                if (result != null && result.status.value != NetworkResult.Status.loading) {
+                if (result.status.value != NetworkResult.Status.loading) {
                     if (result.status.value == NetworkResult.Status.success) {
                         val user = result.data.data
                         user?.pwd = pwd.value!!

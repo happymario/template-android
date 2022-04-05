@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.user
+package com.victoria.bleled.app.auth
 
 import android.Manifest
 import android.content.Intent

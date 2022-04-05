@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import com.victoria.bleled.R
+import com.victoria.bleled.app.auth.SigninActivity
 import com.victoria.bleled.app.etc.WebViewActivity
-import com.victoria.bleled.app.user.LoginActivity
 import com.victoria.bleled.common.Constants
 import com.victoria.bleled.common.dialog.AlertDialog
 import com.victoria.bleled.data.remote.NetworkObserver
@@ -110,7 +110,7 @@ class SettingActivity : BaseActivity() {
 
 
     private fun goLogin() {
-        val intent = Intent(this, LoginActivity::class.java).apply {
+        val intent = Intent(this, SigninActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
         startActivity(intent)

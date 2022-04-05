@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.recent.compose.components
+package com.victoria.bleled.app.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -28,7 +28,7 @@ fun MySurface(
     modifier: Modifier = Modifier,
     shape: Shape = RectangleShape,
     color: Color = Color.Transparent,
-    contentColor: Color = Color.White,
+    contentColor: Color = Color.Black,
     border: BorderStroke? = null,
     elevation: Dp = 0.dp,
     content: @Composable () -> Unit,
