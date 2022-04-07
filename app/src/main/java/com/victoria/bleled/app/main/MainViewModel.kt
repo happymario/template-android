@@ -11,6 +11,8 @@ import com.victoria.bleled.data.DataRepository
 import com.victoria.bleled.data.model.ModelUser
 import com.victoria.bleled.util.arch.Event
 import com.victoria.bleled.util.arch.base.BaseViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class MainViewModel constructor(private val repository: DataRepository) : BaseViewModel() {
@@ -22,6 +24,9 @@ class MainViewModel constructor(private val repository: DataRepository) : BaseVi
     val userInfo: LiveData<ModelUser> = _userInfo
 
     private val _query = MutableLiveData<String>()
+
+    //  val viewState by viewModel.state.collectAsState()
+    private val _queryState = MutableStateFlow("")
 
     private val _items: LiveData<List<String>> = _query.switchMap { search ->
         val context = MyApplication.globalApplicationContext
@@ -42,6 +47,14 @@ class MainViewModel constructor(private val repository: DataRepository) : BaseVi
 
     private var currentPageIdx: Int = 0
 
+    init {
+        viewModelScope.launch {
+            _queryState.collect { query ->
+                _query.value = query
+            }
+        }
+    }
+
     fun start() {
         val prefDataSource = repository.prefDataSource
         _userInfo.value = prefDataSource.user
@@ -59,7 +72,8 @@ class MainViewModel constructor(private val repository: DataRepository) : BaseVi
     }
 
     fun searchTask(query: String) {
-        _query.value = query
+        //_query.value = query
+        _queryState.value = query
     }
 
     fun setPage(page: Int) {

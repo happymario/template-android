@@ -3,6 +3,7 @@ package com.victoria.bleled.app.recent.compose
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
 import androidx.compose.animation.animateColorAsState
@@ -71,6 +72,9 @@ fun LayoutMainActivity() {
     ProvideWindowInsets {
         MyApplicationTheme {
             val mainState = rememberComposeMainState()
+            BackHandler {
+                mainState.coroutineScope.launch { drawerState.close() }
+            }
             ModalDrawer(
                 drawerState = drawerState,
                 gesturesEnabled = true,

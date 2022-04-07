@@ -30,6 +30,9 @@ import com.victoria.bleled.service.billing.BillingDataSource
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.arch.base.BaseBindingActivity
 import com.victoria.bleled.util.kotlin_ext.getViewModelFactory
+import java.security.SecureRandom
+import java.security.cert.X509Certificate
+import javax.net.ssl.*
 
 
 class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
@@ -54,6 +57,8 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        handleSSLHandshake()
 
         initPurchase()
 
@@ -178,7 +183,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
     private fun initViewModel() {
         binding.viewmodel = viewModel
 
-        viewModel.userInfo.observe(this, { user ->
+        viewModel.userInfo.observe(this) { user ->
             if (user == null) {
                 if (!isFirstLoading) {
                     goLogin()
@@ -191,11 +196,45 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
             parent.findViewById<TextView>(R.id.tv_nickname).text =
                 user.name
             parent.findViewById<TextView>(R.id.tv_email).text = user.id
+            //  "https://cdn.myholdem.io.s3.ap-northeast-2.amazonaws.com//75729800-eb9f-41c5-99af-11df13c9d2c8img_9126846222369274919.jpg"
             setImageUrl(
                 parent.findViewById<ImageView>(R.id.iv_profile),
                 user.profile_url, R.drawable.profile
             )
-        })
+        }
+    }
+
+    private fun handleSSLHandshake() {
+        try {
+
+            val trustAllCerts: Array<TrustManager> = arrayOf(object : X509TrustManager {
+                override fun checkClientTrusted(
+                    chain: Array<out X509Certificate>?, authType: String?
+                ) = Unit
+
+                override fun checkServerTrusted(
+                    chain: Array<out X509Certificate>?, authType: String?
+                ) = Unit
+
+                override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
+            })
+            val sc: SSLContext = SSLContext.getInstance("TLS")
+            // trustAllCerts信任所有的证书
+            sc.init(null, trustAllCerts, SecureRandom())
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory())
+            HttpsURLConnection.setDefaultHostnameVerifier(object : HostnameVerifier {
+
+
+                override fun verify(hostname: String?, session: SSLSession?): Boolean {
+
+
+                    return true
+                }
+            })
+        } catch (ignored: Exception) {
+
+
+        }
     }
 
     private fun initPurchase() {
