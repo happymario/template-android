@@ -13,7 +13,6 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.facebook.stetho.Stetho
 import com.orhanobut.logger.Logger
 import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.util.feature.LocaleUtil
@@ -61,7 +60,7 @@ class MyApplication : Application() {
 
         instance = this
 
-        Stetho.initializeWithDefaults(this)
+        //Stetho.initializeWithDefaults(this)
         diskLogAdapter = MyDiskLogAdapter(this)
         registerActivityLifecycleCallbacks(MyActivityLifecycleCallbacks(this))
         uncaughtExceptionHandler = UncaughtExceptionHandlerApplication(this)
