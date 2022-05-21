@@ -3,22 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.victoria.bleled">
 
-    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
-
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- camera, gallary, storage -->
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- Manage External은 전체 파일에 Access해야 할시만 이용 -->
+    <!-- Manage External은 전체 파일에 Access해야 할시만 이용 -->
     <!-- <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" /> -->
     <!-- android 11이상일 경우 WRITE_EXTERNAL_STORAGE은 더이상 지원안됨. read만 요청해도 특정 external과 scope령역 액세스가능함 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- Background권한은 반드시 이용사유를 동영상으로 제출해야 하며 처음에 요청페지가 떠야 함. -->
+    <!-- Background권한은 반드시 이용사유를 동영상으로 제출해야 하며 처음에 요청페지가 떠야 함. -->
     <!-- <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> -->
-    <!-- Request legacy Bluetooth permissions on older devices. -->
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--
+        Push wake permission
+    -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!--
+        Service Permission
+    -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!--
+        camera, gallary, storage
+    -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!--
+        Request legacy Bluetooth permissions on older devices.
+    -->
     <uses-permission
         android:name="android.permission.BLUETOOTH"
         android:maxSdkVersion="30" />
@@ -26,33 +41,33 @@
         android:name="android.permission.BLUETOOTH_ADMIN"
         android:maxSdkVersion="30" />
     <!--
- Needed only if your app looks for Bluetooth devices.
+        Needed only if your app looks for Bluetooth devices.
          If your app doesn't use Bluetooth scan results to derive physical
          location information, you can strongly assert that your app
          doesn't derive physical location.
     -->
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <!--
- Needed only if your app makes the device discoverable to Bluetooth
-         devices.
+        Needed only if your app makes the device discoverable to Bluetooth devices.
     -->
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
     <!--
- Needed only if your app communicates with already-paired Bluetooth
-         devices.
+        Needed only if your app communicates with already-paired Bluetooth devices.
     -->
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" /> <!-- Needed only if your app uses Bluetooth scan results to derive physical location. -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- read phone state -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- for push when closed -->
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- reboot receive -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <!--
+        Needed only if your app uses Bluetooth scan results to derive physical location.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!--
+       For only Barcode scan
+   -->
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 
     <meta-data
         android:name="android.allow_multiple_resumed_activities"
         android:value="true" />
-
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <queries>
         <package android:name="com.android.camera.action.CROP" />
@@ -164,8 +179,8 @@
             android:name=".app.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme.SplashScreen">
+            android:theme="@style/AppTheme.SplashScreen"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -176,7 +191,8 @@
         <service android:name=".app.recent.background.MyAlarmService" /> <!-- crop -->
         <activity
             android:name="com.canhub.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" /> <!-- file provider for camera -->
+            android:theme="@style/Base.Theme.AppCompat" />
+        <!-- file provider for camera -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
