@@ -398,7 +398,7 @@ public class SystemUtil {
 
 
     public static void showNotification(Context context, Intent intent, String title, String message, int alarm) {
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder mCompatBuilder = new NotificationCompat.Builder(context);

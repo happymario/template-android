@@ -196,7 +196,7 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
             val intent = Intent(context, AlarmReceiver::class.java)
             //val intent = Intent(context, MyAlarmService::class.java)
             val pendingIntent =
-                PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
             //val pendingIntent = PendingIntent.getService(context, 0, intent, 0)
             val triggerTime = (SystemClock.elapsedRealtime()
                     + 10 * 1000)

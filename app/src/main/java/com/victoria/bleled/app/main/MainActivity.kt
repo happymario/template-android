@@ -47,7 +47,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
     private var pagerAdapter: MainPagerAdapter? = null
     private lateinit var billingDataSource: BillingDataSource
     private val viewModel by viewModels<MainViewModel> { getViewModelFactory() }
-    private var isFirstLoading = true
     private var isFinishAppWhenPressedBackKey = true
     private var isFinishDoing = false
 
@@ -185,11 +184,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
 
         viewModel.userInfo.observe(this) { user ->
             if (user == null) {
-                if (!isFirstLoading) {
-                    goLogin()
-                } else {
-                    isFirstLoading = true
-                }
+                goLogin()
                 return@observe
             }
             val parent = binding.navView.getHeaderView(0)

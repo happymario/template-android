@@ -116,7 +116,6 @@
     <string-array name="arr_special_tech">
         <item>Bluetooth</item>
         <item>Calendar</item>
-        <item>ImageSearch</item>
     </string-array>
 
     <string name="tab_main">기본기술</string>

@@ -26,7 +26,7 @@ class BootReceiver : BroadcastReceiver() {
 
             val intent = Intent(context, AlarmReceiver::class.java)
             val pendingIntent =
-                PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
             val alarmManager =
                 context.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
             val repeatInterval: Long = 60 * 1000

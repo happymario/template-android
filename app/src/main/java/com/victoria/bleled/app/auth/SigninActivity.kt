@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -158,7 +159,10 @@ fun ComposeSigninScreen(viewModel: UserViewModel? = null, onEvent: (SignInEvent)
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable {
+                .clickable (
+                    indication = null,
+                    interactionSource = remember { MutableInteractionSource() } // This is mandatory
+                ) {
                     focusManager.clearFocus()
                 }
         ) {
@@ -292,6 +296,7 @@ fun Email(
         },
         modifier = Modifier
             .fillMaxWidth()
+            .heightIn(min = 10.dp)
             .onFocusChanged { focusState ->
                 emailState.onFocusChange(focusState.isFocused)
                 if (!focusState.isFocused) {
@@ -328,6 +333,7 @@ fun Password(
         },
         modifier = modifier
             .fillMaxWidth()
+            .heightIn(min = 10.dp)
             .onFocusChanged { focusState ->
                 passwordState.onFocusChange(focusState.isFocused)
                 if (!focusState.isFocused) {

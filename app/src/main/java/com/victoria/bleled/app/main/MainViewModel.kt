@@ -57,7 +57,12 @@ class MainViewModel constructor(private val repository: DataRepository) : BaseVi
 
     fun start() {
         val prefDataSource = repository.prefDataSource
-        _userInfo.value = prefDataSource.user
+        var user = prefDataSource.user
+        if (user == null) {
+            user = ModelUser(0)
+            user.name = "Guest"
+        }
+        _userInfo.value = user
     }
 
     fun openTask(view: View, taskId: String) {

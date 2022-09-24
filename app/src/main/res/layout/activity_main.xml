@@ -37,10 +37,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
                         android:background="?attr/colorPrimary"
-                        app:titleMarginStart="0dp"
                         app:contentInsetStartWithNavigation="0dp"
                         app:layout_scrollFlags="scroll|enterAlways|snap"
-                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                        app:titleMarginStart="0dp" />
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tabs"

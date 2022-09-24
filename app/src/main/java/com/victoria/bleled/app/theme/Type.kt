@@ -8,7 +8,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.victoria.bleled.R
 
-val MontserratFontFamily = FontFamily(
+val DefaultFontFamily = FontFamily(
     listOf(
         Font(R.font.chongbong)
     )
@@ -16,7 +16,7 @@ val MontserratFontFamily = FontFamily(
 
 // Set of Material typography styles to start with
 val Typography = Typography(
-    defaultFontFamily = MontserratFontFamily,
+    defaultFontFamily = DefaultFontFamily,
     h1 = TextStyle(
         fontWeight = FontWeight.W300,
         fontSize = 96.sp,

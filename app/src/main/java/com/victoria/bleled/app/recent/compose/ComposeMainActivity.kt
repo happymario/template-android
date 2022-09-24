@@ -1,5 +1,6 @@
 package com.victoria.bleled.app.recent.compose
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -68,12 +69,20 @@ enum class MainBottomTabsData(
 @Composable
 fun LayoutMainActivity() {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
+    val activity = (LocalContext.current as? Activity)
 
     ProvideWindowInsets {
         MyApplicationTheme {
             val mainState = rememberComposeMainState()
             BackHandler {
-                mainState.coroutineScope.launch { drawerState.close() }
+                mainState.coroutineScope.launch {
+                    if(drawerState.isOpen) {
+                        drawerState.close()
+                    }
+                    else {
+                        activity?.finish()
+                    }
+                }
             }
             ModalDrawer(
                 drawerState = drawerState,
