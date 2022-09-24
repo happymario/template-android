@@ -8,14 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.victoria.bleled.databinding.ItemTaskBinding
 
-@BindingAdapter("app:items")
-fun setItems(listView: RecyclerView, items: List<String>?) {
-    items?.let {
-        (listView.adapter as TaskAdapter).submitList(items)
-    }
-}
-
-
 //class TaskAdapter(private val viewModel: MainViewModel) : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 class TaskAdapter(private val viewModel: MainViewModel) :
     ListAdapter<String, TaskAdapter.ViewHolder>(TaskDiffCallback()) {

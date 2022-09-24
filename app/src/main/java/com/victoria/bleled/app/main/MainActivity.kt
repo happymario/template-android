@@ -244,7 +244,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
             arrayOf("basic_subscription", "premium_subscription"),
             null
         )
-        billingDataSource.observeNewPurchaseData().observe(this, { purchase ->
+        billingDataSource.observeNewPurchaseData().observe(this) { purchase ->
             if (purchase == null) {
                 return@observe
             }
@@ -254,7 +254,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
                 val inappId = strings[i]
                 //billingDataSource.consumeInappPurchase(inappId);
             }
-        })
+        }
 
         billingDataSource.isPurchased("basic_subscription").observe(this) { purchased ->
             if (!purchased) {

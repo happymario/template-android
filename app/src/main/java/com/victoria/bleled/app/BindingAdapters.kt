@@ -9,6 +9,7 @@ import androidx.annotation.ColorInt
 import androidx.databinding.*
 import androidx.recyclerview.widget.RecyclerView
 import com.victoria.bleled.R
+import com.victoria.bleled.app.main.TaskAdapter
 import com.victoria.bleled.util.thirdparty.glide.ImageLoader
 import com.victoria.bleled.util.view.recycleview.CustomDecoration
 
@@ -23,25 +24,20 @@ import com.victoria.bleled.util.view.recycleview.CustomDecoration
 )
 class BindingAdapters {
     companion object {
-        @BindingAdapter("long_time")
-        @JvmStatic
-        fun setLongTime(view: TextView, newValue: Long) {
-            // Important to break potential infinite loops.
-            if (view.text.toString() != newValue.toString()) {
-                view.text = newValue.toString()
-            }
-        }
 
-        @InverseBindingAdapter(attribute = "long_time")
-        @JvmStatic
-        fun getLongTime(view: TextView): Long {
-            return view.text.toString().toLongOrNull() ?: 0
-        }
     }
 }
 
 @BindingConversion
 fun convertColorToDrawable(color: Int) = ColorDrawable(color)
+
+@BindingAdapter("items")
+fun setItems(listView: RecyclerView, items: List<String>?) {
+    items?.let {
+        (listView.adapter as TaskAdapter).submitList(items)
+    }
+}
+
 
 @BindingAdapter("android:selected")
 fun setSelected(view: View, selected: Boolean) {

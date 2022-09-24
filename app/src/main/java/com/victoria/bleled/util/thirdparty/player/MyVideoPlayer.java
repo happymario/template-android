@@ -32,10 +32,10 @@ import com.victoria.bleled.databinding.ViewPlayerVideoBinding;
 
 public class MyVideoPlayer extends RelativeLayout implements LifecycleOwner {
 
-    @BindingAdapter("app:url")
-    public static void setVideoUrl(MyVideoPlayer view, String url) {
-        view.setVideoUrl(url);
-    }
+//    @BindingAdapter("app:url")
+//    public static void setVideoUrl(MyVideoPlayer view, String url) {
+//        view.setVideoUrl(url);
+//    }
 
     private ViewPlayerVideoBinding binding;
     private final LifecycleRegistry registry = new LifecycleRegistry(this);

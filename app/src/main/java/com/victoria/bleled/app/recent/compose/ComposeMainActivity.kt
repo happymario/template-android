@@ -159,7 +159,7 @@ fun MainBottomBar(
                         text = stringResource(mainBottomTabsData.title).uppercase(
                             ConfigurationCompat.getLocales(
                                 LocalConfiguration.current
-                            ).get(0)
+                            ).get(0)!!
                         ),
                         color = tint,
                         style = MaterialTheme.typography.button,
