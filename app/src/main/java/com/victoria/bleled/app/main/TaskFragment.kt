@@ -25,7 +25,6 @@ import com.victoria.bleled.app.recent.background.SimpleWorker
 import com.victoria.bleled.app.recent.compose.ComposeMainActivity
 import com.victoria.bleled.app.special.bluetooth.BluetoothTestActivity
 import com.victoria.bleled.app.special.calendar.CalendarActivity
-import com.victoria.bleled.app.special.imagesearch.ImageSearchActivity
 import com.victoria.bleled.common.Constants
 import com.victoria.bleled.databinding.FragmentMainBinding
 import com.victoria.bleled.util.CommonUtil
@@ -239,10 +238,5 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
             val intent = Intent(requireActivity(), CalendarActivity::class.java)
             startActivity(intent)
         }
-        if (id == "imagesearch") {
-            val intent = Intent(requireActivity(), ImageSearchActivity::class.java)
-            startActivity(intent)
-        }
-
     }
 }

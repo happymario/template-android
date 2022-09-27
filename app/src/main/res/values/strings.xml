@@ -1,9 +1,28 @@
 <resources>
     <string name="app_name">Template</string>
+
+    <!-- common message -->
     <string name="app_finish_message">"'뒤로' 버튼을 한번 더 누르면 종료됩니다."</string>
     <string name="pms_des">해당 기능을 사용하려면 권한이 필요합니다. 권한을 허용해주세요.</string>
     <string name="ready_service">서비스 준비중입니다.</string>
     <string name="not_supported_feature">해당 기기에서는 지원하지 않는 기능입니다.</string>
+
+    <!-- common words -->
+    <string name="cancel">취소</string>
+    <string name="confirm">확인</string>
+    <string name="send">보내기</string>
+    <string name="yes">네</string>
+    <string name="no">아니요</string>
+    <string name="agree">수락하기</string>
+    <string name="refuse">거절</string>
+    <string name="do_install">설치하기</string>
+    <string name="add">추가</string>
+    <string name="remove">삭제</string>
+    <string name="modify">수정</string>
+    <string name="close">닫기</string>
+    <string name="next">다음</string>
+    <string name="no_name">미정</string>
+    <string name="all">전체</string>
 
     <!-- Network 통신 관련 -->
     <string name="error">오류</string>
@@ -33,30 +52,6 @@
     <string name="year_age_format">%d년 전</string>
     <string name="hour">시</string>
 
-    <!--MediaManagerager-->
-    <string name="photo">사진</string>
-    <string name="gallery">사진앨범</string>
-    <string name="camera">카메라</string>
-    <string name="delete">삭제</string>
-    <string name="photo_max_size">메모리 용량이 5MB이상이여야 합니다.</string>
-
-    <!-- common words -->
-    <string name="cancel">취소</string>
-    <string name="confirm">확인</string>
-    <string name="send">보내기</string>
-    <string name="yes">네</string>
-    <string name="no">아니요</string>
-    <string name="agree">수락하기</string>
-    <string name="refuse">거절</string>
-    <string name="do_install">설치하기</string>
-    <string name="add">추가</string>
-    <string name="remove">삭제</string>
-    <string name="modify">수정</string>
-    <string name="close">닫기</string>
-    <string name="next">다음</string>
-    <string name="no_name">미정</string>
-    <string name="all">전체</string>
-
     <string-array name="week">
         <item>SUN</item>
         <item>MON</item>
@@ -67,11 +62,12 @@
         <item>SAT</item>
     </string-array>
 
-    <string name="toast_not_find_device">장치를 찾을수 없습니다.</string>
-    <string name="toast_connect_device">장치가 연결되었습니다.</string>
-    <string name="empty_search_result"><b>%s</b>검색결과가 없습니다.</string>
-    <string name="loading">로딩중</string>
-    <string name="toast_disconnect_device">장치가 연결해제되었습니다.</string>
+    <!--MediaManagerager-->
+    <string name="photo">사진</string>
+    <string name="gallery">사진앨범</string>
+    <string name="camera">카메라</string>
+    <string name="delete">삭제</string>
+    <string name="photo_max_size">메모리 용량이 5MB이상이여야 합니다.</string>
 
     <!-- DialView -->
     <string name="fan_off">off</string>
@@ -147,4 +143,13 @@
     <string name="ver">판본</string>
     <string name="msg_signout">정말 탈퇴하시겠습니까?\n탈퇴후 다시 들어올수 없습니다.</string>
 
+    <!-- Bluetooth -->
+    <string name="msg_not_find_device">장치를 찾을수 없습니다.</string>
+    <string name="msg_connect_device">장치가 연결되었습니다.</string>
+    <string name="empty_search_result"><b>%s</b>검색결과가 없습니다.</string>
+    <string name="loading">로딩중</string>
+    <string name="msg_disconnect_device">장치가 연결해제되었습니다.</string>
+    <string name="msg_bluetooth_ads_not_support">불루트스 방송기능이 제공되지 않습니다.</string>
+    <string name="msg_search_complete">검색이 완료되었습니다.</string>
+    <string name="msg_bluetooth_failed_scan">Bluetooth Scan 실패했습니다.</string>
 </resources>

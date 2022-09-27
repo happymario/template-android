@@ -28,7 +28,7 @@ class DeviceScanAdapter(
     private val onDeviceSelected: (BluetoothDevice) -> Unit,
 ) : RecyclerView.Adapter<DeviceScanAdapter.DeviceScanViewHolder>() {
 
-    private var items = listOf<BluetoothDevice>()
+    private var items = mutableListOf<BluetoothDevice>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeviceScanViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -47,12 +47,16 @@ class DeviceScanAdapter(
     }
 
     fun updateItems(results: List<BluetoothDevice>) {
-        items = results
+        items.clear()
+        items.addAll(results)
         notifyDataSetChanged()
     }
 
-    fun addItem(results: BluetoothDevice) {
-        items += results
+    fun addItem(item: BluetoothDevice) {
+        items.removeAll {
+            it.name == item.name && it.address == item.address
+        }
+        items += item
         notifyDataSetChanged()
     }
 
