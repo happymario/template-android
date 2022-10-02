@@ -17,28 +17,29 @@ package com.victoria.bleled.app.special.bluetooth
 
 import android.bluetooth.BluetoothDevice
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.victoria.bleled.R
+import com.victoria.bleled.databinding.ItemBluetoothDeviceBinding
 
 @SuppressWarnings("MissingPermission")
 class DeviceScanAdapter(
-    private val onDeviceSelected: (BluetoothDevice) -> Unit,
+    private val listener: Listener,
 ) : RecyclerView.Adapter<DeviceScanAdapter.DeviceScanViewHolder>() {
 
     private var items = mutableListOf<BluetoothDevice>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeviceScanViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.item_bluetooth_device, parent, false)
-        return DeviceScanViewHolder(view, onDeviceSelected)
+        //val view = inflater.inflate(R.layout.item_bluetooth_device, parent, false)
+        val binding = ItemBluetoothDeviceBinding.inflate(inflater, parent, false)
+        return DeviceScanViewHolder(binding, listener)
     }
 
     override fun onBindViewHolder(holder: DeviceScanViewHolder, position: Int) {
         items.getOrNull(position)?.let { result ->
-            holder.bind(result)
+            holder.bind(position, result)
         }
     }
 
@@ -61,28 +62,34 @@ class DeviceScanAdapter(
     }
 
     class DeviceScanViewHolder(
-        view: View,
-        val onDeviceSelected: (BluetoothDevice) -> Unit,
-    ) : RecyclerView.ViewHolder(view), View.OnClickListener {
+        binding: ItemBluetoothDeviceBinding,
+        val listener: Listener,
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         private val name = itemView.findViewById<TextView>(R.id.tv_name)
         private val address = itemView.findViewById<TextView>(R.id.tv_uid)
         private var bluetoothDevice: BluetoothDevice? = null
+        private var index = 0
 
         init {
-            itemView.setOnClickListener(this)
+            binding.connect.setOnClickListener {
+                listener.onConnect(index, bluetoothDevice!!)
+            }
+            binding.write.setOnClickListener {
+                listener.onWrite(index, bluetoothDevice!!)
+            }
         }
 
-        fun bind(device: BluetoothDevice) {
+        fun bind(idx: Int, device: BluetoothDevice) {
+            index = idx
             bluetoothDevice = device
             name.text = device.name
             address.text = device.address
         }
+    }
 
-        override fun onClick(view: View) {
-            bluetoothDevice?.let { device ->
-                onDeviceSelected(device)
-            }
-        }
+    interface Listener {
+        fun onConnect(idx: Int, device: BluetoothDevice)
+        fun onWrite(idx: Int, device: BluetoothDevice)
     }
 }

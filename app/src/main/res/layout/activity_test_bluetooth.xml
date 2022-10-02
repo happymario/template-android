@@ -61,7 +61,7 @@
                     <View
                         style="@style/DividerView"
                         android:layout_height="@{viewmodel.curTabIdx == 0? @dimen/spacing_2: @dimen/spacing_05}"
-                        android:background="@color/xml_tab_text" />
+                        android:background="@drawable/xml_tab_bg" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -81,7 +81,7 @@
                     <View
                         style="@style/DividerView"
                         android:layout_height="@{viewmodel.curTabIdx == 1? @dimen/spacing_2: @dimen/spacing_05}"
-                        android:background="@color/xml_tab_text" />
+                        android:background="@drawable/xml_tab_bg" />
                 </LinearLayout>
             </LinearLayout>
 

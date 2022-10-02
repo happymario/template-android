@@ -151,5 +151,4 @@
     <string name="msg_disconnect_device">장치가 연결해제되었습니다.</string>
     <string name="msg_bluetooth_ads_not_support">불루트스 방송기능이 제공되지 않습니다.</string>
     <string name="msg_search_complete">검색이 완료되었습니다.</string>
-    <string name="msg_bluetooth_failed_scan">Bluetooth Scan 실패했습니다.</string>
 </resources>

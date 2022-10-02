@@ -27,4 +27,7 @@
     <color name="edit_text_hint">#a4a4a4</color>
     <color name="divider">#e5e5e5</color>
     <color name="error">#ff2b2b</color>
+
+    <drawable name="bg_select">#0070C0</drawable>
+    <drawable name="bg">#111111</drawable>
 </resources>

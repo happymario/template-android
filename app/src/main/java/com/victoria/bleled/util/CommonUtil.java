@@ -18,7 +18,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Settings;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.DisplayMetrics;
@@ -31,7 +30,6 @@ import android.webkit.URLUtil;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -665,38 +663,6 @@ public class CommonUtil {
         }
 
         return sb.toString();
-    }
-
-    public static String getPhoneNumber(Context context) {
-        try {
-            TelephonyManager tMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                //return Base64.encodeToString("22222222222".getBytes(), Base64.DEFAULT);
-                return "";
-            }
-            String mPhoneNumber = tMgr.getLine1Number();
-
-            if (mPhoneNumber == null || mPhoneNumber.isEmpty() == true) {
-                //return Base64.encodeToString("11111111111".getBytes(), Base64.DEFAULT);
-                return "";
-            }
-
-            //return Base64.encodeToString(mPhoneNumber.getBytes(), Base64.DEFAULT);
-            return mPhoneNumber;
-        } catch (Exception e) {
-            // should never happen
-            //return Base64.encodeToString("11111111111".getBytes(), Base64.DEFAULT);
-            return "";
-        }
     }
 
     public static void scrollToFirst(RecyclerView view) {
