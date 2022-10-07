@@ -161,6 +161,7 @@ object BleService {
     private fun setupGattServer(app: Application) {
         gattServerCallback = GattServerCallback()
 
+        // 나에게 연결할수 있도록 gatt를 열어주는 코드.
         gattServer = bluetoothManager.openGattServer(
             app,
             gattServerCallback

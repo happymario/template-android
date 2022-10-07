@@ -40,6 +40,7 @@ private const val SCAN_PERIOD_IN_MILLIS: Long = 10_000
  *  android 6.0이하 폰을 classic으로 분류못하는 문제
  *  많은 문제들이 있으면 open source fastble를 리용하는것이 가장 빠른길이다.
  *  현재 소스는 test용으로만 리용하자.
+ *  https://github.com/android/connectivity-samples 최신 update되면 좋겠는데..
  ************************************************************/
 @SuppressWarnings("MissingPermission")
 class BluetoothTestActivity : BaseBindingActivity<ActivityTestBluetoothBinding>() {
@@ -139,7 +140,6 @@ class BluetoothTestActivity : BaseBindingActivity<ActivityTestBluetoothBinding>(
             val intentBluetooth = Intent()
             intentBluetooth.action = Settings.ACTION_BLUETOOTH_SETTINGS
             startActivity(intentBluetooth)
-
         }
         return super.onOptionsItemSelected(item)
     }

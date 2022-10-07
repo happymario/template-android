@@ -51,18 +51,22 @@ class WebViewActivity : AppCompatActivity() {
         webview.settings.builtInZoomControls = true //줌버튼 보이기
         webview.webViewClient =
             WebClient() // 응용프로그램에서 직접 url 처리 주소창 없애기
+
         val set = webview.settings
+        set.userAgentString += "Android_inApp" //UserAgent 설정
+
         set.loadWithOverviewMode = true //웹뷰에 딱 맞게 크기 조절
         set.useWideViewPort = true //웹뷰에 딱 맞게 크기 조절
         set.javaScriptEnabled = true //javascript 허용 여부
+        set.javaScriptCanOpenWindowsAutomatically = true // javascript가 window.open()을 사용할 수 있도록 설정
         set.setSupportZoom(true) // 확대,축소 기능을 사용할 수 있도록 설정
         set.builtInZoomControls = true //줌기능 사용 여부
         set.displayZoomControls = true //줌버튼 보여주기 여부
-        set.javaScriptCanOpenWindowsAutomatically = true // javascript가 window.open()을 사용할 수 있도록 설정
         set.setSupportMultipleWindows(false) // 여러개의 윈도우를 사용할 수 있도록 설정
         set.loadsImagesAutomatically = true // 웹뷰가 앱에 등록되어 있는 이미지 리소스를 자동으로 로드하도록 설정
         set.useWideViewPort = true // wide viewport를 사용하도록 설정
         set.cacheMode = WebSettings.LOAD_NO_CACHE // 웹뷰가 캐시를 사용하지 않도록 설정
+        set.domStorageEnabled = true //로컬 스토리지, 세션 스토리지 사용 여부 설정
 
         if (url != null) {
             webview.loadUrl(url)
