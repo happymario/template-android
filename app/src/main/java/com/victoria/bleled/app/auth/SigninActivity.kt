@@ -32,7 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.victoria.bleled.R
-import com.victoria.bleled.app.BaseComponentActivity
+import com.victoria.bleled.base.BaseComposeActivity
 import com.victoria.bleled.app.ViewModelFactory
 import com.victoria.bleled.app.components.MySurface
 import com.victoria.bleled.app.main.MainActivity
@@ -60,7 +60,7 @@ fun SigninActivityPreviewDark() {
     }
 }
 
-class SigninActivity : BaseComponentActivity() {
+class SigninActivity : BaseComposeActivity() {
     private val viewModel by viewModels<UserViewModel> {
         ViewModelFactory(DataRepository.provideDataRepository(this), this)
     }
@@ -94,30 +94,30 @@ class SigninActivity : BaseComponentActivity() {
 
 
     private fun initViewModel() {
-        viewModel.toastMessage.observe(this) { msg ->
-            CommonUtil.showToast(this, msg)
-        }
-
-        viewModel.dataLoading.observe(this) { loading ->
-            if (loading) {
-                showProgress()
-            } else {
-                hideProgress()
-            }
-        }
-
-        viewModel.networkErrorLiveData.observe(this) { error ->
-            val exception = error.error
-            if (exception is ApiException && exception.code == ApiException.ERR_NO_USER) {
-                CommonUtil.showToast(this, R.string.msg_no_login_user)
-            } else {
-                val msg = NetworkObserver.getErrorMsg(this, error)
-                CommonUtil.showToast(
-                    this,
-                    if (msg == null || msg.isEmpty()) getString(R.string.network_connect_error) else msg
-                )
-            }
-        }
+//        viewModel.toastMessage.observe(this) { msg ->
+//            CommonUtil.showToast(this, msg)
+//        }
+//
+//        viewModel.dataLoading.observe(this) { loading ->
+//            if (loading) {
+//                showProgress()
+//            } else {
+//                hideProgress()
+//            }
+//        }
+//
+//        viewModel.networkErrorLiveData.observe(this) { error ->
+//            val exception = error.error
+//            if (exception is ApiException && exception.code == ApiException.ERR_NO_USER) {
+//                CommonUtil.showToast(this, R.string.msg_no_login_user)
+//            } else {
+//                val msg = NetworkObserver.getErrorMsg(this, error)
+//                CommonUtil.showToast(
+//                    this,
+//                    if (msg == null || msg.isEmpty()) getString(R.string.network_connect_error) else msg
+//                )
+//            }
+//        }
 
         viewModel.loginCompleteEvent.observe(this) {
             goMain()

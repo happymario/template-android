@@ -13,17 +13,13 @@ import android.widget.FrameLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.animation.doOnEnd
-import androidx.lifecycle.Observer
-import com.victoria.bleled.R
 import com.victoria.bleled.app.auth.SigninActivity
 import com.victoria.bleled.app.main.MainActivity
+import com.victoria.bleled.base.BaseActivity
+import com.victoria.bleled.base.extensions.getViewModelFactory
+import com.victoria.bleled.base.internal.EventObserver
 import com.victoria.bleled.common.Constants
-import com.victoria.bleled.data.remote.NetworkObserver
-import com.victoria.bleled.util.CommonUtil
-import com.victoria.bleled.util.arch.EventObserver
-import com.victoria.bleled.util.arch.base.BaseActivity
 import com.victoria.bleled.util.feature.PermissionUtil
-import com.victoria.bleled.util.kotlin_ext.getViewModelFactory
 import java.time.Duration
 import java.time.Instant
 
@@ -142,21 +138,21 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun initViewModel() {
-        viewModel.dataLoading.observe(this, Observer {
-            if (it == true) {
-                showProgress()
-            } else {
-                hideProgress()
-            }
-        })
-
-        viewModel.networkErrorLiveData.observe(this, Observer { error ->
-            val msg = NetworkObserver.getErrorMsg(this, error)
-            CommonUtil.showToast(
-                this,
-                if (msg == null || msg.isEmpty()) getString(R.string.network_connect_error) else msg
-            )
-        })
+//        viewModel.dataLoading.observe(this, Observer {
+//            if (it == true) {
+//                showProgress()
+//            } else {
+//                hideProgress()
+//            }
+//        })
+//
+//        viewModel.networkErrorLiveData.observe(this, Observer { error ->
+//            val msg = NetworkObserver.getErrorMsg(this, error)
+//            CommonUtil.showToast(
+//                this,
+//                if (msg == null || msg.isEmpty()) getString(R.string.network_connect_error) else msg
+//            )
+//        })
 
         viewModel.openEvent.observe(this, EventObserver {
             if (it == 1) {

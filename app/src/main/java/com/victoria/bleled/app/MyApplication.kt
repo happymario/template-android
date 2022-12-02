@@ -17,12 +17,13 @@ import com.orhanobut.logger.Logger
 import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.util.feature.LocaleUtil
 import com.victoria.bleled.util.feature.logger.MyDiskLogAdapter
+import dagger.hilt.android.HiltAndroidApp
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.io.Writer
 import java.util.*
 
-
+@HiltAndroidApp
 class MyApplication : Application() {
     /************************************************************
      *  Static & Global Members

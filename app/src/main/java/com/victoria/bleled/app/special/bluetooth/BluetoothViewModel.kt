@@ -2,7 +2,7 @@ package com.victoria.bleled.app.special.bluetooth
 
 import androidx.lifecycle.MutableLiveData
 import com.victoria.bleled.data.DataRepository
-import com.victoria.bleled.util.arch.base.BaseViewModel
+import com.victoria.bleled.base.BaseViewModel
 
 class BluetoothViewModel constructor(private val repository: DataRepository) : BaseViewModel() {
 

@@ -10,6 +10,8 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
+apply plugin: "dagger.hilt.android.plugin"
+
 def Properties props = new Properties()
 def propFile = rootProject.file('./sign/keystore.properties')   //pay attention to the path
 def vkeyStore
@@ -155,8 +157,8 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
     //
     // architecture
@@ -172,17 +174,17 @@ dependencies {
         exclude group: 'com.google.guava', module:'listenablefuture'
     }
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     //// dagger-hilt
-    implementation 'com.google.dagger:dagger:2.39'
-    kapt 'com.google.dagger:dagger-compiler:2.39'
+    implementation "com.google.dagger:hilt-android:2.39.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.39.1"
 
     //
     // UI
     //
     implementation "androidx.recyclerview:recyclerview:1.2.1"
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'com.google.android.material:material:1.7.0'
     //// navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
@@ -209,7 +211,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
     implementation "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
     implementation "com.squareup.retrofit2:converter-scalars:$RETROFIT_VERSION"
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
     implementation group: 'commons-net', name: 'commons-net', version: '3.6'
 
     //
@@ -226,24 +228,24 @@ dependencies {
     //
     //// Firebase
     implementation "com.google.firebase:firebase-core:21.1.1"
-    implementation "com.google.firebase:firebase-messaging:23.0.8"
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.3.1'
+    implementation "com.google.firebase:firebase-messaging:23.1.0"
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.1'
     //// inapp purchase
-    implementation "com.android.billingclient:billing:5.0.0"
+    implementation "com.android.billingclient:billing:5.1.0"
     //// google map
     implementation 'com.google.android.gms:play-services-basement:18.1.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
-    implementation 'com.google.android.gms:play-services-location:20.0.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.google.maps.android:android-maps-utils:2.2.0'
 
     //
     // Third-Parties
     //
     //// video player
-    implementation 'com.google.android.exoplayer:exoplayer:2.18.1'
-    implementation "com.google.android.exoplayer:exoplayer-core:2.18.1"
-    implementation "com.google.android.exoplayer:exoplayer-ui:2.18.1"
-    implementation "com.google.android.exoplayer:exoplayer-hls:2.18.1"
+    implementation 'com.google.android.exoplayer:exoplayer:2.18.2'
+    implementation "com.google.android.exoplayer:exoplayer-core:2.18.2"
+    implementation "com.google.android.exoplayer:exoplayer-ui:2.18.2"
+    implementation "com.google.android.exoplayer:exoplayer-hls:2.18.2"
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.1'
     //// audio player, recorder
     implementation 'com.github.piasy:AudioProcessor:1.7.0' // 쉬운 리용, amplifier리용 필요
@@ -255,7 +257,7 @@ dependencies {
     //
     //// log
     implementation 'com.orhanobut:logger:2.2.0'
-    implementation "com.jakewharton.timber:timber:5.0.0"
+    implementation "com.jakewharton.timber:timber:5.0.1"
     //// referer
     implementation 'com.android.installreferrer:installreferrer:2.2'
     //// utility
@@ -279,22 +281,22 @@ dependencies {
     implementation "androidx.compose.material:material-icons-core:$compose_version"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
     // Integration with activities
-    implementation 'androidx.activity:activity-compose:1.6.0'
+    implementation 'androidx.activity:activity-compose:1.6.1'
     // Integration with constraint layout
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
     // Integration with ViewModels
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1'
     // Integration with observables
-    implementation 'androidx.compose.runtime:runtime-livedata:1.2.1'
-    implementation 'androidx.compose.runtime:runtime-rxjava2:1.2.1'
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    implementation "androidx.compose.runtime:runtime-rxjava2:$compose_version"
     // Animations
-    implementation 'androidx.compose.animation:animation:1.2.1'
+    implementation "androidx.compose.animation:animation:$compose_version"
     // When using a MDC theme
-    implementation "com.google.android.material:compose-theme-adapter:1.1.18"
+    implementation "com.google.android.material:compose-theme-adapter:1.2.1"
     // When using a AppCompat theme
     implementation "com.google.accompanist:accompanist-appcompat-theme:0.16.0"
     // UI Tests
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.2.1'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     // Network image
     implementation 'io.coil-kt:coil-compose:1.4.0'
     // System Ui
@@ -302,8 +304,8 @@ dependencies {
     implementation 'com.google.accompanist:accompanist-systemuicontroller:0.23.1'
     implementation 'com.google.accompanist:accompanist-flowlayout:0.23.1'
     // navigation
-    implementation "androidx.navigation:navigation-compose:2.5.2"
+    implementation "androidx.navigation:navigation-compose:2.5.3"
     // Util
-    implementation 'androidx.compose.ui:ui-util:1.2.1'
+    implementation "androidx.compose.ui:ui-util:$compose_version"
 }
 apply plugin: 'com.google.gms.google-services'

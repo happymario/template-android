@@ -12,8 +12,8 @@ import androidx.annotation.NonNull
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.victoria.bleled.R
-import com.victoria.bleled.common.ExternalFolderManager
-import com.victoria.bleled.common.MediaManager
+import com.victoria.bleled.common.manager.ExternalFolderManager
+import com.victoria.bleled.common.manager.MediaManager
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.feature.PermissionUtil
 
@@ -36,7 +36,9 @@ class CameraTestActivity : AppCompatActivity() {
         setContentView(R.layout.activity_test_camera)
 
         initMediaManager()
-        mStorageManager = ExternalFolderManager(this, "template")
+        mStorageManager =
+            ExternalFolderManager(this,
+                "template")
         setupToolbar()
     }
 
@@ -126,7 +128,8 @@ class CameraTestActivity : AppCompatActivity() {
 
 
     private fun initMediaManager() {
-        mMediaManager = MediaManager(this, true)
+        mMediaManager =
+            MediaManager(this, true)
         mMediaManager?.setCropEnable(true)
         mMediaManager?.setMediaCallback(object :
             MediaManager.MediaCallback {

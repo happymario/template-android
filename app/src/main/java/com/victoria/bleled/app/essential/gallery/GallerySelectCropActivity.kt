@@ -12,13 +12,13 @@ import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 import com.victoria.bleled.R
-import com.victoria.bleled.app.setImageUrl
+import com.victoria.bleled.app.BindingAdapters.setImageUrl
+import com.victoria.bleled.base.BaseBindingActivity
+import com.victoria.bleled.common.AppExecutors
 import com.victoria.bleled.common.Constants
-import com.victoria.bleled.common.MediaManager
+import com.victoria.bleled.common.manager.MediaManager
 import com.victoria.bleled.databinding.ActivityGallerySelectCropBinding
 import com.victoria.bleled.util.CommonUtil
-import com.victoria.bleled.util.arch.AppExecutors
-import com.victoria.bleled.util.arch.base.BaseBindingActivity
 import com.victoria.bleled.util.feature.gallary.Folder
 import com.victoria.bleled.util.feature.gallary.Gallary
 import com.victoria.bleled.util.feature.gallary.ImageFileLoader

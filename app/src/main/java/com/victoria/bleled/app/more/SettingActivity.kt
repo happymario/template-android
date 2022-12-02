@@ -11,11 +11,10 @@ import com.victoria.bleled.R
 import com.victoria.bleled.app.auth.SigninActivity
 import com.victoria.bleled.app.etc.WebViewActivity
 import com.victoria.bleled.common.Constants
-import com.victoria.bleled.common.dialog.AlertDialog
-import com.victoria.bleled.data.remote.NetworkObserver
+import com.victoria.bleled.app.dialog.AlertDialog
 import com.victoria.bleled.util.CommonUtil
-import com.victoria.bleled.util.arch.base.BaseActivity
-import com.victoria.bleled.util.kotlin_ext.getViewModelFactory
+import com.victoria.bleled.base.BaseActivity
+import com.victoria.bleled.base.extensions.getViewModelFactory
 
 class SettingActivity : BaseActivity() {
     /************************************************************
@@ -77,21 +76,21 @@ class SettingActivity : BaseActivity() {
      *  Privates
      ************************************************************/
     private fun initViewModel() {
-        viewModel.dataLoading.observe(this, {
-            if (it == true) {
-                showProgress()
-            } else {
-                hideProgress()
-            }
-        })
-
-        viewModel.networkErrorLiveData.observe(this, { error ->
-            val msg = NetworkObserver.getErrorMsg(this, error)
-            CommonUtil.showToast(
-                this,
-                if (msg == null || msg.isEmpty()) getString(R.string.network_connect_error) else msg
-            )
-        })
+//        viewModel.dataLoading.observe(this, {
+//            if (it == true) {
+//                showProgress()
+//            } else {
+//                hideProgress()
+//            }
+//        })
+//
+//        viewModel.networkErrorLiveData.observe(this, { error ->
+//            val msg = NetworkObserver.getErrorMsg(this, error)
+//            CommonUtil.showToast(
+//                this,
+//                if (msg == null || msg.isEmpty()) getString(R.string.network_connect_error) else msg
+//            )
+//        })
 
         viewModel.userInfo.observe(this, {
             if (it == null) {

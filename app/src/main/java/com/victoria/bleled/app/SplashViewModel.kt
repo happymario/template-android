@@ -2,16 +2,19 @@ package com.victoria.bleled.app
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.victoria.bleled.base.BaseViewModel
+import com.victoria.bleled.base.internal.Event
 import com.victoria.bleled.data.DataRepository
 import com.victoria.bleled.data.model.ModelAppInfo
 import com.victoria.bleled.data.model.ModelUser
 import com.victoria.bleled.data.remote.NetworkObserver
-import com.victoria.bleled.data.remote.myservice.BaseResponse
-import com.victoria.bleled.util.arch.Event
-import com.victoria.bleled.util.arch.base.BaseViewModel
-import com.victoria.bleled.util.arch.network.NetworkResult
+import com.victoria.bleled.data.remote.myservice.response.BaseResp
+import com.victoria.bleled.data.remote.NetworkResult
+import com.victoria.bleled.data.remote.myservice.response.RespData
 
-class SplashViewModel constructor(private val repository: DataRepository) : BaseViewModel() {
+class SplashViewModel constructor(
+    private val repository: DataRepository,
+) : BaseViewModel() {
     /************************************************************
      *  Variables
      ************************************************************/
@@ -34,9 +37,9 @@ class SplashViewModel constructor(private val repository: DataRepository) : Base
     private fun loadAppInfo() {
         val api = repository.remoteService.appInfo("android")
 
-        _dataLoading.value = true
-        repository.callApi(api, object : NetworkObserver<BaseResponse<ModelAppInfo>>() {
-            override fun onChanged(result: NetworkResult<BaseResponse<ModelAppInfo>>) {
+//        _dataLoading.value = true
+        repository.callApi(api, object : NetworkObserver<RespData<ModelAppInfo>>() {
+            override fun onChanged(result: NetworkResult<RespData<ModelAppInfo>>) {
                 super.onChanged(result)
 
                 if (result.status.value == NetworkResult.Status.success) {
@@ -49,12 +52,12 @@ class SplashViewModel constructor(private val repository: DataRepository) : Base
                         _openEvent.value = Event(0)
                     }
 
-                    _dataLoading.value = false
+//                    _dataLoading.value = false
                 } else if (result.status.value == NetworkResult.Status.error) {
-                    _networkErrorLiveData.value = result
+//                    _networkErrorLiveData.value = result
                     _openEvent.value = Event(0)
 
-                    _dataLoading.value = false
+//                    _dataLoading.value = false
                 }
             }
         })
@@ -69,9 +72,9 @@ class SplashViewModel constructor(private val repository: DataRepository) : Base
             "android"
         )
 
-        _dataLoading.value = true
-        repository.callApi(api, object : NetworkObserver<BaseResponse<ModelUser>>() {
-            override fun onChanged(result: NetworkResult<BaseResponse<ModelUser>>) {
+//        _dataLoading.value = true
+        repository.callApi(api, object : NetworkObserver<RespData<ModelUser>>() {
+            override fun onChanged(result: NetworkResult<RespData<ModelUser>>) {
                 super.onChanged(result)
 
                 if (result != null && result.status.value != NetworkResult.Status.loading) {
@@ -82,10 +85,10 @@ class SplashViewModel constructor(private val repository: DataRepository) : Base
 
                         _openEvent.value = Event(1)
                     } else if (result.status.value == NetworkResult.Status.error) {
-                        _networkErrorLiveData.value = result
+//                        _networkErrorLiveData.value = result
                         _openEvent.value = Event(0)
                     }
-                    _dataLoading.value = false
+//                    _dataLoading.value = false
                 }
             }
         })

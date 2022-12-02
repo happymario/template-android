@@ -6,9 +6,10 @@ import com.victoria.bleled.data.DataRepository
 import com.victoria.bleled.data.model.BaseModel
 import com.victoria.bleled.data.model.ModelUser
 import com.victoria.bleled.data.remote.NetworkObserver
-import com.victoria.bleled.data.remote.myservice.BaseResponse
-import com.victoria.bleled.util.arch.base.BaseViewModel
-import com.victoria.bleled.util.arch.network.NetworkResult
+import com.victoria.bleled.data.remote.myservice.response.BaseResp
+import com.victoria.bleled.base.BaseViewModel
+import com.victoria.bleled.data.remote.NetworkResult
+import com.victoria.bleled.data.remote.myservice.response.RespData
 
 class SettingViewModel constructor(private val repository: DataRepository) : BaseViewModel() {
 
@@ -30,9 +31,9 @@ class SettingViewModel constructor(private val repository: DataRepository) : Bas
             "Bearer " + prefDataSource.user!!.access_token!!
         )
 
-        _dataLoading.value = true
-        repository.callApi(api, object : NetworkObserver<BaseResponse<BaseModel>>() {
-            override fun onChanged(result: NetworkResult<BaseResponse<BaseModel>>) {
+//        _dataLoading.value = true
+        repository.callApi(api, object : NetworkObserver<RespData<BaseModel>>() {
+            override fun onChanged(result: NetworkResult<RespData<BaseModel>>) {
                 super.onChanged(result)
 
                 if (result != null && result.status.value != NetworkResult.Status.loading) {
@@ -41,9 +42,9 @@ class SettingViewModel constructor(private val repository: DataRepository) : Bas
                         prefDataSource.user = null
                         _userInfo.value = null
                     } else if (result.status.value == NetworkResult.Status.error) {
-                        _networkErrorLiveData.value = result
+//                        _networkErrorLiveData.value = result
                     }
-                    _dataLoading.value = false
+//                    _dataLoading.value = false
                 }
             }
         })

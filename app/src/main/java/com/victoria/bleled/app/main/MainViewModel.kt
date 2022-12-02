@@ -9,10 +9,9 @@ import com.victoria.bleled.R
 import com.victoria.bleled.app.MyApplication
 import com.victoria.bleled.data.DataRepository
 import com.victoria.bleled.data.model.ModelUser
-import com.victoria.bleled.util.arch.Event
-import com.victoria.bleled.util.arch.base.BaseViewModel
+import com.victoria.bleled.base.BaseViewModel
+import com.victoria.bleled.base.internal.Event
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class MainViewModel constructor(private val repository: DataRepository) : BaseViewModel() {
@@ -88,10 +87,10 @@ class MainViewModel constructor(private val repository: DataRepository) : BaseVi
 
     fun refresh() {
         // Refresh the repository and the task will be updated automatically.
-        _dataLoading.value = true
-        viewModelScope.launch {
-            _query.value = ""
-            _dataLoading.value = false
-        }
+//        _dataLoading.value = true
+//        viewModelScope.launch {
+//            _query.value = ""
+//            _dataLoading.value = false
+//        }
     }
 }

@@ -25,9 +25,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.victoria.bleled.R
 import com.victoria.bleled.databinding.ActivityTestBluetoothBinding
 import com.victoria.bleled.util.CommonUtil
-import com.victoria.bleled.util.arch.base.BaseBindingActivity
+import com.victoria.bleled.base.BaseBindingActivity
+import com.victoria.bleled.base.extensions.getViewModelFactory
 import com.victoria.bleled.util.feature.PermissionUtil
-import com.victoria.bleled.util.kotlin_ext.getViewModelFactory
 
 private const val SCAN_PERIOD_IN_MILLIS: Long = 10_000
 

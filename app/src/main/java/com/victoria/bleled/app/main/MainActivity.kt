@@ -18,18 +18,18 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victoria.bleled.R
+import com.victoria.bleled.app.BindingAdapters.setImageUrl
 import com.victoria.bleled.app.MyApplication
 import com.victoria.bleled.app.auth.SigninActivity
+import com.victoria.bleled.app.dialog.AlertDialog
 import com.victoria.bleled.app.etc.WebViewActivity
 import com.victoria.bleled.app.more.SettingActivity
-import com.victoria.bleled.app.setImageUrl
+import com.victoria.bleled.base.BaseBindingActivity
+import com.victoria.bleled.base.extensions.getViewModelFactory
 import com.victoria.bleled.common.Constants
-import com.victoria.bleled.common.dialog.AlertDialog
 import com.victoria.bleled.databinding.ActivityMainBinding
 import com.victoria.bleled.service.billing.BillingDataSource
 import com.victoria.bleled.util.CommonUtil
-import com.victoria.bleled.util.arch.base.BaseBindingActivity
-import com.victoria.bleled.util.kotlin_ext.getViewModelFactory
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.*
@@ -204,11 +204,11 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
 
             val trustAllCerts: Array<TrustManager> = arrayOf(object : X509TrustManager {
                 override fun checkClientTrusted(
-                    chain: Array<out X509Certificate>?, authType: String?
+                    chain: Array<out X509Certificate>?, authType: String?,
                 ) = Unit
 
                 override fun checkServerTrusted(
-                    chain: Array<out X509Certificate>?, authType: String?
+                    chain: Array<out X509Certificate>?, authType: String?,
                 ) = Unit
 
                 override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()

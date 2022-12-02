@@ -6,47 +6,48 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
-import com.victoria.bleled.data.local.PrefDataSource;
+import com.victoria.bleled.base.internal.AbsentLiveData;
+import com.victoria.bleled.common.AppExecutors;
+import com.victoria.bleled.common.manager.PreferenceManager;
 import com.victoria.bleled.data.model.ModelUser;
 import com.victoria.bleled.data.remote.ApiException;
 import com.victoria.bleled.data.remote.LiveDataConverter;
 import com.victoria.bleled.data.remote.NetworkObserver;
+import com.victoria.bleled.data.remote.NetworkResult;
+import com.victoria.bleled.data.remote.adapter.LiveDataCallAdapterFactory;
 import com.victoria.bleled.data.remote.github.IGithubService;
-import com.victoria.bleled.data.remote.github.ResponseSearchRepo;
-import com.victoria.bleled.data.remote.myservice.BaseResponse;
-import com.victoria.bleled.data.remote.myservice.IMyRemoteService;
-import com.victoria.bleled.util.arch.AbsentLiveData;
-import com.victoria.bleled.util.arch.AppExecutors;
-import com.victoria.bleled.util.arch.network.AddParamsInterceptor;
-import com.victoria.bleled.util.arch.network.LiveDataCallAdapterFactory;
-import com.victoria.bleled.util.arch.network.NetworkResult;
-import com.victoria.bleled.util.arch.network.RetrofitHelper;
+import com.victoria.bleled.data.remote.github.RepoListResp;
+import com.victoria.bleled.data.remote.myservice.IMyTemplateService;
+import com.victoria.bleled.data.remote.myservice.response.RespData;
+import com.victoria.bleled.util.thirdparty.retrofit.AddParamsInterceptor;
+import com.victoria.bleled.util.thirdparty.retrofit.RetrofitHelper;
 
 import java.util.List;
 
 import retrofit2.Retrofit;
 
+
 public class DataRepository {
     private AppExecutors appExecutors;
-    private IMyRemoteService remoteService;
+    private IMyTemplateService remoteService;
     private IGithubService githubService;
-    private PrefDataSource prefDataSource;
+    private PreferenceManager prefDataSource;
 
     public static IGithubService provideGithubService() {
         final Retrofit retrofit = RetrofitHelper.createRetrofit(IGithubService.API_BASE_URL, new LiveDataCallAdapterFactory());
         return retrofit.create(IGithubService.class);
     }
 
-    public static IMyRemoteService provideRemoteService() {
-        final Retrofit retrofit = RetrofitHelper.createRetrofit(IMyRemoteService.API_BASE_URL, new LiveDataCallAdapterFactory(), getCommonParams());
-        return retrofit.create(IMyRemoteService.class);
+    public static IMyTemplateService provideRemoteService() {
+        final Retrofit retrofit = RetrofitHelper.createRetrofit(IMyTemplateService.API_BASE_URL, new LiveDataCallAdapterFactory(), getCommonParams());
+        return retrofit.create(IMyTemplateService.class);
     }
 
     public static DataRepository provideDataRepository(Context context) {
-        return new DataRepository(new AppExecutors(), DataRepository.provideRemoteService(), PrefDataSource.getInstance(context));
+        return new DataRepository(new AppExecutors(), DataRepository.provideRemoteService(), PreferenceManager.getInstance(context));
     }
 
-    public DataRepository(AppExecutors executors, IMyRemoteService remoteService, PrefDataSource localData) {
+    public DataRepository(AppExecutors executors, IMyTemplateService remoteService, PreferenceManager localData) {
         this.appExecutors = executors;
         this.remoteService = remoteService;
         this.prefDataSource = localData;
@@ -74,14 +75,14 @@ public class DataRepository {
     }
 
     public LiveData<NetworkResult<List<ModelUser>>> loadRepoList(String q, int page) {
-        return new LiveDataConverter<ResponseSearchRepo, List<ModelUser>>(appExecutors.getNetworkIO()) {
+        return new LiveDataConverter<RepoListResp, List<ModelUser>>(appExecutors.getNetworkIO()) {
             @Override
-            protected LiveData<NetworkResult<ResponseSearchRepo>> createCall() {
+            protected LiveData<NetworkResult<RepoListResp>> createCall() {
                 return githubService.searchRepo(q, page);
             }
 
             @Override
-            protected LiveData<List<ModelUser>> processResponse(NetworkResult<ResponseSearchRepo> response) {
+            protected LiveData<List<ModelUser>> processResponse(NetworkResult<RepoListResp> response) {
                 if (response.data != null && response.status.getValue() == NetworkResult.Status.success) {
                     return new MutableLiveData<List<ModelUser>>(response.data.items);
                 }
@@ -94,15 +95,15 @@ public class DataRepository {
     /************************************************************
      *  From Remote
      ************************************************************/
-    public IMyRemoteService getRemoteService() {
+    public IMyTemplateService getRemoteService() {
         return remoteService;
     }
 
-    public <T> void callApi(LiveData<NetworkResult<BaseResponse<T>>> originApi, NetworkObserver<BaseResponse<T>> callback) {
-        LiveData<NetworkResult<BaseResponse<T>>> liveData = originApi;
-        Observer apiObserver = new NetworkObserver<BaseResponse<T>>() {
+    public <T> void callApi(LiveData<NetworkResult<RespData<T>>> originApi, NetworkObserver<RespData<T>> callback) {
+        LiveData<NetworkResult<RespData<T>>> liveData = originApi;
+        Observer apiObserver = new NetworkObserver<RespData<T>>() {
             @Override
-            public void onChanged(NetworkResult<BaseResponse<T>> baseResponseNetworkResult) {
+            public void onChanged(NetworkResult<RespData<T>> baseResponseNetworkResult) {
                 super.onChanged(baseResponseNetworkResult);
 
                 if (baseResponseNetworkResult == null) {
@@ -133,22 +134,22 @@ public class DataRepository {
         liveData.observeForever(apiObserver);
     }
 
-    public <T> LiveData<NetworkResult<T>> callLiveDataApi(LiveData<NetworkResult<BaseResponse<T>>> originApi) {
-        return new LiveDataConverter<BaseResponse<T>, T>(appExecutors.getNetworkIO()) {
+    public <T> LiveData<NetworkResult<T>> callLiveDataApi(LiveData<NetworkResult<RespData<T>>> originApi) {
+        return new LiveDataConverter<RespData<T>, T>(appExecutors.getNetworkIO()) {
             @Override
-            protected LiveData<NetworkResult<BaseResponse<T>>> createCall() {
+            protected LiveData<NetworkResult<RespData<T>>> createCall() {
                 return originApi;
             }
 
             @Override
-            protected LiveData<T> processResponse(NetworkResult<BaseResponse<T>> response) {
+            protected LiveData<T> processResponse(NetworkResult<RespData<T>> response) {
                 if (response.data != null && response.status.getValue() == NetworkResult.Status.success) {
                     //BaseResponse<T> baseResponse = IMyRemoteService.decrypt(retType, response.data);
-                    BaseResponse<T> baseResponse = response.data;
+                    RespData<T> baseResponse = response.data;
                     if (baseResponse.getResult() == ApiException.SUCCESS) {
                         return new MutableLiveData(response.data.getData());
                     } else {
-                        return new MutableLiveData(new ApiException(baseResponse.getResult(), baseResponse.getMsg(), baseResponse.getReason()));
+                        return new MutableLiveData(new ApiException(baseResponse.getResult(), baseResponse.getMessage(), baseResponse.getReason()));
                     }
                 }
                 return AbsentLiveData.create();
@@ -159,7 +160,7 @@ public class DataRepository {
     /************************************************************
      *  From Local
      ************************************************************/
-    public PrefDataSource getPrefDataSource() {
+    public PreferenceManager getPrefDataSource() {
         return prefDataSource;
     }
 }

@@ -1,7 +1,7 @@
 package com.victoria.bleled.data.remote.github
 
 import androidx.lifecycle.LiveData
-import com.victoria.bleled.util.arch.network.NetworkResult
+import com.victoria.bleled.data.remote.NetworkResult
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,7 +10,7 @@ interface IGithubService {
     fun searchRepo(
         @Query("q") q: String,
         @Query("page") page: Int,
-    ): LiveData<NetworkResult<ResponseSearchRepo>>
+    ): LiveData<NetworkResult<RepoListResp>>
 
     companion object {
         const val API_BASE_URL = "https://api.github.com/"

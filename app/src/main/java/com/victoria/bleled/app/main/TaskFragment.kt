@@ -25,13 +25,13 @@ import com.victoria.bleled.app.recent.background.SimpleWorker
 import com.victoria.bleled.app.recent.compose.ComposeMainActivity
 import com.victoria.bleled.app.special.bluetooth.BluetoothTestActivity
 import com.victoria.bleled.app.special.calendar.CalendarActivity
+import com.victoria.bleled.base.BaseBindingFragment
+import com.victoria.bleled.base.extensions.getViewModelFactory
+import com.victoria.bleled.base.internal.EventObserver
 import com.victoria.bleled.common.Constants
 import com.victoria.bleled.databinding.FragmentMainBinding
 import com.victoria.bleled.util.CommonUtil
-import com.victoria.bleled.util.arch.EventObserver
-import com.victoria.bleled.util.arch.base.BaseBindingFragment
 import com.victoria.bleled.util.feature.gallary.Gallary
-import com.victoria.bleled.util.kotlin_ext.getViewModelFactory
 import timber.log.Timber
 import java.util.*
 
@@ -60,9 +60,8 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
     /************************************************************
      *  Overrides
      ************************************************************/
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_main
-    }
+    override val layoutId: Int
+        get() = R.layout.fragment_main
 
     override fun onCreateView(
         inflater: LayoutInflater,

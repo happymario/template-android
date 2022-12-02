@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
-import com.victoria.lib.util.MStringUtil;
+import com.victoria.lib.MStringUtil;
 
 import java.io.BufferedReader;
 import java.io.File;

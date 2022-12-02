@@ -5,9 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.victoria.bleled.R
 import com.victoria.bleled.app.MyApplication.Companion.globalApplicationContext
-import com.victoria.bleled.data.remote.myservice.BaseResponse
+import com.victoria.bleled.data.remote.myservice.response.BaseResp
 import com.victoria.bleled.util.CommonUtil
-import com.victoria.bleled.util.arch.network.NetworkResult
 
 open class NetworkObserver<T> : Observer<NetworkResult<T>> {
     private var context: Context? = null
@@ -27,11 +26,11 @@ open class NetworkObserver<T> : Observer<NetworkResult<T>> {
         if (result == null) {
             return
         }
-        if (result.status.value == NetworkResult.Status.success && result.data is BaseResponse<*>) {
-            val data = result.data as BaseResponse<*>
+        if (result.status.value == NetworkResult.Status.success && result.data is BaseResp) {
+            val data = result.data as BaseResp
             val error = data.result
             if (error != ApiException.Companion.SUCCESS) {
-                result.error = ApiException(error, data.msg, data.reason)
+                result.error = ApiException(error, data.message, data.reason)
                 result.status = MutableLiveData(NetworkResult.Status.error)
             }
         }
@@ -62,11 +61,11 @@ open class NetworkObserver<T> : Observer<NetworkResult<T>> {
 
     companion object {
         fun <T> getErrorException(result: NetworkResult<T>): Throwable {
-            if (result.status.value == NetworkResult.Status.success && result.data is BaseResponse<*>) {
-                val data = result.data as BaseResponse<*>
+            if (result.status.value == NetworkResult.Status.success && result.data is BaseResp) {
+                val data = result.data as BaseResp
                 val error = data.result
                 if (error != ApiException.Companion.SUCCESS) {
-                    result.error = ApiException(error, data.msg, data.reason)
+                    result.error = ApiException(error, data.message, data.reason)
                     result.status = MutableLiveData(NetworkResult.Status.error)
                 }
             }
