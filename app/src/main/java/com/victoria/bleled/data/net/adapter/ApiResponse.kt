@@ -7,7 +7,7 @@ import retrofit2.Response
 /**
  * ApiResponse is an interface for building specific response cases from the retrofit response.
  */
-sealed class ApiResponse<out T> {
+open class ApiResponse<out T> {
     /**
      * API Success response class from retrofit.
      *

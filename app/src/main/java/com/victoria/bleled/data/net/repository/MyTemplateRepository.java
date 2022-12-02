@@ -14,7 +14,7 @@ import com.victoria.bleled.data.net.mytemplate.IMyTemplateService;
 import com.victoria.bleled.data.net.mytemplate.response.RespData;
 
 
-public class MyTemplateRepository {
+public class MyTemplateRepository extends Repository {
     private AppExecutors appExecutors;
     private IMyTemplateService remoteService;
 
