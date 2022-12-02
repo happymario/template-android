@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.victoria.bleled.data.DataRepository;
 import com.victoria.bleled.common.manager.PreferenceManager;
 
 public class InstallReceiver extends BroadcastReceiver {
@@ -13,7 +12,7 @@ public class InstallReceiver extends BroadcastReceiver {
         String rawReferrerString = intent.getStringExtra("referrer");
         if (rawReferrerString != null) {
             Log.i("MyApp", "Received the following intent " + rawReferrerString);
-            PreferenceManager dataSource = DataRepository.provideDataRepository(context).getPrefDataSource();
+            PreferenceManager dataSource = PreferenceManager.getInstance(context);
             dataSource.setReferer(rawReferrerString);
         }
     }

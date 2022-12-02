@@ -8,7 +8,7 @@ import com.victoria.bleled.base.internal.Inflate
 
 open class BaseBindingDialog<VB : ViewDataBinding>(
     windowContext: Context,
-    private val inflate: Inflate<VB>
+    private val inflate: Inflate<VB>,
 ) : Dialog(windowContext) {
 
     protected var binding: VB

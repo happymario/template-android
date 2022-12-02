@@ -18,7 +18,7 @@ class DateAdapter : JsonDeserializer<LocalDate> {
     override fun deserialize(
         json: JsonElement?,
         typeOfT: Type?,
-        context: JsonDeserializationContext?
+        context: JsonDeserializationContext?,
     ): LocalDate? {
         for (format in DATE_FORMATS) {
             try {

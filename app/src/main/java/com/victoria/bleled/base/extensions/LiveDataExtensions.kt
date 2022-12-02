@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 inline fun <T> LiveData<T>.nonNullObserve(
     owner: LifecycleOwner,
-    crossinline observer: (t: T) -> Unit
+    crossinline observer: (t: T) -> Unit,
 ) {
     this.observe(owner, Observer {
         it?.let(observer)
@@ -17,11 +17,11 @@ inline fun <T> LiveData<T>.nonNullObserve(
 }
 
 
-inline fun <T : Resource<R>, R> LiveData<T>.observeResource(
+inline fun <T : Resource<R>, R> LiveData<T>.observeResource2(
     viewLifecycleOwner: LifecycleOwner,
     loadingView: View? = null,
     targetView: View? = null,
-    crossinline block: (R) -> Unit
+    crossinline block: (R) -> Unit,
 ) {
     observe(viewLifecycleOwner, Observer { status ->
         when (status) {
@@ -46,7 +46,7 @@ inline fun <T : Resource<R>, R> LiveData<T>.observeResource(
 inline fun <T : Any> StateFlow<T>.launchWithStarted(
     lifecycleScope: LifecycleCoroutineScope,
     lifecycle: Lifecycle,
-    crossinline f: (T) -> Unit
+    crossinline f: (T) -> Unit,
 ) {
     lifecycleScope.launch {
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {

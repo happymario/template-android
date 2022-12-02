@@ -7,8 +7,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 
 import com.victoria.bleled.R;
-import com.victoria.bleled.databinding.DialogPhotoPagerBinding;
 import com.victoria.bleled.base.BaseDialog;
+import com.victoria.bleled.databinding.DialogPhotoPagerBinding;
 
 import java.util.ArrayList;
 

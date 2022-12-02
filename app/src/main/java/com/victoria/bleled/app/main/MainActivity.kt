@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
@@ -18,7 +17,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victoria.bleled.R
-import com.victoria.bleled.app.BindingAdapters.setImageUrl
 import com.victoria.bleled.app.MyApplication
 import com.victoria.bleled.app.auth.SigninActivity
 import com.victoria.bleled.app.dialog.AlertDialog
@@ -192,10 +190,10 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
                 user.name
             parent.findViewById<TextView>(R.id.tv_email).text = user.id
             //  "https://cdn.myholdem.io.s3.ap-northeast-2.amazonaws.com//75729800-eb9f-41c5-99af-11df13c9d2c8img_9126846222369274919.jpg"
-            setImageUrl(
-                parent.findViewById<ImageView>(R.id.iv_profile),
-                user.profile_url, R.drawable.profile
-            )
+//            setImageUrl(
+//                parent.findViewById<ImageView>(R.id.iv_profile),
+//                user.profile_url, R.drawable.profile
+//            )
         }
     }
 

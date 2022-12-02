@@ -21,7 +21,7 @@ class DateTimeAdapter : JsonDeserializer<LocalDateTime> {
     override fun deserialize(
         json: JsonElement?,
         typeOfT: Type?,
-        context: JsonDeserializationContext?
+        context: JsonDeserializationContext?,
     ): LocalDateTime? {
         for (format in FOTMATS) {
             try {

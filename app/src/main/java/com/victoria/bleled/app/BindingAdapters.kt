@@ -22,6 +22,7 @@ import com.victoria.bleled.util.view.recycleview.CustomDecoration
         )]
 )
 object BindingAdapters {
+    @JvmStatic
     @BindingAdapter("items")
     fun setItems(listView: RecyclerView, items: List<String>?) {
         items?.let {
@@ -29,12 +30,13 @@ object BindingAdapters {
         }
     }
 
-
+    @JvmStatic
     @BindingAdapter("android:selected")
     fun setSelected(view: View, selected: Boolean) {
         view.isSelected = selected
     }
 
+    @JvmStatic
     @BindingAdapter(value = ["imageUrl", "placeholder"], requireAll = false)
     fun setImageUrl(
         imageView: ImageView,
@@ -53,6 +55,7 @@ object BindingAdapters {
         }
     }
 
+    @JvmStatic
     @BindingAdapter(value = ["dividerHeight", "dividerPadding", "dividerColor"], requireAll = false)
     fun RecyclerView.setDivider(
         dividerHeight: Float?,
@@ -67,6 +70,7 @@ object BindingAdapters {
         addItemDecoration(decoration)
     }
 
+    @JvmStatic
     @BindingAdapter("android:layout_height")
     fun setLayoutHeight(view: View, height: Float) {
         val layoutParams = view.layoutParams
@@ -76,8 +80,8 @@ object BindingAdapters {
 }
 
 object Converter {
-    @InverseMethod("stringToFloat")
     @JvmStatic
+    @InverseMethod("stringToFloat")
     fun floatToString(value: Float): String {
         return if (value == 0f) {
             ""

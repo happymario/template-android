@@ -3,22 +3,22 @@ package com.victoria.bleled.app.auth
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.victoria.bleled.app.MyApplication
-import com.victoria.bleled.data.DataRepository
-import com.victoria.bleled.data.model.ModelUpload
-import com.victoria.bleled.data.model.ModelUser
-import com.victoria.bleled.data.remote.NetworkObserver
-import com.victoria.bleled.data.remote.myservice.response.BaseResp
-import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.base.BaseViewModel
 import com.victoria.bleled.base.internal.Event
-import com.victoria.bleled.data.remote.NetworkResult
-import com.victoria.bleled.data.remote.myservice.response.RespData
+import com.victoria.bleled.common.manager.PreferenceManager
+import com.victoria.bleled.data.model.ModelUpload
+import com.victoria.bleled.data.model.ModelUser
+import com.victoria.bleled.data.net.adapter.live.ApiLiveResponse
+import com.victoria.bleled.data.net.adapter.live.ApiLiveResponseObserver
+import com.victoria.bleled.data.net.mytemplate.response.RespData
+import com.victoria.bleled.data.net.repository.MyTemplateRepository
+import com.victoria.bleled.util.CommonUtil
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
-class UserViewModel constructor(private val repository: DataRepository) : BaseViewModel() {
+class UserViewModel constructor(private val repository: MyTemplateRepository) : BaseViewModel() {
     /************************************************************
      *  Variables
      ************************************************************/
@@ -53,14 +53,14 @@ class UserViewModel constructor(private val repository: DataRepository) : BaseVi
 
         val api = repository.remoteService.upload(multipartBody)
 //        _dataLoading.value = true
-        repository.callApi(api, object : NetworkObserver<RespData<ModelUpload>>() {
-            override fun onChanged(result: NetworkResult<RespData<ModelUpload>>) {
+        repository.callApi(api, object : ApiLiveResponseObserver<RespData<ModelUpload>>() {
+            override fun onChanged(result: ApiLiveResponse<RespData<ModelUpload>>) {
                 super.onChanged(result)
 
-                if (result != null && result.status.value != NetworkResult.Status.loading) {
-                    if (result.status.value == NetworkResult.Status.success) {
-                        _profile.value = result.data.data
-                    } else if (result.status.value == NetworkResult.Status.error) {
+                if (result.status != ApiLiveResponse.Status.loading) {
+                    if (result.status == ApiLiveResponse.Status.success) {
+                        _profile.value = result.data!!.data
+                    } else if (result.status == ApiLiveResponse.Status.error) {
 //                        _networkErrorLiveData.value = result
                     }
 //                    _dataLoading.value = false
@@ -82,7 +82,7 @@ class UserViewModel constructor(private val repository: DataRepository) : BaseVi
             return
         }
 
-        val prefDataSource = repository.prefDataSource
+        val prefDataSource = PreferenceManager.getInstance()
         val api = repository.remoteService.userLogin(
             id.value!!,
             pwd.value!!,
@@ -91,17 +91,17 @@ class UserViewModel constructor(private val repository: DataRepository) : BaseVi
         )
 
 //        _dataLoading.value = true
-        repository.callApi(api, object : NetworkObserver<RespData<ModelUser>>() {
-            override fun onChanged(result: NetworkResult<RespData<ModelUser>>) {
+        repository.callApi(api, object : ApiLiveResponseObserver<RespData<ModelUser>>() {
+            override fun onChanged(result: ApiLiveResponse<RespData<ModelUser>>) {
                 super.onChanged(result)
 
-                if (result.status.value != NetworkResult.Status.loading) {
-                    if (result.status.value == NetworkResult.Status.success) {
-                        val user = result.data.data
+                if (result.status != ApiLiveResponse.Status.loading) {
+                    if (result.status == ApiLiveResponse.Status.success) {
+                        val user = result.data!!.data
                         user?.pwd = pwd.value!!
                         prefDataSource.user = user
                         _loginCompleteEvent.value = Event(Unit)
-                    } else if (result.status.value == NetworkResult.Status.error) {
+                    } else if (result.status == ApiLiveResponse.Status.error) {
 //                        _networkErrorLiveData.value = result
                     }
 //                    _dataLoading.value = false
@@ -134,14 +134,14 @@ class UserViewModel constructor(private val repository: DataRepository) : BaseVi
             motto.value ?: ""
         )
 //        _dataLoading.value = true
-        repository.callApi(api, object : NetworkObserver<RespData<ModelUser>>() {
-            override fun onChanged(result: NetworkResult<RespData<ModelUser>>) {
+        repository.callApi(api, object : ApiLiveResponseObserver<RespData<ModelUser>>() {
+            override fun onChanged(result: ApiLiveResponse<RespData<ModelUser>>) {
                 super.onChanged(result)
 
-                if (result != null && result.status.value != NetworkResult.Status.loading) {
-                    if (result.status.value == NetworkResult.Status.success) {
+                if (result != null && result.status != ApiLiveResponse.Status.loading) {
+                    if (result.status == ApiLiveResponse.Status.success) {
                         loginUser()
-                    } else if (result.status.value == NetworkResult.Status.error) {
+                    } else if (result.status == ApiLiveResponse.Status.error) {
 //                        _networkErrorLiveData.value = result
                     }
 //                    _dataLoading.value = false

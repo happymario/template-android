@@ -23,6 +23,7 @@ import com.victoria.bleled.app.recent.VideoPlayerActivity
 import com.victoria.bleled.app.recent.background.AlarmReceiver
 import com.victoria.bleled.app.recent.background.SimpleWorker
 import com.victoria.bleled.app.recent.compose.ComposeMainActivity
+import com.victoria.bleled.app.recent.hilt.HiltActivity
 import com.victoria.bleled.app.special.bluetooth.BluetoothTestActivity
 import com.victoria.bleled.app.special.calendar.CalendarActivity
 import com.victoria.bleled.base.BaseBindingFragment
@@ -225,6 +226,10 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
         }
         if (id == "compose") {
             val intent = Intent(requireActivity(), ComposeMainActivity::class.java)
+            startActivity(intent)
+        }
+        if (id == "hilt") {
+            val intent = Intent(requireActivity(), HiltActivity::class.java)
             startActivity(intent)
         }
 

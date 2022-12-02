@@ -2,6 +2,8 @@ import java.text.SimpleDateFormat
 
 apply plugin: 'com.android.application'
 
+apply plugin: 'org.jetbrains.kotlin.android'
+
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-parcelize'
@@ -176,8 +178,8 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     //// dagger-hilt
-    implementation "com.google.dagger:hilt-android:2.39.1"
-    kapt "com.google.dagger:hilt-android-compiler:2.39.1"
+    implementation "com.google.dagger:hilt-android:2.42"
+    kapt "com.google.dagger:hilt-android-compiler:2.42"
 
     //
     // UI
@@ -211,6 +213,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
     implementation "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
     implementation "com.squareup.retrofit2:converter-scalars:$RETROFIT_VERSION"
+    implementation platform("com.squareup.okhttp3:okhttp-bom:4.9.1")
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
     implementation group: 'commons-net', name: 'commons-net', version: '3.6'
 

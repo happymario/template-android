@@ -11,7 +11,7 @@ import com.victoria.bleled.base.internal.Inflate
 
 open class BaseDialogFragment<VB : ViewDataBinding>(
     val fm: FragmentManager,
-    private val inflate: Inflate<VB>
+    private val inflate: Inflate<VB>,
 ) : DialogFragment() {
     lateinit var binding: VB
 
@@ -22,7 +22,7 @@ open class BaseDialogFragment<VB : ViewDataBinding>(
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         binding = inflate.invoke(inflater, container, false)
         return binding.root

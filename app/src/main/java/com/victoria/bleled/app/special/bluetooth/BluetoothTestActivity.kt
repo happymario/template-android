@@ -23,10 +23,10 @@ import androidx.appcompat.app.ActionBar
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.victoria.bleled.R
-import com.victoria.bleled.databinding.ActivityTestBluetoothBinding
-import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.base.BaseBindingActivity
 import com.victoria.bleled.base.extensions.getViewModelFactory
+import com.victoria.bleled.databinding.ActivityTestBluetoothBinding
+import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.feature.PermissionUtil
 
 private const val SCAN_PERIOD_IN_MILLIS: Long = 10_000
@@ -424,12 +424,11 @@ class BluetoothTestActivity : BaseBindingActivity<ActivityTestBluetoothBinding>(
             CommonUtil.showToast(this, "Read:$message")
         }
         val deviceConnectionObserver = Observer<Int> { state ->
-            if(BluetoothProfile.STATE_CONNECTED == state) {
+            if (BluetoothProfile.STATE_CONNECTED == state) {
                 CommonUtil.showToast(
-                        this@BluetoothTestActivity,
-                        R.string.msg_connect_device)
-            }
-            else if(BluetoothProfile.STATE_DISCONNECTED == state) {
+                    this@BluetoothTestActivity,
+                    R.string.msg_connect_device)
+            } else if (BluetoothProfile.STATE_DISCONNECTED == state) {
                 CommonUtil.showToast(
                     this@BluetoothTestActivity,
                     R.string.msg_disconnect_device)

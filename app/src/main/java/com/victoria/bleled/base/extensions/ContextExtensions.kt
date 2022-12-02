@@ -9,7 +9,7 @@ import kotlinx.coroutines.awaitCancellation
 
 suspend fun Context.onReceive(
     filter: IntentFilter,
-    block: (context: Context, intent: Intent) -> Unit
+    block: (context: Context, intent: Intent) -> Unit,
 ): Nothing {
     val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {

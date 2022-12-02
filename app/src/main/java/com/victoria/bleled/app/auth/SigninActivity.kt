@@ -2,7 +2,6 @@ package com.victoria.bleled.app.auth
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -32,15 +31,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.victoria.bleled.R
-import com.victoria.bleled.base.BaseComposeActivity
 import com.victoria.bleled.app.ViewModelFactory
-import com.victoria.bleled.app.components.MySurface
 import com.victoria.bleled.app.main.MainActivity
+import com.victoria.bleled.app.recent.compose.components.MySurface
 import com.victoria.bleled.app.theme.MyApplicationTheme
+import com.victoria.bleled.base.BaseComposeActivity
 import com.victoria.bleled.common.Constants
-import com.victoria.bleled.data.DataRepository
-import com.victoria.bleled.data.remote.ApiException
-import com.victoria.bleled.data.remote.NetworkObserver
+import com.victoria.bleled.data.net.repository.MyTemplateRepository
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.compose.supportWideScreen
 
@@ -60,34 +57,35 @@ fun SigninActivityPreviewDark() {
     }
 }
 
-class SigninActivity : BaseComposeActivity() {
-    private val viewModel by viewModels<UserViewModel> {
-        ViewModelFactory(DataRepository.provideDataRepository(this), this)
+class SigninActivity : BaseComposeActivity<UserViewModel>() {
+    override val viewModel by viewModels<UserViewModel> {
+        ViewModelFactory(MyTemplateRepository.provideDataRepository(), this)
+    }
+
+    @Composable
+    override fun ComposeContent() {
+        MyApplicationTheme {
+            ComposeSigninScreen(
+                viewModel = viewModel,
+                onEvent = {
+                    when (it) {
+                        is SignInEvent.SignIn -> {
+                            viewModel.id.value = it.email
+                            viewModel.pwd.value = it.pwd
+
+                            viewModel.loginUser()
+                        }
+                        SignInEvent.Ask -> CommonUtil.gotoPhone(this,
+                            Constants.CLIENT_PHONE_NUMBER)
+                        SignInEvent.SignUp -> goSignup()
+                        SignInEvent.SignInAsGuest -> goMain()
+                    }
+                })
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContent {
-            MyApplicationTheme {
-                ComposeSigninScreen(
-                    viewModel = viewModel,
-                    onEvent = {
-                        when (it) {
-                            is SignInEvent.SignIn -> {
-                                viewModel.id.value = it.email
-                                viewModel.pwd.value = it.pwd
-
-                                viewModel.loginUser()
-                            }
-                            SignInEvent.Ask -> CommonUtil.gotoPhone(this,
-                                Constants.CLIENT_PHONE_NUMBER)
-                            SignInEvent.SignUp -> goSignup()
-                            SignInEvent.SignInAsGuest -> goMain()
-                        }
-                    })
-            }
-        }
 
         initViewModel()
     }
@@ -159,7 +157,7 @@ fun ComposeSigninScreen(viewModel: UserViewModel? = null, onEvent: (SignInEvent)
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable (
+                .clickable(
                     indication = null,
                     interactionSource = remember { MutableInteractionSource() } // This is mandatory
                 ) {

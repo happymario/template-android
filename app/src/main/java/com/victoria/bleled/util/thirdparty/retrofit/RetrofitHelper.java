@@ -13,7 +13,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.victoria.bleled.BuildConfig;
-import com.victoria.bleled.data.remote.adapter.LiveDataCallAdapterFactory;
+import com.victoria.bleled.data.net.adapter.live.LiveDataCallAdapterFactory;
 
 import java.io.File;
 import java.io.IOException;

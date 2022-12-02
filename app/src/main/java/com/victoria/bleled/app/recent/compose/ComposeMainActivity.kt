@@ -76,10 +76,9 @@ fun LayoutMainActivity() {
             val mainState = rememberComposeMainState()
             BackHandler {
                 mainState.coroutineScope.launch {
-                    if(drawerState.isOpen) {
+                    if (drawerState.isOpen) {
                         drawerState.close()
-                    }
-                    else {
+                    } else {
                         activity?.finish()
                     }
                 }

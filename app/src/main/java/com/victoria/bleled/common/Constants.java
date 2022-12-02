@@ -1,6 +1,6 @@
 package com.victoria.bleled.common;
 
-import com.victoria.bleled.data.remote.myservice.IMyTemplateService;
+import com.victoria.bleled.data.net.mytemplate.IMyTemplateService;
 
 public interface Constants {
     boolean IS_TEST = true;

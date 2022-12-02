@@ -64,7 +64,7 @@ class DialView @JvmOverloads constructor(
         ViewCompat.setAccessibilityDelegate(this, object : AccessibilityDelegateCompat() {
             override fun onInitializeAccessibilityNodeInfo(
                 host: View,
-                info: AccessibilityNodeInfoCompat
+                info: AccessibilityNodeInfoCompat,
             ) {
                 super.onInitializeAccessibilityNodeInfo(host, info)
                 val customClick = AccessibilityNodeInfoCompat.AccessibilityActionCompat(

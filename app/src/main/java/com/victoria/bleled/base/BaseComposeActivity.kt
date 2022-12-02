@@ -12,9 +12,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ProgressBar
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.runtime.Composable
 import com.victoria.bleled.R
 
-open class BaseComposeActivity : ComponentActivity() {
+abstract class BaseComposeActivity<VM : BaseViewModel> : ComponentActivity() {
+    protected abstract val viewModel: VM
+
     /************************************************************
      * UI controls & Data members
      */
@@ -22,8 +26,14 @@ open class BaseComposeActivity : ComponentActivity() {
     private var mProgressCount = 0
     private var mIsShowProgress = false
 
+    @Composable
+    abstract fun ComposeContent()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContent {
+            ComposeContent()
+        }
         createProgress()
     }
 

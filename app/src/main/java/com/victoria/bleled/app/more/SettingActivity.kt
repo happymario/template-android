@@ -9,12 +9,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import com.victoria.bleled.R
 import com.victoria.bleled.app.auth.SigninActivity
-import com.victoria.bleled.app.etc.WebViewActivity
-import com.victoria.bleled.common.Constants
 import com.victoria.bleled.app.dialog.AlertDialog
-import com.victoria.bleled.util.CommonUtil
+import com.victoria.bleled.app.etc.WebViewActivity
 import com.victoria.bleled.base.BaseActivity
 import com.victoria.bleled.base.extensions.getViewModelFactory
+import com.victoria.bleled.common.Constants
+import com.victoria.bleled.util.CommonUtil
 
 class SettingActivity : BaseActivity() {
     /************************************************************

@@ -26,10 +26,10 @@ import com.victoria.bleled.app.auth.UserViewModel
 import com.victoria.bleled.app.main.MainViewModel
 import com.victoria.bleled.app.more.SettingViewModel
 import com.victoria.bleled.app.special.bluetooth.BluetoothViewModel
-import com.victoria.bleled.data.DataRepository
+import com.victoria.bleled.data.net.repository.MyTemplateRepository
 
 
-fun <T : ViewModel> createViewModel(dataRepository: DataRepository, modelClass: Class<T>) =
+fun <T : ViewModel> createViewModel(dataRepository: MyTemplateRepository, modelClass: Class<T>) =
     with(modelClass) {
         when {
             isAssignableFrom(SplashViewModel::class.java) ->
@@ -52,7 +52,7 @@ fun <T : ViewModel> createViewModel(dataRepository: DataRepository, modelClass: 
  */
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory constructor(
-    private val dataRepository: DataRepository,
+    private val dataRepository: MyTemplateRepository,
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle? = null,
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
@@ -66,7 +66,7 @@ class ViewModelFactory constructor(
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory2(val context: Context) : ViewModelProvider.Factory {
-    private val dataRepository = DataRepository.provideDataRepository(context)
+    private val dataRepository = MyTemplateRepository.provideDataRepository()
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return createViewModel(dataRepository = dataRepository, modelClass = modelClass)

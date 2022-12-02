@@ -107,6 +107,7 @@
         <item>AlarmManager</item>
         <item>PictureInPicture</item>
         <item>Compose</item>
+        <item>Hilt</item>
     </string-array>
 
     <string-array name="arr_special_tech">

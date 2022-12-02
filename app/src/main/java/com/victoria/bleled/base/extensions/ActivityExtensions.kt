@@ -9,13 +9,12 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.victoria.bleled.app.ViewModelFactory
-import com.victoria.bleled.data.DataRepository
+import com.victoria.bleled.data.net.repository.MyTemplateRepository
 
 fun AppCompatActivity.getViewModelFactory(): ViewModelFactory {
-    val repository = DataRepository.provideDataRepository(applicationContext)
+    val repository = MyTemplateRepository.provideDataRepository()
     return ViewModelFactory(repository, this)
 }
-
 
 
 const val ADD_EDIT_RESULT_OK = Activity.RESULT_FIRST_USER + 1

@@ -7,14 +7,15 @@ import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.victoria.bleled.R
 import com.victoria.bleled.app.MyApplication
-import com.victoria.bleled.data.DataRepository
-import com.victoria.bleled.data.model.ModelUser
 import com.victoria.bleled.base.BaseViewModel
 import com.victoria.bleled.base.internal.Event
+import com.victoria.bleled.common.manager.PreferenceManager
+import com.victoria.bleled.data.model.ModelUser
+import com.victoria.bleled.data.net.repository.MyTemplateRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class MainViewModel constructor(private val repository: DataRepository) : BaseViewModel() {
+class MainViewModel constructor(private val repository: MyTemplateRepository) : BaseViewModel() {
 
     private val _openTaskEvent = MutableLiveData<Event<View>>()
     val openTaskEvent: LiveData<Event<View>> = _openTaskEvent
@@ -55,7 +56,7 @@ class MainViewModel constructor(private val repository: DataRepository) : BaseVi
     }
 
     fun start() {
-        val prefDataSource = repository.prefDataSource
+        val prefDataSource = PreferenceManager.getInstance()
         var user = prefDataSource.user
         if (user == null) {
             user = ModelUser(0)
@@ -70,7 +71,7 @@ class MainViewModel constructor(private val repository: DataRepository) : BaseVi
     }
 
     fun logout() {
-        val prefDataSource = repository.prefDataSource
+        val prefDataSource = PreferenceManager.getInstance()
         prefDataSource.user = null
         _userInfo.value = null
     }

@@ -11,7 +11,7 @@ import com.victoria.bleled.base.internal.Inflate
 
 abstract class BaseListAdapter<T, IVB : ViewDataBinding>(
     private val inflate: Inflate<IVB>,
-    private val diff: DiffUtil.ItemCallback<T>
+    private val diff: DiffUtil.ItemCallback<T>,
 ) : ListAdapter<T, BaseListAdapter<T, IVB>.BaseViewHolder>(diff) {
     abstract fun onBind(item: T, binding: IVB, position: Int)
 
@@ -29,7 +29,7 @@ abstract class BaseListAdapter<T, IVB : ViewDataBinding>(
     }
 
     abstract inner class BaseViewHolder(
-        protected val binding: IVB
+        protected val binding: IVB,
     ) : RecyclerView.ViewHolder(binding.root) {
         abstract fun bind(item: T, position: Int)
     }

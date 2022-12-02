@@ -3,6 +3,7 @@ package com.victoria.bleled.common.manager
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
+import com.victoria.bleled.app.MyApplication
 import com.victoria.bleled.data.model.ModelAppInfo
 import com.victoria.bleled.data.model.ModelUser
 
@@ -65,6 +66,11 @@ class PreferenceManager internal constructor(private val mContext: Context) {
         @JvmStatic
         fun getInstance(context: Context): PreferenceManager {
             return PreferenceManager(context)
+        }
+
+        @JvmStatic
+        fun getInstance(): PreferenceManager {
+            return PreferenceManager(MyApplication.globalApplicationContext!!)
         }
     }
 

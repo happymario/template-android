@@ -36,7 +36,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.maps.android.SphericalUtil;
 import com.victoria.bleled.common.Constants;
-import com.victoria.bleled.data.DataRepository;
 
 import java.io.IOException;
 import java.util.List;
@@ -109,7 +108,7 @@ public class GPSManager extends Service {
 //        bestAccuracy = location.getAccuracy();
             lastLocation = location;
             if (lastLocation != null) {
-                PreferenceManager dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
+                PreferenceManager dataManager = PreferenceManager.getInstance(mContext);
 
                 dataManager.setLatitude(lastLocation.getLatitude());
                 dataManager.setLongitude(lastLocation.getLongitude());
@@ -135,7 +134,7 @@ public class GPSManager extends Service {
             if (locationList.size() > 0) {
                 lastLocation = locationList.get(locationList.size() - 1);
                 if (lastLocation != null) {
-                    PreferenceManager dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
+                    PreferenceManager dataManager = PreferenceManager.getInstance(mContext);
 
                     dataManager.setLatitude(lastLocation.getLatitude());
                     dataManager.setLongitude(lastLocation.getLongitude());
@@ -171,7 +170,7 @@ public class GPSManager extends Service {
         lastLocation.setLatitude(latitude);
         lastLocation.setLongitude(longitude);
 
-        PreferenceManager dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
+        PreferenceManager dataManager = PreferenceManager.getInstance(mContext);
 
         dataManager.setLatitude(latitude);
         dataManager.setLongitude(longitude);
@@ -193,7 +192,7 @@ public class GPSManager extends Service {
         Location location = new Location("default");
 
         // get last location from preference
-        PreferenceManager dataManager = DataRepository.provideDataRepository(mContext).getPrefDataSource();
+        PreferenceManager dataManager = PreferenceManager.getInstance(mContext);
         double latitude = dataManager.getLatitude();
         double longitude = dataManager.getLongitude();
         setLastLocation(latitude, longitude);

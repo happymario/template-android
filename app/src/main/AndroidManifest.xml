@@ -125,6 +125,10 @@
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".app.recent.hilt.HiltActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".app.auth.SigninActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />

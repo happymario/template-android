@@ -3,27 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/searchFragment">
-
+    app:startDestination="@id/githubRepoFragment">
     <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.victoria.bleled.app.network.search.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/showDetail"
-            app:destination="@id/detailListFragment"
-            app:enterAnim="@anim/card_flip_left_in"
-            app:exitAnim="@anim/card_flip_left_out"
-            app:popUpTo="@+id/searchFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/detailListFragment"
-        android:name="com.victoria.bleled.app.network.search.DetailListFragment"
-        android:label="DetailListFragment" >
-        <argument
-            android:name="query"
-            app:argType="string" />
-        <deepLink app:uri="www.example.com/detail/{query}" />
-    </fragment>
+        android:id="@+id/githubRepoFragment"
+        android:name="com.victoria.bleled.app.recent.hilt.GithubRepoFragment"
+        android:label="GithubRepoFragment"
+        tools:layout="@layout/github_repo_fragment"/>
 </navigation>

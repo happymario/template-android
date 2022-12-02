@@ -14,8 +14,8 @@ import android.widget.RelativeLayout;
 import androidx.databinding.DataBindingUtil;
 
 import com.victoria.bleled.R;
-import com.victoria.bleled.databinding.DialogAlertBinding;
 import com.victoria.bleled.base.BaseDialog;
+import com.victoria.bleled.databinding.DialogAlertBinding;
 
 public class AlertDialog extends BaseDialog {
 

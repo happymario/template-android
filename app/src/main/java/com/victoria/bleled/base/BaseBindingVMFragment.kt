@@ -5,7 +5,7 @@ import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import com.victoria.bleled.base.extensions.observeResource
+import com.victoria.bleled.base.extensions.observeResource2
 import com.victoria.bleled.base.internal.AppException
 import com.victoria.bleled.base.internal.Resource
 
@@ -38,7 +38,7 @@ abstract class BaseBindingVMFragment<VB : ViewDataBinding, VM : BaseViewModel>(
         targetView: View? = null,
         crossinline block: (R) -> Unit,
     ) {
-        observeResource(viewLifecycleOwner, loadingView, targetView, block)
+        observeResource2(viewLifecycleOwner, loadingView, targetView, block)
     }
 
     inline fun <T : Resource<R>, R> LiveData<T>.observeResourceWithEmpty(
