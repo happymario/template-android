@@ -12,8 +12,10 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.ViewCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victoria.bleled.R
@@ -28,6 +30,7 @@ import com.victoria.bleled.common.Constants
 import com.victoria.bleled.databinding.ActivityMainBinding
 import com.victoria.bleled.service.billing.BillingDataSource
 import com.victoria.bleled.util.CommonUtil
+import java.lang.Math.abs
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.*
@@ -265,6 +268,14 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         val ab: ActionBar? = supportActionBar
         ab?.setHomeAsUpIndicator(R.drawable.ic_menu)
         ab?.setDisplayHomeAsUpEnabled(true)
+
+        binding.appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0) { // 접혔을때
+                binding.toolbar.visibility = View.VISIBLE
+            } else {// 펴졌을때
+                binding.toolbar.visibility = View.GONE
+            }
+        })
     }
 
     private fun setupViewPager(viewPager: ViewPager2) {

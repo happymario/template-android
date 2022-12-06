@@ -227,10 +227,10 @@
             android:name="firebase_analytics_collection_enabled"
             android:value="true" /> <!-- Alarm Manager -->
         <receiver
-            android:name=".app.recent.background.AlarmReceiver"
+            android:name=".common.receiver.AlarmReceiver"
             android:exported="false" />
         <receiver
-            android:name=".app.recent.background.BootReceiver"
+            android:name=".common.receiver.BootReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

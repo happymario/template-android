@@ -20,7 +20,7 @@ import com.victoria.bleled.app.essential.CameraTestActivity
 import com.victoria.bleled.app.essential.anim.AnimActivity
 import com.victoria.bleled.app.essential.gallery.GallerySelectCropActivity
 import com.victoria.bleled.app.recent.VideoPlayerActivity
-import com.victoria.bleled.app.recent.background.AlarmReceiver
+import com.victoria.bleled.common.receiver.AlarmReceiver
 import com.victoria.bleled.app.recent.background.SimpleWorker
 import com.victoria.bleled.app.recent.compose.ComposeMainActivity
 import com.victoria.bleled.app.recent.hilt.HiltActivity
@@ -112,6 +112,9 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
         setupNavigation()
 
         // init events
+        binding.refreshLayout.setOnRefreshListener {
+            binding.refreshLayout.isRefreshing = false
+        }
     }
 
     private fun setupListAdapter() {

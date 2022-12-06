@@ -1,10 +1,11 @@
-package com.victoria.bleled.app.recent.background
+package com.victoria.bleled.common.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import com.victoria.bleled.app.recent.background.MyAlarmService
 
 
 class AlarmReceiver : BroadcastReceiver() {

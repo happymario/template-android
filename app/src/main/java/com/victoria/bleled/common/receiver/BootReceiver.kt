@@ -1,4 +1,4 @@
-package com.victoria.bleled.app.recent.background
+package com.victoria.bleled.common.receiver
 
 import android.app.AlarmManager
 import android.app.PendingIntent
