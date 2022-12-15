@@ -127,7 +127,7 @@
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.mybenefit.vmme.senior.androidx-startup"
+            android:authorities="com.mario.classytaxi.androidx-startup"
             android:exported="false">
             <meta-data
                 android:name="com.victoria.bleled.util.thirdparty.TimberInitializer"
