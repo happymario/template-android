@@ -124,6 +124,16 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
         tools:replace="android:allowBackup">
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="com.mybenefit.vmme.senior.androidx-startup"
+            android:exported="false">
+            <meta-data
+                android:name="com.victoria.bleled.util.thirdparty.TimberInitializer"
+                android:value="androidx.startup" />
+        </provider>
+
         <activity
             android:name=".app.recent.hilt.HiltActivity"
             android:exported="false"

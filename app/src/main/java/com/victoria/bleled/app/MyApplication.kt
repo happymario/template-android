@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDex
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -58,6 +59,9 @@ class MyApplication : Application() {
      ************************************************************/
     override fun onCreate() {
         super.onCreate()
+
+        // Non-Dark Theme
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         instance = this
 
