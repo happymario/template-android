@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.victoria.bleled.app.MyApplication
 import com.victoria.bleled.base.BaseViewModel
 import com.victoria.bleled.base.internal.Event
-import com.victoria.bleled.common.manager.PreferenceManager
+import com.victoria.bleled.common.manager.PrefManager
 import com.victoria.bleled.data.model.ModelUpload
 import com.victoria.bleled.data.model.ModelUser
 import com.victoria.bleled.data.net.adapter.live.ApiLiveResponse
@@ -82,7 +82,7 @@ class UserViewModel constructor(private val repository: MyTemplateRepository) : 
             return
         }
 
-        val prefDataSource = PreferenceManager.getInstance()
+        val prefDataSource = PrefManager.getInstance()
         val api = repository.remoteService.userLogin(
             id.value!!,
             pwd.value!!,

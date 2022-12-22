@@ -3,7 +3,7 @@ package com.victoria.bleled.app.more
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.victoria.bleled.base.BaseViewModel
-import com.victoria.bleled.common.manager.PreferenceManager
+import com.victoria.bleled.common.manager.PrefManager
 import com.victoria.bleled.data.model.BaseModel
 import com.victoria.bleled.data.model.ModelUser
 import com.victoria.bleled.data.net.adapter.live.ApiLiveResponse
@@ -17,12 +17,12 @@ class SettingViewModel constructor(private val repository: MyTemplateRepository)
     val userInfo: LiveData<ModelUser> = _userInfo
 
     fun start() {
-        val prefDataSource = PreferenceManager.getInstance()
+        val prefDataSource = PrefManager.getInstance()
         _userInfo.value = prefDataSource.user
     }
 
     fun signOut() {
-        val prefDataSource = PreferenceManager.getInstance()
+        val prefDataSource = PrefManager.getInstance()
         if (prefDataSource.user == null) {
             return
         }
@@ -38,7 +38,7 @@ class SettingViewModel constructor(private val repository: MyTemplateRepository)
 
                 if (result != null && result.status != ApiLiveResponse.Status.loading) {
                     if (result.status == ApiLiveResponse.Status.success) {
-                        val prefDataSource = PreferenceManager.getInstance()
+                        val prefDataSource = PrefManager.getInstance()
                         prefDataSource.user = null
                         _userInfo.value = null
                     } else if (result.status == ApiLiveResponse.Status.error) {

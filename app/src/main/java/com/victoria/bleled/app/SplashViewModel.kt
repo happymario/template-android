@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.victoria.bleled.base.BaseViewModel
 import com.victoria.bleled.base.internal.Event
-import com.victoria.bleled.common.manager.PreferenceManager.Companion.getInstance
+import com.victoria.bleled.common.manager.PrefManager.Companion.getInstance
 import com.victoria.bleled.data.model.ModelAppInfo
 import com.victoria.bleled.data.model.ModelUser
 import com.victoria.bleled.data.net.adapter.live.ApiLiveResponse

@@ -7,7 +7,27 @@ import com.victoria.bleled.app.MyApplication
 import com.victoria.bleled.data.model.ModelAppInfo
 import com.victoria.bleled.data.model.ModelUser
 
-class PreferenceManager internal constructor(private val mContext: Context) {
+class PrefManager internal constructor(private val mContext: Context) {
+    companion object {
+        private const val PREFS_USER_INFO = "PREFS_USER_INFO"
+        private const val PREFS_APP_INFO = "PREFS_APP_INFO"
+        private const val PREFS_APP_SETTING = "PREFS_APP_SETTING"
+        private const val PREFS_PUSH_TOKEN = "PREFS_PUSH_TOKEN"
+        private const val PREFS_REFERER = "PREFS_REFERER"
+        private const val PREFS_GEO_LATITUDE = "PREFS_GEO_LATITUDE"
+        private const val PREFS_GEO_LOGITUDE = "PREFS_GEO_LOGITUDE"
+
+        @JvmStatic
+        fun getInstance(context: Context): PrefManager {
+            return PrefManager(context)
+        }
+
+        @JvmStatic
+        fun getInstance(): PrefManager {
+            return PrefManager(MyApplication.globalApplicationContext!!)
+        }
+    }
+
     private val mPreference: PrefMgr = PrefMgr(mContext)
     var user: ModelUser?
         get() = Gson().fromJson(mPreference.getString(PREFS_USER_INFO, ""), ModelUser::class.java)
@@ -53,26 +73,6 @@ class PreferenceManager internal constructor(private val mContext: Context) {
         set(referer) {
             mPreference.put(PREFS_REFERER, referer)
         }
-
-    companion object {
-        private const val PREFS_USER_INFO = "PREFS_USER_INFO"
-        private const val PREFS_APP_INFO = "PREFS_APP_INFO"
-        private const val PREFS_APP_SETTING = "PREFS_APP_SETTING"
-        private const val PREFS_PUSH_TOKEN = "PREFS_PUSH_TOKEN"
-        private const val PREFS_REFERER = "PREFS_REFERER"
-        private const val PREFS_GEO_LATITUDE = "PREFS_GEO_LATITUDE"
-        private const val PREFS_GEO_LOGITUDE = "PREFS_GEO_LOGITUDE"
-
-        @JvmStatic
-        fun getInstance(context: Context): PreferenceManager {
-            return PreferenceManager(context)
-        }
-
-        @JvmStatic
-        fun getInstance(): PreferenceManager {
-            return PreferenceManager(MyApplication.globalApplicationContext!!)
-        }
-    }
 
     class PrefMgr {
         private var mPreferences: SharedPreferences? = null

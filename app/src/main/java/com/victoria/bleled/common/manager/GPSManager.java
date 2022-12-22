@@ -108,7 +108,7 @@ public class GPSManager extends Service {
 //        bestAccuracy = location.getAccuracy();
             lastLocation = location;
             if (lastLocation != null) {
-                PreferenceManager dataManager = PreferenceManager.getInstance(mContext);
+                PrefManager dataManager = PrefManager.getInstance(mContext);
 
                 dataManager.setLatitude(lastLocation.getLatitude());
                 dataManager.setLongitude(lastLocation.getLongitude());
@@ -134,7 +134,7 @@ public class GPSManager extends Service {
             if (locationList.size() > 0) {
                 lastLocation = locationList.get(locationList.size() - 1);
                 if (lastLocation != null) {
-                    PreferenceManager dataManager = PreferenceManager.getInstance(mContext);
+                    PrefManager dataManager = PrefManager.getInstance(mContext);
 
                     dataManager.setLatitude(lastLocation.getLatitude());
                     dataManager.setLongitude(lastLocation.getLongitude());
@@ -170,7 +170,7 @@ public class GPSManager extends Service {
         lastLocation.setLatitude(latitude);
         lastLocation.setLongitude(longitude);
 
-        PreferenceManager dataManager = PreferenceManager.getInstance(mContext);
+        PrefManager dataManager = PrefManager.getInstance(mContext);
 
         dataManager.setLatitude(latitude);
         dataManager.setLongitude(longitude);
@@ -192,7 +192,7 @@ public class GPSManager extends Service {
         Location location = new Location("default");
 
         // get last location from preference
-        PreferenceManager dataManager = PreferenceManager.getInstance(mContext);
+        PrefManager dataManager = PrefManager.getInstance(mContext);
         double latitude = dataManager.getLatitude();
         double longitude = dataManager.getLongitude();
         setLastLocation(latitude, longitude);

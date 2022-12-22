@@ -9,7 +9,7 @@ import com.victoria.bleled.R
 import com.victoria.bleled.app.MyApplication
 import com.victoria.bleled.base.BaseViewModel
 import com.victoria.bleled.base.internal.Event
-import com.victoria.bleled.common.manager.PreferenceManager
+import com.victoria.bleled.common.manager.PrefManager
 import com.victoria.bleled.data.model.ModelUser
 import com.victoria.bleled.data.net.repository.MyTemplateRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -56,7 +56,7 @@ class MainViewModel constructor(private val repository: MyTemplateRepository) : 
     }
 
     fun start() {
-        val prefDataSource = PreferenceManager.getInstance()
+        val prefDataSource = PrefManager.getInstance()
         var user = prefDataSource.user
         if (user == null) {
             user = ModelUser(0)
@@ -71,7 +71,7 @@ class MainViewModel constructor(private val repository: MyTemplateRepository) : 
     }
 
     fun logout() {
-        val prefDataSource = PreferenceManager.getInstance()
+        val prefDataSource = PrefManager.getInstance()
         prefDataSource.user = null
         _userInfo.value = null
     }

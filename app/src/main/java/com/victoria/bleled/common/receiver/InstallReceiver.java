@@ -5,14 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.victoria.bleled.common.manager.PreferenceManager;
+import com.victoria.bleled.common.manager.PrefManager;
 
 public class InstallReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String rawReferrerString = intent.getStringExtra("referrer");
         if (rawReferrerString != null) {
             Log.i("MyApp", "Received the following intent " + rawReferrerString);
-            PreferenceManager dataSource = PreferenceManager.getInstance(context);
+            PrefManager dataSource = PrefManager.getInstance(context);
             dataSource.setReferer(rawReferrerString);
         }
     }
