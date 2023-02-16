@@ -13,7 +13,6 @@ import timber.log.Timber
 
 
 open class BaseViewModel : ViewModel() {
-    protected val disposebag = CompositeDisposable()
 
     var _error = SingleLiveEvent<Exception>()
     var _alert = SingleLiveEvent<Any>()
@@ -36,7 +35,7 @@ open class BaseViewModel : ViewModel() {
     }
 
     override fun onCleared() {
-        disposebag.dispose()
+        //disposebag.dispose()
         super.onCleared()
     }
 

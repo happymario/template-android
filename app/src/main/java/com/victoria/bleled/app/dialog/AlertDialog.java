@@ -124,6 +124,7 @@ public class AlertDialog extends BaseDialog {
 
     public AlertDialog(Context context) {
         super(context, R.style.DialogCustomTheme);
+        this.mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_alert, null, false);
     }
 
     @Override
@@ -131,7 +132,6 @@ public class AlertDialog extends BaseDialog {
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        this.mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_alert, null, false);
         setContentView(mBinding.getRoot());
 
         this.mBinding.rlBg.setOnClickListener(v -> {
