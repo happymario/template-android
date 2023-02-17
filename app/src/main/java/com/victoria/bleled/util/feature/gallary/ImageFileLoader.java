@@ -1,8 +1,18 @@
+/*
+   URL: https://github.com/esafirm/android-image-picker
+
+   imageLoader = ImageFileLoader(this)
+   imageLoader.abortLoadImages()
+ */
+
 package com.victoria.bleled.util.feature.gallary;
 
 
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
@@ -15,10 +25,6 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/*
-   imageLoader = ImageFileLoader(this)
-   imageLoader.abortLoadImages()
- */
 public class ImageFileLoader {
 
     private Context context;
@@ -72,6 +78,13 @@ public class ImageFileLoader {
         @Override
         public void run() {
             Cursor cursor;
+            Uri collection =  MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                collection = MediaStore.Images.Media.getContentUri(
+                        MediaStore.VOLUME_EXTERNAL
+                );
+            }
+
             if (includeVideo) {
                 String selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
                         + MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE + " OR "
@@ -81,7 +94,7 @@ public class ImageFileLoader {
                 cursor = context.getContentResolver().query(MediaStore.Files.getContentUri("external"), projection,
                         selection, null, MediaStore.Images.Media.DATE_ADDED);
             } else {
-                cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection,
+                cursor = context.getContentResolver().query(collection, projection,
                         null, null, MediaStore.Images.Media.DATE_ADDED);
             }
 

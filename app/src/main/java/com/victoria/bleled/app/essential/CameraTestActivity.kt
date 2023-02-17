@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -21,10 +22,15 @@ class CameraTestActivity : AppCompatActivity() {
 
     private val cameraPermissions = arrayOf(
         Manifest.permission.CAMERA,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) Manifest.permission.READ_MEDIA_IMAGES else Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
 
-    private val gallaryPermissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    private val gallaryPermissions =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) arrayOf(
+            Manifest.permission.READ_MEDIA_IMAGES
+        ) else arrayOf(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
 
     private val RC_CAMERA_PERMS = 2001
     private val RC_GALLARY_PERMS = 2002
@@ -37,8 +43,10 @@ class CameraTestActivity : AppCompatActivity() {
 
         initMediaManager()
         mStorageManager =
-            ExternalFolderManager(this,
-                "template")
+            ExternalFolderManager(
+                this,
+                "template"
+            )
         setupToolbar()
     }
 

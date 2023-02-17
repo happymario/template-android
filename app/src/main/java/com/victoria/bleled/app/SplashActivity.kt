@@ -29,7 +29,9 @@ class SplashActivity : BaseActivity() {
      *  Static & Global Members
      ************************************************************/
     companion object {
-        private val requiredPermissions = arrayOf(
+        private var requiredPermissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) arrayOf(
+            Manifest.permission.READ_MEDIA_IMAGES
+        ) else arrayOf(
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
 
