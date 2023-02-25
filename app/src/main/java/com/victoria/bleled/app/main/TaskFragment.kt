@@ -1,12 +1,19 @@
 package com.victoria.bleled.app.main
 
 import android.app.AlarmManager
+import android.app.DownloadManager
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Context.ALARM_SERVICE
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.os.SystemClock
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.View
@@ -20,7 +27,6 @@ import com.victoria.bleled.app.essential.CameraTestActivity
 import com.victoria.bleled.app.essential.anim.AnimActivity
 import com.victoria.bleled.app.essential.gallery.GallerySelectCropActivity
 import com.victoria.bleled.app.recent.VideoPlayerActivity
-import com.victoria.bleled.common.receiver.AlarmReceiver
 import com.victoria.bleled.app.recent.background.SimpleWorker
 import com.victoria.bleled.app.recent.compose.ComposeMainActivity
 import com.victoria.bleled.app.recent.hilt.HiltActivity
@@ -30,6 +36,7 @@ import com.victoria.bleled.base.BaseBindingFragment
 import com.victoria.bleled.base.extensions.getViewModelFactory
 import com.victoria.bleled.base.internal.EventObserver
 import com.victoria.bleled.common.Constants
+import com.victoria.bleled.common.receiver.AlarmReceiver
 import com.victoria.bleled.databinding.FragmentMainBinding
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.feature.gallary.Gallary
@@ -159,6 +166,25 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
             intent.putExtra(Constants.ARG_TYPE, 1)
             intent.putExtra(Constants.ARG_DATA, ArrayList<Gallary>())
             startActivity(intent)
+        } else if (id == "download") {
+            val manager =
+                requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            val uri: Uri =
+                Uri.parse("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf")
+            val request: DownloadManager.Request = DownloadManager.Request(uri)
+                .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+                .setTitle("fileName")
+                .setDescription("desc")
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                .setAllowedOverMetered(true)
+                .setAllowedOverRoaming(false)
+                .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES,"fileName")
+            val reference: Long = manager.enqueue(request)
+            requireActivity().registerReceiver(object : BroadcastReceiver(){
+                override fun onReceive(context: Context?, intent: Intent?) {
+                    Timber.tag("Download").d("1%s", reference.toString())
+                }
+            }, IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED))
         }
 
         // recent
