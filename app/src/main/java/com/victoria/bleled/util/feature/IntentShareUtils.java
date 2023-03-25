@@ -93,7 +93,7 @@ public class IntentShareUtils {
         return uriForFile;
     }
 
-    public static Bitmap loadBitmapFromView(View v) {
+    public static Bitmap captureBitmapFromView(View v) {
         Bitmap b = Bitmap.createBitmap(v.getMeasuredWidth(), v.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);
         v.layout(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());

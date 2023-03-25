@@ -30,6 +30,7 @@ import com.victoria.bleled.common.Constants
 import com.victoria.bleled.databinding.ActivityMainBinding
 import com.victoria.bleled.service.billing.BillingDataSource
 import com.victoria.bleled.util.CommonUtil
+import com.victoria.bleled.util.feature.IntentShareUtils
 import java.lang.Math.abs
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
@@ -115,6 +116,20 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         super.onBackPressed()
     }
 
+    fun onFab(view:View) {
+        CommonUtil.showNIToast(this)
+
+        val bitmap = IntentShareUtils.captureBitmapFromView(binding.root)
+        val shareUrl = IntentShareUtils.saveToSharedImage(this, bitmap)
+        IntentShareUtils.shareEtc(this, shareUrl)
+
+        if (billingDataSource == null || billingDataSource.isBillingSetupCompleted === false) {
+            return
+        }
+
+        billingDataSource.launchBillingFlow(this, "basic_subscription")
+    }
+
     /************************************************************
      *  Helpers
      ************************************************************/
@@ -131,13 +146,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
             tab.text = pagerAdapter?.getFragmentTitle(position)
         }.attach()
 
-        binding.fab.setOnClickListener {
-            if (billingDataSource == null || billingDataSource.isBillingSetupCompleted === false) {
-                return@setOnClickListener
-            }
-
-            billingDataSource.launchBillingFlow(this, "basic_subscription")
-        }
         binding.navView.getHeaderView(0).findViewById<View>(R.id.imageButton).setOnClickListener {
             goSetting()
         }
