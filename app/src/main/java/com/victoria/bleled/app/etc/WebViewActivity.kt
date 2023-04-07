@@ -2,16 +2,15 @@ package com.victoria.bleled.app.etc
 
 import android.net.http.SslError
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
-import android.webkit.SslErrorHandler
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.victoria.bleled.R
 import com.victoria.bleled.common.Constants
+import org.jsoup.Jsoup
 
 class WebViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +67,7 @@ class WebViewActivity : AppCompatActivity() {
         set.cacheMode = WebSettings.LOAD_NO_CACHE // 웹뷰가 캐시를 사용하지 않도록 설정
         set.domStorageEnabled = true //로컬 스토리지, 세션 스토리지 사용 여부 설정
 
+        webview.addJavascriptInterface(MyJavascriptInterface(), "Android")
         if (url != null) {
             webview.loadUrl(url)
         }
@@ -82,6 +82,12 @@ class WebViewActivity : AppCompatActivity() {
             return true
         }
 
+        override fun onPageFinished(view: WebView?, url: String?) {
+            super.onPageFinished(view, url)
+
+            //view!!.loadUrl("javascript:window.Android.getHtml(document.getElementsByTagName('body')[0].innerHTML);")
+        }
+
         override fun onReceivedSslError(view: WebView, handler: SslErrorHandler, error: SslError) {
             AlertDialog.Builder(view.context)
                 .setTitle(R.string.app_name)
@@ -93,6 +99,20 @@ class WebViewActivity : AppCompatActivity() {
                     R.string.cancel
                 ) { dialog, which -> }
                 .show()
+        }
+    }
+
+    class MyJavascriptInterface {
+        @JavascriptInterface
+        fun getHtml(html: String) {
+            val source = html
+            Log.e("html: ",source)
+
+            val doc = Jsoup.parse(source)
+
+            val title = doc.select("tit")
+            Log.d("result: ", "doc= $doc")
+            Log.d("result: ", "title= $title")
         }
     }
 }
