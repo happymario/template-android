@@ -146,29 +146,29 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     //
     // architecture
     //
     //// MVVM
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation "androidx.multidex:multidex:2.0.1"
     implementation ("androidx.work:work-runtime-ktx:2.7.1") {
         //Needed due to a transitive dependency clash with the google api client dep
         exclude group: 'com.google.guava', module:'listenablefuture'
     }
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     //// dagger-hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
@@ -226,7 +226,7 @@ dependencies {
     //
     //// Firebase
     implementation "com.google.firebase:firebase-core:21.1.1"
-    implementation "com.google.firebase:firebase-messaging:23.1.0"
+    implementation "com.google.firebase:firebase-messaging:23.1.2"
     implementation 'com.google.firebase:firebase-firestore-ktx:24.4.1'
     //// inapp purchase
     implementation "com.android.billingclient:billing:5.1.0"
@@ -279,11 +279,11 @@ dependencies {
     implementation "androidx.compose.material:material-icons-core:$compose_version"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
     // Integration with activities
-    implementation 'androidx.activity:activity-compose:1.6.1'
+    implementation 'androidx.activity:activity-compose:1.7.0'
     // Integration with constraint layout
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
     // Integration with ViewModels
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1'
     // Integration with observables
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     implementation "androidx.compose.runtime:runtime-rxjava2:$compose_version"

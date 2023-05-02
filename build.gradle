@@ -2,10 +2,11 @@
 
 buildscript {
     ext {
+        // 2023년 5월 2일, compose 1.4.2가 kotlin 1.8.10을 요구함, 1.4.3은 아직 부속lib들이 update안됨.
         kotlin_version = '1.8.10'
         nav_version = '2.5.3'
         compose_version = '1.4.2'
-        hilt_version = '2.44'
+        hilt_version = '2.46'
     }
 
     repositories {
