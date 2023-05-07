@@ -71,6 +71,9 @@
        For only Barcode scan
    -->
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <!--
          DownloadManager: wifi바꾸니 작동함.
