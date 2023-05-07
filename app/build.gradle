@@ -42,14 +42,14 @@ if (propFile.canRead()) {
 
 
 android {
-    signingConfigs {
-        config {
-            keyAlias vkeyAlias
-            keyPassword vkeyPassword
-            storeFile rootProject.file(vkeyStore)
-            storePassword vstorePassword
-        }
-    }
+//    signingConfigs {
+//        config {
+//            keyAlias vkeyAlias
+//            keyPassword vkeyPassword
+//            storeFile rootProject.file(vkeyStore)
+//            storePassword vstorePassword
+//        }
+//    }
 
     compileSdkVersion 33
     buildToolsVersion "33.0.0"
