@@ -68,12 +68,12 @@ android {
 
     }
     buildTypes {
-        debug {
-            signingConfig signingConfigs.config
-        }
+//        debug {
+//            signingConfig signingConfigs.config
+//        }
 
         release {
-            signingConfig signingConfigs.config
+//            signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -263,6 +263,7 @@ dependencies {
     //// custom libs
     implementation project(':libMBase')
     //implementation(name:'libpicaon', ext:'aar')
+    //implementation 'com.github.happymario:template-android:v0.1'
 
     //
     // Compose
