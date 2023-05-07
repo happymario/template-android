@@ -262,8 +262,9 @@ dependencies {
     implementation 'com.blankj:utilcodex:1.31.0'
     //// custom libs
     implementation project(':libMBase')
+    //implementation 'com.github.happymario:template-android:0.0.1'
     //implementation(name:'libpicaon', ext:'aar')
-    //implementation 'com.github.happymario:template-android:v0.1'
+
 
     //
     // Compose
