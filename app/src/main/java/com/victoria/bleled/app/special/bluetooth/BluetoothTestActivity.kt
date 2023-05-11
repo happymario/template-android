@@ -212,13 +212,16 @@ class BluetoothTestActivity : BaseBindingActivity<ActivityTestBluetoothBinding>(
         when {
             btAdapter == null ->
                 CommonUtil.showToast(this, R.string.not_supported_feature)
+
             !btAdapter!!.isEnabled -> {
                 val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                 bluetoothSettingLauncher.launch(enableBtIntent)
             }
+
             btAdapter!!.isEnabled && !btAdapter!!.isMultipleAdvertisementSupported -> {
                 CommonUtil.showToast(this, R.string.msg_bluetooth_ads_not_support)
             }
+
             btAdapter!!.isEnabled && btAdapter!!.isMultipleAdvertisementSupported -> {
                 scan()
                 BleService.startServer(app = application)
@@ -283,8 +286,10 @@ class BluetoothTestActivity : BaseBindingActivity<ActivityTestBluetoothBinding>(
                         // object and its info from the Intent.
                         var device: BluetoothDevice? = null
                         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU) {
-                            device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE,
-                                BluetoothDevice::class.java)
+                            device = intent.getParcelableExtra(
+                                BluetoothDevice.EXTRA_DEVICE,
+                                BluetoothDevice::class.java
+                            )
                         } else {
                             device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
                         }
@@ -295,9 +300,12 @@ class BluetoothTestActivity : BaseBindingActivity<ActivityTestBluetoothBinding>(
                             deviceScanAdapter.addItem(device)
                         }
                     }
+
                     BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> {
-                        CommonUtil.showToast(this@BluetoothTestActivity,
-                            R.string.msg_search_complete)
+                        CommonUtil.showToast(
+                            this@BluetoothTestActivity,
+                            R.string.msg_search_complete
+                        )
                     }
                 }
             }
@@ -335,8 +343,10 @@ class BluetoothTestActivity : BaseBindingActivity<ActivityTestBluetoothBinding>(
             }
             val result = btAdapter?.startDiscovery()
             if (result == false) {
-                CommonUtil.showToast(this@BluetoothTestActivity,
-                    R.string.msg_not_find_device)
+                CommonUtil.showToast(
+                    this@BluetoothTestActivity,
+                    R.string.msg_not_find_device
+                )
             }
         } else {
             val scanFilter = ScanFilter.Builder()
@@ -352,8 +362,10 @@ class BluetoothTestActivity : BaseBindingActivity<ActivityTestBluetoothBinding>(
     }
 
     private fun stopBleScanning() {
-        CommonUtil.showToast(this@BluetoothTestActivity,
-            R.string.msg_search_complete)
+        CommonUtil.showToast(
+            this@BluetoothTestActivity,
+            R.string.msg_search_complete
+        )
         bluetoothLeScanner?.stopScan(bleScanCallback)
         bleScanCallback = null
         // update 'last seen' times even though there are no new results
@@ -372,34 +384,44 @@ class BluetoothTestActivity : BaseBindingActivity<ActivityTestBluetoothBinding>(
                             connectedDevice = device
                             CommonUtil.showToast(activity, R.string.msg_connect_device)
                         }
+
                         BluetoothClassicService.STATE_CONNECTING -> showProgress()
                         BluetoothClassicService.STATE_LISTEN, BluetoothClassicService.STATE_NONE -> {
                             hideProgress()
                             CommonUtil.showToast(
                                 activity,
-                                R.string.msg_disconnect_device)
+                                R.string.msg_disconnect_device
+                            )
                         }
                     }
+
                     BluetoothClassicService.MESSAGE_WRITE -> {
                         //val writeBuf = msg.obj as ByteArray
                         // construct a string from the buffer
                         //val writeMessage = String(writeBuf)
                         //CommonUtil.showToast(activity, "Me:  $writeMessage")
                     }
+
                     BluetoothClassicService.MESSAGE_READ -> {
                         val readBuf = msg.obj as ByteArray
                         // construct a string from the valid bytes in the buffer
                         val readMessage = String(readBuf, 0, msg.arg1)
                         CommonUtil.showToast(activity, "Read:  $readMessage")
                     }
+
                     BluetoothClassicService.MESSAGE_DEVICE_NAME -> {
                         // save the connected device's name
-                        CommonUtil.showToast(activity, "Connected to "
-                                + connectedDevice?.name)
+                        CommonUtil.showToast(
+                            activity, "Connected to "
+                                    + connectedDevice?.name
+                        )
                     }
+
                     BluetoothClassicService.MESSAGE_TOAST -> if (null != activity) {
-                        Toast.makeText(activity, msg.data.getString(BluetoothClassicService.TOAST),
-                            Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            activity, msg.data.getString(BluetoothClassicService.TOAST),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
                 return true
@@ -427,11 +449,13 @@ class BluetoothTestActivity : BaseBindingActivity<ActivityTestBluetoothBinding>(
             if (BluetoothProfile.STATE_CONNECTED == state) {
                 CommonUtil.showToast(
                     this@BluetoothTestActivity,
-                    R.string.msg_connect_device)
+                    R.string.msg_connect_device
+                )
             } else if (BluetoothProfile.STATE_DISCONNECTED == state) {
                 CommonUtil.showToast(
                     this@BluetoothTestActivity,
-                    R.string.msg_disconnect_device)
+                    R.string.msg_disconnect_device
+                )
             }
         }
 
@@ -476,8 +500,10 @@ class BluetoothTestActivity : BaseBindingActivity<ActivityTestBluetoothBinding>(
         override fun onScanFailed(errorCode: Int) {
             super.onScanFailed(errorCode)
 
-            CommonUtil.showToast(this@BluetoothTestActivity,
-                R.string.msg_not_find_device)
+            CommonUtil.showToast(
+                this@BluetoothTestActivity,
+                R.string.msg_not_find_device
+            )
         }
 
         override fun onScanResult(callbackType: Int, result: ScanResult?) {

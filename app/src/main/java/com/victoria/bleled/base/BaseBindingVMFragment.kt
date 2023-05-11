@@ -55,11 +55,13 @@ abstract class BaseBindingVMFragment<VB : ViewDataBinding, VM : BaseViewModel>(
                     targetView?.visibility = View.GONE
                     emptyView?.visibility = View.GONE
                 }
+
                 is Resource.Error<*> -> {
                     loadingView?.visibility = View.GONE
                     targetView?.visibility = View.GONE
                     emptyView?.visibility = View.GONE
                 }
+
                 is Resource.Success<*> -> {
                     loadingView?.visibility = View.GONE
 
@@ -86,16 +88,19 @@ abstract class BaseBindingVMFragment<VB : ViewDataBinding, VM : BaseViewModel>(
 //                        message("네트워크 오류.\n인터넷의 연결상태를 확인 후 다시 시도하세요.")
 //                    }
                 }
+
                 is AppException.ServerHttp -> {
 //                    AlertDialog(requireContext()).show {
 //                        message("잘못된 방식의 요청입니다.\n서버 관리자에게 문의하세요.")
 //                    }
                 }
+
                 is AppException.Unknown -> {
 //                    AlertDialog(requireContext()).show {
 //                        message("알 수 없는 에러:\n" + exception.throwable)
 //                    }
                 }
+
                 else -> {}
             }
         })

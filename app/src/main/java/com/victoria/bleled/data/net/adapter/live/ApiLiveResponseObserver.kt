@@ -77,7 +77,8 @@ open class ApiLiveResponseObserver<T> : Observer<ApiLiveResponse<T>> {
             return if (result.error != null && result.error is AppException.ServerHttp) {
                 val exception = result.error as AppException.ServerHttp
                 if (exception.message != null) exception.message else p_context!!.resources.getString(
-                    R.string.server_problem)
+                    R.string.server_problem
+                )
             } else {
                 p_context!!.resources.getString(R.string.network_connect_error)
             }

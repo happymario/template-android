@@ -10,7 +10,8 @@ import com.victoria.bleled.R
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.view.calendar.BaseCalendarView
 import com.victoria.bleled.util.view.calendar.MonthCalendarAdapter
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 class CalendarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

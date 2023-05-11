@@ -4,7 +4,11 @@ import android.net.http.SslError
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.webkit.*
+import android.webkit.JavascriptInterface
+import android.webkit.SslErrorHandler
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -106,7 +110,7 @@ class WebViewActivity : AppCompatActivity() {
         @JavascriptInterface
         fun getHtml(html: String) {
             val source = html
-            Log.e("html: ",source)
+            Log.e("html: ", source)
 
             val doc = Jsoup.parse(source)
 

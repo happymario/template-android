@@ -34,14 +34,19 @@ fun <T : ViewModel> createViewModel(dataRepository: MyTemplateRepository, modelC
         when {
             isAssignableFrom(SplashViewModel::class.java) ->
                 SplashViewModel(dataRepository)
+
             isAssignableFrom(UserViewModel::class.java) ->
                 UserViewModel(dataRepository)
+
             isAssignableFrom(MainViewModel::class.java) ->
                 MainViewModel(dataRepository)
+
             isAssignableFrom(SettingViewModel::class.java) ->
                 SettingViewModel(dataRepository)
+
             isAssignableFrom(BluetoothViewModel::class.java) ->
                 BluetoothViewModel(dataRepository)
+
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

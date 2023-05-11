@@ -14,7 +14,7 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.victoria.bleled.R
 import com.victoria.bleled.util.feature.LocaleUtil
-import java.util.*
+import java.util.Locale
 
 open class BaseActivity : AppCompatActivity() {
     /************************************************************
@@ -132,8 +132,10 @@ open class BaseActivity : AppCompatActivity() {
         mProgressDialog!!.setContentView(linearLayout)
         val progressBar = mProgressDialog!!.findViewById<ProgressBar>(R.id.progressBar1)
         progressBar.isIndeterminate = true
-        progressBar.indeterminateDrawable.setColorFilter(resources.getColor(R.color.colorAccent),
-            PorterDuff.Mode.MULTIPLY)
+        progressBar.indeterminateDrawable.setColorFilter(
+            resources.getColor(R.color.colorAccent),
+            PorterDuff.Mode.MULTIPLY
+        )
     }
 
     private fun dismissWithTryCatch(dialog: Dialog) {

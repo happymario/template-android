@@ -60,7 +60,8 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(gson: Gson, httpClient: OkHttpClient) = RetrofitHelper.createRetrofit(
-        IGithubService.API_BASE_URL, CoroutinesResponseCallAdapterFactory())
+        IGithubService.API_BASE_URL, CoroutinesResponseCallAdapterFactory()
+    )
 
     @Provides
     @Singleton

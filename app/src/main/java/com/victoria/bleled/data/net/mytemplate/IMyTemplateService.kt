@@ -96,9 +96,11 @@ interface IMyTemplateService {
 
         @JvmStatic
         fun provideMyTemplateService(): IMyTemplateService? {
-            val retrofit = RetrofitHelper.createRetrofit(API_BASE_URL,
+            val retrofit = RetrofitHelper.createRetrofit(
+                API_BASE_URL,
                 LiveDataCallAdapterFactory(),
-                getCommonParams())
+                getCommonParams()
+            )
             return retrofit.create(IMyTemplateService::class.java)
         }
     }

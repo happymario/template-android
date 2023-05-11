@@ -4,7 +4,6 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.victoria.bleled.base.internal.AppException
 import com.victoria.bleled.base.internal.SingleLiveEvent
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -51,12 +50,15 @@ open class BaseViewModel : ViewModel() {
                 is AppException.ServerHttp -> {
                     _error.value = throwable
                 }
+
                 is AppException.Network -> {
                     _error.value = throwable
                 }
+
                 is AppException.Handle -> {
                     handle(throwable)
                 }
+
                 else -> {
                     _error.value = AppException.Unknown(throwable)
                 }

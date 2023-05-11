@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.ViewCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.appbar.AppBarLayout
@@ -34,7 +33,12 @@ import com.victoria.bleled.util.feature.IntentShareUtils
 import java.lang.Math.abs
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
-import javax.net.ssl.*
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.HttpsURLConnection
+import javax.net.ssl.SSLContext
+import javax.net.ssl.SSLSession
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
 
 
 class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
@@ -116,7 +120,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         super.onBackPressed()
     }
 
-    fun onFab(view:View) {
+    fun onFab(view: View) {
         CommonUtil.showNIToast(this)
 
         val bitmap = IntentShareUtils.captureBitmapFromView(binding.root)
@@ -160,6 +164,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
                     showLogoutDlg()
                     false
                 }
+
                 else -> {
                     true
                 }

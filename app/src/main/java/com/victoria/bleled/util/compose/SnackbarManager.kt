@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import java.util.*
+import java.util.UUID
 
 data class Message(val id: Long, @StringRes val messageId: Int)
 
@@ -18,8 +18,10 @@ object SnackbarManager {
 
     fun showMessage(@StringRes messageTextId: Int) {
         _messages.update { currentMessages ->
-            currentMessages + Message(id = UUID.randomUUID().mostSignificantBits,
-                messageId = messageTextId)
+            currentMessages + Message(
+                id = UUID.randomUUID().mostSignificantBits,
+                messageId = messageTextId
+            )
         }
     }
 

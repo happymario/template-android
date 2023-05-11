@@ -29,10 +29,12 @@ inline fun <T : Resource<R>, R> LiveData<T>.observeResource2(
                 loadingView?.visibility = View.VISIBLE
                 targetView?.visibility = View.GONE
             }
+
             is Resource.Error<*> -> {
                 loadingView?.visibility = View.GONE
                 targetView?.visibility = View.GONE
             }
+
             is Resource.Success<*> -> {
                 loadingView?.visibility = View.GONE
                 targetView?.visibility = View.VISIBLE

@@ -20,9 +20,11 @@ class CoroutinesResponseCallAdapterFactory : CallAdapter.Factory() {
                     val resultType = getParameterUpperBound(0, callType as ParameterizedType)
                     CoroutinesResponseCallAdapter(resultType)
                 }
+
                 else -> null
             }
         }
+
         else -> null
     }
 }

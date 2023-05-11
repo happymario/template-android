@@ -1,7 +1,12 @@
 package com.victoria.bleled.app.recent.compose.main
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -54,8 +59,10 @@ fun Essential(
                         scrollState.animateScrollToItem(0)
                     }
                 }) {
-                Text("Scroll to the top",
-                    color = Color.White)
+                Text(
+                    "Scroll to the top",
+                    color = Color.White
+                )
             }
             Spacer(modifier = Modifier.width(10.dp))
             Button(
@@ -64,13 +71,16 @@ fun Essential(
                         scrollState.animateScrollToItem(essentialList.size - 1)
                     }
                 }) {
-                Text("Scroll to the bottom",
-                    color = Color.White)
+                Text(
+                    "Scroll to the bottom",
+                    color = Color.White
+                )
             }
         }
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
-            state = scrollState) {
+            state = scrollState
+        ) {
             items(
                 items = essentialList,
                 itemContent = {
@@ -85,9 +95,11 @@ fun Essential(
 @Composable
 fun ImageListItem(item: String) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Image(painter = rememberImagePainter(data = "https://developer.android.com/images/brand/Android_Robot.png"),
+        Image(
+            painter = rememberImagePainter(data = "https://developer.android.com/images/brand/Android_Robot.png"),
             contentDescription = "Android Logo",
-            modifier = Modifier.size(50.dp))
+            modifier = Modifier.size(50.dp)
+        )
         Spacer(Modifier.width(10.dp))
         Text("Item #$item", color = MaterialTheme.colors.onSecondary)
     }

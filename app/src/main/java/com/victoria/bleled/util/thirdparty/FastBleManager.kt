@@ -189,7 +189,7 @@ class FastBleManager(var application: Application) {
             BleManager.getInstance().connect(mBleDevice, object : BleGattCallback() {
                 override fun onStartConnect() {}
                 override fun onConnectFail(
-                    bleDevice: BleDevice, exception: BleException
+                    bleDevice: BleDevice, exception: BleException,
                 ) {
                     Timber.d(exception.toString())
 
@@ -200,7 +200,7 @@ class FastBleManager(var application: Application) {
                 }
 
                 override fun onConnectSuccess(
-                    bleDevice: BleDevice, gatt: BluetoothGatt, status: Int
+                    bleDevice: BleDevice, gatt: BluetoothGatt, status: Int,
                 ) {
                     mBleGattProfile = gatt
                     initReadListener()
@@ -213,7 +213,7 @@ class FastBleManager(var application: Application) {
                     isActiveDisConnected: Boolean,
                     device: BleDevice,
                     gatt: BluetoothGatt,
-                    status: Int
+                    status: Int,
                 ) {
                     if (mListener != null) {
                         mListener!!.onDisconnected()
@@ -256,7 +256,7 @@ class FastBleManager(var application: Application) {
                     data,
                     object : BleWriteCallback() {
                         override fun onWriteSuccess(
-                            current: Int, total: Int, justWrite: ByteArray
+                            current: Int, total: Int, justWrite: ByteArray,
                         ) {
                             Timber.d("자료가 전송되었습니다.")
                             listener?.onResult(true)

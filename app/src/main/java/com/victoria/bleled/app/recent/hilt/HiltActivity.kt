@@ -10,6 +10,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class HiltActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.hilt_activity)
+        setContentView(R.layout.github_hilt_activity)
     }
 }

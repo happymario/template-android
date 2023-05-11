@@ -22,7 +22,7 @@ import dagger.hilt.android.HiltAndroidApp
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.io.Writer
-import java.util.*
+import java.util.Locale
 
 @HiltAndroidApp
 class MyApplication : Application() {

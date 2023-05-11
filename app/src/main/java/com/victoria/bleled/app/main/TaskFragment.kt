@@ -13,14 +13,17 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.SystemClock
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.viewModels
-import androidx.work.*
+import androidx.work.BackoffPolicy
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.victoria.bleled.R
 import com.victoria.bleled.app.MyApplication
 import com.victoria.bleled.app.essential.CameraTestActivity
@@ -41,7 +44,7 @@ import com.victoria.bleled.databinding.FragmentMainBinding
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.feature.gallary.Gallary
 import timber.log.Timber
-import java.util.*
+import java.util.Locale
 
 
 class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
@@ -178,9 +181,9 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                 .setAllowedOverMetered(true)
                 .setAllowedOverRoaming(false)
-                .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES,"fileName")
+                .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES, "fileName")
             val reference: Long = manager.enqueue(request)
-            requireActivity().registerReceiver(object : BroadcastReceiver(){
+            requireActivity().registerReceiver(object : BroadcastReceiver() {
                 override fun onReceive(context: Context?, intent: Intent?) {
                     Timber.tag("Download").d("1%s", reference.toString())
                 }

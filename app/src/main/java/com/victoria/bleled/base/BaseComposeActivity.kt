@@ -102,8 +102,10 @@ abstract class BaseComposeActivity<VM : BaseViewModel> : ComponentActivity() {
         mProgressDialog!!.setContentView(linearLayout)
         val progressBar = mProgressDialog!!.findViewById<ProgressBar>(R.id.progressBar1)
         progressBar.isIndeterminate = true
-        progressBar.indeterminateDrawable.setColorFilter(resources.getColor(R.color.colorAccent),
-            PorterDuff.Mode.MULTIPLY)
+        progressBar.indeterminateDrawable.setColorFilter(
+            resources.getColor(R.color.colorAccent),
+            PorterDuff.Mode.MULTIPLY
+        )
     }
 
     private fun dismissWithTryCatch(dialog: Dialog) {

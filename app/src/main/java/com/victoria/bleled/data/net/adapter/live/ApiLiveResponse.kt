@@ -2,7 +2,8 @@ package com.victoria.bleled.data.net.adapter.live
 
 import com.victoria.bleled.data.net.adapter.ApiResponse
 
-open class ApiLiveResponse<T> constructor(var status: Status, var data: T?, var error: Throwable?) : ApiResponse<T>(){
+open class ApiLiveResponse<T> constructor(var status: Status, var data: T?, var error: Throwable?) :
+    ApiResponse<T>() {
 
     enum class Status(private val value: Int) {
         none(0), loading(2), success(1), error(-1);

@@ -12,7 +12,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
@@ -78,7 +77,7 @@ public class ImageFileLoader {
         @Override
         public void run() {
             Cursor cursor;
-            Uri collection =  MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            Uri collection = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 collection = MediaStore.Images.Media.getContentUri(
                         MediaStore.VOLUME_EXTERNAL

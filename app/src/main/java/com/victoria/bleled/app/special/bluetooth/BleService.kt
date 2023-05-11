@@ -281,13 +281,15 @@ object BleService {
             offset: Int,
             value: ByteArray?,
         ) {
-            super.onCharacteristicWriteRequest(device,
+            super.onCharacteristicWriteRequest(
+                device,
                 requestId,
                 characteristic,
                 preparedWrite,
                 responseNeeded,
                 offset,
-                value)
+                value
+            )
             if (characteristic.uuid == MESSAGE_UUID) {
                 gattServer?.sendResponse(device, requestId, BluetoothGatt.GATT_SUCCESS, 0, null)
                 val message = value?.toString(Charsets.UTF_8)
@@ -304,8 +306,10 @@ object BleService {
             super.onConnectionStateChange(gatt, status, newState)
             val isSuccess = status == BluetoothGatt.GATT_SUCCESS
             val isConnected = newState == BluetoothProfile.STATE_CONNECTED
-            Log.d(TAG,
-                "onConnectionStateChange: Client $gatt  success: $isSuccess connected: $isConnected")
+            Log.d(
+                TAG,
+                "onConnectionStateChange: Client $gatt  success: $isSuccess connected: $isConnected"
+            )
             // try to send a message to the other device as a test
             if (isSuccess && isConnected) {
                 // discover services
