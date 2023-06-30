@@ -1,4 +1,4 @@
-package com.victoria.bleled.data.net.repository
+package com.victoria.bleled.data.repository
 
 
 import androidx.annotation.WorkerThread
@@ -11,7 +11,7 @@ import javax.inject.Singleton
 @Singleton
 class GithubSearchRepository @Inject constructor(
     private val apiService: IGithubService,
-) : Repository() {
+) : BaseRepository() {
 
     @WorkerThread
     fun fetchRepoList(page: Int, search: String) = flow {

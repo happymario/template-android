@@ -2,18 +2,24 @@ package com.victoria.bleled.app
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.victoria.bleled.base.BaseViewModel
 import com.victoria.bleled.base.internal.Event
-import com.victoria.bleled.common.manager.PrefManager.Companion.getInstance
 import com.victoria.bleled.data.model.ModelAppInfo
 import com.victoria.bleled.data.model.ModelUser
 import com.victoria.bleled.data.net.adapter.live.ApiLiveResponse
 import com.victoria.bleled.data.net.adapter.live.ApiLiveResponseObserver
 import com.victoria.bleled.data.net.mytemplate.response.RespData
-import com.victoria.bleled.data.net.repository.MyTemplateRepository
+import com.victoria.bleled.data.repository.DataStoreKey
+import com.victoria.bleled.data.repository.DataStoreRepository
+import com.victoria.bleled.data.repository.MyTemplateRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SplashViewModel constructor(
+@HiltViewModel
+class SplashViewModel @Inject constructor(
     private val repository: MyTemplateRepository,
+    private val dataRepository: DataStoreRepository,
 ) : BaseViewModel() {
     /************************************************************
      *  Variables
@@ -35,7 +41,7 @@ class SplashViewModel constructor(
      *  Private Functions
      ************************************************************/
     private fun loadAppInfo() {
-        val api = repository.remoteService.appInfo("android")
+        val api = repository.apiService.appInfo("android")
 
 //        _dataLoading.value = true
         repository.callApi(api, object : ApiLiveResponseObserver<RespData<ModelAppInfo>>() {
@@ -43,15 +49,18 @@ class SplashViewModel constructor(
                 super.onChanged(result)
 
                 if (result.status == ApiLiveResponse.Status.success) {
+                    val appInfo = result.data?.data
 
                     // get last location from preference
-                    val prefDataSource = getInstance()
-                    prefDataSource.appInfo = result.data!!.data
+                    viewModelScope.launchInSafe {
+                        dataRepository.setModel(appInfo)
 
-                    if (prefDataSource.user != null) {
-                        loginUser(prefDataSource.user!!)
-                    } else {
-                        _openEvent.value = Event(0)
+                        val user = dataRepository.getModel(ModelUser::class.java)
+                        if (user != null) {
+                            loginUser(user)
+                        } else {
+                            _openEvent.value = Event(0)
+                        }
                     }
 
 //                    _dataLoading.value = false
@@ -65,12 +74,12 @@ class SplashViewModel constructor(
         })
     }
 
-    fun loginUser(user: ModelUser) {
-        val prefDataSource = getInstance()
-        val api = repository.remoteService.userLogin(
+    suspend fun loginUser(user: ModelUser) {
+        val token = dataRepository.getString(DataStoreKey.PREFS_PUSH_TOKEN)
+        val api = repository.apiService.userLogin(
             user.id!!,
             user.pwd,
-            if (prefDataSource.pushToken != null) prefDataSource.pushToken!! else "",
+            token ?: "",
             "android"
         )
 
@@ -83,7 +92,10 @@ class SplashViewModel constructor(
                     if (result.status == ApiLiveResponse.Status.success) {
                         val newUser = result.data!!.data
                         newUser?.pwd = user.pwd
-                        prefDataSource.user = newUser
+
+                        viewModelScope.launchInSafe {
+                            dataRepository.setModel(newUser)
+                        }
 
                         _openEvent.value = Event(1)
                     } else if (result.status == ApiLiveResponse.Status.error) {

@@ -34,6 +34,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,16 +55,18 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
 import com.victoria.bleled.R
-import com.victoria.bleled.app.ViewModelFactory
 import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.app.recent.compose.components.MySurface
 import com.victoria.bleled.app.theme.MyApplicationTheme
 import com.victoria.bleled.base.BaseComposeActivity
 import com.victoria.bleled.common.Constants
-import com.victoria.bleled.data.net.repository.MyTemplateRepository
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.compose.supportWideScreen
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
@@ -81,10 +84,9 @@ fun SigninActivityPreviewDark() {
     }
 }
 
+@AndroidEntryPoint
 class SigninActivity : BaseComposeActivity<UserViewModel>() {
-    override val viewModel by viewModels<UserViewModel> {
-        ViewModelFactory(MyTemplateRepository.provideDataRepository(), this)
-    }
+    override val viewModel by viewModels<UserViewModel>()
 
     @Composable
     override fun ComposeContent() {
@@ -97,7 +99,9 @@ class SigninActivity : BaseComposeActivity<UserViewModel>() {
                             viewModel.id.value = it.email
                             viewModel.pwd.value = it.pwd
 
-                            viewModel.loginUser()
+                            lifecycleScope.launch {
+                                viewModel.loginUser()
+                            }
                         }
 
                         SignInEvent.Ask -> CommonUtil.gotoPhone(

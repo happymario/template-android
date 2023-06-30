@@ -88,7 +88,7 @@ interface IMyTemplateService {
         const val API_BASE_URL = "$BASE_URL/api/"
         const val API_KEY = "clubonline20200519key"
 
-        private fun getCommonParams(): AddParamsInterceptor? {
+        fun getCommonParams(): AddParamsInterceptor? {
             return AddParamsInterceptor.Builder()
                 .addParameter("Authorization", "")
                 .build()

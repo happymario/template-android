@@ -10,13 +10,14 @@ import androidx.activity.viewModels
 import com.victoria.bleled.R
 import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.base.BaseBindingActivity
-import com.victoria.bleled.base.extensions.getViewModelFactory
 import com.victoria.bleled.common.Constants
 import com.victoria.bleled.common.manager.MediaManager
 import com.victoria.bleled.databinding.ActivitySignupBinding
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.feature.PermissionUtil
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignupActivity : BaseBindingActivity<ActivitySignupBinding>() {
     /************************************************************
      *  Static & Global Members
@@ -31,7 +32,7 @@ class SignupActivity : BaseBindingActivity<ActivitySignupBinding>() {
     /************************************************************
      *  UI controls & Data members
      ************************************************************/
-    private val viewModel by viewModels<UserViewModel> { getViewModelFactory() }
+    private val viewModel by viewModels<UserViewModel> ()
     private val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
             if (PermissionUtil.isPermisionsRevoked(this, CAMERA_GALLERY_PERMISSIONS)) {

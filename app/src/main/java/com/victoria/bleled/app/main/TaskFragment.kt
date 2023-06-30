@@ -36,17 +36,18 @@ import com.victoria.bleled.app.recent.hilt.HiltActivity
 import com.victoria.bleled.app.special.bluetooth.BluetoothTestActivity
 import com.victoria.bleled.app.special.calendar.CalendarActivity
 import com.victoria.bleled.base.BaseBindingFragment
-import com.victoria.bleled.base.extensions.getViewModelFactory
 import com.victoria.bleled.base.internal.EventObserver
 import com.victoria.bleled.common.Constants
 import com.victoria.bleled.common.receiver.AlarmReceiver
 import com.victoria.bleled.databinding.FragmentMainBinding
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.feature.gallary.Gallary
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.Locale
 
 
+@AndroidEntryPoint
 class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
     /************************************************************
      *  Static & Global Members
@@ -88,9 +89,7 @@ class TaskFragment : BaseBindingFragment<FragmentMainBinding>() {
 //        val viewModel by activityViewModels<MainViewModel> {
 //            getViewModelFactory()
 //        }
-        val viewModel by viewModels<MainViewModel> {
-            getViewModelFactory()
-        }
+        val viewModel by viewModels<MainViewModel> ()
         this.viewModel = viewModel
         binding.apply {
             viewmodel = this@TaskFragment.viewModel

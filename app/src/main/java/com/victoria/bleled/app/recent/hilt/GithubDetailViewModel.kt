@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.victoria.bleled.base.BaseViewModel
 import com.victoria.bleled.data.model.ModelUser
-import com.victoria.bleled.data.net.repository.GithubSearchRepository
+import com.victoria.bleled.data.repository.GithubSearchRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

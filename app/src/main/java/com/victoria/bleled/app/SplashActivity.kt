@@ -16,14 +16,15 @@ import androidx.core.animation.doOnEnd
 import com.victoria.bleled.app.auth.SigninActivity
 import com.victoria.bleled.app.main.MainActivity
 import com.victoria.bleled.base.BaseActivity
-import com.victoria.bleled.base.extensions.getViewModelFactory
 import com.victoria.bleled.base.internal.EventObserver
 import com.victoria.bleled.common.Constants
 import com.victoria.bleled.util.feature.PermissionUtil
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.Duration
 import java.time.Instant
 
 
+@AndroidEntryPoint
 class SplashActivity : BaseActivity() {
     /************************************************************
      *  Static & Global Members
@@ -46,7 +47,7 @@ class SplashActivity : BaseActivity() {
     /************************************************************
      *  UI controls & Data members
      ************************************************************/
-    private val viewModel by viewModels<SplashViewModel> { getViewModelFactory() }
+    private val viewModel by viewModels<SplashViewModel>()
     private val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
             if (PermissionUtil.isPermisionsRevoked(this, requiredPermissions)) {

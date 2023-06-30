@@ -1,9 +1,9 @@
-package com.victoria.bleled.common.manager
+package com.victoria.bleled.util.feature
 
 import android.content.Context
 import java.io.*
 
-class FileManager(private val context: Context) {
+class FileUtils(private val context: Context) {
     private val rootFolder: File = context.filesDir
 
     private fun getRootFolder(): String {

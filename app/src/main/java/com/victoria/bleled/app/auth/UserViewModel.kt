@@ -2,23 +2,28 @@ package com.victoria.bleled.app.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.victoria.bleled.app.MyApplication
 import com.victoria.bleled.base.BaseViewModel
 import com.victoria.bleled.base.internal.Event
-import com.victoria.bleled.common.manager.PrefManager
 import com.victoria.bleled.data.model.ModelUpload
 import com.victoria.bleled.data.model.ModelUser
 import com.victoria.bleled.data.net.adapter.live.ApiLiveResponse
 import com.victoria.bleled.data.net.adapter.live.ApiLiveResponseObserver
 import com.victoria.bleled.data.net.mytemplate.response.RespData
-import com.victoria.bleled.data.net.repository.MyTemplateRepository
+import com.victoria.bleled.data.repository.DataStoreKey
+import com.victoria.bleled.data.repository.DataStoreRepository
+import com.victoria.bleled.data.repository.MyTemplateRepository
 import com.victoria.bleled.util.CommonUtil
+import dagger.hilt.android.lifecycle.HiltViewModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
+import javax.inject.Inject
 
-class UserViewModel constructor(private val repository: MyTemplateRepository) : BaseViewModel() {
+@HiltViewModel
+class UserViewModel @Inject constructor(private val repository: MyTemplateRepository, private val dataRepository:DataStoreRepository) : BaseViewModel() {
     /************************************************************
      *  Variables
      ************************************************************/
@@ -51,7 +56,7 @@ class UserViewModel constructor(private val repository: MyTemplateRepository) : 
             arrMultipartBody.add(multipartBody)
         }*/
 
-        val api = repository.remoteService.upload(multipartBody)
+        val api = repository.apiService.upload(multipartBody)
 //        _dataLoading.value = true
         repository.callApi(api, object : ApiLiveResponseObserver<RespData<ModelUpload>>() {
             override fun onChanged(result: ApiLiveResponse<RespData<ModelUpload>>) {
@@ -70,7 +75,7 @@ class UserViewModel constructor(private val repository: MyTemplateRepository) : 
     }
 
 
-    fun loginUser() {
+    suspend fun loginUser() {
         val context = MyApplication.globalApplicationContext
         if (id.value == null || !CommonUtil.isValidEmail(id.value)) {
 //            _toastMessage.value = context?.getString(R.string.input_valid_email)
@@ -82,11 +87,11 @@ class UserViewModel constructor(private val repository: MyTemplateRepository) : 
             return
         }
 
-        val prefDataSource = PrefManager.getInstance()
-        val api = repository.remoteService.userLogin(
+        val token = dataRepository.getString(DataStoreKey.PREFS_PUSH_TOKEN)
+        val api = repository.apiService.userLogin(
             id.value!!,
             pwd.value!!,
-            if (prefDataSource.pushToken != null) prefDataSource.pushToken!! else "",
+            token ?: "",
             "android"
         )
 
@@ -99,7 +104,11 @@ class UserViewModel constructor(private val repository: MyTemplateRepository) : 
                     if (result.status == ApiLiveResponse.Status.success) {
                         val user = result.data!!.data
                         user?.pwd = pwd.value!!
-                        prefDataSource.user = user
+
+                        viewModelScope.launchInSafe {
+                            dataRepository.setModel(user)
+                        }
+
                         _loginCompleteEvent.value = Event(Unit)
                     } else if (result.status == ApiLiveResponse.Status.error) {
 //                        _networkErrorLiveData.value = result
@@ -127,7 +136,7 @@ class UserViewModel constructor(private val repository: MyTemplateRepository) : 
             return
         }
 
-        val api = repository.remoteService.userSignup(
+        val api = repository.apiService.userSignup(
             id.value!!,
             pwd.value!!,
             if (profile.value != null) profile.value!!.file_url else "",
@@ -140,7 +149,9 @@ class UserViewModel constructor(private val repository: MyTemplateRepository) : 
 
                 if (result != null && result.status != ApiLiveResponse.Status.loading) {
                     if (result.status == ApiLiveResponse.Status.success) {
-                        loginUser()
+                        viewModelScope.launchInSafe {
+                            loginUser()
+                        }
                     } else if (result.status == ApiLiveResponse.Status.error) {
 //                        _networkErrorLiveData.value = result
                     }

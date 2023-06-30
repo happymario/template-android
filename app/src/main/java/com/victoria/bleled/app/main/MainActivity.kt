@@ -13,7 +13,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.SearchView
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.manager.Lifecycle
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayoutMediator
@@ -24,12 +27,14 @@ import com.victoria.bleled.app.dialog.AlertDialog
 import com.victoria.bleled.app.etc.WebViewActivity
 import com.victoria.bleled.app.more.SettingActivity
 import com.victoria.bleled.base.BaseBindingActivity
-import com.victoria.bleled.base.extensions.getViewModelFactory
 import com.victoria.bleled.common.Constants
 import com.victoria.bleled.databinding.ActivityMainBinding
 import com.victoria.bleled.service.billing.BillingDataSource
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.feature.IntentShareUtils
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.lang.Math.abs
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
@@ -40,7 +45,7 @@ import javax.net.ssl.SSLSession
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
-
+@AndroidEntryPoint
 class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
     /************************************************************
      *  Static & Global Members
@@ -52,7 +57,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
      ************************************************************/
     private var pagerAdapter: MainPagerAdapter? = null
     private lateinit var billingDataSource: BillingDataSource
-    private val viewModel by viewModels<MainViewModel> { getViewModelFactory() }
+    private val viewModel by viewModels<MainViewModel> ()
     private var isFinishAppWhenPressedBackKey = true
     private var isFinishDoing = false
 
@@ -70,7 +75,9 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         initView()
         initViewModel()
 
-        viewModel.start()
+        lifecycleScope.launch {
+            viewModel.start()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -336,7 +343,9 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
         AlertDialog.Builder(this)
             .setMessage(getString(R.string.msg_logout))
             .setPositiveButton(R.string.confirm) { dialog, which ->
-                viewModel.logout()
+                lifecycleScope.launch {
+                    viewModel.logout()
+                }
             }
             .setNegativeButton(R.string.cancel) { dialog, which ->
             }

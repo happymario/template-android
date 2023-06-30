@@ -108,10 +108,10 @@ public class GPSManager extends Service {
 //        bestAccuracy = location.getAccuracy();
             lastLocation = location;
             if (lastLocation != null) {
-                PrefManager dataManager = PrefManager.getInstance(mContext);
-
-                dataManager.setLatitude(lastLocation.getLatitude());
-                dataManager.setLongitude(lastLocation.getLongitude());
+//                PrefManager dataManager = PrefManager.getInstance(mContext);
+//
+//                dataManager.setLatitude(lastLocation.getLatitude());
+//                dataManager.setLongitude(lastLocation.getLongitude());
             }
 
             Intent retIntent = new Intent(Constants.BROADCAST_UPDATE_GPS);
@@ -134,10 +134,10 @@ public class GPSManager extends Service {
             if (locationList.size() > 0) {
                 lastLocation = locationList.get(locationList.size() - 1);
                 if (lastLocation != null) {
-                    PrefManager dataManager = PrefManager.getInstance(mContext);
-
-                    dataManager.setLatitude(lastLocation.getLatitude());
-                    dataManager.setLongitude(lastLocation.getLongitude());
+//                    PrefManager dataManager = PrefManager.getInstance(mContext);
+//
+//                    dataManager.setLatitude(lastLocation.getLatitude());
+//                    dataManager.setLongitude(lastLocation.getLongitude());
                 }
 
                 Intent retIntent = new Intent(Constants.BROADCAST_UPDATE_GPS);
@@ -170,10 +170,10 @@ public class GPSManager extends Service {
         lastLocation.setLatitude(latitude);
         lastLocation.setLongitude(longitude);
 
-        PrefManager dataManager = PrefManager.getInstance(mContext);
-
-        dataManager.setLatitude(latitude);
-        dataManager.setLongitude(longitude);
+//        PrefManager dataManager = PrefManager.getInstance(mContext);
+//
+//        dataManager.setLatitude(latitude);
+//        dataManager.setLongitude(longitude);
     }
 
     @Override
@@ -192,10 +192,10 @@ public class GPSManager extends Service {
         Location location = new Location("default");
 
         // get last location from preference
-        PrefManager dataManager = PrefManager.getInstance(mContext);
-        double latitude = dataManager.getLatitude();
-        double longitude = dataManager.getLongitude();
-        setLastLocation(latitude, longitude);
+//        PrefManager dataManager = PrefManager.getInstance(mContext);
+        double latitude = 0;//dataManager.getLatitude();
+        double longitude = 0;//dataManager.getLongitude();
+//        setLastLocation(latitude, longitude);
 
         try {
             locationManager = (LocationManager) mContext

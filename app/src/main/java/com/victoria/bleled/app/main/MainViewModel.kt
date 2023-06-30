@@ -9,13 +9,16 @@ import com.victoria.bleled.R
 import com.victoria.bleled.app.MyApplication
 import com.victoria.bleled.base.BaseViewModel
 import com.victoria.bleled.base.internal.Event
-import com.victoria.bleled.common.manager.PrefManager
 import com.victoria.bleled.data.model.ModelUser
-import com.victoria.bleled.data.net.repository.MyTemplateRepository
+import com.victoria.bleled.data.repository.DataStoreRepository
+import com.victoria.bleled.data.repository.MyTemplateRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel constructor(private val repository: MyTemplateRepository) : BaseViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(private val repository: MyTemplateRepository, private  val dataStoreRepository: DataStoreRepository) : BaseViewModel() {
 
     private val _openTaskEvent = MutableLiveData<Event<View>>()
     val openTaskEvent: LiveData<Event<View>> = _openTaskEvent
@@ -55,9 +58,8 @@ class MainViewModel constructor(private val repository: MyTemplateRepository) : 
         }
     }
 
-    fun start() {
-        val prefDataSource = PrefManager.getInstance()
-        var user = prefDataSource.user
+    suspend fun start() {
+        var user = dataStoreRepository.getModel(ModelUser::class.java)
         if (user == null) {
             user = ModelUser(0)
             user.name = "Guest"
@@ -70,9 +72,9 @@ class MainViewModel constructor(private val repository: MyTemplateRepository) : 
         _openTaskEvent.value = Event(view)
     }
 
-    fun logout() {
-        val prefDataSource = PrefManager.getInstance()
-        prefDataSource.user = null
+    suspend fun logout() {
+        val user:ModelUser? = null
+        dataStoreRepository.setModel(user)
         _userInfo.value = null
     }
 

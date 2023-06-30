@@ -24,10 +24,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.victoria.bleled.R
 import com.victoria.bleled.base.BaseBindingActivity
-import com.victoria.bleled.base.extensions.getViewModelFactory
 import com.victoria.bleled.databinding.ActivityTestBluetoothBinding
 import com.victoria.bleled.util.CommonUtil
 import com.victoria.bleled.util.feature.PermissionUtil
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val SCAN_PERIOD_IN_MILLIS: Long = 10_000
 
@@ -42,6 +42,7 @@ private const val SCAN_PERIOD_IN_MILLIS: Long = 10_000
  *  현재 소스는 test용으로만 리용하자.
  *  https://github.com/android/connectivity-samples 최신 update되면 좋겠는데..
  ************************************************************/
+@AndroidEntryPoint
 @SuppressWarnings("MissingPermission")
 class BluetoothTestActivity : BaseBindingActivity<ActivityTestBluetoothBinding>() {
     /************************************************************
@@ -54,7 +55,7 @@ class BluetoothTestActivity : BaseBindingActivity<ActivityTestBluetoothBinding>(
     /************************************************************
      *  UI controls & Data members
      ************************************************************/
-    private val viewModel by viewModels<BluetoothViewModel> { getViewModelFactory() }
+    private val viewModel by viewModels<BluetoothViewModel> ()
 
     private val bluetoothSettingLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->

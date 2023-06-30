@@ -14,6 +14,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
@@ -25,7 +26,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
-import com.victoria.bleled.app.ViewModelFactory2
 import com.victoria.bleled.app.main.MainViewModel
 import kotlinx.coroutines.launch
 
@@ -43,10 +43,12 @@ fun Essential(
     val scrollState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
 
-    val viewModel: MainViewModel = viewModel(factory = ViewModelFactory2(LocalContext.current))
+    val viewModel: MainViewModel = viewModel()
     val essentialList by viewModel.items.observeAsState(emptyList())
 
-    viewModel.start()
+    LaunchedEffect(Unit) {
+        viewModel.start()
+    }
     viewModel.setPage(0)
 
     Column(modifier = modifier) {

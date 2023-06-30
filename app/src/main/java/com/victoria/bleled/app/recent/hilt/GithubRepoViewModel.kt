@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.victoria.bleled.base.BaseViewModel
 import com.victoria.bleled.base.internal.ResourceLiveData
 import com.victoria.bleled.data.model.ModelUser
-import com.victoria.bleled.data.net.repository.GithubSearchRepository
+import com.victoria.bleled.data.repository.GithubSearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.single
 import javax.inject.Inject

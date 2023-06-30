@@ -5,15 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.victoria.bleled.common.manager.PrefManager;
+import com.victoria.bleled.data.repository.DataStoreRepository;
+
+import javax.inject.Inject;
 
 public class InstallReceiver extends BroadcastReceiver {
+    @Inject
+    DataStoreRepository dataStoreRepository;
+
     public void onReceive(Context context, Intent intent) {
         String rawReferrerString = intent.getStringExtra("referrer");
         if (rawReferrerString != null) {
             Log.i("MyApp", "Received the following intent " + rawReferrerString);
-            PrefManager dataSource = PrefManager.getInstance(context);
-            dataSource.setReferer(rawReferrerString);
+            //dataStoreRepository.putString(DataStoreKey.PREFS_REFERER, rawReferrerString, GlobalScope.INSTANCE.);
         }
     }
 }
