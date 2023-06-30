@@ -13,9 +13,13 @@ import com.victoria.bleled.data.model.ModelUser
 import com.victoria.bleled.data.repository.DataStoreRepository
 import com.victoria.bleled.data.repository.MyTemplateRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repository: MyTemplateRepository, private  val dataStoreRepository: DataStoreRepository) : BaseViewModel() {
@@ -46,6 +50,13 @@ class MainViewModel @Inject constructor(private val repository: MyTemplateReposi
         result
     }
 
+    // sharedflow는 Event같이 값이 없지만 구독을 해야 하는 객체일시
+    // replay = 0: 새로운 구독자에겐 이전 event를 전달하지 않음, extraBuffer:buffer크기, onBufferOverflow: buffer가득찾을때 처리
+    private val _systemEvent: MutableSharedFlow<Event<String>> =
+        MutableSharedFlow(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    val systemEvent = _systemEvent.asSharedFlow()
+
+
     val items: LiveData<List<String>> = _items
 
     private var currentPageIdx: Int = 0
@@ -55,7 +66,16 @@ class MainViewModel @Inject constructor(private val repository: MyTemplateReposi
             _queryState.collect { query ->
                 _query.value = query
             }
+
+            systemEvent.collect { systemEvent ->
+                TODO()
+            }
+
         }
+    }
+
+    suspend fun setSystemEvent(error:String) {
+        _systemEvent.emit(Event(error))
     }
 
     suspend fun start() {
