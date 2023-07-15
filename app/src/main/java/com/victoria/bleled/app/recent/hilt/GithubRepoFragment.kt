@@ -39,9 +39,7 @@ class GithubRepoFragment() :
         binding.rvItem.adapter = itemAdapter
         itemAdapter.onClickItem = {
             findNavController().navigate(
-                GithubRepoFragmentDirections.actionGithubRepoFragmentToGithubDetailFragment(
-                    it
-                )
+                GithubRepoFragmentDirections.actionGithubRepoFragmentToGithubDetailFragment()
             )
         }
 
