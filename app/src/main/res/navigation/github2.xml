@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph2"
+    app:startDestination="@id/githubRepoFragment">
+    <!-- 다른nav_graph이면 같은 id로 리용가능 -->
+    <fragment
+        android:id="@+id/githubRepoFragment"
+        android:name="com.victoria.bleled.app.recent.hilt.GithubRepoFragment"
+        android:label="GithubRepoFragment"
+        tools:layout="@layout/github_repo_fragment">
+        <action
+            android:id="@+id/action_githubRepoFragment_to_githubDetailFragment"
+            app:destination="@id/githubDetailFragment" />
+    </fragment>
+</navigation>
