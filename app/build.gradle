@@ -74,8 +74,8 @@ android {
 
         release {
             signingConfig signingConfigs.config
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'retrofit2.pro', 'gson.pro', 'okhttp3.pro', "firebase-crashlytics.pro"
         }
     }
 
@@ -132,7 +132,7 @@ android {
             def df = new SimpleDateFormat("yyMMddhhmmss")
             df.setTimeZone(TimeZone.getDefault())
             variant.outputs.all { output ->
-                outputFileName = new File("../", "template" + "_v" + defaultConfig.versionName + "_" + df.format(new Date()) + ".apk")
+                outputFileName = new File("../release/", "template" + "_v" + defaultConfig.versionName + "_" + df.format(new Date()) + ".apk")
             }
         }
     }
