@@ -1,85 +1,38 @@
-Android Samples App for built template library.
-============================================================
+# Android Template App With library
 
-* **This** is an Android Samples App using my-template libraries with glide, rxjava, dagger2, retrolambda and retrofit based on MVVM or MVP.
-*  **Templates** is a base libary and sample to help developing of android apps rapidly, that contains MVP and MVC patterns' base classes, many useful widgets and custom views, and also utils including retrofit, rxjava, guava and etc.
+* **This** is an Android Template App to test important functions in the latest version of Android SDK.
+*  **Template** is based on MVVM architecture that help developing of android apps rapidly 
+and contains base classes, many useful views and utils including retrofit, guava, exoplayer, logging and etc.
 
-## Samples
-* "Bluetooth": It contains to control power, lamp(led) and fan etc on Arduino board.
-* "Networking": It search Github and shows detail information by using Github API.
-* "Camera": It shows methods using camera and gallary classes.
-
-
-
-## Build Method
-
-* Download libary.
-* Import module in android studio.
-* Add "multiDexEnabled true" in gradle file of app directory.
-* Insert following section in build.gradle in app level.
-
+## :hammer: How to build app
+* Open this project in Android Studio 'Hedgehog'.
+* Add this line on build.gradle of 'app' level. 
 ````
 ....
-buildscript {
-    
-    repositories {
-        ....
-        maven {
-            url 'https://maven.fabric.io/public'
-        }
-    }
-    dependencies {
-        ....
-        classpath 'io.fabric.tools:gradle:1.24.4'
-    }
-}
+implementation 'com.github.happymario:template-android:0.0.2'
 ....
-allprojects {
-    repositories {
-        jcenter()
-        maven { url "https://jitpack.io" }
-    }
-}
-annotationProcessor "com.jakewharton:butterknife-compiler:8.5.1"
-annotationProcessor "com.google.dagger:dagger-compiler:2.0.2"
 ````
+* Run or debug this app.
 
+## :camera: Screenshots
+| Dark Mode | Light Mode |
+| :---: | :---: |
+| ![Main](data/images/main1.png) | ![Menu](data/images/main2.png) |
 
-Feature
--------
+## :ok_woman: Features
+* "Main": It contains with Menu, Animation, Camera&Gallery and Download functions.
+* "Recent": It contains with Background Utils, Compose and Hilt features that implements Github API View.
+* "Special": It shows methods using Bluetooth and Calenader Views.
 
-- [x] Android mini API 21.
-- [x] Bluetooth Serial Read Write.
-- [x] Arduino Uno R3.
-- [x] HC-06 bluetooth module.
-- [x] Kotlin.
-- [x] Blockcanary, Crystalic crash log Helper.
-
-
-Test
+## :blue_book: Test
 ----
-
-Remember to connect devices as follow. Have fun!
-
-<p align='center'>
-    <img src="https://github.com/happymario/BlueAutoHome/blob/master/screens/arduinoled3.png"/>
-</p>
-
-Branch
-------
-
-[OneWireArduino](https://github.com/happymario/OneWireArduino) for Android APP with Wired Sensors.
-
-Acknowledgements
-----------------
-
-- [BluetoothSPP](https://github.com/akexorcist/Android-BluetoothSPPLibrary)
+We are planning unit test cases on thia app. Have fun!
 
 
-Sponsor
+## :coffee: Sponsor
 -------
 
-- [VictoriaMobile] -- A fantastic mobile and web development company. 
+- [VictoriaMobile](http://inlight.xyz) -- A fantastic mobile and web development company. 
 
 
 
