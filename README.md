@@ -25,13 +25,10 @@ implementation 'com.github.happymario:template-android:0.0.2'
 * "Special": It shows methods using Bluetooth and Calenader Views.
 
 ## :blue_book: Test
-----
 We are planning unit test cases on thia app. Have fun!
 
 
 ## :coffee: Sponsor
--------
-
 - [VictoriaMobile](http://inlight.xyz) -- A fantastic mobile and web development company. 
 
 
