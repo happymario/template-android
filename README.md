@@ -15,7 +15,7 @@ implementation 'com.github.happymario:template-android:0.0.2'
 * Run or debug this app.
 
 ## :camera: Screenshots
-| Dark Mode | Light Mode |
+| Sign Up | Main |
 | :---: | :---: |
 | ![Main](data/images/main1.png) | ![Menu](data/images/main2.png) |
 
