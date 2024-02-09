@@ -75,6 +75,20 @@
 
     <!-- Login -->
     <string name="login">Login</string>
+    <string name="id">전자우편</string>
+    <string name="pwd">비밀번호</string>
+    <string name="pwd_confirm">비밀번호\n확인</string>
+    <string name="hint_id">사용자의 유일식별자입니다.</string>
+    <string name="hint_pwd">비밀번호를 입력해주십시오.</string>
+    <string name="hint_pwd_confirm">비밀번호를 확인해주십시오.</string>
+    <string name="hint_motto">신조어를 입력해주십시오.</string>
+    <string name="signup">회원가입</string>
+    <string name="to_main">SignInGuest</string>
+    <string name="to_ask">문의하기</string>
+    <string name="input_valid_email">유효한 전자우편주소를 입력해주십시오.</string>
+    <string name="input_valid_pwd">유효한 비밀번호를 입력해주십시오.</string>
+    <string name="motto">신조어</string>
+    <string name="msg_no_login_user">회원정보가 없습니다. ‘회원가입‘을 진행해주십시오</string>
 
     <!-- Main -->
     <string name="tab_main">기본기술</string>

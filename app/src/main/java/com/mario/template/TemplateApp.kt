@@ -17,6 +17,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.mario.template.ui.auth.Login
 import com.mario.template.ui.component.NavigationDrawerLabel
 import com.mario.template.ui.home.Home
 import com.mario.template.ui.splash.Splash
@@ -62,6 +63,9 @@ fun TemplateApp(appState: TemplateAppState = rememberTemplateAppState()) {
                 }
                 composable(NestedGraph.HOME.route) { from ->
                     Home(appState)
+                }
+                composable(NestedGraph.LOGIN.route) { from ->
+                    Login(appState)
                 }
             }
         }

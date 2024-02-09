@@ -19,6 +19,7 @@ jetbrains-kotlinx-coroutines = "1.6.4"
 
 # AndroidX
 androidx-material3 = "1.1.1"
+androidx-material = "1.4.3"
 androidx-hilt = "1.0.0"
 androidx-work = "2.8.1"
 androidx-navigation = "2.6.0"
@@ -50,6 +51,7 @@ coil = "2.2.2"
 timber = "5.0.1"
 appcompat = "1.6.1"
 material = "1.9.0"
+compose-material = "1.3.0"
 
 [libraries]
 # First
@@ -66,6 +68,9 @@ ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+compose-material = { group = "androidx.compose.material", name = "material", version.ref = "androidx-material"}
+compose-material-icons = { group = "androidx.compose.material", name = "material-icons-core", version.ref = "androidx-material"}
+compose-material-icons-ext = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "androidx-material"}
 compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidx-material3"}
 
 # KotlinX
@@ -118,6 +123,7 @@ coil-image = {group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-compose-material = { group = "androidx.wear.compose", name = "compose-material", version.ref = "compose-material" }
 
 [plugins]
 # First

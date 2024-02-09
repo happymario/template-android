@@ -89,7 +89,7 @@ fun Splash(appState: TemplateAppState, viewModel: SplashViewModel = hiltViewMode
         checkNext = viewModel::checkNextScreen,
         onNavTuto = appState::navigateToTuto,
         onNavHome = {
-            appState.goMainActivity(context)
+            appState.navigateToLogin()
         },
         onDismissErrorDialog = {
             viewModel.hideError()
