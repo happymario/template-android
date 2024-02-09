@@ -12,7 +12,8 @@ android {
 
     defaultConfig {
         applicationId = "com.mario.mtemplate"
-        minSdk = 21
+        //applicationId = "com.mario.classytaxi"   // googlePlay LVC : InApp Test
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
@@ -42,6 +43,8 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+        dataBinding = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.6"
@@ -62,7 +65,7 @@ dependencies {
     implementation(libs.ui)
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
-    implementation(libs.material3)
+    implementation(libs.compose.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -95,6 +98,17 @@ dependencies {
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.datastore.preferences)
 
+    // Layout
+    implementation(libs.constraintlayout)
+    implementation(libs.androidx.drawerlayout)
+    implementation(libs.androidx.coordinatorlayout)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.cardview)
+    implementation(libs.material)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.swiperefreshlayout)
+
     // Extension
     implementation(libs.bundles.google.accompanist)
 
@@ -111,4 +125,7 @@ dependencies {
     // Test
     testImplementation(libs.kotlin.reflect)
     testImplementation(libs.kotlinx.coroutines.test)
+
+    //Custom
+    implementation(project(":mbase"))
 }

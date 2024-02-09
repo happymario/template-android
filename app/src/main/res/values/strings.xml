@@ -3,7 +3,31 @@
     <string name="splash_logo1">Weather</string>
     <string name="splash_logo2">Forcast</string>
 
-    <!-- Error -->
+    <!-- Common word -->
+    <string name="cancel">취소</string>
+    <string name="confirm">확인</string>
+    <string name="send">보내기</string>
+    <string name="yes">예</string>
+    <string name="no">아니요</string>
+    <string name="agree">수락하기</string>
+    <string name="refuse">거절</string>
+    <string name="do_install">설치하기</string>
+    <string name="add">추가</string>
+    <string name="remove">삭제</string>
+    <string name="modify">수정</string>
+    <string name="close">닫기</string>
+    <string name="next">다음</string>
+    <string name="no_name">미정</string>
+    <string name="all">전체</string>
+    <string name="error">오유</string>
+
+    <!-- Common message -->
+    <string name="app_finish_message">"'뒤로' 단추를 한번 더 누르면 프로그람이 꺼집니다."</string>
+    <string name="pms_des">해당 기능을 사용하려면 권한이 필요합니다. 권한을 허용해주십시오.</string>
+    <string name="ready_service">봉사 준비중입니다.</string>
+    <string name="not_supported_feature">해당 기기에서는 지원하지 않는 기능입니다.</string>
+
+    <!-- Error message -->
     <string name="error_message_default">Something went wrong!</string>
     <string name="error_title_permission_not_granted">Error with Permission</string>
     <string name="error_message_permission_not_granted">Permission is not granted!\nPlease grant the permission to continue to using app!</string>
@@ -19,12 +43,64 @@
     <string name="error_message_city_is_invalid">City is invalid!</string>
     <string name="error_message_lat_lng_are_invalid">Latitude and Longitude are invalid!</string>
 
+    <!-- Time message -->
+    <string name="just">방금 전</string>
+    <string name="second_age_format">%d초 전</string>
+    <string name="minute_age_format">%d분 전</string>
+    <string name="hour_age_format">%d시간 전</string>
+    <string name="day_age_format">%d일 전</string>
+    <string name="month_age_format">%d달 전</string>
+    <string name="year_age_format">%d년 전</string>
+    <string name="hour">시</string>
+    <string-array name="week">
+        <item>SUN</item>
+        <item>MON</item>
+        <item>TUE</item>
+        <item>WEN</item>
+        <item>THU</item>
+        <item>FRI</item>
+        <item>SAT</item>
+    </string-array>
+
+    <!--MediaManager-->
+    <string name="photo">사진</string>
+    <string name="gallery">사진첩</string>
+    <string name="camera">사진기</string>
+    <string name="delete">삭제</string>
+    <string name="photo_max_size">저장공간이 5MB이상이여야 합니다.</string>
+
     <!-- Buttons -->
     <string name="retry">Retry</string>
     <string name="skip">Skip</string>
 
-    <!-- Navigation -->
+    <!-- Login -->
     <string name="login">Login</string>
+
+    <!-- Main -->
+    <string name="tab_main">기본기술</string>
+    <string name="tab_latest">최신기술</string>
+    <string name="tab_special">특기기술</string>
+    <string-array name="arr_main_tech">
+        <item>Menu</item>
+        <item>Animation</item>
+        <item>Camera</item>
+        <item>Gallery</item>
+        <item>Download</item>
+    </string-array>
+    <string-array name="arr_recent_tech">
+        <item>WorkManager</item>
+        <item>AlarmManager</item>
+        <item>PictureInPicture</item>
+        <item>Compose</item>
+        <item>Hilt</item>
+    </string-array>
+    <string-array name="arr_special_tech">
+        <item>Bluetooth</item>
+        <item>Calendar</item>
+    </string-array>
+    <string name="hint_search">검색어를 입력해주십시오.</string>
+    <string name="about">대하여</string>
+    <string name="logout">나가기</string>
 
     <!-- Tuto -->
     <string-array name="arr_tuto_title">

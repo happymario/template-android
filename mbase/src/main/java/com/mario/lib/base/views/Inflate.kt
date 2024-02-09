@@ -1,4 +1,4 @@
-package com.mario.lib.base.view
+package com.mario.lib.base.views
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
