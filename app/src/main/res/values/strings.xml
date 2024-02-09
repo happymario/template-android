@@ -1,156 +1,43 @@
 <resources>
-    <string name="app_name">Template</string>
+    <string name="app_name">MyTemplate</string>
+    <string name="splash_logo1">Weather</string>
+    <string name="splash_logo2">Forcast</string>
 
-    <!-- common message -->
-    <string name="app_finish_message">"'뒤로' 단추를 한번 더 누르면 프로그람이 꺼집니다."</string>
-    <string name="pms_des">해당 기능을 사용하려면 권한이 필요합니다. 권한을 허용해주십시오.</string>
-    <string name="ready_service">봉사 준비중입니다.</string>
-    <string name="not_supported_feature">해당 기기에서는 지원하지 않는 기능입니다.</string>
+    <!-- Error -->
+    <string name="error_message_default">Something went wrong!</string>
+    <string name="error_title_permission_not_granted">Error with Permission</string>
+    <string name="error_message_permission_not_granted">Permission is not granted!\nPlease grant the permission to continue to using app!</string>
+    <string name="error_title_http">Error with HTTP</string>
+    <string name="error_title_http_object">Error with HTTP object</string>
+    <string name="error_message_http">Code: %1$d\nUrl: %2$s</string>
+    <string name="error_message_network">Error with Network</string>
+    <string name="error_message_preferences">Error with Preferences</string>
+    <string name="error_message_params_null">The params in %1$s must non-null.</string>
+    <string name="error_message_current_location_is_null">Cannot get the current location!</string>
+    <string name="error_message_current_address_is_not_found">Cannot get the current address!</string>
+    <string name="error_message_address_is_not_found">Cannot get the address!</string>
+    <string name="error_message_city_is_invalid">City is invalid!</string>
+    <string name="error_message_lat_lng_are_invalid">Latitude and Longitude are invalid!</string>
 
-    <!-- common words -->
-    <string name="cancel">취소</string>
-    <string name="confirm">확인</string>
-    <string name="send">보내기</string>
-    <string name="yes">예</string>
-    <string name="no">아니요</string>
-    <string name="agree">수락하기</string>
-    <string name="refuse">거절</string>
-    <string name="do_install">설치하기</string>
-    <string name="add">추가</string>
-    <string name="remove">삭제</string>
-    <string name="modify">수정</string>
-    <string name="close">닫기</string>
-    <string name="next">다음</string>
-    <string name="no_name">미정</string>
-    <string name="all">전체</string>
+    <!-- Buttons -->
+    <string name="retry">Retry</string>
+    <string name="skip">Skip</string>
 
-    <!-- Network 통신 관련 -->
-    <string name="error">오유</string>
-    <string name="server_problem">죄송합니다. 봉사기 점검시간입니다.</string>
-    <string name="network_connect_error">망 통신상태가 좋지 않아\n다시 한 번 시도해주십시오.</string>
-    <string name="error_404">망 오유가 발생하여\n정보를 읽어올수 없습니다.</string>
-    <string name="please_wait">잠간만 기다려 주십시오.</string>
-    <string name="retry">재시도 하기</string>
-    <string name="admin">운영자</string>
-    <string name="notification_error_ssl_cert_invalid">안전하지 않은 웹페지로 이동하시겠습니까?</string>
-    <string name="continue_to">계속하기</string>
-    <string name="install_new_version">새 판본이 출시되였습니다. 설치 및 리용 부탁드립니다.</string>
-
-    <!-- push message -->
-    <string name="push_recv_title">쪽지</string>
-    <string name="push_recv_msg" formatted="true">%s님으로부터 쪽지가 도착했습니다.</string>
-    <string name="mail_title" formatted="true">가명:[%s]</string>
-    <string name="mail_content" formatted="true">회원식별을 위해서 장치정보를 함께 전송합니다.\n장치 정보를 삭제하지 마십시오!\n*****장치 정보*****%s\n**********</string>
-
-    <!-- Time show format -->
-    <string name="just">방금 전</string>
-    <string name="second_age_format">%d초 전</string>
-    <string name="minute_age_format">%d분 전</string>
-    <string name="hour_age_format">%d시간 전</string>
-    <string name="day_age_format">%d일 전</string>
-    <string name="month_age_format">%d달 전</string>
-    <string name="year_age_format">%d년 전</string>
-    <string name="hour">시</string>
-
-    <string-array name="week">
-        <item>SUN</item>
-        <item>MON</item>
-        <item>TUE</item>
-        <item>WEN</item>
-        <item>THU</item>
-        <item>FRI</item>
-        <item>SAT</item>
-    </string-array>
-
-    <!--MediaManagerager-->
-    <string name="photo">사진</string>
-    <string name="gallery">사진첩</string>
-    <string name="camera">사진기</string>
-    <string name="delete">삭제</string>
-    <string name="photo_max_size">기억기 용량이 5MB이상이여야 합니다.</string>
-
-    <!-- DialView -->
-    <string name="fan_off">off</string>
-    <string name="fan_low">1</string>
-    <string name="fan_medium">2</string>
-    <string name="fan_high">3</string>
-    <string name="change">Change</string>
-    <string name="reset">Reset</string>
-
-    <!-- Login&Signup -->
-    <string name="id">전자우편</string>
-    <string name="pwd">비밀번호</string>
-    <string name="pwd_confirm">비밀번호\n확인</string>
-    <string name="hint_id">사용자의 유일식별자입니다.</string>
-    <string name="hint_pwd">비밀번호를 입력해주십시오.</string>
-    <string name="hint_pwd_confirm">비밀번호를 확인해주십시오.</string>
-    <string name="hint_motto">신조어를 입력해주십시오.</string>
+    <!-- Navigation -->
     <string name="login">Login</string>
-    <string name="signup">회원가입</string>
-    <string name="to_main">SignInGuest</string>
-    <string name="to_ask">문의하기</string>
-    <string name="input_valid_email">유효한 전자우편주소를 입력해주십시오.</string>
-    <string name="input_valid_pwd">유효한 비밀번호를 입력해주십시오.</string>
-    <string name="motto">신조어</string>
-    <string name="msg_no_login_user">회원정보가 없습니다. ‘회원가입‘을 진행해주십시오</string>
 
-    <!-- Main -->
-    <string-array name="arr_main_tech">
-        <item>Menu</item>
-        <item>Animation</item>
-        <item>Camera</item>
-        <item>Gallery</item>
-        <item>Download</item>
+    <!-- Tuto -->
+    <string-array name="arr_tuto_title">
+        <item>Detailed Hourly\nForecast</item>
+        <item>Real-Time\nWeather Map</item>
+        <item>Weather Around\nthe World</item>
+        <item>Detailed Hourly\nForecast</item>
+    </string-array>
+    <string-array name="arr_tuto_content">
+        <item>Get in - depth weather\ninformation.</item>
+        <item>Watch the progress of the\nprecipitation to stay informed</item>
+        <item>Add any location you want and\nswipe easily to chnage.</item>
+        <item>Get in - depth weather\ninformation.</item>
     </string-array>
 
-    <string-array name="arr_recent_tech">
-        <item>WorkManager</item>
-        <item>AlarmManager</item>
-        <item>PictureInPicture</item>
-        <item>Compose</item>
-        <item>Hilt</item>
-    </string-array>
-
-    <string-array name="arr_special_tech">
-        <item>Bluetooth</item>
-        <item>Calendar</item>
-    </string-array>
-
-    <string name="tab_main">기본기술</string>
-    <string name="tab_latest">최신기술</string>
-    <string name="tab_special">특기기술</string>
-    <string name="hint_search">검색어를 입력해주십시오.</string>
-    <string name="about">대하여</string>
-    <string name="logout">나가기</string>
-    <string name="msg_logout">App에서 나가시겠습니까?</string>
-    <string name="msg_workmanager_alarm">1분후 부터 정기적인 알림이 옵니다.</string>
-    <string name="mode">방식</string>
-    <string name="prev">&lt;-</string>
-    <string name="after">-&gt;</string>
-    <string name="msg_photo_count_limit" formatted="true">최대 %d장까지 등록할수 있습니다.</string>
-    <string name="gallery_select">올리기</string>
-    <string name="gallery_cannot_load">사진첩을 불러올수 없습니다.</string>
-    <string name="scan">Scan</string>
-    <string name="classic">Classic</string>
-    <string name="ble">BLE</string>
-    <string name="connect">련결</string>
-    <string name="disconnect">끊기</string>
-    <string name="write">쓰기</string>
-
-    <!-- More -->
-    <string name="setting">설정</string>
-    <string name="alarm">알림</string>
-    <string name="use_agreement">리용약관</string>
-    <string name="signout">탈퇴하기</string>
-    <string name="ver">판본</string>
-    <string name="msg_signout">정말 탈퇴하겠습니까?\n탈퇴후 다시 들어올수 없습니다.</string>
-
-    <!-- Bluetooth -->
-    <string name="msg_not_find_device">장치를 찾을수 없습니다.</string>
-    <string name="msg_connect_device">장치가 연결되었습니다.</string>
-    <string name="empty_search_result"><b>%s</b>검색결과가 없습니다.</string>
-    <string name="loading">적재중</string>
-    <string name="msg_disconnect_device">장치가 련결해제되였습니다.</string>
-    <string name="msg_bluetooth_ads_not_support">근거리장치의 방송기능이 제공되지 않습니다.</string>
-    <string name="msg_search_complete">검색이 완료되였습니다.</string>
 </resources>

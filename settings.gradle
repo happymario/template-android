@@ -1,3 +1,0 @@
-include ':libMBase'
-include ':app'
-rootProject.name='Template-Android'

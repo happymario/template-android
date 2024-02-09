@@ -12,14 +12,4 @@
 /captures
 .externalNativeBuild
 .cxx
-.idea/.name
-.idea/codeStyles/Project.xml
-.idea/codeStyles/codeStyleConfig.xml
-.idea/compiler.xml
-.idea/gradle.xml
-.idea/misc.xml
-.idea/runConfigurations.xml
-/.idea/
-sign/keystore.jks
-sign/keystore.properties
-release/
+local.properties
