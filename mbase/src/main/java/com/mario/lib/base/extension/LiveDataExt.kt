@@ -1,4 +1,4 @@
-package com.mario.lib.base.extensions
+package com.mario.lib.base.extension
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData

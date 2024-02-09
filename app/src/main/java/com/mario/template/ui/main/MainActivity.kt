@@ -19,6 +19,7 @@ import com.mario.template.R
 import com.mario.template.base.BaseLayoutBindingActivity
 import com.mario.template.databinding.ActivityMainBinding
 import com.mario.template.util.CommonUtil
+import com.mario.template.util.IntentShareUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.lang.Math.abs
@@ -111,17 +112,9 @@ class MainActivity : BaseLayoutBindingActivity<ActivityMainBinding>() {
     }
 
     fun onFab(view: View) {
-        CommonUtil.showNIToast(this)
-
-//        val bitmap = IntentShareUtils.captureBitmapFromView(binding.root)
-//        val shareUrl = IntentShareUtils.saveToSharedImage(this, bitmap)
-//        IntentShareUtils.shareEtc(this, shareUrl)
-//
-//        if (billingDataSource == null || billingDataSource.isBillingSetupCompleted === false) {
-//            return
-//        }
-//
-//        billingDataSource.launchBillingFlow(this, "basic_subscription")
+        val bitmap = IntentShareUtil.captureBitmapFromView(binding.root)
+        val shareUrl = IntentShareUtil.saveToSharedImage(this, bitmap)
+        IntentShareUtil.shareEtc(this, shareUrl)
     }
 
     /************************************************************

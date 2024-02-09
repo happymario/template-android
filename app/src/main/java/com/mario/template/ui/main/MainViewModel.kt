@@ -57,7 +57,11 @@ class MainViewModel @Inject constructor(
     // sharedflow는 Event같이 값이 없지만 구독을 해야 하는 객체일시
     // replay = 0: 새로운 구독자에겐 이전 event를 전달하지 않음, extraBuffer:buffer크기, onBufferOverflow: buffer가득찾을때 처리
     private val _systemEvent: MutableSharedFlow<Event<String>> =
-        MutableSharedFlow(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+        MutableSharedFlow(
+            replay = 0,
+            extraBufferCapacity = 1,
+            onBufferOverflow = BufferOverflow.DROP_OLDEST
+        )
     val systemEvent = _systemEvent.asSharedFlow()
 
 
@@ -73,7 +77,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    suspend fun setSystemEvent(error:String) {
+    suspend fun setSystemEvent(error: String) {
         _systemEvent.emit(Event(error))
     }
 

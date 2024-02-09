@@ -1,4 +1,4 @@
-package com.mario.lib.base.utils;
+package com.mario.lib.base.util;
 
 import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
 import static android.os.Build.VERSION_CODES.N;

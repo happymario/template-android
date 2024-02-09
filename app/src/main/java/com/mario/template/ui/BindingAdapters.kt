@@ -11,7 +11,7 @@ import androidx.databinding.BindingMethod
 import androidx.databinding.BindingMethods
 import androidx.databinding.InverseMethod
 import androidx.recyclerview.widget.RecyclerView
-import com.mario.lib.base.views.RecyclerViewDecoration
+import com.mario.lib.base.view.RecyclerViewDecoration
 import com.mario.template.R
 import com.mario.template.ui.main.TaskAdapter
 

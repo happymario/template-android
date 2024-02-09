@@ -7,7 +7,7 @@
     android:layout_marginTop="@dimen/header_status_height"
     android:background="@color/white">
 
-    <com.mario.lib.base.views.CircleImageView
+    <com.mario.lib.base.view.CircleImageView
         android:id="@+id/iv_profile"
         android:layout_width="60dp"
         android:layout_height="60dp"

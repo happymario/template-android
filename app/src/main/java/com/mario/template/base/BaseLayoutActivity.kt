@@ -12,7 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
-import com.mario.lib.base.utils.LocaleUtil
+import com.mario.lib.base.util.LocaleUtil
 import com.mario.template.R
 import java.util.Locale
 

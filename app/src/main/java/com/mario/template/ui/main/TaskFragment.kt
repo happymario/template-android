@@ -53,7 +53,7 @@ class TaskFragment : BaseLayoutBindingFragment<FragmentTaskBinding>() {
             type = requireArguments().getInt("type")
         }
 
-        val viewModel by viewModels<MainViewModel> ()
+        val viewModel by viewModels<MainViewModel>()
         this.viewModel = viewModel
         binding.apply {
             viewmodel = this@TaskFragment.viewModel

@@ -1,4 +1,4 @@
-package com.mario.template.util.extension
+package com.mario.lib.base.extension
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

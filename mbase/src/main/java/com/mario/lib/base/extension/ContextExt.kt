@@ -1,4 +1,4 @@
-package com.mario.lib.base.extensions
+package com.mario.lib.base.extension
 
 import android.content.BroadcastReceiver
 import android.content.Context
