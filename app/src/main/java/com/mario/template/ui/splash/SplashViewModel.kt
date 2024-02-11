@@ -7,7 +7,7 @@ import com.mario.template.base.BaseViewModel
 import com.mario.template.base.BaseViewState
 import com.mario.template.data.exception.AppException
 import com.mario.template.data.repository.LocalRepository
-import com.mario.template.data.repository.WeatherRepository
+import com.mario.template.data.repository.TemplateRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private var repository: WeatherRepository,
+    private var repository: TemplateRepository,
     private var localRepository: LocalRepository
 ) : BaseViewModel() {
     private val _state = MutableStateFlow(SplashViewState(isLoading = false))

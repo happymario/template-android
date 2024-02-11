@@ -54,7 +54,7 @@ object CustomTheme {
 }
 
 @Composable
-fun MyWeatherTheme(
+fun MyTemplateTheme(
     spaces: CustomSpaces = CustomTheme.spaces,
     typography: CustomTypography = CustomTheme.typography,
     colors: CustomColors = CustomTheme.colors,

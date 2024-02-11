@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.mario.template.TemplateAppState
-import com.mario.template.ui.theme.MyWeatherTheme
+import com.mario.template.ui.theme.MyTemplateTheme
 
 
 @Composable
@@ -38,7 +38,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    MyWeatherTheme {
+    MyTemplateTheme {
         Greeting("Android")
     }
 }

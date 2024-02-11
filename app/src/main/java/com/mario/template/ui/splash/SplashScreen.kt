@@ -33,7 +33,7 @@ import com.mario.template.ui.component.ActionType
 import com.mario.template.ui.component.AppScaffold
 import com.mario.template.ui.component.InfinityText
 import com.mario.template.ui.theme.CustomTheme
-import com.mario.template.ui.theme.MyWeatherTheme
+import com.mario.template.ui.theme.MyTemplateTheme
 import kotlinx.coroutines.delay
 
 private const val SplashWaitTime: Long = 3000
@@ -196,7 +196,7 @@ fun SplashContent(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DefaultPreview() {
-    MyWeatherTheme {
+    MyTemplateTheme {
         SplashScreen(SplashViewState())
     }
 }

@@ -1,16 +1,16 @@
 package com.mario.template.data.repository
 
 import com.mario.template.data.model.AppInfo
-import com.mario.template.data.remote.apiservice.MyWeatherApiService
+import com.mario.template.data.remote.apiservice.MyTemplateApiService
 import com.mario.template.data.remote.apiservice.OneCallApiService
 import com.mario.template.data.remote.response.ResponseTransfomer.trasformBaseResponse
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class WeatherRepositoryImpl @Inject constructor(
-    private val myWeatherApiService: MyWeatherApiService,
+class TemplateRepositoryImpl @Inject constructor(
+    private val myTemplateApiService: MyTemplateApiService,
     private val oneCallApiService: OneCallApiService,
-) : WeatherRepository {
+) : TemplateRepository {
     override suspend fun getAppInfo(): Flow<AppInfo> =
-        trasformBaseResponse(myWeatherApiService.appInfo("android"))
+        trasformBaseResponse(myTemplateApiService.appInfo("android"))
 }

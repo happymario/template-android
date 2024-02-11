@@ -7,7 +7,7 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
-interface MyWeatherApiService {
+interface MyTemplateApiService {
     @FormUrlEncoded
     @POST("common/app_info")
     fun appInfo(@Field("dev_type") dev_type: String): Flow<BaseResponse<AppInfo>>

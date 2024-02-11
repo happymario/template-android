@@ -57,6 +57,6 @@ class DataStorePreferenceStorage @Inject constructor(
     }
 
     companion object {
-        const val PREFS_NAME = "my_weather_datastore"
+        const val PREFS_NAME = "my_template_datastore"
     }
 }

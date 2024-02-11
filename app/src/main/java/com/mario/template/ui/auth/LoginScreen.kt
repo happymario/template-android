@@ -59,7 +59,7 @@ import com.mario.template.TemplateAppState
 import com.mario.template.ui.component.AppScaffold
 import com.mario.template.ui.home.Greeting
 import com.mario.template.ui.theme.CustomTheme
-import com.mario.template.ui.theme.MyWeatherTheme
+import com.mario.template.ui.theme.MyTemplateTheme
 
 sealed class SignInEvent {
     data class SignIn(val email: String, val pwd: String) : SignInEvent()
@@ -407,7 +407,7 @@ fun OrSignInAsGuest(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun LoginScreenPreview() {
-    MyWeatherTheme {
+    MyTemplateTheme {
         Greeting("Android")
     }
 }

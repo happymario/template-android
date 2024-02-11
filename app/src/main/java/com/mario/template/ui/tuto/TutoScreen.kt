@@ -40,7 +40,7 @@ import com.mario.template.R
 import com.mario.template.TemplateAppState
 import com.mario.template.ui.component.AppScaffold
 import com.mario.template.ui.theme.CustomTheme
-import com.mario.template.ui.theme.MyWeatherTheme
+import com.mario.template.ui.theme.MyTemplateTheme
 import com.mario.template.util.extension.noRippleClickable
 
 
@@ -210,7 +210,7 @@ internal fun TutoPagerItem(
 @Preview(showBackground = true)
 @Composable
 fun TutoPreview() {
-    MyWeatherTheme {
+    MyTemplateTheme {
         TutoContent(TutoViewState())
     }
 }

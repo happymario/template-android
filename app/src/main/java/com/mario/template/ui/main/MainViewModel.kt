@@ -12,7 +12,7 @@ import com.mario.template.R
 import com.mario.template.base.BaseViewModel
 import com.mario.template.data.model.User
 import com.mario.template.data.repository.LocalRepository
-import com.mario.template.data.repository.WeatherRepository
+import com.mario.template.data.repository.TemplateRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.BufferOverflow
@@ -27,7 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private var repository: WeatherRepository,
+    private var repository: TemplateRepository,
     private var localRepository: LocalRepository
 ) : BaseViewModel() {
 

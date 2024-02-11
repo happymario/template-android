@@ -6,7 +6,7 @@ import com.mario.lib.base.architecture.Event
 import com.mario.template.base.BaseViewModel
 import com.mario.template.data.model.UploadFile
 import com.mario.template.data.repository.LocalRepository
-import com.mario.template.data.repository.WeatherRepository
+import com.mario.template.data.repository.TemplateRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private var repository: WeatherRepository,
+    private var repository: TemplateRepository,
     private var localRepository: LocalRepository
 ) : BaseViewModel() {
     /************************************************************

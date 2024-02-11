@@ -1,7 +1,7 @@
 package com.mario.template.di
 
 import com.mario.template.Constants
-import com.mario.template.data.remote.apiservice.MyWeatherApiService
+import com.mario.template.data.remote.apiservice.MyTemplateApiService
 import com.mario.template.data.remote.apiservice.OneCallApiService
 import com.mario.template.data.remote.calladapter.FlowCallAdapterFactory
 import com.mario.template.data.remote.interceptor.HeaderInterceptor
@@ -44,8 +44,8 @@ object NetworkModule {
         retrofit.create(OneCallApiService::class.java)
 
     @Provides
-    fun provideCurrentWeatherApiService(retrofit: Retrofit): MyWeatherApiService =
-        retrofit.create(MyWeatherApiService::class.java)
+    fun provideTemplateApiService(retrofit: Retrofit): MyTemplateApiService =
+        retrofit.create(MyTemplateApiService::class.java)
 
     private const val TIME_OUT = 1L
 }
