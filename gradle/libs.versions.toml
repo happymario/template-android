@@ -41,6 +41,9 @@ androidx-fragment-ktx = "1.6.0"
 google-dagger = "2.46"
 google-gson = "2.10.1"
 google-accompanist = "0.30.1"
+google-play-services = "18.2.0"
+google-play-services-location = "21.0.1"
+google-maps-utils = "2.2.0"
 
 # Network
 okhttp3 = "4.10.0"
@@ -52,6 +55,7 @@ timber = "5.0.1"
 appcompat = "1.6.1"
 material = "1.9.0"
 compose-material = "1.3.0"
+image-cropper = "4.0.0"
 
 [libraries]
 # First
@@ -110,6 +114,10 @@ google-accompanist-navigation-animation = { group = "com.google.accompanist", na
 google-accompanist-systemUiController = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "google-accompanist" }
 google-accompanist-flowLayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "google-accompanist" }
 google-accompanist-permission = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "google-accompanist" }
+google-play-services-base = { group = "com.google.android.gms", name = "play-services-basement", version.ref = "google-play-services" }
+google-play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "google-play-services" }
+google-play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "google-play-services-location" }
+google-maps-utils = { group = "com.google.maps.android", name = "android-maps-utils", version.ref = "google-maps-utils" }
 
 # Network
 google-gson = { group = "com.google.code.gson", name = "gson", version.ref = "google-gson" }
@@ -124,6 +132,7 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-compose-material = { group = "androidx.wear.compose", name = "compose-material", version.ref = "compose-material" }
+image-cropper = { group = "com.github.CanHub", name = "Android-Image-Cropper", version.ref = "image-cropper" }
 
 [plugins]
 # First

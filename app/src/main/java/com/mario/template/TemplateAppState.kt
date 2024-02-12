@@ -14,6 +14,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.mario.template.ui.auth.SignupActivity
 import com.mario.template.ui.main.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -35,7 +36,7 @@ class TemplateAppState(
     val snackbarHost: SnackbarHostState,
 ) {
     val shouldEnableGesture: Boolean
-        @Composable get() = controller.currentBackStackEntryAsState().value?.destination?.route == NestedGraph.HOME.route
+        @Composable get() = controller.currentBackStackEntryAsState().value?.destination?.route == NestedGraph.TEST.route
 
     fun openDrawer() {
         coroutineScope.launch {
@@ -49,9 +50,9 @@ class TemplateAppState(
         }
     }
 
-    fun navigateToHome() {
+    fun navigateToTest() {
         closeDrawer()
-        controller.navigate(route = NestedGraph.HOME.route) {
+        controller.navigate(route = NestedGraph.TEST.route) {
             popUpTo(NestedGraph.SPLASH.route) {
                 inclusive = true
             }
@@ -76,15 +77,6 @@ class TemplateAppState(
         }
     }
 
-    fun navigateToSignup() {
-        closeDrawer()
-        controller.navigate(route = NestedGraph.SIGNUP.route) {
-            popUpTo(NestedGraph.SIGNUP.route) {
-                inclusive = true
-            }
-        }
-    }
-
     fun openAppSetting(context: Context) {
         val intent = Intent(
             Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
@@ -101,12 +93,18 @@ class TemplateAppState(
         }
         context.startActivity(intent)
     }
+
+    fun goSignupActivity(context: Context) {
+        val intent = Intent(context, SignupActivity::class.java).apply {
+            //addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+        context.startActivity(intent)
+    }
 }
 
 enum class NestedGraph(val route: String) {
+    TEST(route = "test_nav"),
     SPLASH(route = "splash_nav"),
     TUTO(route = "tuto_nav"),
     LOGIN(route = "login_nav"),
-    SIGNUP(route = "signup_nav"),
-    HOME(route = "home_nav"),
 }

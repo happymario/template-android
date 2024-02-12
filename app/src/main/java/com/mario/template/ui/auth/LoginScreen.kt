@@ -76,7 +76,7 @@ import com.mario.template.helper.IntentShareUtil
 import com.mario.template.ui.component.ActionType
 import com.mario.template.ui.component.AppScaffold
 import com.mario.template.ui.component.ComposableLifecycle
-import com.mario.template.ui.home.Greeting
+import com.mario.template.ui.test.Greeting
 import com.mario.template.ui.theme.CustomTheme
 import com.mario.template.ui.theme.MyTemplateTheme
 import kotlinx.coroutines.launch
@@ -91,7 +91,7 @@ sealed class SignInEvent {
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun Login(appState: TemplateAppState, viewModel: UserViewModel = hiltViewModel<UserViewModel>()) {
+fun Login(appState: TemplateAppState, viewModel: LoginViewModel = hiltViewModel<LoginViewModel>()) {
     val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()
     val loginCompleted by viewModel.loginCompleteEvent.observeAsState()
@@ -158,7 +158,7 @@ fun Login(appState: TemplateAppState, viewModel: UserViewModel = hiltViewModel<U
         }
     }
 
-    if(loginCompleted != null && !loginCompleted!!.hasBeenHandled) {
+    if (loginCompleted != null && !loginCompleted!!.hasBeenHandled) {
         appState.goMainActivity(context)
     }
 
@@ -187,7 +187,7 @@ fun Login(appState: TemplateAppState, viewModel: UserViewModel = hiltViewModel<U
                     }
                 }
 
-                SignInEvent.SignUp -> appState.navigateToSignup()
+                SignInEvent.SignUp -> appState.goSignupActivity(context)
                 SignInEvent.SignInAsGuest -> appState.goMainActivity(context)
             }
         },

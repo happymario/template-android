@@ -29,7 +29,8 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
+                "retrofit2.pro", "gson.pro", "okhttp3.pro", "firebase-crashlytics.pro"
             )
         }
     }
@@ -121,8 +122,15 @@ dependencies {
     implementation(libs.okhttp3.logging.interceptor)
     implementation(libs.coil.image)
 
+    // Google
+    implementation(libs.google.play.services.base)
+    implementation(libs.google.play.services.maps)
+    implementation(libs.google.play.services.location)
+    implementation(libs.google.maps.utils)
+
     // Other
     implementation(libs.timber)
+    implementation(libs.image.cropper)
 
     // Test
     testImplementation(libs.kotlin.reflect)

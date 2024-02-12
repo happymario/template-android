@@ -43,7 +43,7 @@ interface MyTemplateApiService {
     ): Flow<BaseResponse<User>>
 
     @FormUrlEncoded
-    @POST("auth/signup")
+    @POST("auth/register")
     fun userSignup(
         @Field("id") id: String,
         @Field("pwd") pwd: String,

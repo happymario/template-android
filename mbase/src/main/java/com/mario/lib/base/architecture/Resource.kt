@@ -5,6 +5,8 @@ sealed class Resource<T>(
     val errorCode: Int? = null,
     open val message: String? = null,
 ) {
+    class None<T> : Resource<T>(null)
+
     class Success<T>(data: T?) : Resource<T>(data) {
         fun data(): T? = data
     }
@@ -17,8 +19,8 @@ sealed class Resource<T>(
         data: T? = null,
     ) : Resource<T>(data, errorCode, message) {
 
-        constructor(throwable: Throwable) : this() {
-            message = throwable.message
+        constructor(throwable: Throwable?) : this() {
+            message = throwable?.message
         }
     }
 
@@ -27,6 +29,7 @@ sealed class Resource<T>(
             is Success<*> -> "Success[data=$data]"
             is Error -> "Error[exception=$errorCode]"
             is Loading<T> -> "Loading"
+            is None<T> -> "None"
         }
     }
 

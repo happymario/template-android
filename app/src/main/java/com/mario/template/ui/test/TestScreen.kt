@@ -1,4 +1,4 @@
-package com.mario.template.ui.home
+package com.mario.template.ui.test
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -12,12 +12,12 @@ import com.mario.template.ui.theme.MyTemplateTheme
 
 
 @Composable
-fun Home(appState: TemplateAppState) {
-    HomeScreen()
+fun Test(appState: TemplateAppState) {
+    TestScreen()
 }
 
 @Composable
-fun HomeScreen() {
+fun TestScreen() {
     // A surface container using the 'background' color from the theme
     Surface(
         modifier = Modifier.fillMaxSize(),

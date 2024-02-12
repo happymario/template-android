@@ -10,11 +10,15 @@ class ResourceLiveData<T> : SingleLiveEvent<Resource<T>>() {
         this.value = Resource.Loading()
     }
 
+    fun none() {
+        this.value = Resource.None()
+    }
+
     fun success(data: T) {
         this.value = Resource.Success(data)
     }
 
-    fun error(e: Throwable) {
+    fun error(e: Throwable?) {
         this.value = Resource.Error(e)
     }
 }

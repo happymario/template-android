@@ -19,8 +19,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.mario.template.ui.auth.Login
 import com.mario.template.ui.component.NavigationDrawerLabel
-import com.mario.template.ui.home.Home
 import com.mario.template.ui.splash.Splash
+import com.mario.template.ui.test.Test
 import com.mario.template.ui.tuto.Tuto
 
 @Composable
@@ -55,14 +55,14 @@ fun TemplateApp(appState: TemplateAppState = rememberTemplateAppState()) {
                 startDestination = NestedGraph.SPLASH.route,
                 modifier = Modifier.padding(it)
             ) {
+                composable(NestedGraph.TEST.route) { from ->
+                    Test(appState)
+                }
                 composable(NestedGraph.SPLASH.route) { from ->
                     Splash(appState)
                 }
                 composable(NestedGraph.TUTO.route) { from ->
                     Tuto(appState)
-                }
-                composable(NestedGraph.HOME.route) { from ->
-                    Home(appState)
                 }
                 composable(NestedGraph.LOGIN.route) { from ->
                     Login(appState)
