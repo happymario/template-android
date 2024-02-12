@@ -5,11 +5,7 @@ import java.util.regex.Pattern
 
 data class LoginViewState(
     override val isLoading: Boolean = false,
-    override val error: Throwable? = null,
-    val isRequestPermission: Boolean = false,
-    val isLoadedData: Boolean = false,
-    val naviHome: Boolean = false,
-    val naviTuto: Boolean = false
+    override val error: Throwable? = null
 ) : BaseViewState()
 
 // Consider an email valid if there's some text before and after a "@"

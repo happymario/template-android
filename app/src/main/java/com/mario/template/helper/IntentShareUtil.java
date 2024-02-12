@@ -1,6 +1,7 @@
-package com.mario.template.util;
+package com.mario.template.helper;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.view.View;
 
 import androidx.core.content.FileProvider;
@@ -128,5 +130,19 @@ public class IntentShareUtil {
         String absolutePath = file.getAbsolutePath();
 
         return absolutePath;
+    }
+
+    public static void gotoPhone(Context context, String tel) {
+        String number = "tel:" + tel.trim();
+        Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse(number));
+        context.startActivity(callIntent);
+    }
+
+    public static void gotoSetting(Activity activity, int request) {
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
+        intent.setData(uri);
+        activity.startActivityForResult(intent, request);
     }
 }

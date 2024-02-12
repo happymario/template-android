@@ -38,10 +38,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mario.template.R
 import com.mario.template.TemplateAppState
+import com.mario.template.helper.extension.noRippleClickable
 import com.mario.template.ui.component.AppScaffold
 import com.mario.template.ui.theme.CustomTheme
 import com.mario.template.ui.theme.MyTemplateTheme
-import com.mario.template.util.extension.noRippleClickable
 
 
 @Composable
@@ -53,7 +53,7 @@ fun Tuto(appState: TemplateAppState, viewModel: TutoViewModel = hiltViewModel())
 
 @Composable
 fun TutoScreen(state: TutoViewState, skip: () -> Unit = {}, onNavHome: () -> Unit = {}) {
-    AppScaffold(state = state, onDismissErrorDialog = { /*TODO*/ }) { _, _ ->
+    AppScaffold(state = state, onDismissRequest = { /*TODO*/ }) { _, _ ->
         TutoContent(state, skip, onNavHome)
     }
 }

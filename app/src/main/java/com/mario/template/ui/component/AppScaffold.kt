@@ -30,7 +30,7 @@ fun <VS : BaseViewState> AppScaffold(
     onShowSnackbar: (message: String) -> Unit = {},
     onErrorPositiveAction: (action: ActionType?, value: Any?) -> Unit = { _, _ -> },
     onErrorNegativeAction: (action: ActionType?, value: Any?) -> Unit = { _, _ -> },
-    onDismissErrorDialog: () -> Unit,
+    onDismissRequest: () -> Unit,
     content: @Composable (PaddingValues, VS) -> Unit,
 ) {
     Scaffold(
@@ -57,7 +57,7 @@ fun <VS : BaseViewState> AppScaffold(
             onShowSnackBar = onShowSnackbar,
             onPositiveAction = onErrorPositiveAction,
             onNegativeAction = onErrorNegativeAction,
-            onDismissErrorDialog = onDismissErrorDialog,
+            onDismissErrorDialog = onDismissRequest,
         ) { viewState ->
             content.invoke(paddingValues, viewState)
         }

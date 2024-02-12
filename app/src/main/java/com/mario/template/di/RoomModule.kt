@@ -19,7 +19,11 @@ object RoomModule {
     fun provideMyTemplateDatabase(
         @ApplicationContext context: Context,
     ): MyTemplateDatabase =
-        Room.databaseBuilder(context, MyTemplateDatabase::class.java, MyTemplateDatabase.database_name)
+        Room.databaseBuilder(
+            context,
+            MyTemplateDatabase::class.java,
+            MyTemplateDatabase.database_name
+        )
             .build()
 
     @Provides

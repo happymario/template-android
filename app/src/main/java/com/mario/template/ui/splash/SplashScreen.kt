@@ -121,7 +121,7 @@ fun SplashScreen(
 ) {
     AppScaffold(
         state = state,
-        onDismissErrorDialog = onDismissErrorDialog,
+        onDismissRequest = onDismissErrorDialog,
         onErrorPositiveAction = onErrorPositiveAction
     ) { _, viewState ->
         SplashContent(state, checkNext = checkNext, onNavTuto = onNavTuto, onNavHome = onNavHome)

@@ -1,4 +1,4 @@
-package com.mario.template.util.extension
+package com.mario.template.helper.extension
 
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.WindowInsets

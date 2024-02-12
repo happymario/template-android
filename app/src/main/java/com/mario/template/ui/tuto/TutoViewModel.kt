@@ -13,7 +13,7 @@ import javax.inject.Inject
 class TutoViewModel @Inject constructor(
     private var localRepository: LocalRepository
 ) : BaseViewModel() {
-    private val _state = MutableStateFlow(TutoViewState(isLoading = false))
+    private val _state = MutableStateFlow(TutoViewState())
     val state: StateFlow<TutoViewState> = _state
 
     fun skip() {
@@ -28,7 +28,5 @@ class TutoViewModel @Inject constructor(
 
 
 data class TutoViewState(
-    override val isLoading: Boolean = false,
-    override val error: Throwable? = null,
     val isFinished: Boolean = false
-) : BaseViewState()
+) : BaseViewState(isLoading = false)

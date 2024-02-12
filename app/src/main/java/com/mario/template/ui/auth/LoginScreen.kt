@@ -1,5 +1,9 @@
 package com.mario.template.ui.auth
 
+import android.Manifest
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,14 +38,17 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -54,12 +61,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.shouldShowRationale
+import com.mario.lib.base.extension.getActivity
+import com.mario.template.Constants
 import com.mario.template.R
 import com.mario.template.TemplateAppState
+import com.mario.template.helper.CommonUtil
+import com.mario.template.helper.IntentShareUtil
+import com.mario.template.ui.component.ActionType
 import com.mario.template.ui.component.AppScaffold
+import com.mario.template.ui.component.ComposableLifecycle
 import com.mario.template.ui.home.Greeting
 import com.mario.template.ui.theme.CustomTheme
 import com.mario.template.ui.theme.MyTemplateTheme
+import kotlinx.coroutines.launch
 
 sealed class SignInEvent {
     data class SignIn(val email: String, val pwd: String) : SignInEvent()
@@ -69,39 +89,143 @@ sealed class SignInEvent {
 }
 
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun Login(appState: TemplateAppState, viewModel: UserViewModel = hiltViewModel<UserViewModel>()) {
+    val context = LocalContext.current
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val loginCompleted by viewModel.loginCompleteEvent.observeAsState()
+    val lifecycleScope = rememberCoroutineScope()
+    val callPermissionState = rememberPermissionState(Manifest.permission.CALL_PHONE)
+    val isGoPhone = remember { mutableStateOf(false) }
+    val isClickedAsk = remember { mutableStateOf(false) }
+    val requestPermissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted && !isGoPhone.value && isClickedAsk.value) {
+            // Permission granted
+            isGoPhone.value = true
+            isClickedAsk.value = false
+
+            IntentShareUtil.gotoPhone(
+                context,
+                Constants.CLIENT_PHONE_NUMBER
+            )
+        } else {
+            // Handle permission denial
+            CommonUtil.showToast(context, R.string.pms_des)
+        }
+    }
+
+    ComposableLifecycle { source, event ->
+        when (event) {
+            Lifecycle.Event.ON_CREATE -> {
+                Log.d("TAG", "MainScreen: ON CREATE")
+            }
+
+            Lifecycle.Event.ON_START -> {
+                Log.d("TAG", "MainScreen: ON START")
+            }
+
+            Lifecycle.Event.ON_RESUME -> {
+                Log.d("TAG", "MainScreen: ON RESUME")
+                if (callPermissionState.status.isGranted && !isGoPhone.value && isClickedAsk.value) {
+                    isGoPhone.value = true
+                    isClickedAsk.value = false
+
+                    IntentShareUtil.gotoPhone(
+                        context,
+                        Constants.CLIENT_PHONE_NUMBER
+                    )
+                }
+            }
+
+            Lifecycle.Event.ON_PAUSE -> {
+                Log.d("TAG", "MainScreen: ON PAUSE")
+            }
+
+            Lifecycle.Event.ON_STOP -> {
+                Log.d("TAG", "MainScreen: ON STOP")
+            }
+
+            Lifecycle.Event.ON_DESTROY -> {
+                Log.d("TAG", "MainScreen: ON DESTROY")
+            }
+
+            else -> {
+                Log.d("TAG", "MainScreen: Out of life cycle")
+            }
+        }
+    }
+
+    if(loginCompleted != null && !loginCompleted!!.hasBeenHandled) {
+        appState.goMainActivity(context)
+    }
+
     LoginScreen(
-        state = LoginViewState(),
+        state = state,
         event = {
-//            when (it) {
-//                is SignInEvent.SignIn -> {
-//                    viewModel.id.value = it.email
-//                    viewModel.pwd.value = it.pwd
-//
-//                    lifecycleScope.launch {
-//                        viewModel.loginUser()
-//                    }
-//                }
-//
-//                SignInEvent.Ask -> CommonUtil.gotoPhone(
-//                    this,
-//                    Constants.CLIENT_PHONE_NUMBER
-//                )
-//
-//                SignInEvent.SignUp -> goSignup()
-//                SignInEvent.SignInAsGuest -> goMain()
-//            }
+            when (it) {
+                is SignInEvent.SignIn -> {
+                    // dev1@gmail.com, test123
+                    viewModel.id.value = it.email
+                    viewModel.pwd.value = it.pwd
+                    lifecycleScope.launch {
+                        viewModel.loginUser()
+                    }
+                }
+
+                SignInEvent.Ask -> {
+                    isClickedAsk.value = true
+                    if (!callPermissionState.status.shouldShowRationale && !callPermissionState.status.isGranted) { // permanently denied
+                        CommonUtil.showToast(context, R.string.pms_des)
+                        IntentShareUtil.gotoSetting(context.getActivity(), 1)
+                    } else if (callPermissionState.status.shouldShowRationale) {
+                        CommonUtil.showToast(context, R.string.pms_des)
+                    } else {
+                        requestPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
+                    }
+                }
+
+                SignInEvent.SignUp -> appState.navigateToSignup()
+                SignInEvent.SignInAsGuest -> appState.goMainActivity(context)
+            }
+        },
+        onDismissRequest = {
+            viewModel.hideError()
+        },
+        onErrorPositiveAction = { action, _ ->
+            action?.let {
+                when (it) {
+                    ActionType.CANCEL -> {
+                        viewModel.retry()
+                    }
+
+                    ActionType.CONFIRM -> {
+                        appState.openAppSetting(context)
+                    }
+                }
+            }
         })
 }
 
+
 @Composable
-fun LoginScreen(state: LoginViewState, event: (SignInEvent) -> Unit) {
+fun LoginScreen(
+    state: LoginViewState, event: (SignInEvent) -> Unit,
+    onDismissRequest: () -> Unit = {},
+    onErrorPositiveAction: (action: ActionType?, value: Any?) -> Unit = { _, _ -> },
+) {
     // A surface container using the 'background' color from the theme
-    AppScaffold(state = state, onDismissErrorDialog = { /*TODO*/ }) { _, _ ->
+    AppScaffold(
+        state = state,
+        onDismissRequest = onDismissRequest,
+        onErrorPositiveAction = onErrorPositiveAction
+    ) { _, _ ->
         LoginContent(state, event)
     }
 }
+
 
 @Composable
 fun LoginContent(uiState: LoginViewState, onEvent: (SignInEvent) -> Unit) {

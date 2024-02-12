@@ -51,9 +51,20 @@ class DataStorePreferenceStorage @Inject constructor(
         it[PreferenceKeys.IS_TUTO_FINISHED] ?: false
     }
 
+    override suspend fun setToken(token: String) {
+        dataStore.setValue {
+            it[PreferenceKeys.PUSH_TOKEN] = token
+        }
+    }
+
+    override val getToken: Flow<String> = dataStore.getValue {
+        it[PreferenceKeys.PUSH_TOKEN] ?: ""
+    }
+
     object PreferenceKeys {
         val PREFIX_MODEL = stringSetPreferencesKey("PREFIX_MODEL")
         val IS_TUTO_FINISHED = booleanPreferencesKey("IS_TUTO_FINISHED")
+        val PUSH_TOKEN = stringPreferencesKey("PUSH_TOKEN")
     }
 
     companion object {

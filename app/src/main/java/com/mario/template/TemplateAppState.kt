@@ -76,6 +76,15 @@ class TemplateAppState(
         }
     }
 
+    fun navigateToSignup() {
+        closeDrawer()
+        controller.navigate(route = NestedGraph.SIGNUP.route) {
+            popUpTo(NestedGraph.SIGNUP.route) {
+                inclusive = true
+            }
+        }
+    }
+
     fun openAppSetting(context: Context) {
         val intent = Intent(
             Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
@@ -95,8 +104,9 @@ class TemplateAppState(
 }
 
 enum class NestedGraph(val route: String) {
-    HOME(route = "home_nav"),
     SPLASH(route = "splash_nav"),
     TUTO(route = "tuto_nav"),
     LOGIN(route = "login_nav"),
+    SIGNUP(route = "signup_nav"),
+    HOME(route = "home_nav"),
 }

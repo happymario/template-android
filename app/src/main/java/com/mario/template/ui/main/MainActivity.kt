@@ -18,8 +18,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.mario.template.R
 import com.mario.template.base.BaseLayoutBindingActivity
 import com.mario.template.databinding.ActivityMainBinding
-import com.mario.template.util.CommonUtil
-import com.mario.template.util.IntentShareUtil
+import com.mario.template.helper.CommonUtil
+import com.mario.template.helper.IntentShareUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.lang.Math.abs

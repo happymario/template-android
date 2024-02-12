@@ -1,38 +1,15 @@
 package com.mario.template.data.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
 import com.mario.template.base.BaseModel
 
-@Entity(tableName = "tb_user")
-data class User(@PrimaryKey(autoGenerate = true) var uid: Int) : BaseModel() {
-    @JvmField
-    @ColumnInfo(name = "access_token")
+data class User(var uid: Int) : BaseModel() {
     var access_token: String? = null
-
-    @JvmField
-    @ColumnInfo(name = "id")
     var id: String? = null
-
-    @JvmField
-    @ColumnInfo(name = "name")
     var name: String? = null
-
-    @Ignore
     private val reg_time: String? = null
-
-    @Ignore
     val profile_url: String? = null
-
-    @Ignore
     private val profile_url_check: String? = null
-
-    @Ignore
     val status = 0
-
-    @Ignore
     var pwd: String = ""
 
     enum class EUserSex(private val value: String) {
@@ -57,7 +34,7 @@ data class User(@PrimaryKey(autoGenerate = true) var uid: Int) : BaseModel() {
     }
 
     enum class EUserLoginType(private val value: String) {
-        normal("normal"), kakao("kakao"), google("google"), facebook("facebook");
+        normal("normal"), kk("kk"), nv("nv"), google("google"), facebook("facebook");
 
         fun value(): String {
             return value
@@ -66,11 +43,13 @@ data class User(@PrimaryKey(autoGenerate = true) var uid: Int) : BaseModel() {
         companion object {
             fun toEnum(value: String?): EUserLoginType {
                 if (value != null) {
-                    if (value == "kakao" == true) {
-                        return kakao
-                    } else if (value == "google" == true) {
+                    if (value == "kk") {
+                        return kk
+                    } else if (value == "nv") {
+                        return nv
+                    } else if (value == "google") {
                         return google
-                    } else if (value == "facebook" == true) {
+                    } else if (value == "facebook") {
                         return facebook
                     }
                 }

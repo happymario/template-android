@@ -2,6 +2,7 @@ package com.mario.template
 
 object Constants {
     const val BASE_URL = "http://192.168.0.22:8101/"
+    const val CLIENT_PHONE_NUMBER = "191-245-3575"
 
     object DateFormat {
         const val HH_mm = "HH:mm"

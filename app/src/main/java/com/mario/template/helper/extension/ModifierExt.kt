@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.mario.template.util.extension
+package com.mario.template.helper.extension
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource

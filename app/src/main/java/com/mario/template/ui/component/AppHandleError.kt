@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.mario.template.R
 import com.mario.template.base.BaseViewState
 import com.mario.template.data.exception.AppException
-import com.mario.template.util.CommonUtil
+import com.mario.template.helper.CommonUtil
 
 enum class ActionType {
     CONFIRM, CANCEL
@@ -105,14 +105,17 @@ fun HandleError(
 
         is AppException.ToastException -> {
             CommonUtil.showToast(context, error.message)
+            onDismissRequest.invoke()
         }
 
         is AppException.ServerHttp -> {
             CommonUtil.showToast(context, error.message)
+            onDismissRequest.invoke()
         }
 
         is AppException.Network -> {
             CommonUtil.showToast(context, context.getString(R.string.error_message_network))
+            onDismissRequest.invoke()
         }
 
         else -> {
