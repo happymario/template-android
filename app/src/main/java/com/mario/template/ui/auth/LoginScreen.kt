@@ -179,7 +179,7 @@ fun Login(appState: TemplateAppState, viewModel: LoginViewModel = hiltViewModel<
                     isClickedAsk.value = true
                     if (!callPermissionState.status.shouldShowRationale && !callPermissionState.status.isGranted) { // permanently denied
                         CommonUtil.showToast(context, R.string.pms_des)
-                        IntentShareUtil.gotoSetting(context.getActivity(), 1)
+                        context.getActivity()?.let { it1 -> IntentShareUtil.gotoSetting(it1, 1) }
                     } else if (callPermissionState.status.shouldShowRationale) {
                         CommonUtil.showToast(context, R.string.pms_des)
                     } else {
