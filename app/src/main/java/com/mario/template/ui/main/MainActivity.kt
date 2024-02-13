@@ -18,8 +18,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.mario.template.R
 import com.mario.template.base.BaseLayoutBindingActivity
 import com.mario.template.databinding.ActivityMainBinding
-import com.mario.template.helper.CommonUtil
-import com.mario.template.helper.IntentShareUtil
+import com.mario.template.helper.CommonHelper
+import com.mario.template.helper.IntentShareHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.lang.Math.abs
@@ -112,9 +112,9 @@ class MainActivity : BaseLayoutBindingActivity<ActivityMainBinding>() {
     }
 
     fun onFab(view: View) {
-        val bitmap = IntentShareUtil.captureBitmapFromView(binding.root)
-        val shareUrl = IntentShareUtil.saveToSharedImage(this, bitmap)
-        IntentShareUtil.shareEtc(this, shareUrl)
+        val bitmap = IntentShareHelper.captureBitmapFromView(binding.root)
+        val shareUrl = IntentShareHelper.saveToSharedImage(this, bitmap)
+        IntentShareHelper.shareEtc(this, shareUrl)
     }
 
     /************************************************************
@@ -303,7 +303,7 @@ class MainActivity : BaseLayoutBindingActivity<ActivityMainBinding>() {
     private fun finishWithMsg() {
         if (!isFinishDoing) {
             isFinishDoing = true
-            CommonUtil.showToast(this, R.string.app_finish_message)
+            CommonHelper.showToast(this, R.string.app_finish_message)
 
             Handler(Looper.getMainLooper()).postDelayed(Runnable {
                 isFinishDoing = false

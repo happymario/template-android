@@ -14,8 +14,8 @@ import com.mario.template.base.BaseLayoutBindingActivity
 import com.mario.template.common.manager.MediaManager
 import com.mario.template.data.model.User
 import com.mario.template.databinding.ActivitySignupBinding
-import com.mario.template.helper.CommonUtil
-import com.mario.template.helper.PermissionUtil
+import com.mario.template.helper.CommonHelper
+import com.mario.template.helper.PermissionHelper
 import com.mario.template.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,8 +37,8 @@ class SignupActivity : BaseLayoutBindingActivity<ActivitySignupBinding>() {
     private val viewModel by viewModels<SignupViewModel>()
     private val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-            if (PermissionUtil.isPermisionsRevoked(this, CAMERA_GALLERY_PERMISSIONS)) {
-                PermissionUtil.showPermissionGuide(this, 0)
+            if (PermissionHelper.isPermisionsRevoked(this, CAMERA_GALLERY_PERMISSIONS)) {
+                PermissionHelper.showPermissionGuide(this, 0)
             } else {
                 checkPermissionsForMediaManager()
             }
@@ -127,11 +127,11 @@ class SignupActivity : BaseLayoutBindingActivity<ActivitySignupBinding>() {
             if (it != Resource.Loading<User>()) {
                 showProgress()
             } else if (it != Resource.Error<User>()) {
-                CommonUtil.showToast(this, it.message)
+                CommonHelper.showToast(this, it.message)
             } else if (it != Resource.None<User>()) {
                 hideProgress()
             } else {
-                CommonUtil.showToast(this, "회원가입이 완료되었습니다.")
+                CommonHelper.showToast(this, "회원가입이 완료되었습니다.")
             }
         }
     }
@@ -149,7 +149,7 @@ class SignupActivity : BaseLayoutBindingActivity<ActivitySignupBinding>() {
             }
 
             override fun onFailed(code: Int, err: String?) {
-                CommonUtil.showToast(this@SignupActivity, "Error => code($code), err($err)")
+                CommonHelper.showToast(this@SignupActivity, "Error => code($code), err($err)")
             }
 
             override fun onImage(uri: Uri?, bitmap: Bitmap?) {
@@ -157,8 +157,8 @@ class SignupActivity : BaseLayoutBindingActivity<ActivitySignupBinding>() {
                 //imageView.setImageBitmap(bitmap)
 
                 val file = mediaManager.getFileFromUri(uri)
-                CommonUtil.showToast(this@SignupActivity, uri.toString())
-                CommonUtil.showToast(this@SignupActivity, "FileExist => ${file?.exists()}")
+                CommonHelper.showToast(this@SignupActivity, uri.toString())
+                CommonHelper.showToast(this@SignupActivity, "FileExist => ${file?.exists()}")
 
                 viewModel.uploadFile(file)
             }
@@ -170,8 +170,8 @@ class SignupActivity : BaseLayoutBindingActivity<ActivitySignupBinding>() {
                 }
 
                 val file = MediaManager.externalUriToFile(this@SignupActivity, video)
-                CommonUtil.showToast(this@SignupActivity, video.toString())
-                CommonUtil.showToast(this@SignupActivity, "FileExist => ${file.exists()}")
+                CommonHelper.showToast(this@SignupActivity, video.toString())
+                CommonHelper.showToast(this@SignupActivity, "FileExist => ${file.exists()}")
 
                 viewModel.uploadFile(file)
             }
@@ -180,10 +180,10 @@ class SignupActivity : BaseLayoutBindingActivity<ActivitySignupBinding>() {
 
 
     private fun hideKeyboard() {
-        CommonUtil.hideKeyboard(binding.etId)
-        CommonUtil.hideKeyboard(binding.etPwd)
-        CommonUtil.hideKeyboard(binding.etPwdConfrim)
-        CommonUtil.hideKeyboard(binding.etMotto)
+        CommonHelper.hideKeyboard(binding.etId)
+        CommonHelper.hideKeyboard(binding.etPwd)
+        CommonHelper.hideKeyboard(binding.etPwdConfrim)
+        CommonHelper.hideKeyboard(binding.etMotto)
     }
 
     private fun goMain() {
@@ -195,7 +195,7 @@ class SignupActivity : BaseLayoutBindingActivity<ActivitySignupBinding>() {
     }
 
     private fun checkPermissionsForMediaManager() {
-        if (PermissionUtil.hasPermission(this, CAMERA_GALLERY_PERMISSIONS)) {
+        if (PermissionHelper.hasPermission(this, CAMERA_GALLERY_PERMISSIONS)) {
             showMediaManager()
         } else {
             permissionLauncher.launch(CAMERA_GALLERY_PERMISSIONS)

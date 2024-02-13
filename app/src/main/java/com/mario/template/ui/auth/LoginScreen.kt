@@ -71,8 +71,8 @@ import com.mario.lib.base.extension.getActivity
 import com.mario.template.Constants
 import com.mario.template.R
 import com.mario.template.TemplateAppState
-import com.mario.template.helper.CommonUtil
-import com.mario.template.helper.IntentShareUtil
+import com.mario.template.helper.CommonHelper
+import com.mario.template.helper.IntentShareHelper
 import com.mario.template.ui.component.ActionType
 import com.mario.template.ui.component.AppScaffold
 import com.mario.template.ui.component.ComposableLifecycle
@@ -107,13 +107,13 @@ fun Login(appState: TemplateAppState, viewModel: LoginViewModel = hiltViewModel<
             isGoPhone.value = true
             isClickedAsk.value = false
 
-            IntentShareUtil.gotoPhone(
+            IntentShareHelper.gotoPhone(
                 context,
                 Constants.CLIENT_PHONE_NUMBER
             )
         } else {
             // Handle permission denial
-            CommonUtil.showToast(context, R.string.pms_des)
+            CommonHelper.showToast(context, R.string.pms_des)
         }
     }
 
@@ -133,7 +133,7 @@ fun Login(appState: TemplateAppState, viewModel: LoginViewModel = hiltViewModel<
                     isGoPhone.value = true
                     isClickedAsk.value = false
 
-                    IntentShareUtil.gotoPhone(
+                    IntentShareHelper.gotoPhone(
                         context,
                         Constants.CLIENT_PHONE_NUMBER
                     )
@@ -178,10 +178,10 @@ fun Login(appState: TemplateAppState, viewModel: LoginViewModel = hiltViewModel<
                 SignInEvent.Ask -> {
                     isClickedAsk.value = true
                     if (!callPermissionState.status.shouldShowRationale && !callPermissionState.status.isGranted) { // permanently denied
-                        CommonUtil.showToast(context, R.string.pms_des)
-                        context.getActivity()?.let { it1 -> IntentShareUtil.gotoSetting(it1, 1) }
+                        CommonHelper.showToast(context, R.string.pms_des)
+                        context.getActivity()?.let { it1 -> IntentShareHelper.gotoSetting(it1, 1) }
                     } else if (callPermissionState.status.shouldShowRationale) {
-                        CommonUtil.showToast(context, R.string.pms_des)
+                        CommonHelper.showToast(context, R.string.pms_des)
                     } else {
                         requestPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
                     }

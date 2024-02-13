@@ -29,4 +29,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MTemplate"
 include(":app")
-include(":mbase")
+include(":libMBase")

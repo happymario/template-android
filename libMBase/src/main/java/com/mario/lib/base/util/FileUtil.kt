@@ -3,7 +3,7 @@ package com.mario.lib.base.util
 import android.content.Context
 import java.io.*
 
-class FileUtils(private val context: Context) {
+class FileUtil(private val context: Context) {
     private val rootFolder: File = context.filesDir
 
     private fun getRootFolder(): String {

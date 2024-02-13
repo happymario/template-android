@@ -17,7 +17,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 
-object IntentShareUtil {
+object IntentShareHelper {
     fun shareInstagram(context: Context, str: String): Boolean {
         val c: Parcelable
         c = if (Build.VERSION.SDK_INT >= 23) {

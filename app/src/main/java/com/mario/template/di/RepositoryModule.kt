@@ -18,8 +18,8 @@ import dagger.hilt.components.SingletonComponent
 object RepositoryModule {
     @Provides
     fun provideTemplateRepository(
-        currentTemplateApiService: MyTemplateApiService,
-        oneCallApiService: OneCallApiService,
+        @NetworkModule.MyApiServer currentTemplateApiService: MyTemplateApiService,
+        @NetworkModule.GithubApiServer oneCallApiService: OneCallApiService,
     ): TemplateRepository = TemplateRepositoryImpl(currentTemplateApiService, oneCallApiService)
 
     @Provides

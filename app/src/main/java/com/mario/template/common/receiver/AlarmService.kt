@@ -3,7 +3,7 @@ package com.mario.template.common.receiver
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import com.mario.template.helper.CommonUtil
+import com.mario.template.helper.CommonHelper
 
 class AlarmService : Service() {
     val NOTIFICATION_ID = 1111  // cannot be 0
@@ -11,7 +11,7 @@ class AlarmService : Service() {
     override fun onCreate() {
         super.onCreate()
 
-        CommonUtil.showToast(this, "MyAlarmService.onCreate()")
+        CommonHelper.showToast(this, "MyAlarmService.onCreate()")
 
         val data = HashMap<String, String>()
         data.put("type", "AlarmManager")
@@ -22,24 +22,24 @@ class AlarmService : Service() {
     }
 
     override fun onBind(intent: Intent?): IBinder? {
-        CommonUtil.showToast(this, "MyAlarmService.onBind()")
+        CommonHelper.showToast(this, "MyAlarmService.onBind()")
         return null
     }
 
     override fun onDestroy() {
-        CommonUtil.showToast(this, "MyAlarmService.onDestroy()")
+        CommonHelper.showToast(this, "MyAlarmService.onDestroy()")
         super.onDestroy()
         stopForeground(true)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        CommonUtil.showToast(this, "MyAlarmService.onStartCommand()")
+        CommonHelper.showToast(this, "MyAlarmService.onStartCommand()")
 
         return START_STICKY
     }
 
     override fun onUnbind(intent: Intent?): Boolean {
-        CommonUtil.showToast(this, "MyAlarmService.onUnbind()")
+        CommonHelper.showToast(this, "MyAlarmService.onUnbind()")
         return super.onUnbind(intent)
     }
 }

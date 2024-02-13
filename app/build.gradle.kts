@@ -99,7 +99,9 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     annotationProcessor(libs.androidx.room.compiler)
     kapt(libs.androidx.room.compiler)
+//    implementation(libs.androidx.wear.material)
     implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.biometric)
 
     // Layout
     implementation(libs.constraintlayout)
@@ -121,6 +123,10 @@ dependencies {
     implementation(libs.okhttp3)
     implementation(libs.okhttp3.logging.interceptor)
     implementation(libs.coil.image)
+    implementation(libs.glide.image)
+    annotationProcessor(libs.glide.compiler)
+//    implementation(libs.glide.composer)
+    implementation(libs.volley)
 
     // Google
     implementation(libs.google.play.services.base)
@@ -137,5 +143,5 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
 
     //Custom
-    implementation(project(":mbase"))
+    implementation(project(":libMBase"))
 }

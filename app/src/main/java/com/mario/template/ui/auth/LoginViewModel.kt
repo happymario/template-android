@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.mario.lib.base.architecture.Event
+import com.mario.lib.base.util.ValidUtil
 import com.mario.template.R
 import com.mario.template.base.BaseViewModel
 import com.mario.template.data.exception.AppException
 import com.mario.template.data.repository.LocalRepository
 import com.mario.template.data.repository.TemplateRepository
-import com.mario.template.helper.CommonUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -71,7 +71,7 @@ class LoginViewModel @Inject constructor(
      ************************************************************/
     suspend fun loginUser() {
         launchScope {
-            if (id.value == "" || !CommonUtil.isValidEmail(id.value!!)) {
+            if (id.value == "" || !ValidUtil.isValidEmail(id.value!!)) {
                 showError(AppException.ToastException(context.getString(R.string.input_valid_email)))
                 return@launchScope
             }

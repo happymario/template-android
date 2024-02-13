@@ -6,9 +6,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import com.mario.template.R
-import java.util.regex.Pattern
 
-object CommonUtil {
+object CommonHelper {
     fun showNIToast(p_context: Context) {
         showToast(p_context, R.string.ready_service)
     }
@@ -20,22 +19,6 @@ object CommonUtil {
 
     fun showToast(p_context: Context?, msg: String?) {
         Toast.makeText(p_context, msg, Toast.LENGTH_SHORT).show()
-    }
-
-    fun isValidEmail(email: String): Boolean {
-        var isValid = false
-        val count = email.length - email.replace("@".toRegex(), "").length
-        if (count >= 2) {
-            return false
-        }
-        val expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$"
-        val inputStr: CharSequence = email
-        val pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE)
-        val matcher = pattern.matcher(inputStr)
-        if (matcher.matches()) {
-            isValid = true
-        }
-        return isValid
     }
 
     fun showKeyboard(edit: EditText) {

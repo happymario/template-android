@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat;
 import com.mario.template.R;
 
 
-public class PermissionUtil {
+public class PermissionHelper {
     public static boolean hasPermission(Activity activity, String permission) {
         if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
             return false;
@@ -46,7 +46,7 @@ public class PermissionUtil {
     public static void showPermissionGuide(Activity activity, final int RC) {
         new AlertDialog.Builder(activity)
                 .setMessage(activity.getString(R.string.pms_des))
-                .setPositiveButton(R.string.confirm, (dialog, which) -> IntentShareUtil.gotoSetting(activity, RC))
+                .setPositiveButton(R.string.confirm, (dialog, which) -> IntentShareHelper.gotoSetting(activity, RC))
                 .show();
     }
 }
