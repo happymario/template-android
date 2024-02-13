@@ -1,4 +1,4 @@
-package com.mario.lib.base.view
+package com.mario.lib.base.view.recyclerview
 
 import android.graphics.Canvas
 import android.graphics.Paint

@@ -1,11 +1,12 @@
 package com.mario.template
 
+import com.mario.template.data.remote.apiservice.MyTemplateApiService
+
 object Constants {
-    const val BASE_URL = "http://192.168.0.22:8101/"
     const val CLIENT_PHONE_NUMBER = "191-245-3575"
 
-    val URL_ABOUT: String = BASE_URL + "/admin/login/term?term_kind=about"
-    val URL_USE_AGREE: String = BASE_URL + "/admin/login/term?term_kind=use"
+    val URL_ABOUT: String = MyTemplateApiService.BASE_URL + "/admin/login/term?term_kind=about"
+    val URL_USE_AGREE: String = MyTemplateApiService.BASE_URL + "/admin/login/term?term_kind=use"
 
     /********************************************************************
      * INTENT NAMES

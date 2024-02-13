@@ -1,4 +1,4 @@
-package com.mario.lib.base.view
+package com.mario.lib.base.view.imageview
 
 import android.annotation.TargetApi
 import android.content.Context

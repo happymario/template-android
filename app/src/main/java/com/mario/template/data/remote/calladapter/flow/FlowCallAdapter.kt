@@ -1,4 +1,4 @@
-package com.mario.template.data.remote.calladapter
+package com.mario.template.data.remote.calladapter.flow
 
 import com.mario.template.data.exception.ResponseException
 import kotlinx.coroutines.flow.Flow

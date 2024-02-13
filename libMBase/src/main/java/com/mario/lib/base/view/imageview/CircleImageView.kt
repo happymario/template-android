@@ -1,4 +1,4 @@
-package com.mario.lib.base.view
+package com.mario.lib.base.view.imageview
 
 import android.content.Context
 import android.graphics.Bitmap

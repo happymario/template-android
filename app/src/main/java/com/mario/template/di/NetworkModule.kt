@@ -4,10 +4,11 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.mario.template.Constants
+import com.mario.template.data.remote.apiservice.GithubService
 import com.mario.template.data.remote.apiservice.MyTemplateApiService
 import com.mario.template.data.remote.apiservice.OneCallApiService
-import com.mario.template.data.remote.calladapter.FlowCallAdapterFactory
+import com.mario.template.data.remote.calladapter.coroutines.CoroutinesResponseCallAdapterFactory
+import com.mario.template.data.remote.calladapter.flow.FlowCallAdapterFactory
 import com.mario.template.data.remote.interceptor.HeaderInterceptor
 import com.victoria.bleled.util.thirdparty.gson.GsonDateAdapter
 import com.victoria.bleled.util.thirdparty.gson.GsonDateTimeAdapter
@@ -66,7 +67,7 @@ object NetworkModule {
 
     @GithubApiServer
     @Provides
-    fun provideBaseGithubApiUrl() = "https://github.com"
+    fun provideBaseGithubApiUrl() = GithubService.BASE_URL
 
     @GithubApiServer
     @Singleton
@@ -77,7 +78,7 @@ object NetworkModule {
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             //.addCallAdapterFactory(LiveDataCallAdapterFactory())
-            .addCallAdapterFactory(FlowCallAdapterFactory())
+            .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory())
             .build()
     }
 
@@ -95,7 +96,7 @@ object NetworkModule {
     ): Retrofit {
 
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL + "api/")
+            .baseUrl(MyTemplateApiService.BASE_URL + "api/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(FlowCallAdapterFactory())

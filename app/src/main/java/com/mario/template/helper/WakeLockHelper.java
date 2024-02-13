@@ -24,7 +24,7 @@ public class WakeLockHelper {
                 PowerManager.SCREEN_BRIGHT_WAKE_LOCK |
                         PowerManager.ACQUIRE_CAUSES_WAKEUP |
                         PowerManager.ON_AFTER_RELEASE, "PushWakeLock");
-        sCpuWakeLock.acquire(10*60*1000L /*10 minutes*/);
+        sCpuWakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
     }
 
     public static void releaseCpuLock() {

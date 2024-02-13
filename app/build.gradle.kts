@@ -113,6 +113,7 @@ dependencies {
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.mpchart)
 
     // Extension
     implementation(libs.bundles.google.accompanist)
@@ -137,6 +138,7 @@ dependencies {
     // Other
     implementation(libs.timber)
     implementation(libs.image.cropper)
+    implementation(libs.utilcodex)
 
     // Test
     testImplementation(libs.kotlin.reflect)

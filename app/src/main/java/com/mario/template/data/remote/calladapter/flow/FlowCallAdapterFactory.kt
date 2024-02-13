@@ -1,4 +1,4 @@
-package com.mario.template.data.remote.calladapter
+package com.mario.template.data.remote.calladapter.flow
 
 import kotlinx.coroutines.flow.Flow
 import retrofit2.CallAdapter

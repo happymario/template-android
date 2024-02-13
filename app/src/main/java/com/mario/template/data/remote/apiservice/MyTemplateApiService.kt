@@ -14,6 +14,10 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 
 interface MyTemplateApiService {
+    companion object {
+        const val BASE_URL = "http://192.168.0.22:8101/"
+    }
+
     /************************************************************
      * Common
      ***********************************************************/
@@ -55,4 +59,5 @@ interface MyTemplateApiService {
     fun userSignout(
         @Header("Authorization") token: String,
     ): Flow<BaseResponse<BaseModel>>
+
 }
