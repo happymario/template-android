@@ -42,6 +42,7 @@
     <string name="error_message_address_is_not_found">Cannot get the address!</string>
     <string name="error_message_city_is_invalid">City is invalid!</string>
     <string name="error_message_lat_lng_are_invalid">Latitude and Longitude are invalid!</string>
+    <string name="error_message_ssl_cert_invalid">Would you move to the unsafe web page?</string>
 
     <!-- Time message -->
     <string name="just">Just Ago</string>
@@ -130,4 +131,11 @@
         <item>Get in - depth weather\ninformation.</item>
     </string-array>
 
+    <!-- Setting -->
+    <string name="setting">Setting</string>
+    <string name="alarm">Alarm</string>
+    <string name="use_agreement">UseAgreement</string>
+    <string name="signout">Signout</string>
+    <string name="ver">Version</string>
+    <string name="msg_signout">Are you sure to sign out?\nAfter sign out, you cannot restore your data.</string>
 </resources>

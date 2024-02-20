@@ -129,6 +129,10 @@ dependencies {
 //    implementation(libs.glide.composer)
     implementation(libs.volley)
 
+    // BLE
+    implementation(libs.bluetoothspp)
+    implementation(libs.fastble)
+
     // Google
     implementation(libs.google.play.services.base)
     implementation(libs.google.play.services.maps)
@@ -139,6 +143,8 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.image.cropper)
     implementation(libs.utilcodex)
+    implementation(libs.jsoup)
+    implementation(libs.circleindicator)
 
     // Test
     testImplementation(libs.kotlin.reflect)

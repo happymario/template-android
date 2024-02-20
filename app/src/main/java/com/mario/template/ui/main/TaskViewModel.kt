@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.mario.lib.base.architecture.Event
+import com.mario.lib.base.architecture.ResourceLiveData
 import com.mario.template.R
 import com.mario.template.base.BaseViewModel
 import com.mario.template.data.model.User
@@ -53,6 +54,7 @@ class TaskViewModel @Inject constructor(
 
         result
     }
+    val items: LiveData<List<String>> = _items
 
     // sharedflow는 Event같이 값이 없지만 구독을 해야 하는 객체일시
     // replay = 0: 새로운 구독자에겐 이전 event를 전달하지 않음, extraBuffer:buffer크기, onBufferOverflow: buffer가득찾을때 처리
@@ -63,9 +65,6 @@ class TaskViewModel @Inject constructor(
             onBufferOverflow = BufferOverflow.DROP_OLDEST
         )
     val systemEvent = _systemEvent.asSharedFlow()
-
-
-    val items: LiveData<List<String>> = _items
 
     private var currentPageIdx: Int = 0
 
