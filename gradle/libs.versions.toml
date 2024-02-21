@@ -18,6 +18,7 @@ google-ksp = "1.8.20-1.0.10"
 jetbrains-kotlinx-coroutines = "1.6.4"
 
 # AndroidX
+androidx-multidex = "2.0.1"
 androidx-material3 = "1.1.1"
 androidx-material = "1.4.3"
 androidx-hilt = "1.0.0"
@@ -28,6 +29,9 @@ androidx-room = "2.5.2"
 androidx-datastore = "1.0.0"
 androidx-biometric = "1.1.0"
 
+#Compose
+compose-material = "1.3.0"
+
 # Layout
 constraintlayout = "2.1.4"
 androidx-drawerlayout = "1.1.1"
@@ -37,6 +41,13 @@ androidx-cardview = "1.0.0"
 androidx-swiperefreshlayout = "1.1.0"
 androidx-activity-ktx = "1.7.2"
 androidx-fragment-ktx = "1.6.0"
+
+# View
+appcompat = "1.6.1"
+material = "1.9.0"
+image-cropper = "4.0.0"
+mpchart = "v3.1.0"
+circleindicator = "2.1.6"
 
 # Google
 google-dagger = "2.46"
@@ -60,13 +71,7 @@ fastble = "2.4.0"
 
 # Other
 timber = "5.0.1"
-appcompat = "1.6.1"
-material = "1.9.0"
-compose-material = "1.3.0"
-image-cropper = "4.0.0"
 utilcodex = "1.31.0"
-mpchart = "v3.1.0"
-circleindicator = "2.1.6"
 jsoup = "1.14.3"
 
 [libraries]
@@ -96,6 +101,7 @@ kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "jetbrains-kotlinx-coroutines" }
 
 # AndroidX
+androidx-multidex = { group = "androidx.multidex", name = "multidex", version.ref = "androidx-multidex" }
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidx-hilt" }
 androidx-hilt-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "androidx-hilt" }
 androidx-work = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidx-work" }

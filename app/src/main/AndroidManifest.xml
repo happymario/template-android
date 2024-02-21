@@ -1,38 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!--       For only Barcode scan -->
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
     <uses-feature
         android:name="android.hardware.telephony"
-        android:required="false" />
-
-    <!-- Manage External은 전체 파일에 Access해야 할시만 이용 -->
+        android:required="false" /> <!-- Manage External은 전체 파일에 Access해야 할시만 이용 -->
     <!-- <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" /> -->
     <!-- android 11이상일 경우 WRITE_EXTERNAL_STORAGE은 더이상 지원안됨. read만 요청해도 특정 external과 scope령역 액세스가능함 -->
     <!-- Background권한은 반드시 이용사유를 동영상으로 제출해야 하며 처음에 요청페지가 떠야 함. -->
     <!-- <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> -->
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--
-        Push wake permission
-    -->
+    <!--         Push wake permission -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
-    <!--
-        Service Permission
-    -->
+    <!--         Service Permission -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
-    <!--
-      camera, gallary, storage
-    -->
+    <!--       camera, gallary, storage -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -42,15 +33,9 @@
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-
-    <!--
-     call phone
-   -->
+    <!--      call phone -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
-    <!--
-       Request legacy Bluetooth permissions on older devices.
-   -->
+    <!--        Request legacy Bluetooth permissions on older devices. -->
     <uses-permission
         android:name="android.permission.BLUETOOTH"
         android:maxSdkVersion="30" />
@@ -64,42 +49,27 @@
          doesn't derive physical location.
     -->
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
-    <!--
-        Needed only if your app makes the device discoverable to Bluetooth devices.
-    -->
+    <!--         Needed only if your app makes the device discoverable to Bluetooth devices. -->
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
-    <!--
-        Needed only if your app communicates with already-paired Bluetooth devices.
-    -->
+    <!--         Needed only if your app communicates with already-paired Bluetooth devices. -->
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <!--
-        Needed only if your app uses Bluetooth scan results to derive physical location.
-    -->
+    <!--         Needed only if your app uses Bluetooth scan results to derive physical location. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
-    <!--
-        AlarmManager
-    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <!--         AlarmManager -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
-    <!--
-      For only Barcode scan
-  -->
-    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-
-    <!--
-         DownloadManager: wifi바꾸니 작동함.
-     -->
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <!--          DownloadManager: wifi바꾸니 작동함. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
+
     <meta-data
         android:name="android.allow_multiple_resumed_activities"
         android:value="true" />
-
 
     <queries>
         <package android:name="com.android.camera.action.CROP" />
@@ -146,9 +116,13 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTemplate"
-        tools:targetApi="31"
-        android:usesCleartextTraffic="true">
-
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".ui.main.MainActivity2"
+            android:exported="false"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/Theme.MyTemplate" />
         <!-- Start: file provider for camera -->
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -158,9 +132,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
-        </provider>
-        <!-- End: file provider for camera -->
-
+        </provider> <!-- End: file provider for camera -->
         <!-- Start: Timber start log -->
         <provider
             android:name="androidx.startup.InitializationProvider"
@@ -169,9 +141,7 @@
             <meta-data
                 android:name="com.mario.template.helper.thirdparty.TimberInitializer"
                 android:value="androidx.startup" />
-        </provider>
-        <!-- Start: Timber start log -->
-
+        </provider> <!-- Start: Timber start log -->
         <activity
             android:name=".StartActivity"
             android:exported="true">
@@ -181,22 +151,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.main.MainActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:resizeableActivity="true"
             android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity"
-            tools:targetApi="n"
-            android:theme="@style/AppCompatTheme.NoActionBar">
-        </activity>
-
+            tools:targetApi="n"></activity>
         <activity
             android:name=".ui.auth.SignupActivity"
             android:exported="false"
-            android:theme="@style/AppCompatTheme.NoActionBar"/>
-
+            android:theme="@style/AppCompatTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -92,8 +92,8 @@
     <string name="msg_no_login_user">No Account! Please sign up again!</string>
 
     <!-- Main -->
-    <string name="tab_main">Main</string>
-    <string name="tab_latest">Recent</string>
+    <string name="tab_basic">Basic</string>
+    <string name="tab_latest">Latest</string>
     <string name="tab_special">Special</string>
     <string-array name="arr_main_tech">
         <item>Menu</item>
@@ -138,4 +138,5 @@
     <string name="signout">Signout</string>
     <string name="ver">Version</string>
     <string name="msg_signout">Are you sure to sign out?\nAfter sign out, you cannot restore your data.</string>
+    <string name="title_activity_main2">MainActivity2</string>
 </resources>

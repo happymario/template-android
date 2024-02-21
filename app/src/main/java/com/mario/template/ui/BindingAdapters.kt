@@ -13,6 +13,7 @@ import androidx.databinding.InverseMethod
 import androidx.recyclerview.widget.RecyclerView
 import com.mario.lib.base.view.recyclerview.RecyclerViewDecoration
 import com.mario.template.R
+import com.mario.template.helper.thirdparty.glide.GlideImageLoader
 import com.mario.template.ui.main.TaskAdapter
 
 
@@ -49,12 +50,12 @@ object BindingAdapters {
         if (url == null) {
             imageView.setImageResource(placeHolder ?: R.drawable.xml_default_img)
         } else {
-//            ImageLoader.loadImage(
-//                imageView.context,
-//                imageView,
-//                placeHolder ?: R.drawable.xml_default_img,
-//                url
-//            )
+            GlideImageLoader.loadImage(
+                imageView.context,
+                imageView,
+                placeHolder ?: R.drawable.xml_default_img,
+                url
+            )
         }
     }
 

@@ -11,7 +11,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.mario.mtemplate"
+        applicationId = "com.mario.template"
         //applicationId = "com.mario.classytaxi"   // googlePlay LVC : InApp Test
         minSdk = 23
         targetSdk = 34
@@ -22,6 +22,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        multiDexEnabled = true
     }
 
     buildTypes {
@@ -58,7 +59,7 @@ android {
 }
 
 dependencies {
-
+    // First
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
@@ -67,14 +68,13 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.compose.material3)
-    implementation(libs.compose.material)
-    implementation(libs.compose.material.icons)
-    implementation(libs.compose.material.icons.ext)
+    implementation(platform(libs.compose.bom))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
+    androidTestImplementation(platform(libs.compose.bom))
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 
@@ -89,6 +89,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     // AndroidX
+    implementation(libs.androidx.multidex)
     implementation(libs.androidx.work)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.lifecycle.runtime.compose)
@@ -103,6 +104,11 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.biometric)
 
+    // ComposeView
+    implementation(libs.compose.material)
+    implementation(libs.compose.material.icons)
+    implementation(libs.compose.material.icons.ext)
+
     // Layout
     implementation(libs.constraintlayout)
     implementation(libs.androidx.drawerlayout)
@@ -113,7 +119,10 @@ dependencies {
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.swiperefreshlayout)
+
+    // View
     implementation(libs.mpchart)
+    implementation(libs.circleindicator)
 
     // Extension
     implementation(libs.bundles.google.accompanist)
@@ -144,7 +153,6 @@ dependencies {
     implementation(libs.image.cropper)
     implementation(libs.utilcodex)
     implementation(libs.jsoup)
-    implementation(libs.circleindicator)
 
     // Test
     testImplementation(libs.kotlin.reflect)

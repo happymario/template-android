@@ -250,7 +250,7 @@ class MainActivity : BaseLayoutBindingActivity<ActivityMainBinding>() {
         pagerAdapter = MainPagerAdapter(this)
 
         val titleArray = ArrayList<String>()
-        titleArray.add(getString(R.string.tab_main))
+        titleArray.add(getString(R.string.tab_basic))
         titleArray.add(getString(R.string.tab_latest))
         titleArray.add(getString(R.string.tab_special))
         pagerAdapter?.setFragmentTitle(titleArray)

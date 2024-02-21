@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.mario.lib.base.architecture.Event
 import com.mario.template.R
 import com.mario.template.base.BaseViewModel
+import com.mario.template.base.BaseViewState
 import com.mario.template.data.model.User
 import com.mario.template.data.repository.LocalRepository
 import com.mario.template.data.repository.TemplateRepository
@@ -22,6 +23,10 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+data class MainViewState(
+    override val isLoading: Boolean = false,
+    override val error: Throwable? = null
+) : BaseViewState()
 
 @SuppressLint("StaticFieldLeak")
 @HiltViewModel
