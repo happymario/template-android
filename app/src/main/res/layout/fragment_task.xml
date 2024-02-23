@@ -10,14 +10,14 @@
 
         <variable
             name="viewmodel"
-            type="com.mario.template.ui.main.MainViewModel" />
+            type="com.mario.template.ui.layout.TaskViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.mario.template.ui.view.ScrollChildSwipeRefreshLayout
+        <com.mario.template.ui.layout.view.ScrollChildSwipeRefreshLayout
             android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -37,6 +37,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:itemCount="12"
                 tools:listitem="@layout/item_task" />
-        </com.mario.template.ui.view.ScrollChildSwipeRefreshLayout>
+        </com.mario.template.ui.layout.view.ScrollChildSwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

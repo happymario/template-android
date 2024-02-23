@@ -1,10 +1,10 @@
-package com.mario.template.ui.main
+package com.mario.template.ui.layout
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class MainPagerAdapter constructor(fa: FragmentActivity) : FragmentStateAdapter(fa) {
+class LayoutMainPagerAdapter constructor(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 
     private val mFragmentTitles: MutableList<String> = ArrayList()
     private val hashMap: HashMap<Int, Fragment> = HashMap()

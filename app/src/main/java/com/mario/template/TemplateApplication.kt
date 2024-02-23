@@ -9,7 +9,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDex
 import com.mario.lib.base.util.LocaleUtil
-import com.mario.template.ui.main.MainActivity
+import com.mario.template.ui.layout.LayoutMainActivity
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import java.io.PrintWriter
@@ -112,7 +112,7 @@ class TemplateApplication : Application() {
     fun finishAllActivityWithoutMain() {
         synchronized(allActivities) {
             for (act in allActivities) {
-                if (act !is MainActivity) {
+                if (act !is LayoutMainActivity) {
                     act.finish()
                 }
             }
@@ -120,7 +120,7 @@ class TemplateApplication : Application() {
     }
 
     fun restartApp() {
-        val i = Intent(this, MainActivity::class.java)
+        val i = Intent(this, LayoutMainActivity::class.java)
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(i)
     }
@@ -166,7 +166,7 @@ class TemplateApplication : Application() {
 
         override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {}
         override fun onActivityDestroyed(activity: Activity) {
-            if (activity.javaClass == MainActivity::class.java) {
+            if (activity.javaClass == LayoutMainActivity::class.java) {
                 application.appStatus = AppStatus.EXITED
             }
             application.removeActivity(activity)

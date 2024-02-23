@@ -1,4 +1,4 @@
-package com.mario.template.ui.main
+package com.mario.template.ui.layout
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mario.template.databinding.ItemTaskBinding
 
-class TaskAdapter(private val viewModel: MainViewModel) :
+class TaskAdapter(private val viewModel: TaskViewModel) :
     ListAdapter<String, TaskAdapter.ViewHolder>(TaskDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -1,4 +1,4 @@
-package com.mario.template.ui.view;
+package com.mario.template.ui.layout.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

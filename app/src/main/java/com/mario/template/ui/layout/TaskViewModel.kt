@@ -1,4 +1,4 @@
-package com.mario.template.ui.main
+package com.mario.template.ui.layout
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.mario.lib.base.architecture.Event
-import com.mario.lib.base.architecture.ResourceLiveData
 import com.mario.template.R
 import com.mario.template.base.BaseViewModel
 import com.mario.template.data.model.User
@@ -43,7 +42,7 @@ class TaskViewModel @Inject constructor(
 
     private val _items: LiveData<List<String>> = _query.switchMap { search ->
         val arrIds =
-            arrayOf(R.array.arr_main_tech, R.array.arr_recent_tech, R.array.arr_special_tech)
+            arrayOf(R.array.arr_basic, R.array.arr_latest, R.array.arr_special)
         val arrTitle =
             if (currentPageIdx < arrIds.size) context?.resources!!.getStringArray(arrIds[currentPageIdx]) else {
                 context?.resources!!.getStringArray(arrIds[0])
@@ -108,5 +107,9 @@ class TaskViewModel @Inject constructor(
     fun setPage(page: Int) {
         currentPageIdx = page
         _query.value = ""
+    }
+
+    fun refresh() {
+
     }
 }

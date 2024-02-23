@@ -2,18 +2,17 @@ package com.mario.template.ui.setting
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.mario.template.base.BaseViewModel
 import com.mario.template.data.model.User
 import com.mario.template.data.repository.LocalRepository
 import com.mario.template.data.repository.TemplateRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingViewModel @Inject constructor(private var repository: TemplateRepository,
-                                           private var localRepository: LocalRepository
+class SettingViewModel @Inject constructor(
+    private var repository: TemplateRepository,
+    private var localRepository: LocalRepository
 ) : BaseViewModel() {
 
     private val _userInfo = MutableLiveData<User>()

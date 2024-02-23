@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mario.lib.base.view.recyclerview.RecyclerViewDecoration
 import com.mario.template.R
 import com.mario.template.helper.thirdparty.glide.GlideImageLoader
-import com.mario.template.ui.main.TaskAdapter
+import com.mario.template.ui.layout.TaskAdapter
 
 
 @BindingMethods(

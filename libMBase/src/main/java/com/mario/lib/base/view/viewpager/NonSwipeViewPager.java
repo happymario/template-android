@@ -10,7 +10,6 @@ import android.widget.Scroller;
 
 import androidx.viewpager.widget.ViewPager;
 
-
 import com.mario.lib.base.R;
 
 import java.lang.reflect.Field;

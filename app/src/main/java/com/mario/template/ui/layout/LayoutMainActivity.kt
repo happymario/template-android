@@ -1,4 +1,4 @@
-package com.mario.template.ui.main
+package com.mario.template.ui.layout
 
 import android.os.Bundle
 import android.os.Handler
@@ -20,6 +20,7 @@ import com.mario.template.base.BaseLayoutBindingActivity
 import com.mario.template.databinding.ActivityMainBinding
 import com.mario.template.helper.CommonHelper
 import com.mario.template.helper.IntentShareHelper
+import com.mario.template.ui.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.lang.Math.abs
@@ -33,7 +34,7 @@ import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
 @AndroidEntryPoint
-class MainActivity : BaseLayoutBindingActivity<ActivityMainBinding>() {
+class LayoutMainActivity : BaseLayoutBindingActivity<ActivityMainBinding>() {
     /************************************************************
      *  Static & Global Members
      ************************************************************/
@@ -42,7 +43,7 @@ class MainActivity : BaseLayoutBindingActivity<ActivityMainBinding>() {
     /************************************************************
      *  UI controls & Data members
      ************************************************************/
-    private var pagerAdapter: MainPagerAdapter? = null
+    private var pagerAdapter: LayoutMainPagerAdapter? = null
     private val viewModel by viewModels<MainViewModel>()
     private var isFinishAppWhenPressedBackKey = true
     private var isFinishDoing = false
@@ -247,7 +248,7 @@ class MainActivity : BaseLayoutBindingActivity<ActivityMainBinding>() {
     }
 
     private fun setupViewPager(viewPager: ViewPager2) {
-        pagerAdapter = MainPagerAdapter(this)
+        pagerAdapter = LayoutMainPagerAdapter(this)
 
         val titleArray = ArrayList<String>()
         titleArray.add(getString(R.string.tab_basic))
@@ -319,14 +320,14 @@ class MainActivity : BaseLayoutBindingActivity<ActivityMainBinding>() {
      ************************************************************/
     companion object {
         @Volatile
-        private var instance: MainActivity? = null
+        private var instance: LayoutMainActivity? = null
 
         /**
          * singleton 애플리케이션 객체를 얻는다
          *
          * @return singleton 애플리케이션 객체
          */
-        val gInstance: MainActivity?
+        val gInstance: LayoutMainActivity?
             get() = instance
     }
 }

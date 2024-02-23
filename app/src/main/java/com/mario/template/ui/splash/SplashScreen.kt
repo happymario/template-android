@@ -40,7 +40,7 @@ private const val SplashWaitTime: Long = 3000
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun Splash(appState: TemplateAppState, viewModel: SplashViewModel = hiltViewModel()) {
+fun SplashRoute(appState: TemplateAppState, viewModel: SplashViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
 

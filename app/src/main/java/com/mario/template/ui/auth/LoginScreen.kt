@@ -76,7 +76,6 @@ import com.mario.template.helper.IntentShareHelper
 import com.mario.template.ui.component.ActionType
 import com.mario.template.ui.component.AppScaffold
 import com.mario.template.ui.component.ComposableLifecycle
-import com.mario.template.ui.test.Greeting
 import com.mario.template.ui.theme.CustomTheme
 import com.mario.template.ui.theme.MyTemplateTheme
 import kotlinx.coroutines.launch
@@ -91,7 +90,10 @@ sealed class SignInEvent {
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun Login(appState: TemplateAppState, viewModel: LoginViewModel = hiltViewModel<LoginViewModel>()) {
+fun LoginRoute(
+    appState: TemplateAppState,
+    viewModel: LoginViewModel = hiltViewModel<LoginViewModel>()
+) {
     val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()
     val loginCompleted by viewModel.loginCompleteEvent.observeAsState()
@@ -532,6 +534,6 @@ fun OrSignInAsGuest(
 @Composable
 fun LoginScreenPreview() {
     MyTemplateTheme {
-        Greeting("Android")
+        LoginScreen(LoginViewState(true, null), event = {})
     }
 }

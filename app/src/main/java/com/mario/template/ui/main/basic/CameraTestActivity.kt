@@ -231,7 +231,7 @@ class CameraTestActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         val ab: ActionBar? = supportActionBar
-        ab?.title = resources.getStringArray(R.array.arr_main_tech)[2]
+        ab?.title = "WebView"
         ab?.setDisplayHomeAsUpEnabled(true)
     }
 

@@ -16,7 +16,7 @@ import com.mario.template.data.model.User
 import com.mario.template.databinding.ActivitySignupBinding
 import com.mario.template.helper.CommonHelper
 import com.mario.template.helper.PermissionHelper
-import com.mario.template.ui.main.MainActivity
+import com.mario.template.ui.layout.LayoutMainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -187,7 +187,7 @@ class SignupActivity : BaseLayoutBindingActivity<ActivitySignupBinding>() {
     }
 
     private fun goMain() {
-        val intent = Intent(this, MainActivity::class.java).apply {
+        val intent = Intent(this, LayoutMainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             putExtra(Constants.ARG_TYPE, true)
         }

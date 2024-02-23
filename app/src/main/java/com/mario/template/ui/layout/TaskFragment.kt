@@ -1,4 +1,4 @@
-package com.mario.template.ui.main
+package com.mario.template.ui.layout
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -32,7 +32,7 @@ class TaskFragment : BaseLayoutBindingFragment<FragmentTaskBinding>() {
     /************************************************************
      *  UI controls & Data members
      ************************************************************/
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: TaskViewModel
     private lateinit var listAdapter: TaskAdapter
     private var type: Int = 0
 
@@ -53,7 +53,7 @@ class TaskFragment : BaseLayoutBindingFragment<FragmentTaskBinding>() {
             type = requireArguments().getInt("type")
         }
 
-        val viewModel by viewModels<MainViewModel>()
+        val viewModel by viewModels<TaskViewModel>()
         this.viewModel = viewModel
         binding.apply {
             viewmodel = this@TaskFragment.viewModel
@@ -71,7 +71,7 @@ class TaskFragment : BaseLayoutBindingFragment<FragmentTaskBinding>() {
     /************************************************************
      *  public Functions
      ************************************************************/
-    fun getViewModel(): MainViewModel {
+    fun getViewModel(): TaskViewModel {
         return viewModel
     }
 

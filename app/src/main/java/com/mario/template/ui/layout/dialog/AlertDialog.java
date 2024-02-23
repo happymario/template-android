@@ -1,4 +1,4 @@
-package com.mario.template.ui.dialog;
+package com.mario.template.ui.layout.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;

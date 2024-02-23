@@ -1,4 +1,4 @@
-package com.mario.template.ui.view.chart;
+package com.mario.template.ui.layout.view.chart;
 
 
 import android.content.Context;
@@ -76,7 +76,7 @@ public class BarChart extends View {
         barWidth = SizeUtils.dp2px(22);
         fixedBarWidth = SizeUtils.dp2px(22);
         MINI_BAR_WIDTH1 = SizeUtils.dp2px(22);
-        BAR_SIDE_MARGIN1 =SizeUtils.dp2px(22);
+        BAR_SIDE_MARGIN1 = SizeUtils.dp2px(22);
         TEXT_TOP_MARGIN1 = SizeUtils.dp2px(5);
         textPaint = new Paint();
         textPaint.setAntiAlias(true);

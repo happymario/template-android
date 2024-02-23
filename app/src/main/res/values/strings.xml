@@ -95,23 +95,15 @@
     <string name="tab_basic">Basic</string>
     <string name="tab_latest">Latest</string>
     <string name="tab_special">Special</string>
-    <string-array name="arr_main_tech">
-        <item>Menu</item>
-        <item>Animation</item>
+    <string-array name="arr_basic">
         <item>Camera</item>
-        <item>Gallery</item>
-        <item>Download</item>
+        <item>WebView</item>
     </string-array>
-    <string-array name="arr_recent_tech">
-        <item>WorkManager</item>
-        <item>AlarmManager</item>
-        <item>PictureInPicture</item>
-        <item>Compose</item>
-        <item>Hilt</item>
+    <string-array name="arr_latest">
+        <item>Background</item>
     </string-array>
-    <string-array name="arr_special_tech">
+    <string-array name="arr_special">
         <item>Bluetooth</item>
-        <item>Calendar</item>
     </string-array>
     <string name="hint_search">Input your search word.</string>
     <string name="about">About</string>
@@ -139,4 +131,5 @@
     <string name="ver">Version</string>
     <string name="msg_signout">Are you sure to sign out?\nAfter sign out, you cannot restore your data.</string>
     <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_activity_compose_main">ComposeMainActivity</string>
 </resources>

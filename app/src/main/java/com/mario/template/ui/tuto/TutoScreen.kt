@@ -45,7 +45,7 @@ import com.mario.template.ui.theme.MyTemplateTheme
 
 
 @Composable
-fun Tuto(appState: TemplateAppState, viewModel: TutoViewModel = hiltViewModel()) {
+fun TutoRoute(appState: TemplateAppState, viewModel: TutoViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     TutoScreen(state, viewModel::skip, appState::navigateToLogin)

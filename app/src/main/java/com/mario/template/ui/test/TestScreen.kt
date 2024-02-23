@@ -12,7 +12,7 @@ import com.mario.template.ui.theme.MyTemplateTheme
 
 
 @Composable
-fun Test(appState: TemplateAppState) {
+fun TestRoute(appState: TemplateAppState) {
     TestScreen()
 }
 

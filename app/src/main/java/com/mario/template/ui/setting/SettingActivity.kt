@@ -12,7 +12,7 @@ import com.blankj.utilcode.util.AppUtils
 import com.mario.template.Constants
 import com.mario.template.R
 import com.mario.template.base.BaseLayoutActivity
-import com.mario.template.ui.dialog.AlertDialog
+import com.mario.template.ui.layout.dialog.AlertDialog
 import com.mario.template.ui.main.basic.WebViewActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

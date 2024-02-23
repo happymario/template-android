@@ -79,7 +79,7 @@ class WebViewActivity : AppCompatActivity() {
 
     /************************************************************
      * Sub Classes
-     */
+     ***********************************************************/
     internal class WebClient : WebViewClient() {
         override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
             view.loadUrl(url)

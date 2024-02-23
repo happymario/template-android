@@ -1,4 +1,4 @@
-package com.mario.template.ui.view.calendar;
+package com.mario.template.ui.layout.view.calendar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
