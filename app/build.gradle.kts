@@ -162,4 +162,5 @@ dependencies {
 
     //Custom
     implementation(project(":libMBase"))
+    //implementation 'com.github.happymario:template-android:0.0.2'
 }
