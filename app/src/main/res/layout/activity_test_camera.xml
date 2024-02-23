@@ -7,7 +7,6 @@
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-        app:theme="@style/DefaultToolbarTheme"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -30,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         android:layout_marginTop="80dp">
-        <ImageView
+        <com.mario.lib.base.view.imageview.TouchImageView
             android:id="@+id/imageView"
             android:layout_width="150dp"
             android:layout_height="141dp"

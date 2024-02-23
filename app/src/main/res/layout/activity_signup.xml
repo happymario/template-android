@@ -6,10 +6,10 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.victoria.bleled.R"/>
+        <import type="com.mario.template.R"/>
         <variable
             name="viewmodel"
-            type="com.victoria.bleled.app.auth.UserViewModel" />
+            type="com.mario.template.ui.auth.SignupViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,7 +50,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
-            <com.victoria.bleled.util.view.imageview.CircleImageView
+            <com.mario.lib.base.view.imageview.CircleImageView
                 android:id="@+id/iv_photo"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
