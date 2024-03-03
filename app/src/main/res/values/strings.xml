@@ -97,6 +97,7 @@
     <string name="tab_special">Special</string>
     <string-array name="arr_basic">
         <item>Camera</item>
+        <item>Calendar</item>
         <item>WebView</item>
     </string-array>
     <string-array name="arr_latest">
@@ -104,6 +105,7 @@
     </string-array>
     <string-array name="arr_special">
         <item>Bluetooth</item>
+        <item>TTS</item>
     </string-array>
     <string name="hint_search">Input your search word.</string>
     <string name="about">About</string>
