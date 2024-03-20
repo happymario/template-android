@@ -175,6 +175,7 @@ enum class NestedGraph(val route: String) {
     SPLASH(route = "splash_nav"),
     TUTO(route = "tuto_nav"),
     LOGIN(route = "login_nav"),
+    MAIN(route = "main_nav"),
     MAIN_BASIC(route = "main/basic"),
     MAIN_LATEST(route = "main/latest"),
     MAIN_SPECIAL(route = "main/special"),

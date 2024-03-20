@@ -62,32 +62,31 @@ fun SplashRoute(appState: TemplateAppState, viewModel: SplashViewModel = hiltVie
     LaunchedEffect(state) {
         val requestPermission = state.isRequestPermission
 
-        when {
-            requestPermission -> {
-                when {
-                    locationPermissionState.allPermissionsGranted -> {
-                        viewModel.getAppInfo()
-                    }
-
-                    locationPermissionState.shouldShowRationale -> {
-                        viewModel.permissionIsNotGranted()
-                    }
-
-                    else -> {
-                        locationPermissionState.launchMultiplePermissionRequest()
-                    }
+        if(requestPermission) {
+            when {
+                locationPermissionState.allPermissionsGranted -> {
+                    viewModel.getAppInfo()
+                }
+                locationPermissionState.shouldShowRationale -> {
+                    viewModel.permissionIsNotGranted()
+                }
+                else -> {
+                    locationPermissionState.launchMultiplePermissionRequest()
                 }
             }
-
-            else -> return@LaunchedEffect
         }
-        viewModel.completePermissionRequest()
+
+        if(state.naviRoute != null) {
+
+        }
+        else {
+            viewModel.completePermissionRequest()
+        }
     }
 
     SplashScreen(
         state,
         checkNext = viewModel::checkNextScreen,
-        onNavTuto = appState::navigateToTuto,
         onNavHome = {
             appState.navigateToLogin()
         },
@@ -114,7 +113,7 @@ fun SplashRoute(appState: TemplateAppState, viewModel: SplashViewModel = hiltVie
 fun SplashScreen(
     state: SplashViewState,
     checkNext: () -> Unit = {},
-    onNavTuto: () -> Unit = {},
+    naviRoute: () -> Unit = {},
     onNavHome: () -> Unit = {},
     onDismissErrorDialog: () -> Unit = {},
     onErrorPositiveAction: (action: ActionType?, value: Any?) -> Unit = { _, _ -> },
@@ -124,7 +123,7 @@ fun SplashScreen(
         onDismissRequest = onDismissErrorDialog,
         onErrorPositiveAction = onErrorPositiveAction
     ) { _, viewState ->
-        SplashContent(state, checkNext = checkNext, onNavTuto = onNavTuto, onNavHome = onNavHome)
+        SplashContent(state, checkNext = checkNext, onNavTuto = {}, onNavHome = onNavHome)
     }
 }
 
@@ -135,24 +134,24 @@ fun SplashContent(
     onNavTuto: () -> Unit = {},
     onNavHome: () -> Unit = {}
 ) {
-    if (state.isLoadedData) {
-        LaunchedEffect(true) {
-            delay(SplashWaitTime)
-            checkNext.invoke()
-        }
-    }
-
-    if (state.naviTuto) {
-        LaunchedEffect(true) {
-            onNavTuto.invoke()
-        }
-    }
-
-    if (state.naviHome) {
-        LaunchedEffect(true) {
-            onNavHome.invoke()
-        }
-    }
+//    if (state.isLoadedData) {
+//        LaunchedEffect(true) {
+//            delay(SplashWaitTime)
+//            checkNext.invoke()
+//        }
+//    }
+//
+//    if (state.naviTuto) {
+//        LaunchedEffect(true) {
+//            onNavTuto.invoke()
+//        }
+//    }
+//
+//    if (state.naviHome) {
+//        LaunchedEffect(true) {
+//            onNavHome.invoke()
+//        }
+//    }
 
     Box(
         modifier = Modifier

@@ -13,6 +13,9 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 open class BaseViewModel : ViewModel() {
+
+    private var job: Job? = null
+    private var callApi: suspend CoroutineScope.() -> Unit = {}
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
         Timber.e(exception.message)
         hideLoading()
@@ -26,9 +29,6 @@ open class BaseViewModel : ViewModel() {
 
         showError(errorResponse)
     }
-    private var job: Job? = null
-
-    private var callApi: suspend CoroutineScope.() -> Unit = {}
 
     fun launchScope(
         context: CoroutineContext = EmptyCoroutineContext,
@@ -67,6 +67,5 @@ open class BaseViewModel : ViewModel() {
     open fun hideLoading() {}
 
     open fun showError(error: Throwable) {}
-
     open fun hideError() {}
 }

@@ -2,16 +2,19 @@ package com.mario.template.ui.splash
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.mario.template.NestedGraph
 import com.mario.template.R
 import com.mario.template.base.BaseViewModel
 import com.mario.template.base.BaseViewState
 import com.mario.template.data.exception.AppException
+import com.mario.template.data.model.AppInfo
 import com.mario.template.data.repository.LocalRepository
 import com.mario.template.data.repository.TemplateRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
@@ -34,13 +37,12 @@ class SplashViewModel @Inject constructor(
     fun getAppInfo() {
         launchScope {
             showLoading()
-
-            repository.getAppInfo().collect { it ->
-                val appInfo = it
-                localRepository.setAppInfo(appInfo)
+            repository.getAppInfo().collect {
+                val appinfo = it
+                localRepository.setAppInfo(appinfo)
                 _state.update { viewstate ->
                     viewstate.copy(
-                        isLoadedData = true,
+                        appInfo = appinfo,
                     )
                 }
             }
@@ -64,14 +66,33 @@ class SplashViewModel @Inject constructor(
 
     fun checkNextScreen() {
         launchScope {
-            localRepository.isTutoFinished().collect {
-                if (it) {
+            localRepository.isTutoFinished().collect {finished ->
+                if(finished) {
+                    checkLogin()
+                }
+                else {
                     _state.update {
-                        it.copy(naviHome = true)
+                        it.copy(naviRoute = NestedGraph.TUTO)
                     }
-                } else {
+                }
+            }
+        }
+    }
+
+    fun checkLogin() {
+        launchScope {
+            localRepository.getLoginUser().catch {
+                _state.update {
+                    it.copy(naviRoute = NestedGraph.LOGIN)
+                }
+            }.collect {localUser ->
+                showLoading()
+                repository.loginUser(localUser.id!!, localUser.pwd, token = "", "android").collect {user ->
+                    val loginUser = user
+                    loginUser.pwd = localUser.pwd
+                    localRepository.setLoginUser(loginUser)
                     _state.update {
-                        it.copy(naviTuto = true)
+                        it.copy(naviRoute = NestedGraph.MAIN)
                     }
                 }
             }
@@ -114,7 +135,6 @@ data class SplashViewState(
     override val isLoading: Boolean = false,
     override val error: Throwable? = null,
     val isRequestPermission: Boolean = false,
-    val isLoadedData: Boolean = false,
-    val naviHome: Boolean = false,
-    val naviTuto: Boolean = false
+    val appInfo:AppInfo? = null,
+    var naviRoute:NestedGraph? = null,
 ) : BaseViewState()
